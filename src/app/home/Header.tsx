@@ -1,8 +1,12 @@
 "use client"
 
 import {usePathname, useRouter} from "next/navigation";
+import {Session} from "next-auth";
 
-const Header = () => {
+type HeaderProps = {
+    session: Session | null
+}
+const Header = ({session}: HeaderProps) => {
     const pathname = usePathname();
     const route = useRouter()
     const handleClick = () => {
@@ -12,6 +16,7 @@ const Header = () => {
         <div className="fixed top-0 h-10 w-full flex justify-center align-middle border-b-2 border-gray-400 bg-pink-300">
             <button className="absolute left-4" onClick={handleClick}>back</button>
             <h1 className="text-xl">{pathname}</h1>
+            <h1 className="absolute right-4">{JSON.stringify(session?.user?.token)}</h1>
         </div>
     )
 }

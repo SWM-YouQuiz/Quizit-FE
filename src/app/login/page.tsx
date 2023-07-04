@@ -23,7 +23,7 @@ const Login = async () => {
             </div>
             <div className="w-full mb-20 flex flex-col justify-between items-center space-y-4">
                 <KakaoLoginButton />
-                <button className="w-full h-12 rounded-[12px] bg-[#FEE500]">카카오로 로그인</button>
+                {/*<button className="w-full h-12 rounded-[12px] bg-[#FEE500]">카카오로 로그인</button>*/}
             </div>
         </div>
 

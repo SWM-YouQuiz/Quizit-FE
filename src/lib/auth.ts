@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         jwt: async function ({token, user}) {
+            // token과 user값을 모두 제공해야 token이 유지됨
             return {
                 ...token,
                 ...user
