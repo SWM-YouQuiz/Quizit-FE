@@ -18,7 +18,7 @@ export default function RootLayout({children,}: { children: ReactNode }) {
 
     return (
         <html lang="en">
-            <body className="h-screen flex flex-col">
+            <body className="h-screen w-full flex flex-col">
                 {checkSessionIsValid(session) ? <Header/> : null}
                 {children}
             </body>

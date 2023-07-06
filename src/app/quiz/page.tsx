@@ -3,29 +3,16 @@ import React, {ReactNode} from "react";
 import {remark} from "remark";
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
-import rehypeHighlight from 'rehype-highlight';
-
-type QuizItem = {
-    item_content: string
-};
-
-type Quiz = {
-    content: string,
-    items: QuizItem[]
-};
-
-const optionSignature = [
-    'A',
-    'B',
-    'C',
-    'D'
-]
+import rehypePrism from 'rehype-prism-plus';
+import "./one-light.css";
+import { Quiz } from "@/app/quiz/types";
+import {QuizItems} from "@/app/quiz/quiz-items";
 
 
 const processContent = async (markdownText: string) => {
     const processedContent = await remark()
         .use(remarkRehype)
-        .use(rehypeHighlight)
+        .use(rehypePrism)
         .use(rehypeStringify)
         .process(markdownText);
     return processedContent.toString();
@@ -76,7 +63,7 @@ const Quiz = async () => {
     const {quizContentHtml, quizItems} = await getQuiz();
 
     return (
-        <div className="container h-full flex flex-col justify-between">
+        <div className="container h-full w-full flex flex-col justify-between">
             <TopSideContainer>
                 <QuizHeader/>
                 <QuizContent quizContentHtml={quizContentHtml}/>
@@ -89,7 +76,7 @@ const Quiz = async () => {
 }
 
 const TopSideContainer = ({children}: {children: ReactNode}) => (
-    <div className="container flex flex-col">
+    <div className="container w-full flex flex-col">
         {children}
     </div>
 )
@@ -131,23 +118,6 @@ const BottomSideContainer = ({children} : {children: ReactNode}) => {
     )
 }
 
-const QuizItems = ({quizItems}: {quizItems: QuizItem[]}) => (
-    <div className="container flex flex-col">
-        {
-            quizItems.map((item, idx) => {
-                const itemString = `${optionSignature[idx]}. ${item.item_content}`
-                return (
-                    <QuizItem key={`quiz_item_${idx}`} itemString={itemString}/>
-                )
-            })
-        }
-    </div>
-)
 
-const QuizItem = ({itemString}: { itemString: string}) => (
-    <div className="h-14 border-2 rounded-lg border-bg-primary shadow-lg shadow-bg-primary flex items-center justify-start px-4 my-1 text-sm">
-        {itemString}
-    </div>
-)
 
 export default Quiz;
