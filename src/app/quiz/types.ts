@@ -4,5 +4,8 @@ export type QuizItem = {
 
 export type Quiz = {
     content: string,
-    items: QuizItem[]
+    items: QuizItem[],
+    answer: number
 };
+
+export type ItemStatus = 'answer' | 'wrong' | 'select' | 'idle'

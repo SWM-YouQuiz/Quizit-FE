@@ -51,16 +51,25 @@ const getQuiz = async () => {
             {
                 item_content: "오류 없음"
             }
-        ]
+        ],
+        answer: 2
     }
 
     const quizContentHtml = await processContent(quiz.content);
 
-    return {quizContentHtml: quizContentHtml, quizItems: quiz.items};
+    return {quizContentHtml: quizContentHtml, quizItems: quiz.items, answer: quiz.answer};
 }
 
 const Quiz = async () => {
-    const {quizContentHtml, quizItems} = await getQuiz();
+    const {quizContentHtml, quizItems, answer} = await getQuiz();
+
+    const handleCorrect = () => {
+
+    }
+
+    const handleWrong = () => {
+
+    }
 
     return (
         <div className="container h-full w-full flex flex-col justify-between">
@@ -69,7 +78,7 @@ const Quiz = async () => {
                 <QuizContent quizContentHtml={quizContentHtml}/>
             </TopSideContainer>
             <BottomSideContainer>
-                <QuizItems quizItems={quizItems}/>
+                <QuizItems quizItems={quizItems} answer={answer}/>
             </BottomSideContainer>
         </div>
     )
@@ -117,7 +126,5 @@ const BottomSideContainer = ({children} : {children: ReactNode}) => {
         </div>
     )
 }
-
-
 
 export default Quiz;
