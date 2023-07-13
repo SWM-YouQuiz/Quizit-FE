@@ -37,6 +37,19 @@ const getQuiz = async () => {
     const myDog: Animal = new Dog();
     myDog.speak();
     
+      class Animal {
+      speak() {
+        console.log("The animal makes a sound");
+      }
+    }
+    class Dog extends Animal {
+      speak() {
+        console.log("The dog barks");
+      }
+    }
+    const myDog: Animal = new Dog();
+    myDog.speak();
+    
     \`\`\``,
         items: [
             {
@@ -85,7 +98,7 @@ const Quiz = async () => {
 }
 
 const TopSideContainer = ({children}: {children: ReactNode}) => (
-    <div className="container w-full flex flex-col">
+    <div className="container grow w-full flex flex-col">
         {children}
     </div>
 )
@@ -114,9 +127,7 @@ const QuizTools = () => (
 )
 
 const QuizContent = ({quizContentHtml}: {quizContentHtml: string}) => (
-    <div className="mt-2">
-        <div dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
-    </div>
+    <div className="mt-2 flex-auto overflow-y-auto min-h-0 h-64" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
 )
 
 const BottomSideContainer = ({children} : {children: ReactNode}) => {
