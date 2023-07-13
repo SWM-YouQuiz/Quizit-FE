@@ -8,4 +8,4 @@ export type Quiz = {
     answer: number
 };
 
-export type ItemStatus = 'answer' | 'wrong' | 'select' | 'idle'
+export type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';

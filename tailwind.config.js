@@ -15,7 +15,9 @@ module.exports = {
         'bg-secondary': '#D9D9D9',
 
         'primary': '#5D5FEF',
-        'secondary': '#A5A6F6'
+        'secondary': '#A5A6F6',
+        'success': '#75D6FF',
+        'error': '#FF7A7A'
       }
     }
   },
