@@ -1,6 +1,6 @@
 "use client"
 import React, {useCallback, useState} from "react";
-import {ItemStatus, QuizItem} from "@/app/quiz/types";
+import {ItemStatus, QuizItem, QuizStatus} from "@/app/quiz/types";
 
 const optionSignature = [
     'A',
@@ -32,13 +32,19 @@ const changeArrToCorrect = ({arr, idx}: {arr: ItemStatus[], idx: number}) => {
 }
 
 export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: number}) => {
+    const [quizStatus, setQuizStatus] = useState<QuizStatus>('default');
     const [itemsStatus, setItemsStatus] = useState<ItemStatus[]>(
         ['idle', 'idle', 'idle', 'idle']
     );
 
+    const isQuizGraded = useCallback(() => {
+        return quizStatus !== 'default';
+    },[quizStatus])
+
     const handleClicked = useCallback((selectedIndex: number) => {
+        if(isQuizGraded()) return;
         setItemsStatus(prev => changeArrToSelect({idx: selectedIndex}));
-    }, [])
+    }, [isQuizGraded])
 
     const changeSelectWrong = useCallback(() => {
         setItemsStatus(prev => changeArrSelectToWrong({arr: prev}))
@@ -48,16 +54,25 @@ export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: n
         setItemsStatus(prev => changeArrToCorrect({arr: prev, idx: answer}))
     }, [answer]);
 
-    // 채점을 합니다.
-    const handleSubmit = () => {
+    const gradeSelectIsCorrect = () => {
         for(let i = 0; i < itemsStatus.length; i++) {
             if(itemsStatus[i] === 'select' && i === answer) {
-                changeAnswerCorrect();
-                return;
+                return true;
             }
         }
-        changeSelectWrong();
-        changeAnswerCorrect();
+        return false
+    }
+
+    const handleSubmit = () => {
+        if(isQuizGraded()) return;
+        if(gradeSelectIsCorrect()) {
+            changeAnswerCorrect();
+            setQuizStatus('correct');
+        } else {
+            changeSelectWrong();
+            changeAnswerCorrect();
+            setQuizStatus('wrong');
+        }
     }
 
     return (
@@ -76,7 +91,7 @@ export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: n
                     )
                 })
             }
-            <SubmitButton handleSubmit={handleSubmit}/>
+            <SubmitButton handleSubmit={handleSubmit} disable={quizStatus !== 'default'}/>
         </div>
     )
 }
@@ -85,8 +100,8 @@ const QuizItem = ({itemString, itemStatus, idx, handleClicked}: {
     itemString: string,
     itemStatus: ItemStatus,
     idx: number,
-    handleClicked: (selectedIndex: number) => void}
-) => (
+    handleClicked: (selectedIndex: number) => void
+}) => (
     <div
         className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-start px-4 my-1 text-sm
         ${statusColor[itemStatus]}`}
@@ -96,9 +111,9 @@ const QuizItem = ({itemString, itemStatus, idx, handleClicked}: {
     </div>
 )
 
-const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
+const SubmitButton = ({disable, handleSubmit}: {disable: boolean, handleSubmit: () => void}) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-primary`}
+        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white ${disable ? 'bg-bg-primary' : 'bg-primary'}`}
         onClick={() => handleSubmit()}
     >
         제출

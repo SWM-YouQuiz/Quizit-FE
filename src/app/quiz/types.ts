@@ -9,3 +9,5 @@ export type Quiz = {
 };
 
 export type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';
+
+export type QuizStatus = 'default' | 'correct' | 'wrong';
