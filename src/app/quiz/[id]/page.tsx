@@ -5,8 +5,9 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 import "./one-light.css";
-import { Quiz } from "@/app/quiz/types";
-import {QuizItems} from "@/app/quiz/quiz-items";
+import {QuizItems} from "@/app/quiz/[id]/quiz-items";
+import {Quiz} from "@/modules/quiz/types";
+import {quizDummy} from "@/modules/quiz/dummy";
 
 
 const processContent = async (markdownText: string) => {
@@ -18,71 +19,16 @@ const processContent = async (markdownText: string) => {
     return processedContent.toString();
 }
 
-const getQuiz = async () => {
-    const quiz: Quiz = {
-        content: `2. 다음 TypeScript 코드에서 **오류**를 찾아주세요.
-    
-    \`\`\`tsx
-    
-    class Animal {
-      speak() {
-        console.log("The animal makes a sound");
-      }
-    }
-    class Dog extends Animal {
-      speak() {
-        console.log("The dog barks");
-      }
-    }
-    const myDog: Animal = new Dog();
-    myDog.speak();
-    
-      class Animal {
-      speak() {
-        console.log("The animal makes a sound");
-      }
-    }
-    class Dog extends Animal {
-      speak() {
-        console.log("The dog barks");
-      }
-    }
-    const myDog: Animal = new Dog();
-    myDog.speak();
-    
-    \`\`\``,
-        items: [
-            {
-                item_content: "클래스 선언이 잘못됨"
-            },
-            {
-                item_content: "클래스 상속이 잘못됨"
-            },
-            {
-                item_content: "상수 선언이 잘못됨"
-            },
-            {
-                item_content: "오류 없음"
-            }
-        ],
-        answer: 2
-    }
+const getQuiz = async (id: number) => {
+    const quiz: Quiz = quizDummy[id];
 
     const quizContentHtml = await processContent(quiz.content);
 
     return {quizContentHtml: quizContentHtml, quizItems: quiz.items, answer: quiz.answer};
 }
 
-const Quiz = async () => {
-    const {quizContentHtml, quizItems, answer} = await getQuiz();
-
-    const handleCorrect = () => {
-
-    }
-
-    const handleWrong = () => {
-
-    }
+const Quiz = async ({ params }: { params: { id: string } }) => {
+    const {quizContentHtml, quizItems, answer} = await getQuiz(parseInt(params.id));
 
     return (
         <div className="container h-full w-full flex flex-col justify-between">
