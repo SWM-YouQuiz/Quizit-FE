@@ -1,11 +1,12 @@
-import React, {ReactNode} from "react";
+
+import React, {forwardRef, ReactNode} from "react";
 import {remark} from "remark";
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 import "./one-light.css";
 import {Quiz} from "@/modules/quiz/types";
-import {QuizComponent} from "@/app/quiz/[id]/quiz";
+import QuizComponent from "@/app/quiz/[id]/quiz-component";
 import {quizDummy} from "@/modules/quiz/dummy";
 
 
