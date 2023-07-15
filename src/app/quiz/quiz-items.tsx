@@ -1,6 +1,7 @@
 "use client"
 import React, {useCallback, useState} from "react";
-import {ItemStatus, QuizItem} from "@/app/quiz/types";
+import {useOptionState, useQuizState} from "@/modules/quiz/hooks";
+import {ItemStatus, QuizItem} from "@/modules/quiz/types";
 
 const optionSignature = [
     'A',
@@ -9,22 +10,21 @@ const optionSignature = [
     'D'
 ]
 
-const changeArrToSelect = ({idx}: {idx: number}) => {
-    const newArr: ItemStatus[] = ['idle', 'idle', 'idle', 'idle'];
-    newArr[idx] = newArr[idx] === 'select' ? 'idle' : 'select';
-    return newArr;
-}
+const statusColor: Record<ItemStatus, string> = {
+    'idle': 'border-bg-primary',
+    'select': 'border-primary',
+    'correct': 'bg-success',
+    'wrong': 'bg-error'
+};
+
+
 
 export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: number}) => {
-    const [itemsStatus, setItemsStatus] = useState<ItemStatus[]>(['idle', 'idle', 'idle', 'idle']);
+    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect } = useQuizState(answer);
 
-    const handleClicked = useCallback((selectedIndex: number) => {
-        setItemsStatus(prev => changeArrToSelect({idx: selectedIndex}));
-    }, [])
-
-    const handleSubmit = () => {
-
-    }
+    const handleOptionClicked = (selectedIndex: number) => {
+        changeItemSelect(selectedIndex, isQuizGraded());
+    };
 
     return (
         <div className="container flex flex-col">
@@ -35,31 +35,36 @@ export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: n
                         <QuizItem
                             key={`quiz_item_${idx}`}
                             itemString={itemString}
-                            selected={itemsStatus[idx] === 'select'}
+                            itemStatus={itemsStatus[idx]}
                             idx={idx}
-                            handleClicked={handleClicked}
+                            handleOptionClicked={handleOptionClicked}
                         />
                     )
                 })
             }
-            <SubmitButton handleSubmit={handleSubmit}/>
+            <SubmitButton handleSubmit={handleSubmit} disable={isQuizGraded()}/>
         </div>
     )
 }
 
-const QuizItem = ({itemString, selected, idx, handleClicked}: { itemString: string, selected: boolean, idx: number, handleClicked: (selectedIndex: number) => void}) => (
+const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
+    itemString: string,
+    itemStatus: ItemStatus,
+    idx: number,
+    handleOptionClicked: (selectedIndex: number) => void
+}) => (
     <div
         className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-start px-4 my-1 text-sm
-        ${selected ? 'border-primary' : 'border-bg-primary'}`}
-        onClick={() => handleClicked(idx)}
+        ${statusColor[itemStatus]}`}
+        onClick={() => handleOptionClicked(idx)}
     >
         {itemString}
     </div>
 )
 
-const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
+const SubmitButton = ({disable, handleSubmit}: {disable: boolean, handleSubmit: () => void}) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-primary`}
+        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white ${disable ? 'bg-bg-primary' : 'bg-primary'}`}
         onClick={() => handleSubmit()}
     >
         제출
