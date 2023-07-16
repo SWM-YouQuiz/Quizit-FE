@@ -6,8 +6,9 @@ import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 import "./one-light.css";
 import {Quiz} from "@/modules/quiz/types";
-import QuizComponent from "@/app/quiz/[id]/quiz-component";
+import QuizGroup from "@/app/quiz/[id]/quiz-group";
 import {quizDummy} from "@/modules/quiz/dummy";
+import QuizComponent from "@/app/quiz/[id]/quiz";
 
 
 const processContent = async (markdownText: string) => {
@@ -27,12 +28,15 @@ const getQuiz = async (id: number): Promise<Quiz> => {
     return {...quiz, content: quizContentHtml};
 }
 
-const Quiz = async ({ params }: { params: { id: string } }) => {
-    const {content: quizContentHtml, items: quizItems, answer} = await getQuiz(parseInt(params.id));
+const QuizPage = async ({ params }: { params: { id: string } }) => {
+    const quiz = await getQuiz(parseInt(params.id));
 
     return (
-        <QuizComponent content={quizContentHtml} items={quizItems} answer={answer} id={parseInt(params.id)}/>
+        <QuizGroup id={parseInt(params.id)}>
+            <QuizComponent quiz={quiz}/>
+        </QuizGroup>
     )
 }
 
-export default Quiz;
+export default QuizPage;
+
