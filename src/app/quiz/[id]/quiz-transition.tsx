@@ -2,11 +2,11 @@
 import {useAnimate, usePresence, ValueAnimationTransition} from "framer-motion";
 import React, {ReactNode, useEffect} from "react";
 import {SwipeEventData, useSwipeable} from "react-swipeable";
-import {QuizItems} from "@/app/quiz/[id]/quiz-items";
-import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {Quiz, SwipeStatus} from "@/modules/quiz/types";
+import {useRouter} from "next/navigation";
 
 type QuizTransitionProps = {
+    id: number,
     swipeStatus: SwipeStatus,
     setSwipeStatus:  React.Dispatch<React.SetStateAction<SwipeStatus>>,
     children: ReactNode
@@ -14,21 +14,40 @@ type QuizTransitionProps = {
 
 const onTheLeft = {x: "-100%"};
 const onTheRight = {x: "100%"};
-const QuizTransition = ({swipeStatus, setSwipeStatus, children}: QuizTransitionProps) => {
-    const [scope, animate] = useAnimate()
-    const [isPresent, safeToRemove] = usePresence()
+const transition: ValueAnimationTransition<any> = {duration: 0.5, ease: "easeInOut"}
+const QuizTransition = ({id, swipeStatus, setSwipeStatus, children}: QuizTransitionProps) => {
+    const [scope, animate] = useAnimate();
+    const [isPresent, safeToRemove] = usePresence();
+    const router = useRouter();
+
+    const navigateToNextQuiz = () => {
+        router.replace(`${id + 1}`);
+    }
+
+    const navigateToPrevQuiz = () => {
+        router.replace(`${id - 1}`);
+    }
+
+    const enterAnimation = async () => {
+        await animate(scope.current, onTheLeft, transition)
+
+        if(!isPresent)
+            safeToRemove();
+        navigateToNextQuiz();
+    }
+
+    const exitAnimation = async () => {
+        await animate(scope.current, onTheRight, transition)
+
+        if(!isPresent)
+            safeToRemove();
+        navigateToPrevQuiz();
+    }
 
     useEffect(() => {
         if (swipeStatus === "next") {
-            const enterAnimation = async () => {
-                await animate(scope.current, onTheLeft, {duration: 0.5, ease: "easeInOut"})
-            }
             enterAnimation()
-
         } else if (swipeStatus === "prev") {
-            const exitAnimation = async () => {
-                await animate(scope.current, onTheRight, {duration: 0.5, ease: "easeInOut"})
-            }
             exitAnimation()
         }
     }, [swipeStatus, isPresent, animate, scope])
@@ -46,10 +65,8 @@ const QuizTransition = ({swipeStatus, setSwipeStatus, children}: QuizTransitionP
     const handleSwipe = (eventData: SwipeEventData) => {
         if (eventData.dir === "Right") {
             setSwipeStatus('prev');
-            // router.replace(`${id - 1}`);
         } else if (eventData.dir === "Left") {
             setSwipeStatus('next');
-            // router.replace(`${id + 1}`);
         }
     };
 
@@ -60,7 +77,7 @@ const QuizTransition = ({swipeStatus, setSwipeStatus, children}: QuizTransitionP
 
     return (
         <div
-            className="container h-full w-full"
+            className="container h-full w-full absolute inset-0 p-4"
             ref={scope}
         >
             <div

@@ -4,17 +4,12 @@ import {Quiz, QuizItem, SwipeStatus} from "@/modules/quiz/types";
 import {usePathname, useRouter} from "next/navigation";
 import {
     AnimatePresence,
-    motion, ValueAnimationTransition
 } from "framer-motion";
 import QuizTransition from "@/app/quiz/[id]/quiz-transition";
+import QuizSideTransition from "@/app/quiz/[id]/quiz-side-transition";
 
-const onTheLeft = {x: "-100%"};
-const onTheRight = {x: "100%"};
-const inTheCenter = {x: 0};
-const transition: ValueAnimationTransition = {duration: 0.5, ease: "easeInOut"}
-
-const QuizGroup = (props: {id: number, children: ReactNode}) => {
-    const {children} = props;
+const QuizGroup = (props: {id: number, children: ReactNode, nextQuiz: ReactNode, prevQuiz: ReactNode}) => {
+    const {children, nextQuiz, prevQuiz} = props;
     const router = useRouter();
     const [swipeStatus, setSwipeStatus] = useState<SwipeStatus>('current');
 
@@ -23,44 +18,22 @@ const QuizGroup = (props: {id: number, children: ReactNode}) => {
         router.prefetch(`${props.id - 1}`);
     }, [props.id, router])
 
-    const navigateToNextQuiz = () => {
-        router.replace(`${props.id + 1}`);
-    }
-
-    const navigateToPrevQuiz = () => {
-        router.replace(`${props.id - 1}`);
-    }
-
     return (
         <AnimatePresence>
-            <QuizTransition key={`quiz-${props.id}`} {...props} swipeStatus={swipeStatus} setSwipeStatus={setSwipeStatus}>
+            {swipeStatus === "prev" &&
+                <QuizSideTransition key={`prev-quiz-${props.id}`} type='prev' swipeStatus={swipeStatus}>
+                    {prevQuiz}
+                </QuizSideTransition>
+            }
+
+            <QuizTransition key={`quiz-${props.id}`} id={props.id} swipeStatus={swipeStatus} setSwipeStatus={setSwipeStatus}>
                 {children}
             </QuizTransition>
+
             {swipeStatus === "next" &&
-                <motion.h1
-                    key={`next-${props.id}`}
-                    className="container h-full w-full flex justify-center items-center absolute inset-0"
-                    initial={onTheRight}
-                    animate={inTheCenter}
-                    exit={onTheLeft}
-                    transition={transition}
-                    onAnimationComplete={navigateToNextQuiz}
-                >
-                    Next Loading
-                </motion.h1>
-            }
-            {swipeStatus === "prev" &&
-                <motion.h1
-                    key={`prev-${props.id}`}
-                    className="container h-full w-full flex justify-center items-center absolute inset-0"
-                    initial={onTheLeft}
-                    animate={inTheCenter}
-                    exit={onTheRight}
-                    transition={transition}
-                    onAnimationComplete={navigateToPrevQuiz}
-                >
-                    Prev Loading
-                </motion.h1>
+                <QuizSideTransition key={`next-quiz-${props.id}`} type='next' swipeStatus={swipeStatus}>
+                    {nextQuiz}
+                </QuizSideTransition>
             }
 
         </AnimatePresence>
@@ -68,4 +41,3 @@ const QuizGroup = (props: {id: number, children: ReactNode}) => {
 }
 
 export default QuizGroup;
-

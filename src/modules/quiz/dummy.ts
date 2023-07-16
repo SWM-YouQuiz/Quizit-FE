@@ -1,5 +1,23 @@
 import {Quiz} from "@/modules/quiz/types";
 
+export const nonData: Quiz = {
+    content: `퀴즈가 없습니다.`,
+    items: [
+            {
+                item_content: ""
+            },
+            {
+                item_content: ""
+            },
+            {
+                item_content: ""
+            },
+            {
+                item_content: ""
+            }
+        ],
+    answer: 1
+}
 export const quizDummy: Quiz[] = [
     {
         content: `2. 다음 TypeScript 코드에서 **오류**를 찾아주세요.
