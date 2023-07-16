@@ -1,7 +1,7 @@
 "use client"
-import React, {useCallback, useState} from "react";
-import {useOptionState, useQuizState} from "@/modules/quiz/hooks";
+import React from "react";
 import {ItemStatus, QuizItem} from "@/modules/quiz/types";
+import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 
 const optionSignature = [
     'A',

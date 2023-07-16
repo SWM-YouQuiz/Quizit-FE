@@ -27,6 +27,7 @@ const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Qui
     }
 }
 
+// TODO: Api 연동 시 이 함수를 변경할 것
 const getQuizApi = (id: number) => {
     if(id < 0 || 4 < id) {
         return nonData;

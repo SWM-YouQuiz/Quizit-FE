@@ -1,7 +1,7 @@
 "use client"
-import React, {forwardRef, ReactNode, useEffect, useState} from "react";
-import {Quiz, QuizItem, SwipeStatus} from "@/modules/quiz/types";
-import {usePathname, useRouter} from "next/navigation";
+import React, {ReactNode, useEffect, useState} from "react";
+import {SwipeStatus} from "@/modules/quiz/types";
+import {useRouter} from "next/navigation";
 import {
     AnimatePresence,
 } from "framer-motion";
