@@ -1,6 +1,6 @@
 import './globals.css'
-import Header from "@/app/Header";
 import {ReactNode} from "react";
+import Header from "@/app/header";
 
 export const metadata = {
     title: 'Create Next App',
