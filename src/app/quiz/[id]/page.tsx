@@ -9,6 +9,7 @@ import {Quiz} from "@/modules/quiz/types";
 import QuizGroup from "@/app/quiz/[id]/quiz-group";
 import {nonData, quizDummy} from "@/modules/quiz/dummy";
 import QuizComponent from "@/app/quiz/[id]/quiz";
+import QuizSwiper from "@/app/quiz/[id]/quiz-swiper";
 
 
 const processContent = async (markdownText: string) => {
@@ -37,20 +38,14 @@ const getQuizApi = (id: number) => {
 }
 
 const getQuiz = async (id: number): Promise<Array<Quiz>> => {
-    const prevQuiz: Quiz = getQuizApi(id-1);
-    const currentQuiz: Quiz = getQuizApi(id);
-    const nextQuiz: Quiz = getQuizApi(id+1);
+    const allQuiz: Quiz[] = quizDummy;
 
     const quizContentHtmls = Promise.all([
-        processContent(prevQuiz.content),
-        processContent(currentQuiz.content),
-        processContent(nextQuiz.content),
+        ...allQuiz.map(quiz => processContent(quiz.content))
     ]).then((quizContentHtmlStrings) => {
-        return [
-            changeQuizContentString(prevQuiz, quizContentHtmlStrings[0]),
-            changeQuizContentString(currentQuiz, quizContentHtmlStrings[1]),
-            changeQuizContentString(nextQuiz, quizContentHtmlStrings[2]),
-        ]
+        return quizContentHtmlStrings.map(
+            (quizContentHtmlString, index) => changeQuizContentString(allQuiz[index], quizContentHtmlString)
+        )
     })
 
     return quizContentHtmls
@@ -60,13 +55,7 @@ const QuizPage = async ({ params }: { params: { id: string } }) => {
     const quizs = await getQuiz(parseInt(params.id));
 
     return (
-        <QuizGroup
-            id={parseInt(params.id)}
-            prevQuiz={<QuizComponent quiz={quizs[0]}/>}
-            nextQuiz={<QuizComponent quiz={quizs[2]}/>}
-        >
-            <QuizComponent quiz={quizs[1]}/>
-        </QuizGroup>
+        <QuizSwiper quizs={quizs} />
     )
 }
 
