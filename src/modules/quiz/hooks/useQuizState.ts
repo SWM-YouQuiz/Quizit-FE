@@ -1,5 +1,4 @@
 import {useCallback, useState} from "react";
-import {ItemStatus, QuizStatus} from "@/modules/quiz/types";
 import {useOptionState} from "@/modules/quiz/hooks/useOptionState";
 
 export const useQuizState = (answer: number) => {

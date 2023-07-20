@@ -5,7 +5,6 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 import "../../../modules/quiz/styles/one-light.css";
-import {Quiz} from "@/modules/quiz/types";
 import {nonData, quizDummy} from "@/modules/quiz/dummy";
 import QuizComponent from "@/app/quiz/[id]/quiz";
 import QuizSwiper from "@/app/quiz/[id]/quiz-swiper";
