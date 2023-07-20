@@ -1,12 +1,11 @@
 import {QuizItems} from "@/app/quiz/[id]/quiz-items";
 import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
-import {Quiz} from "@/modules/quiz/types";
 import {remark} from "remark";
 import remarkRehype from "remark-rehype";
 import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
-import {nonData, quizDummy} from "@/modules/quiz/dummy";
+import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 
 const processContent = async (markdownText: string) => {
     const processedContent = await remark()

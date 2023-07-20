@@ -8,6 +8,16 @@ type Quiz = {
     answer: number
 };
 
+type Explanation = {
+    explanation: string
+}
+
+type QuizExplanationComponents = {
+    id: number,
+    quizComponent: ReactNode,
+    explanationComponent: ReactNode
+}
+
 type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';
 
 type QuizStatus = 'default' | 'correct' | 'wrong';
