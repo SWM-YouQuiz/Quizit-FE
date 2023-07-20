@@ -1,5 +1,5 @@
 
-import React, {forwardRef, ReactNode} from "react";
+import React, {cache, Suspense} from "react";
 import {remark} from "remark";
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
@@ -37,7 +37,7 @@ const getQuizApi = (id: number) => {
     }
 }
 
-const getQuiz = async (id: number): Promise<Array<Quiz>> => {
+const getQuiz = cache(async (id: number): Promise<Array<Quiz>> => {
     const allQuiz: Quiz[] = quizDummy;
 
     const quizContentHtmls = Promise.all([
@@ -49,13 +49,19 @@ const getQuiz = async (id: number): Promise<Array<Quiz>> => {
     })
 
     return quizContentHtmls
-}
+});
 
 const QuizPage = async ({ params }: { params: { id: string } }) => {
-    const quizs = await getQuiz(parseInt(params.id));
 
     return (
-        <QuizSwiper quizs={quizs} />
+        <QuizSwiper>
+            {Array.from({ length: 15 }, (_, index) => (
+                <Suspense key={`quiz-suspense-`} fallback={<QuizComponent id={-1}/>}>
+                    <QuizComponent id={index}/>
+                </Suspense>
+            ))}
+        </QuizSwiper>
+
     )
 }
 

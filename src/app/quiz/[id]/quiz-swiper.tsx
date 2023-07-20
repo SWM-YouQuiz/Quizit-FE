@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, {ReactNode, Suspense} from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -8,14 +8,12 @@ import { Navigation } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 
-import QuizComponent from "@/app/quiz/[id]/quiz";
-import {Quiz} from "@/modules/quiz/types";
-const QuizSwiper = ({ quizs }: { quizs: Quiz[] }) => {
+const QuizSwiper = ({children}: {children: ReactNode}) => {
     return (
         <Swiper navigation={true} spaceBetween={4} initialSlide={0} className="container h-full w-full" onSlideChange={() => {}}>
-            {quizs.map((quiz, index) => (
-                <SwiperSlide key={index} style={{display: "flex", flexDirection: "column"}}>
-                    <QuizComponent quiz={quiz}/>
+            {React.Children.map(children, (child, index) => (
+                <SwiperSlide key={`quiz-${index}`} style={{display: "flex", flexDirection: "column"}}>
+                    {child}
                 </SwiperSlide>
             ))}
         </Swiper>
