@@ -7,10 +7,25 @@ import 'swiper/css';
 
 const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: QuizExplanationComponents[]}) => {
     return (
-        <Swiper className="container h-full w-full" threshold={1} navigation={true} spaceBetween={4} initialSlide={0} onSlideChange={() => {}}>
+        <Swiper
+            className="container h-full w-full"
+            threshold={8}
+            navigation
+            spaceBetween={4}
+            initialSlide={0}
+            onSlideChange={() => {}}
+        >
             {quizExplanationComponents.map(({id, quizComponent, explanationComponent}) => (
                 <SwiperSlide key={`quiz-${id}`}>
-                    <Swiper className="h-full" threshold={1} navigation={true} spaceBetween={4} initialSlide={0} autoHeight direction="vertical" >
+                    <Swiper
+                        className="h-full"
+                        threshold={8}
+                        navigation={true}
+                        spaceBetween={4}
+                        initialSlide={0}
+                        autoHeight
+                        direction="vertical"
+                    >
                         <SwiperSlide className="flex flex-col">
                             {quizComponent}
                         </SwiperSlide>
