@@ -19,8 +19,8 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
                 <SwiperSlide key={`quiz-${id}`}>
                     <Swiper
                         className="h-full"
-                        threshold={8}
-                        navigation={true}
+                        threshold={20}
+                        navigation
                         spaceBetween={4}
                         initialSlide={0}
                         autoHeight
