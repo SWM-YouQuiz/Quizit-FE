@@ -1,9 +1,53 @@
 import {QuizItems} from "@/app/quiz/[id]/quiz-items";
-import React, {ReactNode} from "react";
+import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {Quiz} from "@/modules/quiz/types";
+import {remark} from "remark";
+import remarkRehype from "remark-rehype";
+import rehypePrism from "rehype-prism-plus";
+import rehypeStringify from "rehype-stringify";
+import {nonData, quizDummy} from "@/modules/quiz/dummy";
 
-const QuizComponent = ({quiz}: {quiz: Quiz}) => {
+const processContent = async (markdownText: string) => {
+    const processedContent = await remark()
+        .use(remarkRehype)
+        .use(rehypePrism)
+        .use(rehypeStringify)
+        .process(markdownText);
+    return processedContent.toString();
+}
+
+const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
+    return {
+        ...quiz,
+        content: quizContentHtmlString
+    }
+}
+
+// TODO: Api 연동 시 이 함수를 변경할 것
+const getQuizApi = async (id: number) => {
+    if(id < 0 || quizDummy.length-1 < id) {
+        return nonData;
+    } else {
+        await new Promise((resolve) =>
+            setTimeout(() => resolve(null), 2000)
+        )
+        return quizDummy[id];
+    }
+}
+
+const getQuiz = async (id: number): Promise<Quiz> => {
+    const quiz: Quiz = await getQuizApi(id);
+
+    const quizContentHtmlString = await processContent(quiz.content);
+    const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
+
+    return quizContentHtml
+};
+
+const QuizComponent = async ({id}: {id: number}) => {
+    const quiz = await getQuiz(id);
+
     const {content, items, answer} = quiz;
     return (
         <>

@@ -48,6 +48,7 @@ export const useQuizTransition = (id: number, swipeStatus: SwipeStatus, setSwipe
     }, [swipeStatus, animate, animateScope, enterAnimation, exitAnimation])
 
     const handleSwipe = (eventData: SwipeEventData) => {
+        console.log("eventData", eventData);
         if (eventData.dir === "Right") {
             setSwipeStatus('prev');
         } else if (eventData.dir === "Left") {
