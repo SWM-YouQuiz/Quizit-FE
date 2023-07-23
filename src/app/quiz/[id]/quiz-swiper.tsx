@@ -8,6 +8,7 @@ import 'swiper/css';
 const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: QuizExplanationComponents[]}) => {
     return (
         <Swiper
+            className="container h-full w-full"
             threshold={8}
             navigation
             spaceBetween={4}
@@ -25,10 +26,10 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
                         autoHeight
                         direction="vertical"
                     >
-                        <SwiperSlide className="h-full">
+                        <SwiperSlide className="flex flex-col">
                             {quizComponent}
                         </SwiperSlide>
-                        <SwiperSlide  className="h-full">
+                        <SwiperSlide className="flex flex-col">
                             {explanationComponent}
                         </SwiperSlide>
                     </Swiper>
