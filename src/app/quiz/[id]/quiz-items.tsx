@@ -26,7 +26,7 @@ export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: n
     };
 
     return (
-        <div className="container flex flex-col">
+        <div className="w-full flex flex-col">
             {
                 quizItems.map((item, idx) => {
                     const itemString = `${optionSignature[idx]}. ${item.item_content}`
