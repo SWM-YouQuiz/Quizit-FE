@@ -1,8 +1,11 @@
 "use client"
 
-import React from "react";
+import React, {startTransition, useEffect, useMemo, useRef, useState} from "react";
 import {explanationDummy, noData} from "@/modules/quiz/explanationDummy";
 import {useChat, useCompletion} from "ai/react";
+import {markdownToHtmlString} from "@/util/markdown";
+import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
+import {Message} from "ai";
 
 const getExplanationApi = (quizId: number) => {
     if(quizId < 0 || explanationDummy.length-1 < quizId) {
@@ -29,33 +32,48 @@ const invisibleMessageId = 'invisible'
 const isInvisibleMessage = (id: string) => id === invisibleMessageId;
 
 const ExplanationComponent = ({quizId}: {quizId: number}) => {
-    const { messages, input, handleInputChange, handleSubmit } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
         initialMessages: [
             {id: invisibleMessageId, "role": "system", "content": systemPrompt},
             {id: invisibleMessageId, role: "user", content: userPrompt},
             {id: `quiz-${quizId}-2`, role: "assistant", content: getExplanationApi(quizId).explanation}
         ]
     })
+    const convertedMessages = useMessageToHtmlString(messages, isLoading);
+
+    useEffect(() => {
+        console.log("messages", quizId, isLoading, convertedMessages);
+    },[isLoading, quizId, convertedMessages])
 
     return (
-        <div>
+        <div key={`explanation-${quizId}`}>
             <form onSubmit={handleSubmit}>
                     <input
                         className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
-                        value={input}
                         placeholder="Describe your business..."
+                        value={input}
                         onChange={handleInputChange}
-
                     />
+                    <MessageBlock convertedMessages={convertedMessages} />
             </form>
-            {messages.map(m => !isInvisibleMessage(m.id) && (
-                    <div key={m.id}>
-                        {m.role === 'user' ? 'User: ' : 'AI: '}
-                        {m.content}
-                    </div>
-                )
-            )}
+
         </div>
+    )
+}
+
+const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
+    return (
+        <>
+            {
+                convertedMessages.map(m => !isInvisibleMessage(m.id) && (
+                        <div key={m.id} className={`${m.role === 'user' ? "bg-secondary" : "bg-bg-primary"}`}>
+                            {m.role === 'user' ? 'User: ' : 'AI: '}
+                            <div dangerouslySetInnerHTML={{ __html: (m.content) }}/>
+                        </div>
+                    )
+                )
+            }
+        </>
     )
 }
 

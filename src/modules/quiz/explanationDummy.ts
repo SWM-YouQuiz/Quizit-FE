@@ -4,11 +4,11 @@ export const noData: Explanation = {
     explanation: "해설이 없습니다."
 }
 
-export const explanationDummy: Explanation[] = [{'explanation': '`fetch()`는 데이터를 가져오는 데 사용되며, 서버 컴포넌트에서 데이터를 전송하는 데 사용되지 않습니다.'},
-    {'explanation': '`fetchData` 함수는 서버에서 응답한 JSON 데이터를 반환합니다. `response.json()`은 응답 본문을 JSON으로 해석하여 반환합니다.'},
-    {'explanation': 'Next.js는 `fetch`를 사용할 때 모든 요청을 자동으로 캐싱하지 않습니다. 각 요청이 자체 캐싱과 재검증을 설정할 수 있도록 `fetch` 옵션 객체를 확장합니다.'},
-    {'explanation': "`await` 키워드는 Promise가 해결될 때까지 실행을 일시 중단하므로, 로그는 'Fetching data...', 'Data fetched', 'Data processed' 순서로 출력됩니다."},
-    {'explanation': 'Next.js는 `fetch()`를 사용할 때 자동으로 요청을 캐싱하고 재검증하지 않습니다. 각 요청이 자체 캐싱과 재검증을 설정할 수 있도록 `fetch` 옵션 객체를 확장합니다.'},
-    {'explanation': '`fetchData` 함수에서 `response` 변수는 `fetch` 요청의 Promise 결과를 받습니다. 이후 `response.json()`을 통해 JSON 데이터를 추출할 수 있습니다.'},
-    {'explanation': '`fetch()` 웹 API는 Next.js 서버 컴포넌트에서 데이터를 가져오는 데 사용할 수 있습니다. Next.js App Router를 사용하면 React 컴포넌트에서 직접 데이터를 가져올 수 있습니다.'},
-    {'explanation': '`getData` 함수는 서버에서 응답한 HTTP 상태 코드를 반환합니다. `response.status`는 HTTP 응답의 상태 코드를 반환합니다.'}]
+export const explanationDummy: Explanation[] = [{'explanation': 'Python의 `list.append(x)` 메서드는 리스트의 끝에 새로운 항목 x를 추가하는 기능을 합니다. 이 메서드를 사용하면 특정 리스트에 새로운 요소를 손쉽게 추가할 수 있습니다.'},
+    {'explanation': 'Python의 `list.extend(iterable)` 메서드는 iterable의 모든 항목을 리스트의 끝에 추가하는 기능을 합니다. 이 메서드를 사용하면 한 리스트의 요소를 다른 리스트에 추가할 수 있습니다.'},
+    {'explanation': 'Python의 `list.insert(i, x)` 메서드는 리스트의 특정 위치에 새로운 항목을 추가하는 기능을 합니다. 이 메서드를 사용하면 리스트의 원하는 위치에 새로운 요소를 삽입할 수 있습니다.'},
+    {'explanation': '해당 코드는 Python의 `for` 반복문과 `list.append(x)` 메서드를 이용하여 list2의 모든 항목을 list1의 끝에 추가하는 작업을 수행합니다. 이는 `list.extend(iterable)` 메서드와 같은 결과를 생성합니다.'},
+    {'explanation': 'Python의 `list.append(x)` 메서드는 리스트의 끝에 항목 x를 추가하는 기능을 합니다. 반면에 `list.extend(x)` 메서드는 리스트의 끝에 iterable의 모든 항목을 추가하는 기능을 합니다.'},
+    {'explanation': 'Python의 `list.insert(i, x)` 메서드는 리스트의 i번째 위치에 항목 x를 추가하는 기능을 합니다. 따라서 이 코드는 리스트 list1의 첫 번째 위치에 0을 추가합니다.'},
+    {'explanation': 'Python의 `list.remove(x)` 메서드는 리스트에서 첫 번째로 나타나는 항목 x를 삭제하는 기능을 합니다. 이 메서드를 사용하면 리스트에서 특정 항목을 쉽게 삭제할 수 있습니다.'},
+    {'explanation': '해당 코드는 Python의 `list.remove(x)` 메서드를 사용하여 리스트 list1에서 첫 번째로 나타나는 2를 삭제하는 작업을 수행합니다. `remove(x)`는 첫 번째로 나타나는 항목 x만 삭제합니다.'}]

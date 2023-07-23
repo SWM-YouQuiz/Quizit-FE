@@ -1,20 +1,8 @@
 import {QuizItems} from "@/app/quiz/[id]/quiz-items";
 import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
-import {remark} from "remark";
-import remarkRehype from "remark-rehype";
-import rehypePrism from "rehype-prism-plus";
-import rehypeStringify from "rehype-stringify";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
-
-const processContent = async (markdownText: string) => {
-    const processedContent = await remark()
-        .use(remarkRehype)
-        .use(rehypePrism)
-        .use(rehypeStringify)
-        .process(markdownText);
-    return processedContent.toString();
-}
+import {markdownToHtmlString} from "@/util/markdown";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {
@@ -38,7 +26,7 @@ const getQuizApi = async (id: number) => {
 const getQuiz = async (id: number): Promise<Quiz> => {
     const quiz: Quiz = await getQuizApi(id);
 
-    const quizContentHtmlString = await processContent(quiz.content);
+    const quizContentHtmlString = await markdownToHtmlString(quiz.content);
     const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
 
     return quizContentHtml
