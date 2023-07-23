@@ -18,7 +18,7 @@ const getExplanationApi = (quizId: number) => {
 const systemPrompt = `
 당신은 퀴즈에 대한 해설을 해주는 역할입니다.
 퀴즈의 형식은 아래와 같습니다.
-사용자에게 정답의 번호를 언급해서는 안됩니다. 대신에 정답의 내용(item_content)를 언급하세요.
+사용자에게 정답의 번호와 문제의 형태를 유추할 수 있는 정보를 제공해서는 안됩니다. 정답의 경우에는 정답 번호 대신에 정답의 내용(item_content)를 언급하세요.
 content: 퀴즈 내용
 items: 퀴즈 문항들
 answer: 정답 (0~3)
@@ -68,7 +68,7 @@ const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
                 convertedMessages.map(m => !isInvisibleMessage(m.id) && (
                         <div key={m.id} className={`${m.role === 'user' ? "bg-secondary" : "bg-bg-primary"}`}>
                             {m.role === 'user' ? 'User: ' : 'AI: '}
-                            <div dangerouslySetInnerHTML={{ __html: (m.content) }}/>
+                            <div className="text-sm" dangerouslySetInnerHTML={{ __html: (m.content) }}/>
                         </div>
                     )
                 )
