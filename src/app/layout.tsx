@@ -1,6 +1,7 @@
 import './globals.css'
 import {ReactNode} from "react";
 import Header from "@/app/header";
+import Head from "@/app/head";
 
 export const metadata = {
     title: 'Create Next App',
@@ -18,6 +19,7 @@ export default function RootLayout({children,}: { children: ReactNode }) {
 
     return (
         <html lang="en">
+            <Head />
             <body className="h-screen w-full flex flex-col">
                 {checkSessionIsValid(session) ? <Header/> : null}
                 {children}

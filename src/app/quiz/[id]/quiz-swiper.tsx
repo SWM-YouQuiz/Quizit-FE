@@ -19,11 +19,11 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
                 <SwiperSlide key={`quiz-${id}`}>
                     <Swiper
                         className="h-full"
-                        threshold={8}
-                        navigation={true}
+                        autoHeight
+                        threshold={20}
+                        navigation
                         spaceBetween={4}
                         initialSlide={0}
-                        autoHeight
                         direction="vertical"
                     >
                         <SwiperSlide className="flex flex-col">
