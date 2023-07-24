@@ -15,7 +15,6 @@ type Explanation = {
 type QuizExplanationComponents = {
     id: number,
     quizComponent: ReactNode,
-    explanationComponent: ReactNode
 }
 
 type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';

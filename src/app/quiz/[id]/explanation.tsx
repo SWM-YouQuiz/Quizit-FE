@@ -42,34 +42,31 @@ const ExplanationComponent = ({quizId}: {quizId: number}) => {
     const convertedMessages = useMessageToHtmlString(messages, isLoading);
 
     return (
-        <div key={`explanation-${quizId}`}>
-            <form onSubmit={handleSubmit}>
-                    <input
-                        className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2"
-                        placeholder="Describe your business..."
-                        value={input}
-                        onChange={handleInputChange}
-                    />
-                    <MessageBlock convertedMessages={convertedMessages} />
-            </form>
-
-        </div>
+        <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit}>
+            <MessageBlock convertedMessages={convertedMessages} />
+            <input
+                className="border rounded mb-8 shadow-xl p-2"
+                placeholder="더 자세한 설명을 해주세요"
+                value={input}
+                onChange={handleInputChange}
+            />
+        </form>
     )
 }
 
 const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
     return (
-        <>
+        <div className="overflow-auto">
             {
                 convertedMessages.map(m => !isInvisibleMessage(m.id) && (
-                        <div key={m.id} className={`${m.role === 'user' ? "bg-secondary" : "bg-bg-primary"}`}>
+                        <div key={m.id} className={`${m.role === 'user' ? "bg-secondary" : "bg-bg-primary"} rounded my-1 p-1`}>
                             {m.role === 'user' ? 'User: ' : 'AI: '}
                             <div className="text-sm" dangerouslySetInnerHTML={{ __html: (m.content) }}/>
                         </div>
                     )
                 )
             }
-        </>
+        </div>
     )
 }
 

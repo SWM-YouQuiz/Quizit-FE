@@ -1,11 +1,13 @@
 "use client"
 
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 
 const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: QuizExplanationComponents[]}) => {
+    const [isOpen, setOpen] = useState(false);
+
     return (
         <Swiper
             className="container h-full w-full"
@@ -15,7 +17,7 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
             initialSlide={0}
             onSlideChange={() => {}}
         >
-            {quizExplanationComponents.map(({id, quizComponent, explanationComponent}) => (
+            {quizExplanationComponents.map(({id, quizComponent}) => (
                 <SwiperSlide key={`quiz-${id}`}>
                     <Swiper
                         className="h-full"
@@ -28,9 +30,6 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
                     >
                         <SwiperSlide className="flex flex-col">
                             {quizComponent}
-                        </SwiperSlide>
-                        <SwiperSlide className="flex flex-col">
-                            {explanationComponent}
                         </SwiperSlide>
                     </Swiper>
                 </SwiperSlide>
