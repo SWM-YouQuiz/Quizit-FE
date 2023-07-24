@@ -55,6 +55,13 @@ const ExplanationComponent = ({quizId}: {quizId: number}) => {
 }
 
 const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(ref.current)
+            ref.current.scrollIntoView({ behavior: "instant" });
+    }, [convertedMessages]);
+
     return (
         <div className="overflow-auto">
             {
@@ -66,6 +73,7 @@ const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
                     )
                 )
             }
+            <div ref={ref} />
         </div>
     )
 }
