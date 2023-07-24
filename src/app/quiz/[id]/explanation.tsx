@@ -41,10 +41,6 @@ const ExplanationComponent = ({quizId}: {quizId: number}) => {
     })
     const convertedMessages = useMessageToHtmlString(messages, isLoading);
 
-    useEffect(() => {
-        console.log("messages", quizId, isLoading, convertedMessages);
-    },[isLoading, quizId, convertedMessages])
-
     return (
         <div key={`explanation-${quizId}`}>
             <form onSubmit={handleSubmit}>
