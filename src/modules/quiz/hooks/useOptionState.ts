@@ -1,5 +1,4 @@
 import {useCallback, useState} from "react";
-import { ItemStatus, QuizStatus} from "@/modules/quiz/types";
 
 const changeArrToSelect = ({idx}: {idx: number}) => {
     const newArr: ItemStatus[] = ['idle', 'idle', 'idle', 'idle'];

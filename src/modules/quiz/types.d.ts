@@ -1,15 +1,23 @@
-export type QuizItem = {
+type QuizItem = {
     item_content: string
 };
 
-export type Quiz = {
+type Quiz = {
     content: string,
     items: QuizItem[],
     answer: number
 };
 
-export type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';
+type Explanation = {
+    explanation: string
+}
 
-export type QuizStatus = 'default' | 'correct' | 'wrong';
+type QuizExplanationComponents = {
+    id: number,
+    quizComponent: ReactNode,
+    explanationComponent: ReactNode
+}
 
-export type SwipeStatus = 'prev' | 'current' | 'next';
+type ItemStatus = 'correct' | 'wrong' | 'select' | 'idle';
+
+type QuizStatus = 'default' | 'correct' | 'wrong';
