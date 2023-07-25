@@ -1,6 +1,9 @@
 "use client"
-import React from "react";
+import React, {useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
+import Sheet from "react-modal-sheet";
+import ExplanationComponent from "@/app/quiz/[id]/explanation";
+import ExplanationSheet from "@/app/quiz/[id]/explanation-sheet";
 
 const optionSignature = [
     'A',
@@ -18,9 +21,17 @@ const statusColor: Record<ItemStatus, string> = {
 
 
 
-export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: number}) => {
+export const QuizItems = ({quizId, quizItems, answer}: {quizId: number, quizItems: QuizItem[], answer: number}) => {
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect } = useQuizState(answer);
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
+    const closeBottomSheet = () => {
+        setIsBottomSheetOpen(false);
+    }
+
+    const openBottomSheet = () => {
+        setIsBottomSheetOpen(true);
+    }
     const handleOptionClicked = (selectedIndex: number) => {
         changeItemSelect(selectedIndex, isQuizGraded());
     };
@@ -41,7 +52,18 @@ export const QuizItems = ({quizItems, answer}: {quizItems: QuizItem[], answer: n
                     )
                 })
             }
-            <SubmitButton handleSubmit={handleSubmit} disable={isQuizGraded()}/>
+            {
+                isQuizGraded() ? (
+                    <ExplanationButton handleClick={openBottomSheet}/>
+                ) : (
+                    <SubmitButton handleSubmit={handleSubmit}/>
+                )
+            }
+            <ExplanationSheet
+                isBottomSheetOpen={isBottomSheetOpen}
+                closeBottomSheet={closeBottomSheet}
+                quizId={quizId}
+            />
         </div>
     )
 }
@@ -61,11 +83,20 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
     </div>
 )
 
-const SubmitButton = ({disable, handleSubmit}: {disable: boolean, handleSubmit: () => void}) => (
+const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white ${disable ? 'bg-bg-primary' : 'bg-primary'}`}
+        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-primary`}
         onClick={() => handleSubmit()}
     >
         제출
+    </div>
+)
+
+const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
+    <div
+        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-secondary`}
+        onClick={handleClick}
+    >
+        해설
     </div>
 )

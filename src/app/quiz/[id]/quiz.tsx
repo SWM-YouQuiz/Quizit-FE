@@ -43,7 +43,7 @@ const QuizComponent = async ({id}: {id: number}) => {
                 <QuizContent quizContentHtml={content}/>
             </TopSideContainer>
             <BottomSideContainer>
-                <QuizItems quizItems={items} answer={answer}/>
+                <QuizItems quizId={id} quizItems={items} answer={answer}/>
             </BottomSideContainer>
         </div>
     )

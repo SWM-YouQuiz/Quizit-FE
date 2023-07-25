@@ -14,11 +14,6 @@ const QuizPage = async ({ params }: { params: { id: string } }) => {
                 <Suspense key={`quiz-suspense-${id}`} fallback={<QuizComponent id={-1}/>}>
                     <QuizComponent id={id}/>
                 </Suspense>
-            ),
-            explanationComponent: (
-                <Suspense key={`explanation-suspense-${id}`} fallback={<ExplanationComponent quizId={-1}/>}>
-                    <ExplanationComponent quizId={id}/>
-                </Suspense>
             )
         })
     );
