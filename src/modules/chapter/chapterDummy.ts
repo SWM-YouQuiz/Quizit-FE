@@ -36,7 +36,7 @@ export const reactChapterDummy: Chapter[] = [
 ]
 
 type ChapterDummy = {
-    [chapterName: string]: Chapter[]
+    [CourseName: string]: Chapter[]
 }
 export const chapterDummy: ChapterDummy = {
     react: reactChapterDummy
