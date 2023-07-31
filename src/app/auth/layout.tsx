@@ -9,7 +9,7 @@ const getSession = async () => {
 const AuthLayout = async ({children}: {children: ReactNode}) => {
     const session = await getSession();
 
-    if(session) {
+    if(session?.user.accessToken) {
         redirect("/");
     }
 

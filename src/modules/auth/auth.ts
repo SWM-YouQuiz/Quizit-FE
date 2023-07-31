@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
                 if(res.status === 200) {
                     return user
                 }
-                return null;
+                throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
             },
         }),
     ],
