@@ -30,12 +30,12 @@ const Header = () => {
             document.removeEventListener('touchmove', touchMoveHandler);
         };
     }, []);
-
+    if(currentPathName === "/auth/login") return null;
     return (
         <>
             <div className="sticky top-0 h-10 w-full flex justify-center items-center bg-bg-primary z-50">
                 <button className="absolute left-4" onClick={() => handleClick()}>back</button>
-                <h1 className="text-lg">퀴즈</h1>
+                <h1 className="text-lg">{currentPathName}</h1>
             </div>
         </>
     )
