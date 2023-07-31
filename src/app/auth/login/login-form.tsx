@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import {signIn} from "next-auth/react";
 import Input from "@/app/auth/input";
 import {useEffect, useState} from "react";
-import {redirect} from "next/navigation";
+import {redirect, useRouter} from "next/navigation";
 
 type Inputs = {
     username: string
@@ -19,6 +19,7 @@ const LoginForm = () => {
         formState: { errors },
     } = useForm<Inputs>()
     const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
 
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
         const user = await signIn("credentials", {
@@ -31,7 +32,7 @@ const LoginForm = () => {
         if (user?.error) {  // user 객체의 error 프로퍼티 확인
             setErrorMessage(user.error);  // 에러 메시지 설정
         } else {
-            redirect("/");
+            router.replace("/");
         }
     }
 
