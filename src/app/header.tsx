@@ -2,6 +2,11 @@
 import {usePathname, useRouter} from "next/navigation";
 import {useEffect} from "react";
 
+const excludePath = [
+    "/auth/login",
+    "/auth/register"
+]
+
 // TODO: currentPathName에 따라 Header의 이름 또한 변경해야함.
 const Header = () => {
     const currentPathName = usePathname();
@@ -30,7 +35,7 @@ const Header = () => {
             document.removeEventListener('touchmove', touchMoveHandler);
         };
     }, []);
-    if(currentPathName === "/auth/login") return null;
+    if(excludePath.some(path => currentPathName.startsWith(path))) return null;
     return (
         <>
             <div className="sticky top-0 h-10 w-full flex justify-center items-center bg-bg-primary z-50">

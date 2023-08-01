@@ -5,6 +5,7 @@ import {signIn} from "next-auth/react";
 import Input from "@/app/auth/input";
 import {useEffect, useState} from "react";
 import {redirect, useRouter} from "next/navigation";
+import Button from "@/components/ui/Button";
 
 type Inputs = {
     username: string
@@ -44,21 +45,27 @@ const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5 flex flex-col">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 flex flex-col">
             {
                 errorMessage && (
                     <div className="flex h-fit items-center text-xs text-error">
                         {`⚠ ${errorMessage}`}
                     </div>
                 )
-
             }
 
             <Input
-                label="사용자 이름"
+                label="이메일"
                 register={register}
-                name={"username"}
+                type={"email"}
                 errors={errors}
+                {...register("username", {
+                    required: "required",
+                    pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "이메일 형식이 맞지 않습니다."
+                    }
+                })}
                 aria-invalid={errors.username ? "true" : "false"}
             />
             <Input
@@ -70,11 +77,12 @@ const LoginForm = () => {
                 aria-invalid={errors.password ? "true" : "false"}
             />
             <input
-                className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center 
-                justify-center px-4 my-1 text-sm text-white
+                className={`h-12 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center 
+                justify-center px-4 text-sm text-white
                 ${checkDisable() ? "bg-bg-secondary" : "bg-primary"}`}
                 type="submit"
                 disabled={checkDisable()}
+                value="로그인"
             />
         </form>
     )

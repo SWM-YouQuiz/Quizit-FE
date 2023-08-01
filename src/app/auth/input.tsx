@@ -14,11 +14,21 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 function Input({ label, name, type = "text", register, errors, ...props }: InputProps) {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
+            <div className="flex justify-between">
+                <div className="text-xs">{label}</div>
+                {
+                    errors[name] && (
+                        <div className="flex h-fit items-center text-xs text-error">
+                            {`⚠ ${errors[name]?.message}`}
+                        </div>
+                    )
+                }
+            </div>
+
             <input
-                className={`h-12 border-2 rounded shadow-lg shadow-bg-primary px-2 ${errors[name]?.type === "required" && "border-error"}`}
+                className={`h-10 border-2 rounded shadow-lg shadow-bg-primary px-2 ${errors[name]?.type === "required" && "border-error"}`}
                 type={type}
-                placeholder={label}
                 {...register(name)}
                 aria-invalid={errors[name] ? "true" : "false"}
                 {...props}

@@ -1,4 +1,5 @@
 import LoginForm from "@/app/auth/login/login-form";
+import Link from "next/link";
 
 const Login = async () => {
     return (
@@ -19,6 +20,10 @@ const BodyContainer = () => {
     return (
         <div className="w-full p-8">
             <LoginForm/>
+            <div className="flex justify-end text-sm">
+                <span>처음 오셨나요?</span>
+                <Link href="/auth/register/email" className="text-primary">&nbsp;회원가입</Link>
+            </div>
         </div>
     )
 }

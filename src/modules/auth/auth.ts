@@ -1,5 +1,6 @@
 import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import {loginApi} from "@/modules/auth/apiServices";
 
 const URL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_API_URL}`
 
@@ -16,16 +17,15 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "password", type: "password" },
             },
             async authorize(credentials) {
-                const res = await fetch(`${URL}/api/auth/login`, {
-                    method: 'POST',
-                    body: JSON.stringify(credentials),
-                    headers: {"Content-Type": "application/json"}
-                })
-                const user = await res.json();
-                if(res.status === 200) {
-                    return user
+                if(!credentials) {
+                    throw new Error("잘못된 요청입니다.");
                 }
-                throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
+                try{
+                    const json = await loginApi({body: credentials});
+                    return json as any;
+                } catch {
+                    throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
+                }
             },
         }),
     ],
