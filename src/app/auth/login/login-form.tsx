@@ -57,7 +57,6 @@ const LoginForm = () => {
             <Input
                 label="이메일"
                 register={register}
-                type={"email"}
                 errors={errors}
                 {...register("username", {
                     required: "required",
