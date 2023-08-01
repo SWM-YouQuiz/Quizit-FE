@@ -2,16 +2,14 @@ export const makeToken = (token: string) => {
     return `Bearer ${token};`
 }
 
-type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-interface RequestParams {
+export interface RequestParams {
     endpoint: string;
-    method: RequestMethod;
-    body?: any;
+    method: string;
+    body?: Record<string, unknown>;
     token?: string;
 }
 
-export const requestApi = async ({endpoint, method, body, token}: RequestParams): Promise<Response> => {
+export const requestApi = async ({endpoint, method, body, token}: RequestParams) => {
     let headers: HeadersInit = {"Content-Type": "application/json"};
 
     if (token) {
@@ -24,10 +22,18 @@ export const requestApi = async ({endpoint, method, body, token}: RequestParams)
         ...(body && { body: JSON.stringify(body) })
     });
 
-    const data = await response.json();
-
-    if(response.ok) {
-        return data;
+    let data;
+    try {
+        data = await response.json();
+    } catch (error) {
+        console.error('Invalid JSON in response', error);
     }
-    throw new Error(data.message);
+
+    console.log("response", JSON.stringify(response));
+
+    if (response.ok) {
+        return data;
+    } else {
+        throw new Error(`Response returned with status ${response.status} - ${response.statusText}`);
+    }
 }
