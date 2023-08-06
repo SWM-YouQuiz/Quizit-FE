@@ -43,6 +43,7 @@ const QuizComponent = async ({id}: {id: string}) => {
     const quiz = await getQuiz(id);
 
     const {question, options} = quiz;
+
     return (
         <div className="flex flex-col h-full justify-between w-full">
             <TopSideContainer>
@@ -50,7 +51,7 @@ const QuizComponent = async ({id}: {id: string}) => {
                 <QuizContent quizContentHtml={question}/>
             </TopSideContainer>
             <BottomSideContainer>
-                <QuizItems quizId={id} quizOptions={options}/>
+                <QuizItems quizId={id} quizOptions={options.slice(0,4)}/>
             </BottomSideContainer>
         </div>
     )

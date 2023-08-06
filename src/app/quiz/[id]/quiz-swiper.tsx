@@ -4,14 +4,24 @@ import React, {useRef, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import {useQuizQueue} from "@/modules/quiz/hooks/useQuizQueue";
+import {getQuizComponents} from "@/modules/quiz/getQuizComponents";
 
 type QuizSwiper = {
     quizExplanationComponents: QuizComponents[];
 }
 
 const QuizSwiper = ({quizExplanationComponents}: QuizSwiper) => {
-    const {quizQueue, addQuiz} = useQuizQueue(quizExplanationComponents);
+    const [quizQueue, setQuizQueue] = useState(quizExplanationComponents);
+
+    const addNewQuiz = (quizIds: string[]) => {
+        getQuizComponents(quizIds)
+            .then((newQuizComponents =>
+                    setQuizQueue(prev => [
+                        ...prev,
+                        ...newQuizComponents
+                    ])
+            ))
+    }
 
     if(quizQueue.length===0) return <p>loading</p>
     return (
@@ -26,7 +36,7 @@ const QuizSwiper = ({quizExplanationComponents}: QuizSwiper) => {
             }}
             onReachEnd={async () => {
                 console.log("newQuiz")
-                addQuiz(["64cd2a283670d05612c7b5ce", "64cd2a283670d05612c7b5ce"]);
+                addNewQuiz(["64cd2a283670d05612c7b5ce", "64cd2a283670d05612c7b5ce"]);
             }}
         >
             {quizQueue.map(({id, quizComponent}, idx) => (

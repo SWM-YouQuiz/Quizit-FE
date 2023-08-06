@@ -2,25 +2,19 @@ import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
 import SignoutButton from "@/app/signout-button";
-import {getQuizOfChapterId} from "@/modules/quiz/apiServices";
+import {getQuizOfChapter, getQuizOfChapterId} from "@/modules/quiz/apiServices";
+import {authenticateSession} from "@/util/session";
+import {requestApi} from "@/util/fetcher";
 
 const getSession = async () => {
     return await getServerSession(authOptions);
 }
 
-const _getQuiz = async () => {
-    try{
-        const quiz: Quiz = await getQuizOfChapterId({chapterId: "1", quizId: "64cd2a4e3670d05612c7b5d1"});
-        return quiz;
-    } catch (e) {
-        console.log("error", (e as Error).message);
-    }
-}
-
 const _getQuiz2 = async () => {
     try{
-        const quiz: Quiz = await getQuizOfChapterId({chapterId: "1", quizId: "64cd2a4e3670d05612c7b5d2"});
-        return quiz;
+        const res = await fetch(`${process.env.API_URL}/api/quiz/chapter/1`);
+        const data = res.json();
+        return data;
     } catch (e) {
         console.log("error", (e as Error).message);
     }
@@ -28,8 +22,8 @@ const _getQuiz2 = async () => {
 
 const Home = async () => {
     const session = await getSession();
-   const quiz = await _getQuiz();
     const quiz2 = await _getQuiz2();
+    const quiz3 = await _getQuiz2();
     return (
         <main className="flex-grow p-4 relative">
             <p>This is main</p>
@@ -42,8 +36,8 @@ const Home = async () => {
                             {session.user.accessToken}
                         </p>
                         <p>
-                            {JSON.stringify(quiz)}
                             {JSON.stringify(quiz2)}
+                            {JSON.stringify(quiz3)}
                         </p>
                     </>
                 ) : (
