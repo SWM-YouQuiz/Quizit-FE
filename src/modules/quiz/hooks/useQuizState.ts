@@ -1,34 +1,44 @@
 import {useCallback, useState} from "react";
 import {useOptionState} from "@/modules/quiz/hooks/useOptionState";
+import {postQuizCheck} from "@/modules/quiz/apiServices";
 
-export const useQuizState = (answer: number) => {
-    const { itemsStatus, changeItemSelect, changeSelectWrong, changeAnswerCorrect } = useOptionState(answer);
+export const useQuizState = (quizId: string) => {
+    const { itemsStatus, changeItemSelect, changeSelectWrong, changeSelectCorrect, changeAnswerCorrect } = useOptionState();
     const [quizStatus, setQuizStatus] = useState<QuizStatus>('default');
+    const [solution, setSolution] = useState("");
 
     const isQuizGraded = useCallback(() => {
         return quizStatus !== 'default';
     }, [quizStatus]);
 
-    const gradeSelectIsCorrect = ({itemsStatus, answer}: {itemsStatus: ItemStatus[], answer: number}) => {
+    const gradeSelectIsCorrect = async ({itemsStatus, answer}: {itemsStatus: ItemStatus[], answer: number}) => {
         for(let i = 0; i < itemsStatus.length; i++) {
-            if(itemsStatus[i] === 'select' && i === answer) {
-                return true;
+            if(itemsStatus[i] === 'select') {
+                return answer === i;
             }
         }
-        return false
+        return false;
     }
 
-    const handleSubmit = () => {
+    const getAnswerSolution = async () => {
+        const { answer, solution } = await postQuizCheck({quizId: quizId});
+        setSolution(solution);
+        return answer;
+    }
+
+    const handleSubmit = async () => {
         if (isQuizGraded()) return;
-        if (gradeSelectIsCorrect({itemsStatus: itemsStatus, answer: answer})) {
-            changeAnswerCorrect();
+        const answer = await getAnswerSolution();
+        const isAnswer = await gradeSelectIsCorrect({itemsStatus: itemsStatus, answer: answer})
+        if (isAnswer) {
+            changeSelectCorrect();
             setQuizStatus('correct');
         } else {
             changeSelectWrong();
-            changeAnswerCorrect();
+            changeAnswerCorrect(answer);
             setQuizStatus('wrong');
         }
     }
 
-    return { itemsStatus, quizStatus, isQuizGraded, handleSubmit, changeItemSelect };
+    return { itemsStatus, quizStatus, isQuizGraded, handleSubmit, changeItemSelect, solution };
 };

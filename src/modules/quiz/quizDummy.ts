@@ -1,20 +1,19 @@
 export const nonData: Quiz = {
-    content: `퀴즈가 없습니다.`,
-    items: [
-        {
-            item_content: ""
-        },
-        {
-            item_content: ""
-        },
-        {
-            item_content: ""
-        },
-        {
-            item_content: ""
-        }
+    "id": "-1",
+    "question": "loading",
+    "writerId": "64c55a00b9e5211bd1b02b01",
+    "chapterId": "1",
+    "answerRate": 0.0,
+    "options": [
+        "test_0",
+        "test_1",
+        "test_2",
+        "test_3",
+        "test_4"
     ],
-    answer: 1
+    "correctCount": 0,
+    "incorrectCount": 0,
+    "createdDate": "2023-08-04T07:59:57.914"
 }
 export const quizDummy: Quiz[] = [{'content': '**Python**에서 `list.append(x)` 메서드를 사용하면 어떤 작업을 수행할 수 있습니까?',
     'items': [{'item_content': '리스트의 마지막에 항목 x를 추가합니다.'},

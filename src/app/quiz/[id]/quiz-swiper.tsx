@@ -4,10 +4,16 @@ import React, {useRef, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
+import {useQuizQueue} from "@/modules/quiz/hooks/useQuizQueue";
 
-const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: QuizExplanationComponents[]}) => {
-    const [isOpen, setOpen] = useState(false);
+type QuizSwiper = {
+    quizExplanationComponents: QuizComponents[];
+}
 
+const QuizSwiper = ({quizExplanationComponents}: QuizSwiper) => {
+    const {quizQueue, addQuiz} = useQuizQueue(quizExplanationComponents);
+
+    if(quizQueue.length===0) return <p>loading</p>
     return (
         <Swiper
             className="container h-full w-full"
@@ -15,23 +21,17 @@ const QuizSwiper = ({quizExplanationComponents}: {quizExplanationComponents: Qui
             navigation
             spaceBetween={4}
             initialSlide={0}
-            onSlideChange={() => {}}
+            onSlideChange={(swiper) => {
+                window.history.replaceState(null, "", `${quizQueue[swiper.activeIndex].id}`)
+            }}
+            onReachEnd={async () => {
+                console.log("newQuiz")
+                addQuiz(["64cd2a283670d05612c7b5ce", "64cd2a283670d05612c7b5ce"]);
+            }}
         >
-            {quizExplanationComponents.map(({id, quizComponent}) => (
-                <SwiperSlide key={`quiz-${id}`}>
-                    <Swiper
-                        className="h-full"
-                        autoHeight
-                        threshold={20}
-                        navigation
-                        spaceBetween={4}
-                        initialSlide={0}
-                        direction="vertical"
-                    >
-                        <SwiperSlide className="flex flex-col">
-                            {quizComponent}
-                        </SwiperSlide>
-                    </Swiper>
+            {quizQueue.map(({id, quizComponent}, idx) => (
+                <SwiperSlide key={`quiz-${id}-${idx}`}>
+                    {quizComponent}
                 </SwiperSlide>
             ))}
         </Swiper>

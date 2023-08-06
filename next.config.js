@@ -1,8 +1,7 @@
+const BASE_URL = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_API_URL}`;
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-    experimental: {
-        appDir: true,
-    },
     images: {
         domains: ['storage.googleapis.com'],
     },
@@ -16,11 +15,15 @@ const nextConfig = {
         });
         return config;
     },
+    experimental: {
+        serverActions: true,
+    },
 }
 
 const withPWA = require('next-pwa')({
     customWorkerDir: 'src/worker',
-    dest: 'public'
+    dest: 'public',
+    buildExcludes: ["app-build-manifest.json"],
 })
 
 module.exports = withPWA(nextConfig)
