@@ -1,3 +1,4 @@
+import {NextResponse} from "next/server";
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -9,6 +10,5 @@ export async function POST(request: Request) {
         body: JSON.stringify(body)
     })
 
-    // const data = await res.json();
-    return res
+    return res;
 }
