@@ -11,25 +11,27 @@ export const useQuizState = (quizId: string) => {
         return quizStatus !== 'default';
     }, [quizStatus]);
 
-    const gradeSelectIsCorrect = async ({itemsStatus, answer}: {itemsStatus: ItemStatus[], answer: number}) => {
+
+    const findSelect = () => {
         for(let i = 0; i < itemsStatus.length; i++) {
             if(itemsStatus[i] === 'select') {
-                return answer === i;
+               return i;
             }
         }
-        return false;
+        return 0;
     }
 
-    const getAnswerSolution = async () => {
-        const { answer, solution } = await postQuizCheck({quizId: quizId});
+    const checkAnswer = async () => {
+        const select = findSelect();
+        const { answer, solution } = await postQuizCheck({quizId: quizId, answer: select});
         setSolution(solution);
-        return answer;
+        const isAnswer = answer === select;
+        return {answer, isAnswer};
     }
 
     const handleSubmit = async () => {
         if (isQuizGraded()) return;
-        const answer = await getAnswerSolution();
-        const isAnswer = await gradeSelectIsCorrect({itemsStatus: itemsStatus, answer: answer})
+        const {answer, isAnswer} = await checkAnswer();
         if (isAnswer) {
             changeSelectCorrect();
             setQuizStatus('correct');

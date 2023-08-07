@@ -9,18 +9,18 @@ export const getQuiz = async ({chapterId}: {chapterId: string}): Promise<Respons
     });
 }
 
-export const postQuizCheck = async ({quizId}: {quizId: string}): Promise<QuizCheck> => {
+export const postQuizCheck = async ({quizId, answer}: {quizId: string, answer: number}): Promise<QuizCheck> => {
     return requestApi({
-        endpoint: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/quiz/check`,
+        endpoint: `${process.env.NEXT_PUBLIC_NEXT_URL}/api/quiz/${quizId}/check`,
         method: 'POST',
         body: {
-            quizId
+            answer
         }
     });
 }
 
 export const getQuizOfChapter = async ({chapterId}: {chapterId: string}): Promise<Quiz[]> => {
-    let session = await authenticateSession(authOptions);
+    const session = await authenticateSession(authOptions);
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
@@ -30,7 +30,7 @@ export const getQuizOfChapter = async ({chapterId}: {chapterId: string}): Promis
 }
 
 export const getQuizOfChapterId = async ({chapterId, quizId}: {chapterId: string, quizId: string}): Promise<Quiz> => {
-    let session = await authenticateSession(authOptions);
+    const session = await authenticateSession(authOptions);
     const res: Quiz[] =  await requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
         method: 'GET',
