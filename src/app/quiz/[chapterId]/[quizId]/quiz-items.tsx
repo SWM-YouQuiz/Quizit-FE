@@ -2,8 +2,8 @@
 import React, {useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import Sheet from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[id]/explanation";
-import ExplanationSheet from "@/app/quiz/[id]/explanation-sheet";
+import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
+import ExplanationSheet from "@/app/quiz/[chapterId]/[quizId]/explanation-sheet";
 
 const optionSignature = [
     'A',

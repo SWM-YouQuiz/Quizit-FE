@@ -1,5 +1,5 @@
 import Sheet, {SheetRef} from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[id]/explanation";
+import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
 import React, {useRef} from "react";
 
 type ExplanationSheetProps = {

@@ -1,4 +1,4 @@
-import {QuizItems} from "@/app/quiz/[id]/quiz-items";
+import {QuizItems} from "@/app/quiz/[chapterId]/[quizId]/quiz-items";
 import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";

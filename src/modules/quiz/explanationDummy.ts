@@ -1,4 +1,4 @@
-import Explanation from "@/app/quiz/[id]/explanation";
+import Explanation from "@/app/quiz/[chapterId]/[quizId]/explanation";
 
 export const noData: Explanation = {
     explanation: "해설이 없습니다."

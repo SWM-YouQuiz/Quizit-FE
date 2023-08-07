@@ -10,20 +10,9 @@ const getSession = async () => {
     return await getServerSession(authOptions);
 }
 
-const _getQuiz2 = async () => {
-    try{
-        const res = await fetch(`${process.env.API_URL}/api/quiz/chapter/1`);
-        const data = res.json();
-        return data;
-    } catch (e) {
-        console.log("error", (e as Error).message);
-    }
-}
-
 const Home = async () => {
     const session = await getSession();
-    const quiz2 = await _getQuiz2();
-    const quiz3 = await _getQuiz2();
+
     return (
         <main className="flex-grow p-4 relative">
             <p>This is main</p>
@@ -34,10 +23,6 @@ const Home = async () => {
                         <Link href="/course/mvp">go to Course</Link>
                         <p>
                             {session.user.accessToken}
-                        </p>
-                        <p>
-                            {JSON.stringify(quiz2)}
-                            {JSON.stringify(quiz3)}
                         </p>
                     </>
                 ) : (
