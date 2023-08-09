@@ -1,9 +1,7 @@
 "use client"
 
 import React, {startTransition, useEffect, useMemo, useRef, useState} from "react";
-import {explanationDummy, noData} from "@/modules/quiz/explanationDummy";
 import {useChat, useCompletion} from "ai/react";
-import {markdownToHtmlString} from "@/util/markdown";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 
