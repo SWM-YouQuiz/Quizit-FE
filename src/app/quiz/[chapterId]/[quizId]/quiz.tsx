@@ -12,26 +12,14 @@ const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Qui
     }
 }
 
-// TODO: Api 연동 시 이 함수를 변경할 것
-const getQuizDummy = async (id: number) => {
-    if(id < 0 || quizDummy.length-1 < id) {
-        return nonData;
-    } else {
-        await new Promise((resolve) =>
-            setTimeout(() => resolve(null), 2000)
-        )
-        return quizDummy[id];
-    }
-}
-
-const getQuizApi = async (quizId: string) => {
+const getQuiz = async (quizId: string) => {
     if(quizId === "-1") return nonData;
     const quiz = await getQuizOfChapterId({chapterId: "1", quizId: quizId});
     return quiz;
 }
 
-const getQuiz = async (id: string): Promise<Quiz> => {
-    const quiz: Quiz = await getQuizApi(id);
+const getQuizHtml = async (id: string): Promise<Quiz> => {
+    const quiz: Quiz = await getQuiz(id);
 
     const quizContentHtmlString = await markdownToHtmlString(quiz.question);
     const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
@@ -40,7 +28,7 @@ const getQuiz = async (id: string): Promise<Quiz> => {
 };
 
 const QuizComponent = async ({id}: {id: string}) => {
-    const quiz = await getQuiz(id);
+    const quiz = await getQuizHtml(id);
 
     const {question, options} = quiz;
 
