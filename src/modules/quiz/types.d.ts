@@ -1,7 +1,3 @@
-type QuizItem = {
-    item_content: string
-};
-
 type Quiz = {
     id: string,
     question: string,
@@ -13,10 +9,6 @@ type Quiz = {
     incorrectCount: number,
     createdDate: string
 };
-
-type Explanation = {
-    explanation: string
-}
 
 type QuizComponents = {
     id: string,

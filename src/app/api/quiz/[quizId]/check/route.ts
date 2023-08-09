@@ -5,7 +5,7 @@ import {makeToken} from "@/util/fetcher";
 
 export async function POST(request: Request, { params }: { params: { quizId: string } }) {
     const body = await request.json();
-    let session = await authenticateSession(authOptions);
+    const session = await authenticateSession(authOptions);
     const res = await fetch(`${process.env.API_URL}/api/quiz/${params.quizId}/check`, {
         method: 'POST',
         headers: {
