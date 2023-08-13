@@ -3,7 +3,7 @@ import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
-import {getQuizOfChapterId} from "@/modules/quiz/apiServices";
+import {getQuiz} from "@/modules/quiz/serverApiActions";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {
@@ -12,14 +12,14 @@ const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Qui
     }
 }
 
-const getQuiz = async (quizId: string) => {
+const getQuizHandler = async (quizId: string) => {
     if(quizId === "-1") return nonData;
-    const quiz = await getQuizOfChapterId({chapterId: "1", quizId: quizId});
+    const quiz = await getQuiz({quizId: quizId});
     return quiz;
 }
 
 const getQuizHtml = async (id: string): Promise<Quiz> => {
-    const quiz: Quiz = await getQuiz(id);
+    const quiz: Quiz = await getQuizHandler(id);
 
     const quizContentHtmlString = await markdownToHtmlString(quiz.question);
     const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);

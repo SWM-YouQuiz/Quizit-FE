@@ -4,17 +4,22 @@ import React, {useRef, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import {getQuizComponents} from "@/modules/quiz/getQuizComponents";
+import {getQuizComponentsAction} from "@/modules/quiz/getQuizComponentsAction";
+import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 
-type QuizSwiper = {
+type QuizSwiperProps = {
     quizExplanationComponents: QuizComponents[];
+    chapterId: string
 }
 
-const QuizSwiper = ({quizExplanationComponents}: QuizSwiper) => {
+const QuizSwiper = ({quizExplanationComponents, chapterId}: QuizSwiperProps) => {
+    const [page, setPage] = useState(0);
     const [quizQueue, setQuizQueue] = useState(quizExplanationComponents);
 
-    const addNewQuiz = (quizIds: string[]) => {
-        getQuizComponents(quizIds)
+    const addNewQuiz = async ({chapterId, page}: {chapterId: string, page: number}) => {
+        const quizzes = await getQuizOfChapter({chapterId: chapterId, page: page, size: 3, range: "-1,101"});
+        const quizIds = quizzes.map(quiz => quiz.id);
+        getQuizComponentsAction(quizIds)
             .then((newQuizComponents =>
                     setQuizQueue(prev => [
                         ...prev,
@@ -35,8 +40,8 @@ const QuizSwiper = ({quizExplanationComponents}: QuizSwiper) => {
                 window.history.replaceState(null, "", `${quizQueue[swiper.activeIndex].id}`)
             }}
             onReachEnd={async () => {
-                console.log("newQuiz")
-                addNewQuiz(["64cd2a283670d05612c7b5ce", "64cd2a283670d05612c7b5ce"]);
+                addNewQuiz({chapterId: chapterId, page: page+1});
+                setPage(prev => prev+1);
             }}
         >
             {quizQueue.map(({id, quizComponent}, idx) => (

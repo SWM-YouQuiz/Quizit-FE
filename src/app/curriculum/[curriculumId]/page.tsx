@@ -1,20 +1,14 @@
-import {courseDummy} from "@/modules/course/courseDummy";
-import Card from "@/app/course/[curriculumName]/card";
+import Card from "@/app/curriculum/[curriculumId]/card";
+import {getCourses} from "@/modules/curriculum/serverApiActions";
 
+const curriculumId: string = "mvp";
+const Course = async ({params}: {params: {curriculumId: string}}) => {
+    const courses = await getCourses({curriculumId: 'mvp'});
 
-const getCourse = async (curriculumName: string) => {
-    await new Promise((resolve) =>
-        setTimeout(() => resolve(null), 2000)
-    )
-    return courseDummy[curriculumName];
-}
-
-const Course = async ({params}: {params: {curriculumName: string}}) => {
-    const courses = await getCourse(params.curriculumName);
 
     return (
         <div className="flex flex-col w-full h-full">
-            <HeaderContainer title={params.curriculumName}/>
+            <HeaderContainer title={curriculumId}/>
             <BodyContainer courses={courses}/>
         </div>
     )
@@ -45,8 +39,14 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
     <div className="place-items-center overflow-y-scroll p-4
      grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-5">
         {
-            courses.map(({id, logo, name},idx) => (
-                <Card key={`course-${id}-${idx}`} logo={logo} name={name}/>
+            courses.map(({id, title, image},idx) => (
+                <Card
+                    key={`course-${id}`}
+                    title={title}
+                    image={image}
+                    id={id}
+                    curriculumId={curriculumId}
+                />
             ))
         }
     </div>

@@ -2,9 +2,6 @@ import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
 import SignoutButton from "@/app/signout-button";
-import {getQuizOfChapter, getQuizOfChapterId} from "@/modules/quiz/apiServices";
-import {authenticateSession} from "@/util/session";
-import {requestApi} from "@/util/fetcher";
 
 const getSession = async () => {
     return await getServerSession(authOptions);
@@ -20,7 +17,7 @@ const Home = async () => {
                 session?.user.accessToken ? (
                     <>
                         <SignoutButton/>
-                        <Link href="/course/mvp">go to Course</Link>
+                        <Link href="/curriculum/mvp">go to Course</Link>
                         <p>
                             {session.user.accessToken}
                         </p>

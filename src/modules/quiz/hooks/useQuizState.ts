@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import {useOptionState} from "@/modules/quiz/hooks/useOptionState";
-import {postQuizCheck} from "@/modules/quiz/apiServices";
+import {postQuizCheck} from "@/modules/quiz/serverApiActions";
 
 export const useQuizState = (quizId: string) => {
     const { itemsStatus, changeItemSelect, changeSelectWrong, changeSelectCorrect, changeAnswerCorrect } = useOptionState();

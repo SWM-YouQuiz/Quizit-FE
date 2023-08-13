@@ -3,7 +3,7 @@ import React, {Suspense} from "react";
 import QuizComponent from "@/app/quiz/[chapterId]/[quizId]/quiz";
 
 
-export const getQuizComponents = async (quizIds: string[]) => {
+export const getQuizComponentsAction = async (quizIds: string[]) => {
     return quizIds.map((id, idx) => ({
         id: id,
         quizComponent: (

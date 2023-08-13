@@ -8,7 +8,7 @@ type LoginApi = {
 }
 export const loginApi = async ({body}: LoginApi): Promise<Response> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/auth/login`,
+        endpoint: `${process.env.API_URL}/api/auth/auth/login`,
         method: 'POST',
         body
     });
@@ -29,7 +29,7 @@ type registerApiProps = {
 }
 export const registerApi = async (body: registerApiProps): Promise<Response> => {
     const response = requestApi({
-        endpoint: '/api/auth/register',
+        endpoint: '/api/auth/auth/register',
         method: 'POST',
         body
     })
