@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -28,6 +28,10 @@ const QuizSwiper = ({quizExplanationComponents, chapterId}: QuizSwiperProps) => 
             ))
     }
 
+    const replaceUrlToCurrentQuiz = (currentQuizId: string) => {
+        window.history.replaceState(null, "", `${currentQuizId}`);
+    }
+
     if(quizQueue.length===0) return <p>loading</p>
     return (
         <Swiper
@@ -36,8 +40,11 @@ const QuizSwiper = ({quizExplanationComponents, chapterId}: QuizSwiperProps) => 
             navigation
             spaceBetween={4}
             initialSlide={0}
+            onInit={(swiper) => {
+                replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
+            }}
             onSlideChange={(swiper) => {
-                window.history.replaceState(null, "", `${quizQueue[swiper.activeIndex].id}`)
+                replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onReachEnd={async () => {
                 addNewQuiz({chapterId: chapterId, page: page+1});

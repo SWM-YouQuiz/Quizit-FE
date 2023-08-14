@@ -12,15 +12,14 @@ const getQuizIds = async (chapterId: string) => {
 const QuizPage = async ({ params }: { params: { chapterId: string, quizId: string } }) => {
     const quizIds: string[] = await getQuizIds(params.chapterId);
 
-    const quizExplanationComponents: QuizComponents[] = quizIds.map((id, idx) => ({
-            id: id,
+    const quizExplanationComponents: QuizComponents[] = [{
+            id: params.quizId,
             quizComponent: (
-                <Suspense key={`quiz-suspense-${id}`} fallback={<QuizComponent id={"-1"}/>}>
-                    <QuizComponent id={id}/>
+                <Suspense key={`quiz-suspense-${params.quizId}`} fallback={<QuizComponent id={"-1"}/>}>
+                    <QuizComponent id={params.quizId}/>
                 </Suspense>
             )
-        })
-    );
+        }]
 
     return (
         <QuizSwiper quizExplanationComponents={quizExplanationComponents} chapterId={params.chapterId}/>

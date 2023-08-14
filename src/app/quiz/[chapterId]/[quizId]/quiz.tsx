@@ -4,6 +4,7 @@ import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
+import "@/modules/quiz/styles/one-light.css";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {
