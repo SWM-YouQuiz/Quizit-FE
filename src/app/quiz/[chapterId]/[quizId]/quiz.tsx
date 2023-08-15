@@ -1,49 +1,46 @@
-import {QuizItems} from "@/app/quiz/[id]/quiz-items";
+import {QuizItems} from "@/app/quiz/[chapterId]/[quizId]/quiz-items";
 import React, {cache, ReactNode} from "react";
 import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
+import {getQuiz} from "@/modules/quiz/serverApiActions";
+import "@/modules/quiz/styles/one-light.css";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {
         ...quiz,
-        content: quizContentHtmlString
+        question: quizContentHtmlString
     }
 }
 
-// TODO: Api 연동 시 이 함수를 변경할 것
-const getQuizApi = async (id: number) => {
-    if(id < 0 || quizDummy.length-1 < id) {
-        return nonData;
-    } else {
-        await new Promise((resolve) =>
-            setTimeout(() => resolve(null), 2000)
-        )
-        return quizDummy[id];
-    }
+const getQuizHandler = async (quizId: string) => {
+    if(quizId === "-1") return nonData;
+    const quiz = await getQuiz({quizId: quizId});
+    return quiz;
 }
 
-const getQuiz = async (id: number): Promise<Quiz> => {
-    const quiz: Quiz = await getQuizApi(id);
+const getQuizHtml = async (id: string): Promise<Quiz> => {
+    const quiz: Quiz = await getQuizHandler(id);
 
-    const quizContentHtmlString = await markdownToHtmlString(quiz.content);
+    const quizContentHtmlString = await markdownToHtmlString(quiz.question);
     const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
 
     return quizContentHtml
 };
 
-const QuizComponent = async ({id}: {id: number}) => {
-    const quiz = await getQuiz(id);
+const QuizComponent = async ({id}: {id: string}) => {
+    const quiz = await getQuizHtml(id);
 
-    const {content, items, answer} = quiz;
+    const {question, options} = quiz;
+
     return (
         <div className="flex flex-col h-full justify-between w-full">
             <TopSideContainer>
                 <QuizHeader/>
-                <QuizContent quizContentHtml={content}/>
+                <QuizContent quizContentHtml={question}/>
             </TopSideContainer>
             <BottomSideContainer>
-                <QuizItems quizId={id} quizItems={items} answer={answer}/>
+                <QuizItems quizId={id} quizOptions={options.slice(0,4)}/>
             </BottomSideContainer>
         </div>
     )

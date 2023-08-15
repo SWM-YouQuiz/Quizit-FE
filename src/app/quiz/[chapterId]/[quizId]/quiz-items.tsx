@@ -2,8 +2,8 @@
 import React, {useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import Sheet from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[id]/explanation";
-import ExplanationSheet from "@/app/quiz/[id]/explanation-sheet";
+import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
+import ExplanationSheet from "@/app/quiz/[chapterId]/[quizId]/explanation-sheet";
 
 const optionSignature = [
     'A',
@@ -21,8 +21,8 @@ const statusColor: Record<ItemStatus, string> = {
 
 
 
-export const QuizItems = ({quizId, quizItems, answer}: {quizId: number, quizItems: QuizItem[], answer: number}) => {
-    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect } = useQuizState(answer);
+export const QuizItems = ({quizId, quizOptions}: {quizId: string, quizOptions: string[]}) => {
+    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
     const closeBottomSheet = () => {
@@ -39,8 +39,8 @@ export const QuizItems = ({quizId, quizItems, answer}: {quizId: number, quizItem
     return (
         <div className="w-full flex flex-col">
             {
-                quizItems.map((item, idx) => {
-                    const itemString = `${optionSignature[idx]}. ${item.item_content}`
+                quizOptions.map((item, idx) => {
+                    const itemString = `${optionSignature[idx]}. ${item}`
                     return (
                         <QuizItem
                             key={`quiz_item_${idx}`}
@@ -63,6 +63,7 @@ export const QuizItems = ({quizId, quizItems, answer}: {quizId: number, quizItem
                 isBottomSheetOpen={isBottomSheetOpen}
                 closeBottomSheet={closeBottomSheet}
                 quizId={quizId}
+                solution={solution}
             />
         </div>
     )

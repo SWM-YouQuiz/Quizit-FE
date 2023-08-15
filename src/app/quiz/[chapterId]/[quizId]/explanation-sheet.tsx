@@ -1,14 +1,15 @@
 import Sheet, {SheetRef} from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[id]/explanation";
+import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
 import React, {useRef} from "react";
 
 type ExplanationSheetProps = {
     isBottomSheetOpen: boolean,
     closeBottomSheet: () => void,
-    quizId: number
+    quizId: string,
+    solution: string
 }
 
-const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, quizId}: ExplanationSheetProps) => {
+const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, quizId, solution}: ExplanationSheetProps) => {
     const ref = useRef<SheetRef>();
     return (
         <Sheet
@@ -21,7 +22,7 @@ const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, quizId}: Explana
                 <Sheet.Header />
                 <Sheet.Content style={{ paddingBottom: ref.current?.y }}>
                     <Sheet.Scroller draggableAt="both">
-                        <ExplanationComponent quizId={quizId}/>
+                        <ExplanationComponent quizId={quizId} solution={solution}/>
                     </Sheet.Scroller>
                 </Sheet.Content>
             </Sheet.Container>

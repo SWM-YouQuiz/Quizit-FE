@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
-import {signOut} from "next-auth/react";
 import SignoutButton from "@/app/signout-button";
 
 const getSession = async () => {
@@ -10,6 +9,7 @@ const getSession = async () => {
 
 const Home = async () => {
     const session = await getSession();
+
     return (
         <main className="flex-grow p-4 relative">
             <p>This is main</p>
@@ -17,7 +17,7 @@ const Home = async () => {
                 session?.user.accessToken ? (
                     <>
                         <SignoutButton/>
-                        <Link href="/course/mvp">go to Course</Link>
+                        <Link href="/curriculum/mvp">go to Course</Link>
                         <p>
                             {session.user.accessToken}
                         </p>

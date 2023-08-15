@@ -1,17 +1,9 @@
 import {ReactIcon} from "@/components/svgs";
-import {Card} from "@/app/chapter/[courseName]/card";
-import {chapterDummy} from "@/modules/chapter/chapterDummy";
+import {getChapters} from "@/modules/curriculum/serverApiActions";
+import {Card} from "@/app/curriculum/[curriculumId]/[courseId]/card";
 
-
-const getChapter = async (courseName: string) => {
-    await new Promise((resolve) =>
-        setTimeout(() => resolve(null), 2000)
-    )
-    return chapterDummy[courseName];
-}
-
-const Chapter = async ({params}: {params: {courseName: string}}) => {
-    const chapters = await getChapter(params.courseName);
+const Chapter = async ({params}: {params: {courseId: string, curriculumId: string}}) => {
+    const chapters = await getChapters({curriculumId: params.curriculumId, courseId: params.courseId});
     return (
         <div className="flex flex-col w-full max-h-full">
             <HeaderContainer />
@@ -31,7 +23,7 @@ const BodyContainer = ({chapters}: {chapters: Chapter[]}) => {
         <div className="flex-grow p-4 space-y-2.5 overflow-y-auto">
             {
                 chapters.map((chapter, idx) => (
-                    <Card key={`chapter-${chapter.name}-${idx}`} chapter={chapter}/>
+                    <Card key={`chapter-${chapter.id}`} description={chapter.description} id={chapter.id} courseId={chapter.courseId}/>
                 ))
             }
         </div>

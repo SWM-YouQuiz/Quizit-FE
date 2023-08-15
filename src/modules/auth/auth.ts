@@ -2,13 +2,11 @@ import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {loginApi} from "@/modules/auth/apiServices";
 
-const URL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_API_URL}`
-
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
     },
-    secret: process.env.SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Sign in",

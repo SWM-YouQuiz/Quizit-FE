@@ -1,19 +1,10 @@
 "use client"
 
 import React, {startTransition, useEffect, useMemo, useRef, useState} from "react";
-import {explanationDummy, noData} from "@/modules/quiz/explanationDummy";
 import {useChat, useCompletion} from "ai/react";
-import {markdownToHtmlString} from "@/util/markdown";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 
-const getExplanationApi = (quizId: number) => {
-    if(quizId < 0 || explanationDummy.length-1 < quizId) {
-        return noData;
-    } else {
-        return explanationDummy[quizId];
-    }
-}
 
 const systemPrompt = `
 당신은 퀴즈에 대한 해설을 해주는 역할입니다.
@@ -31,12 +22,12 @@ const userPrompt = `
 const invisibleMessageId = 'invisible'
 const isInvisibleMessage = (id: string) => id === invisibleMessageId;
 
-const ExplanationComponent = ({quizId}: {quizId: number}) => {
+const ExplanationComponent = ({quizId, solution}: {quizId: string, solution: string}) => {
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
         initialMessages: [
             {id: invisibleMessageId, "role": "system", "content": systemPrompt},
             {id: invisibleMessageId, role: "user", content: userPrompt},
-            {id: `quiz-${quizId}-2`, role: "assistant", content: getExplanationApi(quizId).explanation}
+            {id: `quiz-${quizId}-2`, role: "assistant", content: solution}
         ]
     })
     const convertedMessages = useMessageToHtmlString(messages, isLoading);

@@ -27,6 +27,7 @@ export const requestApi = async ({endpoint, method, body, token}: RequestParams)
         data = await response.json();
     } catch (error) {
         console.error('Invalid JSON in response', error);
+        throw new Error(`Response body not founded ${response.status} - ${response.statusText}`)
     }
 
     console.log("response", JSON.stringify(response));
@@ -34,6 +35,6 @@ export const requestApi = async ({endpoint, method, body, token}: RequestParams)
     if (response.ok) {
         return data;
     } else {
-        throw new Error(`Response returned with status ${response.status} - ${response.statusText}`);
+        throw new Error(JSON.stringify(data));
     }
 }

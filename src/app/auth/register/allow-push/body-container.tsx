@@ -9,7 +9,13 @@ import {loginApi, registerApi} from "@/modules/auth/apiServices";
 import {signIn} from "next-auth/react";
 
 const BodyContainer = () => {
-    const { register, setValue, getValues, handleSubmit, formState: {errors, isValid} } = useFormContext<RegisterInputs>()
+    const {
+        setValue,
+        getValues,
+        handleSubmit,
+        formState: {errors, isValid},
+        setError,
+    } = useFormContext<RegisterInputs>()
     const router = useRouter();
 
     const onSubmit: SubmitHandler<RegisterInputs> = async (data: RegisterInputs) => {
@@ -42,7 +48,11 @@ const BodyContainer = () => {
     const submit = async () => {
         handleSubmit(onSubmit)()
             .then(() => login())
-            .catch((err) => console.log("회원가입 에러", err))
+            .catch((err: Error) => {
+                console.log("register error", err.message);
+                setError("username", {type: "conflict", message: "이미 존재하는 이메일입니다."});
+                router.replace("/auth/register/email");
+            })
     }
 
     const handleAllow = () => {

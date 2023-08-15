@@ -1,9 +1,8 @@
 import {NextResponse} from "next/server";
 
-const URL = `${process.env.NEXT_PUBLIC_PROTOCOL}${process.env.NEXT_PUBLIC_API_URL}`
 export async function POST(request: Request) {
     const body = await request.json();
-    const res = await fetch(`${URL}/api/user`, {
+    const res = await fetch(`${process.env.API_URL}/api/user`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -11,6 +10,5 @@ export async function POST(request: Request) {
         body: JSON.stringify(body)
     })
 
-    // const data = await res.json();
-    return res
+    return res;
 }
