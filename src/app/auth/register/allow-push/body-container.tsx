@@ -1,11 +1,8 @@
 "use client"
 import {SubmitHandler, useFormContext} from "react-hook-form";
-import Input from "@/app/auth/input";
-import NextButton from "@/app/auth/register/next-button";
-import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 import Button from "@/components/ui/Button";
-import {loginApi, registerApi} from "@/modules/auth/apiServices";
+import {loginApi, registerApi} from "@/modules/auth/serverApiActions";
 import {signIn} from "next-auth/react";
 
 const BodyContainer = () => {

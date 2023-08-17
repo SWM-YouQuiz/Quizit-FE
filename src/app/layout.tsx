@@ -2,6 +2,9 @@ import './globals.css'
 import {ReactNode} from "react";
 import Header from "@/app/header";
 import Head from "@/app/head";
+import {NextAuthProvider} from "@/app/provider";
+import {getServerSession, Session} from "next-auth";
+import {authOptions} from "@/modules/auth/auth";
 
 export const metadata = {
     title: 'Create Next App',
@@ -9,22 +12,25 @@ export const metadata = {
 }
 
 // TODO: next-auth 도입 후 Session 객체를 확인하여 유효한 세션인지 확인해야 함
-const checkSessionIsValid = (session: boolean) => {
+const checkSessionIsValid = (session: Session | null) => {
     return session
 }
 
-export default function RootLayout({children,}: { children: ReactNode }) {
-    // TODO: next-auth 도입 후 현제 사용자의 세션을 불러와야 함
-    const session = true;
+const RootLayout = async ({children,}: { children: ReactNode }) => {
+    const session = await getServerSession(authOptions);
 
     return (
         <html lang="en">
             <Head />
             <body className="h-screen w-full flex flex-col">
-                {checkSessionIsValid(session) ? <Header/> : null}
-                {children}
+                <NextAuthProvider session={session}>
+                    <Header/>
+                    {children}
+                </NextAuthProvider>
+
             </body>
         </html>
     )
 }
 
+export default RootLayout;
