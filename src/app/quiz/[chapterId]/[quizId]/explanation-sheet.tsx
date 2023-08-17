@@ -5,11 +5,13 @@ import React, {useRef} from "react";
 type ExplanationSheetProps = {
     isBottomSheetOpen: boolean,
     closeBottomSheet: () => void,
-    quizId: string,
-    solution: string
+    solution: string,
+    answer: number,
+    quizHtml: Quiz,
+    select: number
 }
 
-const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, quizId, solution}: ExplanationSheetProps) => {
+const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, solution, answer, quizHtml, select}: ExplanationSheetProps) => {
     const ref = useRef<SheetRef>();
     return (
         <Sheet
@@ -22,7 +24,12 @@ const ExplanationSheet = ({isBottomSheetOpen, closeBottomSheet, quizId, solution
                 <Sheet.Header />
                 <Sheet.Content style={{ paddingBottom: ref.current?.y }}>
                     <Sheet.Scroller draggableAt="both">
-                        <ExplanationComponent quizId={quizId} solution={solution}/>
+                        <ExplanationComponent
+                            quizHtml={quizHtml}
+                            answer={answer}
+                            solution={solution}
+                            select={select}
+                        />
                     </Sheet.Scroller>
                 </Sheet.Content>
             </Sheet.Container>

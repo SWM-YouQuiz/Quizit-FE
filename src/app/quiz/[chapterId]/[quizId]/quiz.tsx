@@ -19,28 +19,25 @@ const getQuizHandler = async (quizId: string) => {
     return quiz;
 }
 
-const getQuizHtml = async (id: string): Promise<Quiz> => {
-    const quiz: Quiz = await getQuizHandler(id);
-
+const getQuizHtml = async (quiz: Quiz): Promise<Quiz> => {
     const quizContentHtmlString = await markdownToHtmlString(quiz.question);
     const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
 
-    return quizContentHtml
+    return quizContentHtml;
 };
 
 const QuizComponent = async ({id}: {id: string}) => {
-    const quiz = await getQuizHtml(id);
-
-    const {question, options} = quiz;
+    const quiz = await getQuizHandler(id);
+    const quizHtml = await getQuizHtml(quiz);
 
     return (
         <div className="flex flex-col h-full justify-between w-full">
             <TopSideContainer>
                 <QuizHeader/>
-                <QuizContent quizContentHtml={question}/>
+                <QuizContent quizContentHtml={quizHtml.question}/>
             </TopSideContainer>
             <BottomSideContainer>
-                <QuizItems quizId={id} quizOptions={options.slice(0,4)}/>
+                <QuizItems quizHtml={quizHtml}/>
             </BottomSideContainer>
         </div>
     )

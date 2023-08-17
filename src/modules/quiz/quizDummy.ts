@@ -1,15 +1,14 @@
 export const nonData: Quiz = {
     "id": "-1",
-    "question": "loading",
-    "writerId": "64c55a00b9e5211bd1b02b01",
-    "chapterId": "1",
+    "question": "",
+    "writerId": "",
+    "chapterId": "",
     "answerRate": 0.0,
     "options": [
-        "test_0",
-        "test_1",
-        "test_2",
-        "test_3",
-        "test_4"
+        "",
+        "",
+        "",
+        "",
     ],
     "correctCount": 0,
     "incorrectCount": 0,

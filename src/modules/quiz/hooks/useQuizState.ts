@@ -6,6 +6,8 @@ export const useQuizState = (quizId: string) => {
     const { itemsStatus, changeItemSelect, changeSelectWrong, changeSelectCorrect, changeAnswerCorrect } = useOptionState();
     const [quizStatus, setQuizStatus] = useState<QuizStatus>('default');
     const [solution, setSolution] = useState("");
+    const [answer, setAnswer] = useState<number>(-1);
+    const [select, setSelect] = useState<number>(-1);
 
     const isQuizGraded = useCallback(() => {
         return quizStatus !== 'default';
@@ -21,18 +23,26 @@ export const useQuizState = (quizId: string) => {
         return 0;
     }
 
+    const handleSubmit = async () => {
+        if (isQuizGraded()) return;
+        await checkAnswer();
+    }
+
     const checkAnswer = async () => {
         const select = findSelect();
         const { answer, solution } = await postQuizCheck({quizId: quizId, answer: select});
-        setSolution(solution);
-        const isAnswer = answer === select;
-        return {answer, isAnswer};
+        setStates(solution, answer, select);
+        handleCheck(answer);
     }
 
-    const handleSubmit = async () => {
-        if (isQuizGraded()) return;
-        const {answer, isAnswer} = await checkAnswer();
-        if (isAnswer) {
+    const setStates = (solution: string, answer: number, select: number) => {
+        setSolution(solution);
+        setAnswer(answer);
+        setSelect(select)
+    }
+
+    const handleCheck = (answer: number) => {
+        if (answer === findSelect()) {
             changeSelectCorrect();
             setQuizStatus('correct');
         } else {
@@ -42,5 +52,5 @@ export const useQuizState = (quizId: string) => {
         }
     }
 
-    return { itemsStatus, quizStatus, isQuizGraded, handleSubmit, changeItemSelect, solution };
+    return { itemsStatus, quizStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select };
 };

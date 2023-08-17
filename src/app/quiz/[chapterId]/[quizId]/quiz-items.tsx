@@ -19,10 +19,9 @@ const statusColor: Record<ItemStatus, string> = {
     'wrong': 'bg-error'
 };
 
-
-
-export const QuizItems = ({quizId, quizOptions}: {quizId: string, quizOptions: string[]}) => {
-    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution } = useQuizState(quizId);
+export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
+    const {id: quizId, options: quizOptions} = quizHtml;
+    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
     const closeBottomSheet = () => {
@@ -62,8 +61,10 @@ export const QuizItems = ({quizId, quizOptions}: {quizId: string, quizOptions: s
             <ExplanationSheet
                 isBottomSheetOpen={isBottomSheetOpen}
                 closeBottomSheet={closeBottomSheet}
-                quizId={quizId}
                 solution={solution}
+                answer={answer}
+                select={select}
+                quizHtml={quizHtml}
             />
         </div>
     )
