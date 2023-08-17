@@ -1,3 +1,4 @@
+"use server"
 import {requestApi} from "@/util/fetcher";
 
 type LoginApi = {
@@ -16,7 +17,7 @@ export const loginApi = async ({body}: LoginApi): Promise<Response> => {
 
 export const logoutApi = async (): Promise<Response> => {
     return requestApi({
-        endpoint: '/api/auth/logout',
+        endpoint: `${process.env.API_URL}/api/auth/logout`,
         method: 'POST',
     });
 }
@@ -29,7 +30,7 @@ type registerApiProps = {
 }
 export const registerApi = async (body: registerApiProps): Promise<Response> => {
     const response = requestApi({
-        endpoint: '/api/auth/auth/register',
+        endpoint: `${process.env.API_URL}/api/auth/auth/register`,
         method: 'POST',
         body
     })

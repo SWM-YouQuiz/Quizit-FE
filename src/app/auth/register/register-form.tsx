@@ -1,9 +1,8 @@
 "use client"
 
 import { useForm, SubmitHandler } from "react-hook-form"
-import {signIn} from "next-auth/react";
 import Input from "@/app/auth/input";
-import {registerApi} from "@/modules/auth/apiServices";
+import {registerApi} from "@/modules/auth/serverApiActions";
 import {useState} from "react";
 
 type Inputs = {
