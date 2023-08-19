@@ -54,28 +54,41 @@ const TopSideContainer = ({children}: {children: ReactNode}) => (
 
 
 const QuizHeader = () => (
-    <div className="w-full flex justify-between">
+    <div className="h-[22px] w-full flex justify-between">
         <QuizAnswerRate/>
         <QuizTools/>
     </div>
 )
 
 const QuizAnswerRate = () => (
-    <div className="flex h-full items-center ml-4">
-        <p className="text-sm text-center">정답률: 50%</p>
+    <div className="rounded bg-point3 font-semibold text-white px-1.5 grid place-items-center">
+        <p className="text-xs text-center leading-[16px]">정답률: 50%</p>
     </div>
 )
 
 const QuizTools = () => (
-    <div className="container flex justify-between w-32">
+    <div className="flex space-x-1.5">
+        <ThumbUpButton/>
+        <ThumbDownButton/>
+    </div>
+)
+
+const ThumbUpButton = () => (
+    <div className="w-10 inner-border-[1px] p-[3px] rounded flex justify-evenly">
         <ThumbUp/>
+        <span className="text-center text-xs text-bg-secondary">3</span>
+    </div>
+)
+
+const ThumbDownButton = () => (
+    <div className="w-10 inner-border-[1px] p-[3px] rounded flex justify-evenly">
         <ThumbDown/>
-        <Share/>
+        <span className="text-center text-xs text-bg-secondary">3</span>
     </div>
 )
 
 const QuizContent = ({quizContentHtml}: {quizContentHtml: string}) => (
-    <div className="mt-2 flex-auto overflow-y-auto min-h-0" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
+    <div className="mt-2 flex-auto overflow-y-auto min-h-0 text-text-dark" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
 )
 
 const BottomSideContainer = ({children} : {children: ReactNode}) => {

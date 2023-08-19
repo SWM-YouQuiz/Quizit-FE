@@ -16,7 +16,7 @@ module.exports = {
       },
       colors: {
         'bg-primary': '#F8F8F8',
-        'bg-secondary': '#D9D9D9',
+        'bg-secondary': '#D8D8D8',
 
         'point1': '#7B61E8',
         'point2': '#64D188',
