@@ -18,11 +18,12 @@ module.exports = {
         'bg-primary': '#F8F8F8',
         'bg-secondary': '#D9D9D9',
 
-        'point1': '#7A72EE',
+        'point1': '#7B61E8',
         'point2': '#64D188',
-          'point3': '#49AF86',
+        'point3': '#49AF86',
         'success': '#75D6FF',
-        'error': '#FF7A7A',
+        'error': '#FB276B',
+        'bg-error': '#FFE3EC',
 
           primary: {
             50: '#F7F5FD',
@@ -33,9 +34,11 @@ module.exports = {
               900: '#5741D3'
           },
         'black': '#0B0434',
-
+          'text-dark': '#3B3D64'
       }
-    }
+    },
   },
-  plugins: [],
+  plugins: [
+      require("tailwindcss-inner-border"),
+  ],
 }

@@ -1,9 +1,9 @@
 "use client"
 import React, {useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
-import Sheet from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
 import ExplanationSheet from "@/app/quiz/[chapterId]/[quizId]/explanation-sheet";
+import {cn} from "@/util/tailwind";
+import {HeartWhite} from "@/components/svgs";
 
 const optionSignature = [
     'A',
@@ -13,10 +13,10 @@ const optionSignature = [
 ]
 
 const statusColor: Record<ItemStatus, string> = {
-    'idle': 'border-bg-primary',
-    'select': 'border-primary',
-    'correct': 'bg-success',
-    'wrong': 'bg-error'
+    'idle': 'text-text-dark  bg-primary-50',
+    'select': 'text-primary-800  bg-primary-200',
+    'correct': 'text-primary-800  bg-primary-200',
+    'wrong': 'bg-bg-error inner-border-2 inner-border-error'
 };
 
 export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
@@ -37,27 +37,32 @@ export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
 
     return (
         <div className="w-full flex flex-col">
-            {
-                quizOptions.map((item, idx) => {
-                    const itemString = `${optionSignature[idx]}. ${item}`
-                    return (
-                        <QuizItem
-                            key={`quiz_item_${idx}`}
-                            itemString={itemString}
-                            itemStatus={itemsStatus[idx]}
-                            idx={idx}
-                            handleOptionClicked={handleOptionClicked}
-                        />
+            <div className="space-y-2.5">
+                {
+                    quizOptions.map((item, idx) => {
+                        const itemString = `${optionSignature[idx]}. ${item}`
+                        return (
+                            <QuizItem
+                                key={`quiz_item_${idx}`}
+                                itemString={itemString}
+                                itemStatus={itemsStatus[idx]}
+                                idx={idx}
+                                handleOptionClicked={handleOptionClicked}
+                            />
+                        )
+                    })
+                }
+            </div>
+            <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
+                <HeartButton clicked={false}/>
+                {
+                    isQuizGraded() ? (
+                        <ExplanationButton handleClick={openBottomSheet}/>
+                    ) : (
+                        <SubmitButton handleSubmit={handleSubmit}/>
                     )
-                })
-            }
-            {
-                isQuizGraded() ? (
-                    <ExplanationButton handleClick={openBottomSheet}/>
-                ) : (
-                    <SubmitButton handleSubmit={handleSubmit}/>
-                )
-            }
+                }
+            </div>
             <ExplanationSheet
                 isBottomSheetOpen={isBottomSheetOpen}
                 closeBottomSheet={closeBottomSheet}
@@ -66,6 +71,7 @@ export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
                 select={select}
                 quizHtml={quizHtml}
             />
+
         </div>
     )
 }
@@ -77,8 +83,7 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
     handleOptionClicked: (selectedIndex: number) => void
 }) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-start px-4 my-1 text-sm
-        ${statusColor[itemStatus]}`}
+        className={cn(`min-h-[50px] w-full p-4 whitespace-normal break-words rounded-xl text-[13px]`, statusColor[itemStatus])}
         onClick={() => handleOptionClicked(idx)}
     >
         {itemString}
@@ -87,7 +92,7 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
 
 const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-primary`}
+        className={`rounded-xl flex-grow flex items-center justify-center px-4 text-base text-white bg-point1`}
         onClick={() => handleSubmit()}
     >
         제출
@@ -96,9 +101,15 @@ const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
 
 const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
     <div
-        className={`h-14 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center justify-center px-4 my-1 text-sm text-white bg-secondary`}
+        className={`rounded-xl flex-grow flex items-center justify-center px-4 text-base text-white bg-black`}
         onClick={handleClick}
     >
         해설
+    </div>
+)
+
+const HeartButton = ({clicked}: {clicked: boolean}) => (
+    <div className="w-[50px] rounded-xl bg-primary-50 grid place-items-center">
+        <HeartWhite/>
     </div>
 )

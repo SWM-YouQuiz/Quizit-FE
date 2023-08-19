@@ -31,7 +31,7 @@ const BodyContainer = ({chapters}: {chapters: Chapter[]}) => (
             chapters.map(({id, description, courseId}, idx) => (
                 <Card
                     key={`chapter-${id}`}
-                    href={`/quiz/${courseId}`}
+                    href={`/quiz/${id}`}
                     alt={courseId}
                     imageUrl={'temp'}
                     path={`Chapter ${idx+1}`}

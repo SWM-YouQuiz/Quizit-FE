@@ -1,6 +1,6 @@
 import {QuizItems} from "@/app/quiz/[chapterId]/[quizId]/quiz-items";
 import React, {cache, ReactNode} from "react";
-import {Heart, Share, ThumbDown, ThumbUp} from "@/components/svgs";
+import {Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
@@ -68,7 +68,6 @@ const QuizAnswerRate = () => (
 
 const QuizTools = () => (
     <div className="container flex justify-between w-32">
-        <Heart/>
         <ThumbUp/>
         <ThumbDown/>
         <Share/>

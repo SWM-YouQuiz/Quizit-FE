@@ -1,17 +1,13 @@
-
 import React, {cache, Suspense} from "react";
 import QuizComponent from "@/app/quiz/[chapterId]/[quizId]/quiz";
 import QuizSwiper from "@/app/quiz/[chapterId]/[quizId]/quiz-swiper";
 import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
+import Link from "next/link";
+import {BackArrow, Filter} from "@/components/svgs";
+import {Header} from "@/components/Header";
 
-const getQuizIds = async (chapterId: string) => {
-    const quizzes =  await getQuizOfChapter({chapterId: chapterId, page: 0, size: 3, range: "-1,101"});
-    const quizIds = quizzes.map(quiz => quiz.id);
-    return quizIds;
-}
+// TODO: header를 퀴즈가 아닌 챕터 명으로 바꿔야 함.
 const QuizPage = async ({ params }: { params: { chapterId: string, quizId: string } }) => {
-    const quizIds: string[] = await getQuizIds(params.chapterId);
-
     const quizExplanationComponents: QuizComponents[] = [{
             id: params.quizId,
             quizComponent: (
@@ -22,7 +18,16 @@ const QuizPage = async ({ params }: { params: { chapterId: string, quizId: strin
         }]
 
     return (
-        <QuizSwiper quizExplanationComponents={quizExplanationComponents} chapterId={params.chapterId}/>
+        <div className="flex flex-col h-full">
+            <Header>
+                <Link href={`/curriculum/mvp`}>
+                    <BackArrow/>
+                </Link>
+                <div className="font-bold">퀴즈</div>
+                <Filter/>
+            </Header>
+            <QuizSwiper quizExplanationComponents={quizExplanationComponents} chapterId={params.chapterId}/>
+        </div>
     )
 }
 

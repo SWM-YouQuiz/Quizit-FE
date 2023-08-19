@@ -33,6 +33,7 @@
     "swiper": "^10.0.4",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.2",
+    "tailwindcss-inner-border": "^0.2.0",
     "typescript": "5.1.6"
   },
   "devDependencies": {
