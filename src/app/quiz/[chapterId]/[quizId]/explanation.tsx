@@ -4,7 +4,6 @@ import React, {startTransition, useEffect, useMemo, useRef, useState} from "reac
 import {useChat, useCompletion} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
-import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {Send} from "@/components/svgs";
 
 
@@ -107,16 +106,6 @@ type InputProps = {
 }
 const Input = ({handleInputChange, input}: InputProps) => {
     return (
-        // <div className="flex h-11">
-        //     <input
-        //         type="text"
-        //         className="border rounded pl-3 pr-12"
-        //         placeholder="더 자세한 설명을 해주세요"
-        //         value={input}
-        //         onChange={handleInputChange}
-        //     />
-        //     <Send/>
-        // </div>
         <div className="relative flex">
             <input
                 type="text"
