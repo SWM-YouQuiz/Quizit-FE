@@ -25,7 +25,7 @@ const MainContainer = ({imageUrl, path, title, alt}: MainContainerProps) => (
     <div className="flex justify-start space-x-2">
         <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
             <Image
-                src="/next.svg"
+                src={imageUrl}
                 width={48}
                 height={48}
                 alt={alt}

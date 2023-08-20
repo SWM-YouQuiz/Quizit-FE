@@ -4,7 +4,7 @@ import {Header} from "@/components/Header";
 import {Alert, BackArrow, Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
-const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
+const Chapter = async ({params}: {params: {curriculumId: string, courseId: string, courseTitle: string}}) => {
     const chapters = await getChapters({curriculumId: 'mvp', courseId: params.courseId});
 
     return (
@@ -17,7 +17,7 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
                 <Filter/>
             </Header>
             <div className="flex-grow bg-bg-primary p-5 overflow-y-scroll">
-                <BodyContainer chapters={chapters}/>
+                <BodyContainer chapters={chapters} courseTitle={params.courseTitle}/>
             </div>
         </div>
     )
@@ -25,7 +25,7 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
 
 export default Chapter;
 
-const BodyContainer = ({chapters}: {chapters: Chapter[]}) => (
+const BodyContainer = ({chapters, courseTitle}: {chapters: Chapter[], courseTitle: string}) => (
     <div className="w-full overflow-y-scroll space-y-4">
         {
             chapters.map(({id, description, courseId}, idx) => (
@@ -33,7 +33,7 @@ const BodyContainer = ({chapters}: {chapters: Chapter[]}) => (
                     key={`chapter-${id}`}
                     href={`/quiz/${id}`}
                     alt={courseId}
-                    imageUrl={'temp'}
+                    imageUrl={`https://${process.env.S3_URL}/${courseTitle}.png`}
                     path={`Chapter ${idx+1}`}
                     percentage={30}
                     title={description}

@@ -1,9 +1,8 @@
-const BASE_URL = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_API_URL}`;
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
     images: {
-        domains: ['storage.googleapis.com'],
+        domains: [process.env.S3_URL]
     },
     output: 'standalone',
     poweredByHeader: false,
