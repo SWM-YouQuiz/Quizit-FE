@@ -31,6 +31,7 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
     const makeUserPrompt = (question: string, answer: number,) => {
         return `
         ${userPrompt}
+        문제: ${question}
         문항들: ${JSON.stringify(quizOptions)}
         정답: ${quizOptions[answer]}
         사용자의 선택: ${quizOptions[select]}
