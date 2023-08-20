@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode, Suspense} from "react";
 
 const QuizLayout = ({children}: {children: ReactNode}) => {
 

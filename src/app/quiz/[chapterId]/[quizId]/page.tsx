@@ -6,7 +6,7 @@ import {BackArrow, Filter, Share} from "@/components/svgs";
 import {Header} from "@/components/Header";
 
 // TODO: header를 퀴즈가 아닌 챕터 명으로 바꿔야 함.
-const QuizPage = async ({ params }: { params: { chapterId: string, quizId: string } }) => {
+const QuizPage = ({ params }: { params: { chapterId: string, quizId: string } }) => {
     const quizExplanationComponents: QuizComponents[] = [{
             id: params.quizId,
             quizComponent: (
