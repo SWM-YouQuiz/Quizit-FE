@@ -114,13 +114,10 @@ const Input = ({handleInputChange, input}: InputProps) => {
             if (visibility === "hidden") {
                 setIsKeyboardVisible(false);
             }
-            else { // visibility === "visible"
+            else {
                 setIsKeyboardVisible(true);
             }
         });
-
-        // After calling unsubscribe() the callback will no longer be invoked.
-        //unsubscribe();
     }
 
     return (
