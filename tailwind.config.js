@@ -15,15 +15,30 @@ module.exports = {
             'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        'bg-primary': '#F1F5F9',
-        'bg-secondary': '#D9D9D9',
+        'bg-primary': '#F8F8F8',
+        'bg-secondary': '#D8D8D8',
 
-        'primary': '#5D5FEF',
-        'secondary': '#A5A6F6',
+        'point1': '#7B61E8',
+        'point2': '#64D188',
+        'point3': '#49AF86',
         'success': '#75D6FF',
-        'error': '#FF7A7A'
+        'error': '#FB276B',
+        'bg-error': '#FFE3EC',
+
+          primary: {
+            50: '#F7F5FD',
+              200: '#DDD9F6',
+              400: '#BCB3ED',
+              600: '#9A8DE5',
+              800: '#7967DC',
+              900: '#5741D3'
+          },
+        'black': '#0B0434',
+          'text-dark': '#3B3D64'
       }
-    }
+    },
   },
-  plugins: [],
+  plugins: [
+      require("tailwindcss-inner-border"),
+  ],
 }

@@ -24,7 +24,6 @@ const RootLayout = async ({children,}: { children: ReactNode }) => {
             <Head />
             <body className="h-screen w-full flex flex-col">
                 <NextAuthProvider session={session}>
-                    <Header/>
                     {children}
                 </NextAuthProvider>
 

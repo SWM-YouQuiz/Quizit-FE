@@ -1,9 +1,9 @@
-import {ReactNode} from "react";
+import {ReactNode, Suspense} from "react";
 
 const QuizLayout = ({children}: {children: ReactNode}) => {
 
     return (
-        <div className="flex-grow p-4 relative">
+        <div className="flex-grow relative max-h-[calc(100dvh)]">
             {children}
         </div>
     )

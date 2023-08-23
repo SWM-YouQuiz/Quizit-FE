@@ -4,7 +4,7 @@ import React, {startTransition, useEffect, useMemo, useRef, useState} from "reac
 import {useChat, useCompletion} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
-import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
+import {Send} from "@/components/svgs";
 
 
 const systemPrompt = `
@@ -31,6 +31,7 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
     const makeUserPrompt = (question: string, answer: number,) => {
         return `
         ${userPrompt}
+        문제: ${question}
         문항들: ${JSON.stringify(quizOptions)}
         정답: ${quizOptions[answer]}
         사용자의 선택: ${quizOptions[select]}
@@ -48,18 +49,13 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
 
     return (
         <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit}>
-            <MessageBlock convertedMessages={convertedMessages} />
-            <input
-                className="border rounded mb-8 shadow-xl p-2"
-                placeholder="더 자세한 설명을 해주세요"
-                value={input}
-                onChange={handleInputChange}
-            />
+            <MessageBlockes convertedMessages={convertedMessages} />
+            <Input handleInputChange={handleInputChange} input={input}/>
         </form>
     )
 }
 
-const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
+const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -68,18 +64,62 @@ const MessageBlock = ({convertedMessages}: {convertedMessages: Message[]}) => {
     }, [convertedMessages]);
 
     return (
-        <div className="overflow-auto">
+        <div className="flex flex-col space-y-2.5 overflow-auto">
             {
-                convertedMessages.map(m => !isInvisibleMessage(m.id) && (
-                        <div key={m.id} className={`${m.role === 'user' ? "bg-secondary" : "bg-bg-primary"} rounded my-1 p-1`}>
-                            {m.role === 'user' ? 'User: ' : 'AI: '}
-                            <div className="text-sm" dangerouslySetInnerHTML={{ __html: (m.content) }}/>
-                        </div>
-                    )
-                )
+                convertedMessages.map(message => !isInvisibleMessage(message.id) && (
+                    <MessageBlock key={message.id} message={message}/>
+                ))
             }
             <div ref={ref} />
         </div>
+    )
+}
+
+const MessageBlock = ({message}: {message: Message}) => {
+    if(message.role === 'user') {
+        return (
+            <div className="flex self-end space-x-2">
+                <div className="bg-primary-50 rounded-b-xl rounded-tl-xl p-2.5">
+                    <div className="text-xs text-text-dark" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
+                </div>
+                <div className="flex flex-col justify-start">
+                    <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className="flex space-x-2">
+                <div className="flex flex-col justify-start">
+                    <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
+                </div>
+                <div className="bg-bg-primary rounded-b-xl rounded-tr-xl p-2.5">
+                    <div className="text-xs text-text-dark" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
+                </div>
+            </div>
+        )
+    }
+}
+
+type InputProps = {
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
+    input: string;
+}
+const Input = ({handleInputChange, input}: InputProps) => {
+    return (
+        <div className="relative flex">
+            <input
+                type="text"
+                className="w-full bg-stone-100 rounded-xl px-5 py-2.5 pl-5 focus:outline-none"
+                placeholder="더 자세한 설명을 해주세요"
+                value={input}
+                onChange={handleInputChange}
+            />
+            <button className="absolute right-1 top-1 bottom-1 z-10" type="submit">
+                <Send/>
+            </button>
+        </div>
+
     )
 }
 
