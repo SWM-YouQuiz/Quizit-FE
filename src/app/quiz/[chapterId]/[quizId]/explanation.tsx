@@ -5,6 +5,7 @@ import {useChat, useCompletion} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 import {Send} from "@/components/svgs";
+import { subscribe, isSupported } from 'on-screen-keyboard-detector';
 
 
 const systemPrompt = `
@@ -106,11 +107,27 @@ type InputProps = {
     input: string;
 }
 const Input = ({handleInputChange, input}: InputProps) => {
+    const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+    if (isSupported()) {
+        const unsubscribe = subscribe(visibility => {
+            if (visibility === "hidden") {
+                setIsKeyboardVisible(false);
+            }
+            else { // visibility === "visible"
+                setIsKeyboardVisible(true);
+            }
+        });
+
+        // After calling unsubscribe() the callback will no longer be invoked.
+        //unsubscribe();
+    }
+
     return (
-        <div className="relative flex">
+        <div className={`relative flex ${isKeyboardVisible ? "mb-80" : ""}`}>
             <input
                 type="text"
-                className="w-full bg-stone-100 rounded-xl px-5 py-2.5 pl-5 focus:outline-none"
+                className={`w-full bg-stone-100 rounded-xl px-5 py-2.5 pl-5 focus:outline-none`}
                 placeholder="더 자세한 설명을 해주세요"
                 value={input}
                 onChange={handleInputChange}
