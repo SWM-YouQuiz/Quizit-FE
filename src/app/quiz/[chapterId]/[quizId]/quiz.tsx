@@ -88,7 +88,7 @@ const ThumbDownButton = () => (
 )
 
 const QuizContent = ({quizContentHtml}: {quizContentHtml: string}) => (
-    <div className="mt-2 flex-auto overflow-y-auto min-h-0 text-text-dark" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
+    <div className="mt-2 flex-auto overflow-y-auto min-h-0 text-secondary-800" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
 )
 
 const BottomSideContainer = ({children} : {children: ReactNode}) => {

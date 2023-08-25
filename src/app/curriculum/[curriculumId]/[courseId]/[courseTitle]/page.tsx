@@ -35,7 +35,8 @@ const BodyContainer = ({chapters, courseTitle}: {chapters: Chapter[], courseTitl
                     alt={courseId}
                     imageUrl={`https://quizit-storage.s3.ap-northeast-2.amazonaws.com/${courseTitle}.png`}
                     path={`Chapter ${idx+1}`}
-                    percentage={30}
+                    allQuizzes={100}
+                    solvedQuizzes={40}
                     title={description}
                 />
             ))

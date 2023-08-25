@@ -26,15 +26,23 @@ module.exports = {
         'bg-error': '#FFE3EC',
 
           primary: {
-            50: '#F7F5FD',
+            50: '#F6F5FD',
+              100: '#EEECFB',
               200: '#DDD9F6',
               400: '#BCB3ED',
               600: '#9A8DE5',
               800: '#7967DC',
               900: '#5741D3'
           },
-        'black': '#0B0434',
-          'text-dark': '#3B3D64'
+          secondary: {
+            900: '#0B0434',
+              800: '#3C365D',
+              600: '#6D6885',
+              400: '#9D9BAE',
+              200: '#CECDD6',
+              100: '#E7E6EB',
+              50: '#F3F3F5'
+          }
       }
     },
   },
