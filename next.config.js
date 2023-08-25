@@ -1,8 +1,10 @@
+const BASE_URL = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_API_URL}`;
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
     images: {
-        domains: [process.env.S3_URL]
+        domains: ["quizit-storage.s3.ap-northeast-2.amazonaws.com"]
     },
     output: 'standalone',
     poweredByHeader: false,
