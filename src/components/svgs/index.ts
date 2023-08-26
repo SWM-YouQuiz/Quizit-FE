@@ -8,3 +8,4 @@ export {default as BackArrow} from "./backarrow.svg";
 export {default as Filter} from "./filter.svg";
 export {default as Send} from "./send.svg";
 export {default as Options} from "./options.svg";
+export {default as Setting} from "./setting.svg";
