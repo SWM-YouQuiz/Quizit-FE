@@ -2,15 +2,15 @@ import Link from "next/link";
 import {ReactNode} from "react";
 import {cn} from "@/util/tailwind";
 import {headers} from "next/headers";
-import QuizIcon from "@/components/QuizIcon";
-import CreateIcon from "@/components/CreateIcon";
-import RankingIcon from "@/components/RankingIcon";
-import ProfileIcon from "@/components/ProfileIcon";
+import QuizIcon from "@/components/icons/QuizIcon";
+import CreateIcon from "@/components/icons/CreateIcon";
+import RankingIcon from "@/components/icons/RankingIcon";
+import ProfileIcon from "@/components/icons/ProfileIcon";
 
 const Navbar = () => {
     const headersList = headers();
-    const pathname = headersList.get("x-pathname");
-    console.log("pathname", pathname);
+    const pathname = headersList.get("x-invoke-path");
+
     return (
         <div className="sticky bottom-0 flex items-center h-16 justify-evenly bg-white rounded-t-2xl">
             <Icon href="/curriculum/mvp" title="퀴즈" pathname={pathname}>
