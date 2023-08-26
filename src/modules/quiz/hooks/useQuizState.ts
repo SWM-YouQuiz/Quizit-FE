@@ -46,7 +46,6 @@ export const useQuizState = (quizId: string) => {
             changeSelectCorrect();
             setQuizStatus('correct');
         } else {
-            changeSelectWrong();
             changeAnswerCorrect(answer);
             setQuizStatus('wrong');
         }
