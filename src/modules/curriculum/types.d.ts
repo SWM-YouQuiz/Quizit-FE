@@ -9,3 +9,8 @@ type Chapter = {
     description: string,
     courseId: string
 }
+
+type CardOption = {
+    title: string,
+    onClick: () => void
+}

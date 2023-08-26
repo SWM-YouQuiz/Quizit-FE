@@ -18,7 +18,7 @@ const Course = async ({params}: {params: {curriculumId: string}}) => {
                 <div className="font-bold">mvp</div>
                 <Filter/>
             </Header>
-            <div className="flex-grow bg-bg-primary p-5 overflow-y-scroll">
+            <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer courses={courses}/>
             </div>
         </div>
@@ -37,7 +37,8 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
                     alt={title}
                     imageUrl={image}
                     path={title}
-                    percentage={30}
+                    solvedQuizzes={50}
+                    allQuizzes={400}
                     title={title}
                 />
             ))
