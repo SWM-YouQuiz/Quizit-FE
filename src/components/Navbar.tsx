@@ -1,15 +1,15 @@
+"use client"
 import Link from "next/link";
 import {ReactNode} from "react";
 import {cn} from "@/util/tailwind";
-import {headers} from "next/headers";
 import QuizIcon from "@/components/icons/QuizIcon";
 import CreateIcon from "@/components/icons/CreateIcon";
 import RankingIcon from "@/components/icons/RankingIcon";
 import ProfileIcon from "@/components/icons/ProfileIcon";
+import {usePathname} from "next/navigation";
 
 const Navbar = () => {
-    const headersList = headers();
-    const pathname = headersList.get("x-invoke-path");
+    const pathname = usePathname();
 
     return (
         <div className="sticky bottom-0 flex items-center h-16 justify-evenly bg-white rounded-t-2xl">
@@ -32,11 +32,11 @@ const Navbar = () => {
 type IconProps = {
     title: string,
     href: string,
-    pathname: string | null,
+    pathname: string,
     children: ReactNode
 }
 const Icon = ({title, href, children, pathname}: IconProps) => {
-    const isActive = pathname === href;
+    const isActive = pathname.includes(href);
     return (
         <Link href={href} className="flex-1 grid place-items-center space-y-0.5">
             <div className={isActive ? "fill-primary-800" : "fill-secondary-200"}>{children}</div>
