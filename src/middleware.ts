@@ -9,5 +9,10 @@ export default withAuth({
 
 
 export const config = {
-    matcher: ["/curriculum/:path*"]
+    matcher: [
+        "/curriculum/:path*",
+        "/ranking/:path*",
+        "/create/:path*",
+        "/profile/:path*"
+    ]
 }
