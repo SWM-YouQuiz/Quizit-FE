@@ -46,6 +46,7 @@ pre[class*="language-"] {
     -moz-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
+    font-size: 0.8rem;
 }
 
 /* Selection */
