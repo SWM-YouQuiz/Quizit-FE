@@ -13,9 +13,9 @@ const optionSignature = [
 ]
 
 const statusColor: Record<ItemStatus, string> = {
-    'idle': 'text-text-dark  bg-primary-50',
+    'idle': 'text-secondary-800  bg-primary-50',
     'select': 'text-primary-800  bg-primary-200',
-    'correct': 'text-primary-800  bg-primary-200',
+    'correct': 'text-primary-800  bg-primary-200 inner-border-2 inner-border-primary-800',
     'wrong': 'bg-bg-error inner-border-2 inner-border-error'
 };
 

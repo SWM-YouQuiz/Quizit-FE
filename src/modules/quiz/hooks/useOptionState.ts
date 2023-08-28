@@ -14,9 +14,9 @@ const changeArrSelectToCorrect = ({arr}: {arr: ItemStatus[]}) => {
     return arr.map(itemStatus => itemStatus === 'select' ? 'correct' : itemStatus)
 }
 
-const changeArrIdxToCorrect = ({arr, idx}: {arr: ItemStatus[], idx: number}) => {
+const changeArrIdxToWrong = ({arr, idx}: {arr: ItemStatus[], idx: number}) => {
     const newArr = [...arr];
-    newArr[idx] = 'correct';
+    newArr[idx] = 'wrong';
     return newArr;
 }
 
@@ -39,7 +39,7 @@ export const useOptionState = () => {
     }, []);
 
     const changeAnswerCorrect = useCallback((idx: number) => {
-        setItemsStatus(prev => changeArrIdxToCorrect({arr: prev, idx: idx}));
+        setItemsStatus(prev => changeArrIdxToWrong({arr: prev, idx: idx}));
     }, []);
 
     return { itemsStatus, changeItemSelect, changeSelectWrong, changeSelectCorrect, changeAnswerCorrect };

@@ -57,7 +57,8 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
                     imageUrl={image}
                     alt={title}
                     path={`${curriculumId}`}
-                    percentage={30}
+                    allQuizzes={1000}
+                    solvedQuizzes={200}
                 />
             ))
         }

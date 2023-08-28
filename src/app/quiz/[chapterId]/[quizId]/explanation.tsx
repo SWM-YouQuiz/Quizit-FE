@@ -81,7 +81,7 @@ const MessageBlock = ({message}: {message: Message}) => {
         return (
             <div className="flex self-end space-x-2">
                 <div className="bg-primary-50 rounded-b-xl rounded-tl-xl p-2.5">
-                    <div className="text-xs text-text-dark" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
+                    <div className="text-xs text-secondary-800" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
                 </div>
                 <div className="flex flex-col justify-start">
                     <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
@@ -95,7 +95,7 @@ const MessageBlock = ({message}: {message: Message}) => {
                     <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
                 </div>
                 <div className="bg-bg-primary rounded-b-xl rounded-tr-xl p-2.5">
-                    <div className="text-xs text-text-dark" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
+                    <div className="text-xs text-secondary-800" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
                 </div>
             </div>
         )

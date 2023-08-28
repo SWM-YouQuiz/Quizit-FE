@@ -10,9 +10,8 @@ type ButtonProps = {
 }
 const Button = ({disable=false, context, className="", onClick}: ButtonProps) => {
     return (
-        <div className={cn(`h-12 w-full border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center 
-                justify-center px-4 text-sm text-white
-                ${disable ? "bg-bg-secondary" : "bg-primary"}`, className)}
+        <div className={cn(`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white bg-point1
+                ${disable ? "bg-bg-secondary" : "bg-point1"}`, className)}
              onClick={(e) => {
                  disable && e.preventDefault();
                  onClick && onClick()
