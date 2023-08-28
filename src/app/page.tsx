@@ -17,7 +17,7 @@ const Home = async () => {
                 session?.user.accessToken ? (
                     <>
                         <SignoutButton/>
-                        <Link href="/curriculum/mvp">go to Course</Link>
+                        <Link href="/curriculum">go to Course</Link>
                         <p>
                             {session.user.accessToken}
                         </p>

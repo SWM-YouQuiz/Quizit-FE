@@ -4,10 +4,8 @@ import {Header} from "@/components/Header";
 import {Alert, BackArrow, Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
-
-const curriculumId: string = "mvp";
 const Course = async ({params}: {params: {curriculumId: string}}) => {
-    const courses = await getCourses({curriculumId: 'mvp'});
+    const courses = await getCourses({curriculumId: params.curriculumId});
 
     return (
         <div className="flex flex-col h-full">
@@ -30,7 +28,7 @@ export default Course;
 const BodyContainer = ({courses}: {courses: Course[]}) => (
     <div className="space-y-4">
         {
-            courses.map(({id, title, image}) => (
+            courses.map(({id, title, image, curriculumId}) => (
                 <Card
                     key={`course-${id}`}
                     href={`${curriculumId}/${id}/${title}`}

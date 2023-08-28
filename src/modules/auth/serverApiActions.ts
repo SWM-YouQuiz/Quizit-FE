@@ -30,7 +30,7 @@ type registerApiProps = {
 }
 export const registerApi = async (body: registerApiProps): Promise<Response> => {
     const response = requestApi({
-        endpoint: `${process.env.API_URL}/api/auth/auth/register`,
+        endpoint: `${process.env.API_URL}/api/user/user`,
         method: 'POST',
         body
     })
