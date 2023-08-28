@@ -1,0 +1,1 @@
+export {default as CodingCharacter} from "./coding.svg";

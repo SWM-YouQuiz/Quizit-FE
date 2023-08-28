@@ -3,7 +3,7 @@ import {Alert} from "@/components/svgs";
 import {Header} from "@/components/Header";
 import Navbar from "@/components/Navbar";
 
-const CourseLayout = ({children}: {children: ReactNode}) => {
+const RankingLayout = ({children}: {children: ReactNode}) => {
 
     return (
         <div className="flex-grow relative max-h-[calc(100dvh-64px)]">
@@ -13,4 +13,4 @@ const CourseLayout = ({children}: {children: ReactNode}) => {
     )
 }
 
-export default CourseLayout;
+export default RankingLayout;
