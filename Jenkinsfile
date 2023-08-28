@@ -30,7 +30,7 @@ pipeline{
         stage('Git Clone'){
             steps{
                 git url: 'https://github.com/SWM-YouQuiz/QuizIt-FE.git',
-                    branch: 'dev',
+                    branch: "${branch.split("/")[2]}",
                     credentialsId: "github_personal_access_token"
                 script{
                     def commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true)
