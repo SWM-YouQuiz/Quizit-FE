@@ -1,10 +1,11 @@
-import {QuizItems} from "@/app/quiz/[chapterId]/[quizId]/quiz-items";
+
 import React, {cache, ReactNode} from "react";
 import {Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import "@/modules/quiz/styles/one-light.css";
+import {QuizItems} from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-items";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {

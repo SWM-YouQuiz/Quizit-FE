@@ -1,9 +1,9 @@
 "use client"
 import React, {useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
-import ExplanationSheet from "@/app/quiz/[chapterId]/[quizId]/explanation-sheet";
 import {cn} from "@/util/tailwind";
 import {HeartWhite} from "@/components/svgs";
+import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 
 const optionSignature = [
     'A',
