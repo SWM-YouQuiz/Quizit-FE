@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <div className="sticky bottom-0 flex items-center h-16 justify-evenly bg-white rounded-t-2xl">
-            <Icon href="/curriculum/mvp" title="퀴즈" pathname={pathname}>
+            <Icon href="/curriculum" title="퀴즈" pathname={pathname}>
                 <QuizIcon/>
             </Icon>
             <Icon href="/create" title="생성" pathname={pathname}>
