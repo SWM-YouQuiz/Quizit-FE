@@ -1,6 +1,6 @@
 import Sheet, {SheetRef} from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
 import React, {useRef} from "react";
+import ExplanationComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation";
 
 type ExplanationSheetProps = {
     isBottomSheetOpen: boolean,

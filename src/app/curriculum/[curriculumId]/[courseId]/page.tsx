@@ -21,7 +21,12 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
                 <Filter/>
             </Header>
             <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
-                <BodyContainer chapters={chapters} courseTitle={course.title}/>
+                <BodyContainer
+                    chapters={chapters}
+                    courseTitle={course.title}
+                    curriculumId={params.curriculumId}
+                    courseId={params.courseId}
+                />
             </div>
         </div>
     )
@@ -29,13 +34,19 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
 
 export default Chapter;
 
-const BodyContainer = ({chapters, courseTitle}: {chapters: Chapter[], courseTitle: string}) => (
+type BodyContainerProps = {
+    chapters: Chapter[],
+    courseTitle: string,
+    curriculumId: string,
+    courseId: string
+}
+const BodyContainer = ({chapters, courseTitle, curriculumId, courseId}: BodyContainerProps) => (
     <div className="w-full space-y-4">
         {
             chapters.map(({id, description, courseId}, idx) => (
                     <Card
                         key={`chapter-${id}`}
-                        href={`/quiz/${id}`}
+                        href={`/quiz/${curriculumId}/${courseId}/${id}`}
                         alt={courseId}
                         imageUrl={`https://quizit-storage.s3.ap-northeast-2.amazonaws.com/${courseTitle}.png`}
                         path={`Chapter ${idx+1}`}
