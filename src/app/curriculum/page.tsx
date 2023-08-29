@@ -1,37 +1,33 @@
 
-import {getCourses} from "@/modules/curriculum/serverApiActions";
+import {getCourses, getCurriculums} from "@/modules/curriculum/serverApiActions";
 import {cn} from "@/util/tailwind";
 import {Header} from "@/components/Header";
 import {Alert} from "@/components/svgs";
 import Card from "@/modules/curriculum/components/Card";
 
-const curriculumId: string = "mvp";
-const Course = async ({params}: {params: {curriculumId: string}}) => {
-    const courses = await getCourses({curriculumId: 'mvp'});
-
+const Curriculum = async () => {
+    const curriculums = await getCurriculums();
 
     return (
-        <>
+        <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">퀴즈</div>
                 <Alert/>
             </Header>
-            <div className="bg-bg-primary p-5">
-                <div className="flex flex-col w-full h-full">
-                    <HeaderContainer title={curriculumId}/>
-                    <BodyContainer courses={courses}/>
-                </div>
+            <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
+                <HeaderContainer title="커리큘럼"/>
+                <BodyContainer curriculums={curriculums}/>
             </div>
-        </>
+        </div>
     )
 }
 
-export default Course;
+export default Curriculum;
 
 const HeaderContainer = ({title}: {title: string}) => (
     <div className="flex justify-between">
-        <HeaderCard title={"내가 푼 퀴즈"} count={132} className="bg-purple mr-3"/>
-        <HeaderCard title={"내가 만든 퀴즈"} count={29} className="bg-green"/>
+        <HeaderCard title={"내가 푼 퀴즈"} count={132} className="bg-primary-900 mr-3"/>
+        <HeaderCard title={"내가 만든 퀴즈"} count={29} className="bg-point3"/>
     </div>
 )
 
@@ -46,17 +42,18 @@ const HeaderCard = ({title, count, className=""}: {title: string, count: number,
     </div>
 )
 
-const BodyContainer = ({courses}: {courses: Course[]}) => (
-    <div className="place-items-center overflow-y-scroll p-4
-     grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-5">
+const BodyContainer = ({curriculums}: {curriculums: Curriculum[]}) => (
+    <div className="space-y-4">
+        <div className="mt-8 text-lg font-bold text-secondary-900">전체 커리큘럼</div>
         {
-            courses.map(({id, title, image},idx) => (
+            curriculums.map(({id, title, image},idx) => (
                 <Card
-                    key={`course-${id}`}
-                    title={title}
+                    key={`curriculum-${id}`}
+                    href={`curriculum/${id}`}
+                    title={`총 n개의 코스`}
                     imageUrl={image}
                     alt={title}
-                    path={`${curriculumId}`}
+                    path={title}
                     allQuizzes={1000}
                     solvedQuizzes={200}
                 />
@@ -64,3 +61,4 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
         }
     </div>
 )
+
