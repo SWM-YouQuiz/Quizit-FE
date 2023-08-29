@@ -1,4 +1,4 @@
-import {getCourses} from "@/modules/curriculum/serverApiActions";
+import {getCourses, getCurriculums} from "@/modules/curriculum/serverApiActions";
 import {cn} from "@/util/tailwind";
 import {Header} from "@/components/Header";
 import {Alert, BackArrow, Filter} from "@/components/svgs";
@@ -6,14 +6,17 @@ import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 const Course = async ({params}: {params: {curriculumId: string}}) => {
     const courses = await getCourses({curriculumId: params.curriculumId});
+    const curriculums = await getCurriculums();
+
+    const curriculum = curriculums.find(curriculum => curriculum.id === params.curriculumId) as Curriculum;
 
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/">
+                <Link href="/curriculum">
                     <BackArrow/>
                 </Link>
-                <div className="font-bold">mvp</div>
+                <div className="font-bold">{curriculum.title}</div>
                 <Filter/>
             </Header>
             <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
@@ -31,7 +34,7 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
             courses.map(({id, title, image, curriculumId}) => (
                 <Card
                     key={`course-${id}`}
-                    href={`${curriculumId}/${id}/${title}`}
+                    href={`${curriculumId}/${id}`}
                     alt={title}
                     imageUrl={image}
                     path={title}

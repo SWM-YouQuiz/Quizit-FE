@@ -1,33 +1,25 @@
 import {requestApi} from "@/util/fetcher";
-import {authenticateSession} from "@/util/session";
-import {authOptions} from "@/modules/auth/auth";
+import {cache} from "react";
 
-export const getCourses = async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
-    const session = await authenticateSession(authOptions);
+export const revalidate = 3600;
 
+export const getCourses = cache(async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
         method: 'GET',
-        token: session.user.accessToken
     });
-}
+});
 
-export const getChapters = async ({curriculumId, courseId}: {curriculumId: string, courseId: string}): Promise<Chapter[]> => {
-    const session = await authenticateSession(authOptions);
-
+export const getChapters = cache(async ({courseId}: {courseId: string}): Promise<Chapter[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/course/${courseId}`,
         method: 'GET',
-        token: session.user.accessToken
     });
-}
+});
 
-export const getCurriculums = async (): Promise<Curriculum[]> => {
-    const session = await authenticateSession(authOptions);
-
+export const getCurriculums = cache(async (): Promise<Curriculum[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum`,
         method: 'GET',
-        token: session.user.accessToken
     });
-}
+});

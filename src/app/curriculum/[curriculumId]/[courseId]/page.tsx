@@ -5,8 +5,11 @@ import {Alert, BackArrow, Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
-const Chapter = async ({params}: {params: {curriculumId: string, courseId: string, courseTitle: string}}) => {
-    const chapters = await getChapters({curriculumId: 'mvp', courseId: params.courseId});
+const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
+    const chapters = await getChapters({courseId: params.courseId});
+    const courses = await getCourses({curriculumId: params.curriculumId});
+
+    const course = courses.find(course => course.id === params.courseId) as Course;
 
     return (
         <div className="flex flex-col h-full">
@@ -14,11 +17,11 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
                 <Link href={`/curriculum/${params.curriculumId}`}>
                     <BackArrow/>
                 </Link>
-                <div className="font-bold">mvp</div>
+                <div className="font-bold">{course.title}</div>
                 <Filter/>
             </Header>
             <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
-                <BodyContainer chapters={chapters} courseTitle={params.courseTitle}/>
+                <BodyContainer chapters={chapters} courseTitle={course.title}/>
             </div>
         </div>
     )
