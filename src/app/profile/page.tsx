@@ -3,6 +3,7 @@ import {Rightarrow, Setting} from "@/components/svgs";
 import Image from "next/image";
 import CalendarHeatmap from "@/modules/profile/CalendarHeatmap";
 import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
+import Menu from "@/app/profile/menu";
 
 const ProfilePage = () => {
     return (
@@ -23,6 +24,7 @@ const BodyContainer = () => {
         <div className="space-y-6">
             <ProfileCard/>
             <CalendarHeatmapComponent/>
+            <Menu/>
         </div>
     )
 }
