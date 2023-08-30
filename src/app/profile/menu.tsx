@@ -16,7 +16,7 @@ const menuData: Menu[] = [
     },
     {
         title: "프로필 설정",
-        href: ""
+        href: "profile/mypage"
     }
 ]
 

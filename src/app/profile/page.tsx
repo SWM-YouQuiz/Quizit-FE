@@ -4,6 +4,7 @@ import Image from "next/image";
 import CalendarHeatmap from "@/modules/profile/CalendarHeatmap";
 import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
 import Menu from "@/app/profile/menu";
+import Link from "next/link";
 
 const ProfilePage = () => {
     return (
@@ -30,7 +31,10 @@ const BodyContainer = () => {
 }
 
 const ProfileCard = () => (
-    <div className="flex space-x-3">
+    <Link
+        className="flex space-x-3"
+        href="mypage"
+    >
         <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
             <Image
                 src={"next.svg"}
@@ -49,7 +53,7 @@ const ProfileCard = () => (
             </div>
             <Rightarrow className="self-center"/>
         </div>
-    </div>
+    </Link>
 )
 
 export default ProfilePage;
