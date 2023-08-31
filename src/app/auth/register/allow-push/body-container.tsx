@@ -39,7 +39,7 @@ const BodyContainer = () => {
             callbackUrl: `${window.location.origin}`,  // 현재 페이지로 리다이렉트
             redirect: false  // 리다이렉트 방지
         });
-        router.replace("/");
+        router.replace("/onboarding/0");
     }
 
     const submit = async () => {
