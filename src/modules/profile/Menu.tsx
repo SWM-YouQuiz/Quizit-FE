@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {Rightarrow} from "@/components/svgs";
+import LogoutButton from "@/modules/profile/components/LogoutButton";
 
 const menuData: Menu[] = [
     {
@@ -32,6 +33,7 @@ const Menu = () => {
                     />
                 ))
             }
+            <LogoutButton/>
         </div>
     )
 }
