@@ -1,11 +1,7 @@
 import {Header} from "@/components/Header";
 import {BackArrow, Rightarrow, Setting} from "@/components/svgs";
-import Image from "next/image";
-import CalendarHeatmap from "@/modules/profile/CalendarHeatmap";
-import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
-import Menu from "@/app/profile/menu";
 import Link from "next/link";
-import {GoalEdit, NicknameEdit} from "@/app/profile/mypage/edits";
+import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
 
 const MyPage = () => {
     return (

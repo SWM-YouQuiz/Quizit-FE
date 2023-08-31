@@ -1,10 +1,9 @@
 import {Header} from "@/components/Header";
 import {Rightarrow, Setting} from "@/components/svgs";
 import Image from "next/image";
-import CalendarHeatmap from "@/modules/profile/CalendarHeatmap";
 import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
-import Menu from "@/app/profile/menu";
 import Link from "next/link";
+import Menu from "@/modules/profile/Menu";
 
 const ProfilePage = () => {
     return (
