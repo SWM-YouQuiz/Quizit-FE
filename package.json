@@ -12,6 +12,7 @@
     "@hookform/error-message": "^2.0.1",
     "ai": "^2.1.25",
     "autoprefixer": "^10.4.14",
+    "framer-motion": "^10.16.2",
     "next": "13.4.7",
     "next-auth": "^4.22.3",
     "next-pwa": "^5.6.0",
