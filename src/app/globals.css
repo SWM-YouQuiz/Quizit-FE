@@ -10,7 +10,6 @@ body {
     touch-action:none;
     font-family: 'pretendard', serif;
     padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
 @font-face {

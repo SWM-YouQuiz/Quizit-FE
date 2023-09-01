@@ -8,6 +8,12 @@ import {authOptions} from "@/modules/auth/auth";
 export const metadata = {
     title: 'Quiz IT',
     description: 'Quiz IT',
+    viewport: {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+        viewportFit: "cover"
+    },
 }
 
 const RootLayout = async ({children,}: { children: ReactNode }) => {
