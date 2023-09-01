@@ -7,7 +7,7 @@ const Head = () => {
             <meta name="apple-mobile-web-app-capable" content="yes" />
             <meta name="apple-mobile-web-app-status-bar-style" content="default" />
             <meta name="apple-mobile-web-app-title" content="Quiz IT" />
-            <meta name="description" content="Best PWA App in the world" />
+            <meta name="description" content="Quiz IT" />
             <meta name="format-detection" content="telephone=no" />
             <meta name="mobile-web-app-capable" content="yes" />
             <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -46,10 +46,10 @@ const Head = () => {
 
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:url" content="https://quizit.org" />
-            <meta name="twitter:title" content="PWA App" />
-            <meta name="twitter:description" content="Best PWA App in the world" />
+            <meta name="twitter:title" content="Quiz IT" />
+            <meta name="twitter:description" content="Quiz IT" />
             <meta name="twitter:image" content="https://quizit.org/icons/android/drawable-xxxhdpi/icon" />
-            <meta name="twitter:creator" content="@DavidWShadow" />
+            <meta name="twitter:creator" content="" />
             <meta property="og:type" content="website" />
             <meta property="og:title" content="Quiz IT" />
             <meta property="og:description" content="Quiz IT" />
