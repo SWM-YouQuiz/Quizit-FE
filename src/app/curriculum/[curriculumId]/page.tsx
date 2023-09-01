@@ -13,7 +13,7 @@ const Course = async ({params}: {params: {curriculumId: string}}) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/curriculum">
+                <Link href="/curriculum" replace={true}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">{curriculum.title}</div>

@@ -40,7 +40,11 @@ export const Onboarding = ({svg, content, page}: OnBoardingType & {page: number}
             {svg}
             <div className="text-center text-secondary-800 text-lg mb-10 font-semibold px-16 whitespace-break-spaces">{content}</div>
         </div>
-        <Link href={`/onboarding/${page+1}`} className="w-full">
+        <Link
+            href={`/onboarding/${page+1}`}
+            className="w-full"
+            replace={true}
+        >
             <Button context="다음"/>
         </Link>
     </div>

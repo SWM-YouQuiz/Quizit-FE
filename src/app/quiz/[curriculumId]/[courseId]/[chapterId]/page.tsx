@@ -40,7 +40,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/${params.curriculumId}/${params.courseId}`}>
+                <Link href={`/curriculum/${params.curriculumId}/${params.courseId}`} replace={true}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">퀴즈</div>

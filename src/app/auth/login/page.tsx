@@ -22,7 +22,7 @@ const BodyContainer = () => {
             <LoginForm/>
             <div className="flex justify-end text-sm">
                 <span>처음 오셨나요?</span>
-                <Link href="/auth/register/email" className="text-primary">&nbsp;회원가입</Link>
+                <Link href="/auth/register/email" className="text-primary" replace={true}>&nbsp;회원가입</Link>
             </div>
         </div>
     )
