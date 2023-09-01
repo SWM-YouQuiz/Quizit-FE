@@ -1,32 +1,47 @@
 {
-    "theme_color": "#5D5FEF",
-    "background_color": "#A5A6F6",
+    "theme_color": "#5741D3",
+    "background_color": "#0B0434",
     "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
-    "name": "YouQuiz",
-    "short_name": "YouQuiz",
-    "description": "YouQuiz",
+    "name": "Quiz IT",
+    "short_name": "Quiz IT",
+    "description": "Quiz IT",
     "icons": [
         {
-            "src": "/icons/icon-192x192.png",
-            "sizes": "192x192",
+            "src": "/icons/android/drawable/icon.png",
+            "sizes": "96x96",
             "type": "image/png"
         },
         {
-            "src": "/icons/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
+          "src": "/icons/android/drawable-hdpi/icon.png",
+          "sizes": "72x72",
+          "type": "image/png"
         },
         {
-            "src": "/icons/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
+          "src": "/icons/android/drawable-idpi/icon.png",
+          "sizes": "36x36",
+          "type": "image/png"
         },
         {
-            "src": "/icons/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+          "src": "/icons/android/drawable-mdpi/icon.png",
+          "sizes": "48x48",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/android/drawable-xhdpi/icon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/android/drawable-xxhdpi/icon.png",
+          "sizes": "144x144",
+          "type": "image/png"
+        },
+        {
+          "src": "/icons/android/drawable-xxxhdpi/icon.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
     ]
 }

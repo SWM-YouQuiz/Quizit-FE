@@ -14,6 +14,7 @@ export const config = {
         "/ranking/:path*",
         "/create/:path*",
         "/profile/:path*",
-        "/onboarding/:path*"
+        "/onboarding/:path*",
+        "/"
     ]
 }
