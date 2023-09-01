@@ -1,6 +1,5 @@
 "use client"
 import Sheet, {SheetRef} from "react-modal-sheet";
-import ExplanationComponent from "@/app/quiz/[chapterId]/[quizId]/explanation";
 import React, {ReactNode, useRef, useState} from "react";
 
 type OpenSheetProps = {

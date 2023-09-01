@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 const QuizLayout = ({children}: {children: ReactNode}) => {
 
     return (
-        <Layout>
+        <Layout navbar={false}>
             {children}
         </Layout>
     )
