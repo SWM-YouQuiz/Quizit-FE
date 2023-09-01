@@ -9,10 +9,12 @@ import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 
 type QuizSwiperProps = {
     quizExplanationComponents: QuizComponents[];
-    chapterId: string
+    chapterId: string,
+    couseId: string,
+    curriculumId: string
 }
 
-const QuizSwiper = ({quizExplanationComponents, chapterId}: QuizSwiperProps) => {
+const QuizSwiper = ({quizExplanationComponents, curriculumId, couseId, chapterId}: QuizSwiperProps) => {
     const [page, setPage] = useState(0);
     const [quizQueue, setQuizQueue] = useState(quizExplanationComponents);
 
@@ -42,7 +44,7 @@ const QuizSwiper = ({quizExplanationComponents, chapterId}: QuizSwiperProps) => 
             navigation
             spaceBetween={4}
             onInit={(swiper) => {
-                window.history.replaceState(null, "", `/quiz/${chapterId}/${quizQueue[swiper.activeIndex].id}`);
+                window.history.replaceState(null, "", `/quiz/${curriculumId}/${couseId}/${chapterId}/${quizQueue[swiper.activeIndex].id}`);
                 replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onSlideChange={(swiper) => {
