@@ -1,7 +1,13 @@
 import { withAuth } from "next-auth/middleware";
-import {NextResponse} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 
-export default withAuth({
+export default withAuth(
+    function middleware(request: NextRequest) {
+        if (request.nextUrl.pathname === '/') {
+            return NextResponse.redirect(new URL('/curriculum', request.url))
+        }
+    },
+    {
     pages: {
         signIn: "/auth/login",
     },
