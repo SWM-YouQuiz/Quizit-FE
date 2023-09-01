@@ -47,7 +47,12 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
                 <Share/>
             </Header>
             <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll">
-                <QuizSwiper quizExplanationComponents={quizExplanationComponents} chapterId={params.chapterId}/>
+                <QuizSwiper
+                    quizExplanationComponents={quizExplanationComponents}
+                    chapterId={params.chapterId}
+                    couseId={params.courseId}
+                    curriculumId={params.curriculumId}
+                />
             </div>
         </div>
     )
