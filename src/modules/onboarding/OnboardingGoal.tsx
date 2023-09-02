@@ -26,7 +26,7 @@ const GoalEditItem = ({title, goalCount}: {title: string, goalCount: number}) =>
     return (
         <div
             className="w-full flex justify-between p-5 rounded-xl drop-shadow bg-white items-center"
-            onClick={() => router.push("/onboarding/4")}
+            onClick={() => router.replace("/onboarding/4")}
         >
             <div className="text-secondary-900 leading-[16px]">{title}</div>
             <div className="text-secondary-800 text-[13px] leading-[16px]">하루 {goalCount}문제 이상</div>

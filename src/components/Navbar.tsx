@@ -12,7 +12,7 @@ const Navbar = () => {
     const pathname = usePathname();
 
     return (
-        <div className="sticky bottom-0 flex items-center h-16 justify-evenly bg-white rounded-t-2xl drop-shadow-2xl">
+        <div className="sticky bottom-0 flex items-center h-[calc(64px+env(safe-area-inset-bottom))] justify-evenly bg-white rounded-t-2xl drop-shadow-2xl">
             <Icon href="/curriculum" title="퀴즈" pathname={pathname}>
                 <QuizIcon/>
             </Icon>
@@ -38,7 +38,7 @@ type IconProps = {
 const Icon = ({title, href, children, pathname}: IconProps) => {
     const isActive = pathname.includes(href);
     return (
-        <Link href={href} className="flex-1 grid place-items-center space-y-0.5">
+        <Link href={href} className="flex-1 grid place-items-center space-y-0.5 pb-[env(safe-area-inset-bottom)]" replace={true}>
             <div className={isActive ? "fill-primary-800" : "fill-secondary-200"}>{children}</div>
             <div className={cn("text-[11px] font-bold", isActive ? "text-primary-800" : "text-secondary-200")}>{title}</div>
         </Link>

@@ -11,7 +11,11 @@ const OnboardingFinish = ({page}: {page: number}) => {
                     <Onboarding5/>
                     <div className="text-center text-secondary-800 text-lg mb-10 font-semibold px-16 whitespace-break-spaces">{"모든 준비가 끝났어요.\n시작해볼까요?"}</div>
                 </div>
-                <Link href={`/curriculum`} className="w-full">
+                <Link
+                    href={`/curriculum`}
+                    className="w-full"
+                    replace={true}
+                >
                     <Button context="다음"/>
                 </Link>
             </div>

@@ -7,7 +7,7 @@ const MyPage = () => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/profile">
+                <Link href="/profile" replace={true}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">마이페이지</div>

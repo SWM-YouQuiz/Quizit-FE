@@ -1,5 +1,5 @@
 export const makeToken = (token: string) => {
-    return `Bearer ${token};`
+    return `Bearer ${token}`
 }
 
 export interface RequestParams {

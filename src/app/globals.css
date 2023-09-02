@@ -9,6 +9,7 @@ html, body {
 body {
     touch-action:none;
     font-family: 'pretendard', serif;
+    padding-top: env(safe-area-inset-top);
 }
 
 @font-face {
