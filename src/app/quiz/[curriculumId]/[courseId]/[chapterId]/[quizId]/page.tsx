@@ -1,12 +1,17 @@
 import React, {cache, Suspense} from "react";
-import QuizComponent from "@/app/quiz/[chapterId]/[quizId]/quiz";
-import QuizSwiper from "@/app/quiz/[chapterId]/[quizId]/quiz-swiper";
 import Link from "next/link";
 import {BackArrow, Filter, Share} from "@/components/svgs";
 import {Header} from "@/components/Header";
+import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
+import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 
-// TODO: header를 퀴즈가 아닌 챕터 명으로 바꿔야 함.
-const QuizPage = ({ params }: { params: { chapterId: string, quizId: string } }) => {
+type QuizPageParams = {
+    curriculumId: string,
+    courseId: string,
+    chapterId: string,
+    quizId: string
+}
+const QuizPage = ({ params }: { params: QuizPageParams }) => {
     const quizExplanationComponents: QuizComponents[] = [{
             id: params.quizId,
             quizComponent: (
@@ -19,7 +24,7 @@ const QuizPage = ({ params }: { params: { chapterId: string, quizId: string } })
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/mvp`}>
+                <Link href={`/curriculum/${params.curriculumId}/${params.courseId}`}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">퀴즈</div>

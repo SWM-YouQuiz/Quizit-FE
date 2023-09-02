@@ -1,6 +1,6 @@
 "use server"
 import React, {Suspense} from "react";
-import QuizComponent from "@/app/quiz/[chapterId]/[quizId]/quiz";
+import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 
 
 export const getQuizComponentsAction = async (quizIds: string[]) => {

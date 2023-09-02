@@ -13,6 +13,7 @@ export const config = {
         "/curriculum/:path*",
         "/ranking/:path*",
         "/create/:path*",
-        "/profile/:path*"
+        "/profile/:path*",
+        "/onboarding/:path*"
     ]
 }

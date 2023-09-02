@@ -2,17 +2,24 @@
 import React, {cache, Suspense} from "react";
 import {redirect} from "next/navigation";
 import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
-import QuizComponent from "@/app/quiz/[chapterId]/[quizId]/quiz";
 import {Header} from "@/components/Header";
 import Link from "next/link";
 import {BackArrow, Share} from "@/components/svgs";
-import QuizSwiper from "@/app/quiz/[chapterId]/[quizId]/quiz-swiper";
+import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
+import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
+
+type QuizPageParams = {
+    curriculumId: string,
+    courseId: string,
+    chapterId: string,
+    quizId: string
+}
 
 const getQuizzes = async (chapterId: string) => {
     const quizzes =  await getQuizOfChapter({chapterId: chapterId, page: 0, size: 3, range: "-1,101"});
     return quizzes;
 }
-const QuizPage = async ({ params }: { params: { chapterId: string } }) => {
+const QuizPage = async ({ params }: { params: QuizPageParams }) => {
     const quizzes= await getQuizzes(params.chapterId);
 
     if(quizzes.length===0) {
@@ -33,7 +40,7 @@ const QuizPage = async ({ params }: { params: { chapterId: string } }) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/mvp`}>
+                <Link href={`/curriculum/${params.curriculumId}/${params.courseId}`}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">퀴즈</div>
