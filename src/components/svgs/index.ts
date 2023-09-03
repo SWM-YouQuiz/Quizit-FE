@@ -11,3 +11,4 @@ export {default as Options} from "./options.svg";
 export {default as Setting} from "./setting.svg";
 export {default as Rightarrow} from "./rightarrow.svg";
 export {default as Downarrow} from "./downarrow.svg";
+export {default as SplashMarkDark} from "./splash-mark-dark.svg";

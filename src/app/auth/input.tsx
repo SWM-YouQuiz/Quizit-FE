@@ -2,7 +2,7 @@
 
 import React, { InputHTMLAttributes, ForwardRefRenderFunction, forwardRef } from 'react';
 import { FieldError, FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
+import {default as InputComponent} from "@/components/ui/Input";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -27,9 +27,8 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> =
                     }
                 </div>
 
-                <input
-                    className={`h-10 border-2 rounded shadow-lg shadow-bg-primary px-2 ${errors[name]?.type === "required" && "border-error"}`}
-                    type={type}
+                <InputComponent
+                    className={errors[name]?.type === "required" ? "border-error" : ""}
                     {...register(name)}
                     aria-invalid={errors[name] ? "true" : "false"}
                     {...props}
