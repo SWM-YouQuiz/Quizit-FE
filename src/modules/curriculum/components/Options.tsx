@@ -36,7 +36,7 @@ const Options = ({documentUrl}: OptionsProps) => {
 
     return (
         <>
-            <div className="absolute top-0 right-4" onClick={handleOptionsClick}>
+            <div className="relative" onClick={handleOptionsClick}>
                 <OptionsSvg/>
             </div>
             <OptionSheet isBottomSheetOpen={isBottomSheetOpen} closeBottomSheet={closeBottomSheet}>
