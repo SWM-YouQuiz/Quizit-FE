@@ -8,11 +8,9 @@ type LayoutProps = {
 }
 
 const Layout = ({children, navbar=true}: LayoutProps) => {
-    const maxh = navbar ? "calc(100dvh-64px)" : "calc(100dvh)"
-
     return (
         <>
-            <div className={`flex-grow relative h-[${maxh}] pb-[env(safe-area-inset-bottom)]`}>
+            <div className={`flex-grow relative h-[${navbar ? "calc(100dvh-64px)" : "calc(100dvh)"}] pb-[env(safe-area-inset-bottom)]`}>
                 {children}
             </div>
             {navbar && <Navbar/>}
