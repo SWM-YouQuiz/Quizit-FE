@@ -77,15 +77,15 @@ const LoginForm = () => {
                 aria-invalid={errors.password ? "true" : "false"}
             />
             <input
-                className={`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white bg-point1
-                ${checkDisable() ? "bg-bg-secondary" : "bg-primary"}`}
+                className={`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white
+                ${checkDisable() ? "bg-secondary-200" : "bg-primary-900"}`}
                 type="submit"
                 disabled={checkDisable()}
                 value="로그인"
             />
             <div className="flex justify-end text-sm">
                 <span>처음 오셨나요?</span>
-                <Link href="/auth/register/email" className="text-primary" replace={true}>&nbsp;회원가입</Link>
+                <Link href="/auth/register/email" className="text-primary-900" replace={true}>&nbsp;회원가입</Link>
             </div>
         </form>
     )

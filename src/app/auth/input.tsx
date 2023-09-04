@@ -7,13 +7,12 @@ import {default as InputComponent} from "@/components/ui/Input";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
     name: string;
-    type?: string;
     register: UseFormRegister<any>;
     errors: FieldErrors<any>;
 }
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> =
-    ({ label, name, type = "text", register, errors, ...props }, ref) => {
+    ({ label, name, register, errors, ...props }, ref) => {
         return (
             <div className="flex flex-col w-full">
                 <div className="flex justify-between">
@@ -28,11 +27,12 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> =
                 </div>
 
                 <InputComponent
-                    className={errors[name]?.type === "required" ? "border-error" : ""}
-                    {...register(name)}
+                    className={errors[name]?.type === "required" ? "" : ""}
                     aria-invalid={errors[name] ? "true" : "false"}
+                    {...register(name)}
                     {...props}
                 />
+
             </div>
         );
     }

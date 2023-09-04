@@ -1,12 +1,14 @@
-import React from "react";
+"use client"
+import React, {forwardRef, ForwardRefRenderFunction} from "react";
 import {cn} from "@/util/tailwind";
 
 type InputProps = {
     className?: string
 }
-const Input = ({className="", ...props}: InputProps) => {
+const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({className="", ...props}, ref) => {
     return (
         <input
+            ref={ref}
             type="text"
             className={cn("w-full h-12 rounded-lg border-2 border-neutral-200 px-4 text-secondary-900", className)}
             {...props}
@@ -14,4 +16,4 @@ const Input = ({className="", ...props}: InputProps) => {
     )
 }
 
-export default Input;
+export default forwardRef(Input);
