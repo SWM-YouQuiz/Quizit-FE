@@ -64,8 +64,8 @@ const BodyContainer = () => {
 
     return (
         <div className="flex flex-col w-full items-center space-y-2 p-4">
-            <Button context={"알겠어요"} disable={!isValid} onClick={handleAllow}/>
-            <Button context={"다음에 설정할게요"} disable={!isValid} className={"bg-bg-secondary"} onClick={handleDisAllow}/>
+            <Button className="w-full" context={"알겠어요"} disable={!isValid} onClick={handleAllow}/>
+            <Button className="w-full bg-secondary-200" context={"다음에 설정할게요"} disable={!isValid} onClick={handleDisAllow}/>
         </div>
     )
 }
