@@ -11,10 +11,12 @@ const Layout = ({children, navbar=true}: LayoutProps) => {
     const maxh = navbar ? "calc(100dvh-64px)" : "calc(100dvh)"
 
     return (
-        <div className={`flex-grow relative max-h-[${maxh}] pb-[env(safe-area-inset-bottom)]`}>
-            {children}
+        <>
+            <div className={`flex-grow relative h-[${maxh}] pb-[env(safe-area-inset-bottom)]`}>
+                {children}
+            </div>
             {navbar && <Navbar/>}
-        </div>
+        </>
     )
 }
 
