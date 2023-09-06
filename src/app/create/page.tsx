@@ -9,7 +9,7 @@ const CreatePage = () => {
                 <div className="font-bold">생성</div>
                 <Alert/>
             </Header>
-            <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
+            <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <Ready/>
             </div>
         </div>

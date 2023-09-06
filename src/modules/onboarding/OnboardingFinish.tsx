@@ -5,7 +5,7 @@ import Button from "@/components/ui/Button";
 const OnboardingFinish = ({page}: {page: number}) => {
 
     return (
-        <div className="flex-grow overflow-y-auto p-5">
+        <div className="flex-grow overflow-y-auto p-5 bg-white">
             <div className="h-full flex flex-col items-center space-y-2 justify-between">
                 <div className="mt-[180px] flex flex-col items-center">
                     <Onboarding5/>

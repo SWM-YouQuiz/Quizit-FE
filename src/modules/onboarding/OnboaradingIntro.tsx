@@ -27,7 +27,7 @@ const OnboardingIntro = ({page}: {page: number}) => {
     const svg = onBordingData[page].svg
     const content = onBordingData[page].content
     return (
-        <div className="flex-grow overflow-y-auto p-5">
+        <div className="flex-grow overflow-y-auto p-5 bg-white">
             <Onboarding svg={svg} content={content} page={page}/>
         </div>
     )

@@ -46,7 +46,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
                 <div className="font-bold">퀴즈</div>
                 <Share/>
             </Header>
-            <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll">
+            <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll bg-white">
                 <QuizSwiper
                     quizExplanationComponents={quizExplanationComponents}
                     chapterId={params.chapterId}

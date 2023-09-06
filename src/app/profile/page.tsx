@@ -12,7 +12,7 @@ const ProfilePage = () => {
                 <div className="font-bold">프로필</div>
                 <Setting/>
             </Header>
-            <div className="flex-grow overflow-y-auto p-5">
+            <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>
             </div>
         </div>
