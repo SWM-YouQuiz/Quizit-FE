@@ -2,12 +2,13 @@
 import {Downarrow} from "@/components/svgs";
 import React, {useState} from "react";
 import Modal from "@/components/ui/Modal"
+import Input from "@/components/ui/Input";
 
 export const NicknameEdit = () => {
     return (
         <div className="space-y-3">
             <div className="text-secondary-900 font-bold">닉네임 변경</div>
-            <input type="text" className="w-full h-12 rounded-lg border-2 border-neutral-200 px-4 text-secondary-900"/>
+            <Input />
         </div>
     )
 }

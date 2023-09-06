@@ -5,6 +5,8 @@ import {signIn} from "next-auth/react";
 import Input from "@/app/auth/input";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {SplashMarkDark} from "@/components/svgs";
+import Link from "next/link";
 
 type Inputs = {
     username: string
@@ -44,7 +46,7 @@ const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2 flex flex-col">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5 flex flex-col">
             {
                 errorMessage && (
                     <div className="flex h-fit items-center text-xs text-error">
@@ -75,13 +77,16 @@ const LoginForm = () => {
                 aria-invalid={errors.password ? "true" : "false"}
             />
             <input
-                className={`h-12 border-2 rounded-lg shadow-lg shadow-bg-primary flex items-center 
-                justify-center px-4 text-sm text-white
-                ${checkDisable() ? "bg-bg-secondary" : "bg-primary"}`}
+                className={`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white
+                ${checkDisable() ? "bg-secondary-200" : "bg-primary-900"}`}
                 type="submit"
                 disabled={checkDisable()}
                 value="로그인"
             />
+            <div className="flex justify-end text-sm">
+                <span>처음 오셨나요?</span>
+                <Link href="/auth/register/email" className="text-primary-900" replace={true}>&nbsp;회원가입</Link>
+            </div>
         </form>
     )
 }

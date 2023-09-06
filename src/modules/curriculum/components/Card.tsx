@@ -15,21 +15,22 @@ type CardProps = {
     className?: string,
     children?: ReactNode
 }
-const Card = ({href="", imageUrl, path, title, allQuizzes, solvedQuizzes, alt, className="", children}: CardProps) => {
+const Card = ({href="", imageUrl, path, title, allQuizzes, solvedQuizzes, alt, className="", children=null}: CardProps) => {
     return (
         <Link
             href={href}
             className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4", className)}
             replace={true}
         >
-            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} allQuizzes={allQuizzes} solvedQuizzes={solvedQuizzes}/>
-            {children ? children : null}
+            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} allQuizzes={allQuizzes} solvedQuizzes={solvedQuizzes}>
+                {children}
+            </MainContainer>
         </Link>
     )
 }
 
 type MainContainerProps = Omit<CardProps, 'className' | 'options'>;
-const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes}: MainContainerProps) => (
+const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes, children}: MainContainerProps) => (
     <div className="flex space-x-2">
         <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
             <Image
@@ -40,13 +41,16 @@ const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes}: 
             />
         </div>
         <div className="flex-grow space-y-3">
-            <div className="flex flex-col justify-evenly">
-                <div className="text-secondary-400 text-[13px]">
-                    {path}
+            <div className="flex">
+                <div className="flex-grow flex flex-col justify-evenly">
+                    <div className="text-secondary-400 text-[13px]">
+                        {path}
+                    </div>
+                    <div className="font-semibold text-base">
+                        {title}
+                    </div>
                 </div>
-                <div className="font-semibold text-base">
-                    {title}
-                </div>
+                {children}
             </div>
             <ProgressBar allQuizzes={allQuizzes} solvedQuizzes={solvedQuizzes}/>
         </div>

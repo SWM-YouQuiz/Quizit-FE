@@ -1,6 +1,7 @@
 "use client"
 import Sheet, {SheetRef} from "react-modal-sheet";
 import React, {ReactNode, useRef, useState} from "react";
+import {TapHandlers} from "framer-motion";
 
 type OpenSheetProps = {
     isBottomSheetOpen: boolean,
@@ -10,6 +11,7 @@ type OpenSheetProps = {
 
 const OptionSheet = ({isBottomSheetOpen, closeBottomSheet, children}: OpenSheetProps) => {
     const ref = useRef<SheetRef>();
+
     return (
         <Sheet
             isOpen={isBottomSheetOpen}
@@ -25,7 +27,7 @@ const OptionSheet = ({isBottomSheetOpen, closeBottomSheet, children}: OpenSheetP
                     </Sheet.Scroller>
                 </Sheet.Content>
             </Sheet.Container>
-            <Sheet.Backdrop />
+            <Sheet.Backdrop onTap={closeBottomSheet}/>
         </Sheet>
     )
 }
