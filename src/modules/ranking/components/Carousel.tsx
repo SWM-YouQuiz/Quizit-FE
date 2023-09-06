@@ -28,16 +28,7 @@ const Carousel = () => {
             modules={[EffectCoverflow ]}
         >
             <SwiperSlide>
-                <CarouselItem title="react"/>
-            </SwiperSlide>
-            <SwiperSlide>
-                <CarouselItem title="react"/>
-            </SwiperSlide>
-            <SwiperSlide>
-                <CarouselItem title="react"/>
-            </SwiperSlide>
-            <SwiperSlide>
-                <CarouselItem title="react"/>
+                <CarouselItem title="전체 코스"/>
             </SwiperSlide>
         </Swiper>
     );

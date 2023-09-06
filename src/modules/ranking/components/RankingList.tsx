@@ -10,9 +10,9 @@ const RankingList = async () => {
     const myRanking = rankingList.findIndex(user => user.id === "64d51262a2caa56a8b9ddb8a")
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center -mt-[36px]">
             <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>
-            <div className="w-full flex-col h-[500px] rounded-t-2xl overflow-y-scroll pt-[46px] bg-white drop-shadow-2xl">
+            <div className="w-full flex-col rounded-t-2xl overflow-y-scroll pt-[46px] bg-white drop-shadow-2xl">
                 {
                     rankingList.map((user, idx) => (
                         <ItemContainer key={user.id}>
