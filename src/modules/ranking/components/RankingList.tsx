@@ -30,7 +30,7 @@ export default RankingList;
 const MyItem = ({user, ranking}: {user: User, ranking: number}) => {
 
     return (
-        <div className="relative top-10 z-50 flex justify-between inner-border-2 inner-border-primary-900 w-80 p-4 rounded-2xl bg-white">
+        <div className="relative top-[36px] z-50 flex justify-between inner-border-2 inner-border-primary-900 w-80 p-4 rounded-2xl bg-white">
             <Item user={user} ranking={ranking}/>
         </div>
     )
