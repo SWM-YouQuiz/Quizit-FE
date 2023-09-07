@@ -1,6 +1,7 @@
 "use server"
 import React, {Suspense} from "react";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
+import 'server-only';
 
 
 export const getQuizComponentsAction = async (quizIds: string[]) => {

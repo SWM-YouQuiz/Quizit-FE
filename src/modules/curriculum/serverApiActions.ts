@@ -2,14 +2,14 @@ import {requestApi} from "@/util/fetcher";
 import {cache} from "react";
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
+import 'server-only';
 
-export const getCourses = cache(async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
-    const session = await authenticateSession(authOptions);
-
+export const getCourses = cache(async ({curriculumId, token}: {curriculumId: string, token: string}): Promise<Course[]> => {
+    console.log("token", token);
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: token
     });
 });
 

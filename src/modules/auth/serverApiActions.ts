@@ -1,5 +1,6 @@
 "use server"
 import {requestApi} from "@/util/fetcher";
+import 'server-only';
 
 type LoginApi = {
     body: {
