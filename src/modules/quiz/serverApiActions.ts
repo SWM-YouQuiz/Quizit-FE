@@ -2,6 +2,7 @@
 import {requestApi} from "@/util/fetcher";
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
+import 'server-only';
 
 export const getQuiz = async ({quizId}: {quizId: string}): Promise<Quiz> => {
     const session = await authenticateSession(authOptions);
