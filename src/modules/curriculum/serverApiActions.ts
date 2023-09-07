@@ -4,12 +4,13 @@ import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
 import 'server-only';
 
-export const getCourses = cache(async ({curriculumId, token}: {curriculumId: string, token: string}): Promise<Course[]> => {
-    console.log("token", token);
+export const getCourses = cache(async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
+    const session = await authenticateSession(authOptions);
+
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
         method: 'GET',
-        token: token
+        token: session.user.accessToken,
     });
 });
 
