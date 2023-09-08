@@ -16,7 +16,7 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/${params.curriculumId}`} replace={true}>
+                <Link href={`/curriculum/${params.curriculumId}`}>
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">{course.title}</div>

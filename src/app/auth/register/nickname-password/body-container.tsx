@@ -7,12 +7,6 @@ import {useRouter} from "next/navigation";
 
 const BodyContainer = () => {
     const { register, watch, formState: {errors, isValid} } = useFormContext<RegisterInputs>()
-    const router = useRouter();
-    const checkValidAccess = () => {
-        if(!isValid) {
-            router.replace("/");
-        }
-    }
 
     return (
         <div className="flex flex-col w-full items-center space-y-2 p-4">

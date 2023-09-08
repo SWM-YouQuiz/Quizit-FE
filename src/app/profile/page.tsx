@@ -33,7 +33,6 @@ const ProfileCard = () => (
     <Link
         className="flex space-x-3"
         href="mypage"
-        replace={true}
     >
         <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
             <Image

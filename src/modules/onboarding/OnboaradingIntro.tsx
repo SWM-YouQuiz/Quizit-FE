@@ -43,7 +43,6 @@ export const Onboarding = ({svg, content, page}: OnBoardingType & {page: number}
         <Link
             href={`/onboarding/${page+1}`}
             className="w-full"
-            replace={true}
         >
             <Button context="다음"/>
         </Link>

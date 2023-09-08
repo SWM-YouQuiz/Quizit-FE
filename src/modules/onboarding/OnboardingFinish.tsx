@@ -14,7 +14,6 @@ const OnboardingFinish = ({page}: {page: number}) => {
                 <Link
                     href={`/curriculum`}
                     className="w-full"
-                    replace={true}
                 >
                     <Button context="다음"/>
                 </Link>

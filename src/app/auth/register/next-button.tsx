@@ -9,7 +9,7 @@ type NextButtonProps = {
 
 const NextButton = ({context, href, disable}: NextButtonProps) => {
     return (
-        <Link href={href} className="w-full" replace={true}>
+        <Link href={href} className="w-full">
             <Button context={context} disable={disable}/>
         </Link>
     )

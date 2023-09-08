@@ -25,11 +25,6 @@ const BodyContainer = () => {
             image: ""
         })
     }
-    const checkValidAccess = () => {
-        if(!isValid) {
-            router.replace("/");
-        }
-    }
 
     const login = async () => {
         const username = getValues("username");

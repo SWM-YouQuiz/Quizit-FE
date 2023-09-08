@@ -38,7 +38,7 @@ type IconProps = {
 const Icon = ({title, href, children, pathname}: IconProps) => {
     const isActive = pathname.includes(href);
     return (
-        <Link href={href} className="flex-1 grid place-items-center space-y-0.5 pb-[calc(env(safe-area-inset-bottom)+12px)]" replace={true}>
+        <Link href={href} className="flex-1 grid place-items-center space-y-0.5 pb-[calc(env(safe-area-inset-bottom)+12px)]">
             <div className={isActive ? "fill-primary-800" : "fill-secondary-200"}>{children}</div>
             <div className={cn("text-[11px] font-bold", isActive ? "text-primary-800" : "text-secondary-200")}>{title}</div>
         </Link>
