@@ -27,7 +27,9 @@ const RegisterForm = () => {
             username: data.username,
             password: data.password,
             nickname: data.nickname,
-            allowPush: data.allowPush
+            allowPush: data.allowPush,
+            image: "",
+            dailyTarget: 10
         })
             .then(r => r.json())
             .then(json => console.log("r", json))
