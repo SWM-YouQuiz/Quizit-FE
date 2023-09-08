@@ -32,7 +32,7 @@ const BodyContainer = () => {
 const ProfileCard = () => (
     <Link
         className="flex space-x-3"
-        href="mypage"
+        href="profile/badge"
     >
         <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
             <Image
