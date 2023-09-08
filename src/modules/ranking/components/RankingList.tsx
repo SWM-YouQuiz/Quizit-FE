@@ -2,24 +2,27 @@ import {getUserRanking} from "@/modules/ranking/serverApiActions";
 import Image from "next/image";
 import React, {ReactNode} from "react";
 import {getServerSession, Session} from "next-auth";
+import {authOptions} from "@/modules/auth/auth";
 
 const RankingList = async () => {
     const rankingList = await getUserRanking();
-    const session = await getServerSession() as Session;
+    const session = await getServerSession(authOptions) as Session;
 
     const myRanking = rankingList.findIndex(user => user.id === "64d51262a2caa56a8b9ddb8a")
 
     return (
-        <div className="flex flex-col items-center -mt-[36px]">
+        <div className="flex flex-col items-center -mt-[24px]">
             <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>
-            <div className="w-full flex-col rounded-t-2xl overflow-y-scroll pt-[46px] bg-white drop-shadow-2xl">
-                {
-                    rankingList.map((user, idx) => (
-                        <ItemContainer key={user.id}>
-                            <Item user={user} ranking={idx+1}/>
-                        </ItemContainer>
-                    ))
-                }
+            <div className="h-1/2 w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
+                <div className="flex flex-col">
+                    {
+                        rankingList.map((user, idx) => (
+                            <ItemContainer key={user.id}>
+                                <Item user={user} ranking={idx+1}/>
+                            </ItemContainer>
+                        ))
+                    }
+                </div>
             </div>
         </div>
     )
