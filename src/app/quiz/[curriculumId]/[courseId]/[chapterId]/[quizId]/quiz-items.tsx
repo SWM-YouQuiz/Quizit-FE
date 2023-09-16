@@ -6,6 +6,7 @@ import {HeartRed, HeartWhite} from "@/components/svgs";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {getSession, useSession} from "next-auth/react";
+import { motion } from 'framer-motion';
 
 const optionSignature = [
     'A',
@@ -140,14 +141,23 @@ const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: st
     }
 
     return (
-        <button
+        <motion.button
             type="button"
             className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
             onClick={handleHeartClicked}
+            whileTap={{ scale: 0.9 }}
         >
             {
-                isMarked ? <HeartRed/> : <HeartWhite/>
+                isMarked ? (
+                    <motion.div whileTap={{ scale: 0.6, opacity: 0.5 }}>
+                        <HeartRed/>
+                    </motion.div>
+                ) : (
+                    <motion.div whileTap={{ scale: 1.4, opacity: 0.5 }}>
+                        <HeartWhite/>
+                    </motion.div>
+                )
             }
-        </button>
+        </motion.button>
     )
 }
