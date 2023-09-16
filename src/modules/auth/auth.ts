@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
             if(user && user.accessToken && user.refreshToken) {
                 token.accessToken = user.accessToken;
                 token.refreshToken = user.refreshToken;
+                token.user = user.user;
             }
             return token;
         },

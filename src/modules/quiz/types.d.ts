@@ -7,7 +7,10 @@ type Quiz = {
     options: string[],
     correctCount: number,
     incorrectCount: number,
-    createdDate: string
+    createdDate: string,
+    "markedUserIds": string[],
+    "likedUserIds": string[],
+    "unlikedUserIds": string[]
 };
 
 type QuizComponents = {
