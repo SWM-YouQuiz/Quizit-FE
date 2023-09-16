@@ -53,7 +53,7 @@ const CarouselItem = ({title}: CarouselItemProps) => {
                     />
                 </div>
                 <div className="font-semibold leading-[21px] text-lg mb-0.5 text-white">{title}</div>
-                <div className="leading-4 text-[13px] text-white">123 / 1000</div>
+                <div className="leading-4 text-[13px] text-white">&nbsp;</div>
             </div>
         </div>
     )
