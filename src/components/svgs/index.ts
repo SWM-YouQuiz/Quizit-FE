@@ -1,4 +1,5 @@
 export {default as HeartWhite} from "./heartwhite.svg";
+export {default as HeartRed} from "./heartred.svg";
 export {default as Share} from "./share.svg";
 export {default as ThumbUp} from "./thumbup.svg";
 export {default as ThumbDown} from "./thumbdown.svg";

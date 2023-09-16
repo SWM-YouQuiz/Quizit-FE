@@ -42,3 +42,13 @@ export const getQuizOfChapter = async ({chapterId, page, size, range}: GetQuizOf
         token: session.user.accessToken
     });
 }
+
+export const getQuizMark = async ({id}: {id: string}): Promise<Quiz> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/mark`,
+        method: 'GET',
+        token: session.user.accessToken
+    });
+}

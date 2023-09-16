@@ -1,9 +1,11 @@
 "use client"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {cn} from "@/util/tailwind";
-import {HeartWhite} from "@/components/svgs";
+import {HeartRed, HeartWhite} from "@/components/svgs";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
+import {getQuizMark} from "@/modules/quiz/serverApiActions";
+import {getSession, useSession} from "next-auth/react";
 
 const optionSignature = [
     'A',
@@ -19,8 +21,12 @@ const statusColor: Record<ItemStatus, string> = {
     'wrong': 'bg-bg-error inner-border-2 inner-border-error'
 };
 
-export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
-    const {id: quizId, options: quizOptions} = quizHtml;
+type QuizItemsProps = {
+    quizHtml: Quiz,
+}
+
+export const QuizItems = ({quizHtml}: QuizItemsProps) => {
+    const {id: quizId, options: quizOptions, markedUserIds} = quizHtml;
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
@@ -54,7 +60,7 @@ export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
                 }
             </div>
             <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
-                <HeartButton clicked={false}/>
+                <HeartButton quizId={quizId} markedUserIds={markedUserIds}/>
                 {
                     isQuizGraded() ? (
                         <ExplanationButton handleClick={openBottomSheet}/>
@@ -108,8 +114,40 @@ const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
     </div>
 )
 
-const HeartButton = ({clicked}: {clicked: boolean}) => (
-    <div className="w-[50px] rounded-xl bg-primary-50 grid place-items-center">
-        <HeartWhite/>
-    </div>
-)
+const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+    const [isMarked, setIsMarked] = useState(false);
+
+    const checkMarked = async (_markedUserIds: string[]) => {
+        const session = await getSession();
+        if(session) {
+            if(_markedUserIds.findIndex(userId => userId === session.user.user.id)) {
+                setIsMarked(true);
+            } else {
+                setIsMarked(false);
+            }
+        }
+    }
+
+    useEffect(() => {
+        checkMarked(markedUserIds);
+    },[])
+
+    const handleHeartClicked = () => {
+        getQuizMark({id: quizId})
+            .then((quiz) => {
+                checkMarked(quiz.markedUserIds)
+            })
+    }
+
+    return (
+        <button
+            type="button"
+            className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
+            onClick={handleHeartClicked}
+        >
+            {
+                isMarked ? <HeartRed/> : <HeartWhite/>
+            }
+        </button>
+    )
+}

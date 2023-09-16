@@ -27,7 +27,9 @@ type registerApiProps = {
     password: string,
     nickname: string,
     allowPush: boolean,
-    username: string
+    username: string,
+    image: string,
+    dailyTarget: number
 }
 export const registerApi = async (body: registerApiProps): Promise<Response> => {
     const response = requestApi({
