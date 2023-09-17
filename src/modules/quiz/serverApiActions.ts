@@ -52,3 +52,13 @@ export const getQuizMark = async ({id}: {id: string}): Promise<Quiz> => {
         token: session.user.accessToken
     });
 }
+
+export const getQuizEvaluate = async ({id, isLike}: {id: string, isLike: 'True'|'False'}): Promise<Quiz> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/evaluate?isLike=${isLike}`,
+        method: 'GET',
+        token: session.user.accessToken
+    });
+}

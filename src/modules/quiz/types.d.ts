@@ -8,9 +8,9 @@ type Quiz = {
     correctCount: number,
     incorrectCount: number,
     createdDate: string,
-    "markedUserIds": string[],
-    "likedUserIds": string[],
-    "unlikedUserIds": string[]
+    markedUserIds: string[],
+    likedUserIds: string[],
+    unlikedUserIds: string[]
 };
 
 type QuizComponents = {

@@ -121,7 +121,7 @@ const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: st
     const checkMarked = async (_markedUserIds: string[]) => {
         const session = await getSession();
         if(session) {
-            if(_markedUserIds.findIndex(userId => userId === session.user.user.id)) {
+            if(_markedUserIds.some(userId => userId === session.user.user.id)) {
                 setIsMarked(true);
             } else {
                 setIsMarked(false);
