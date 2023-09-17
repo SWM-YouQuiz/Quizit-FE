@@ -1,10 +1,11 @@
 "use client"
-import {ThumbDown, ThumbUp} from "@/components/svgs";
 import React, {MouseEventHandler, ReactNode, useEffect, useState} from "react";
 import {getQuizEvaluate, getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {getSession} from "next-auth/react";
 import {cn} from "@/util/tailwind";
+import ThumbupIcon from "@/components/icons/ThumbupIcon";
+import ThumbdownIcon from "@/components/icons/ThumbdownIcon";
 
 type QuizToolsProps = {
     quizId: string,
@@ -47,13 +48,13 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
 
     return (
         <div className="flex space-x-1.5">
-            <ThumbButton handleClick={handleOnClick} name="up" className={status==='liked' ? 'fill-primary-800' : ''}>
-                <ThumbUp/>
-                <span className="text-center text-xs text-bg-secondary">{likedCount}</span>
+            <ThumbButton handleClick={handleOnClick} name="up" className={status==='liked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
+                <ThumbupIcon/>
+                <span className="text-center text-xs">{likedCount}</span>
             </ThumbButton>
-            <ThumbButton handleClick={handleOnClick} name="down" className={status==='unliked' ? 'fill-primary-800' : ''}>
-                <ThumbDown/>
-                <span className="text-center text-xs text-bg-secondary">{unlikedCount}</span>
+            <ThumbButton handleClick={handleOnClick} name="down" className={status==='unliked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
+                <ThumbdownIcon/>
+                <span className="text-center text-xs">{unlikedCount}</span>
             </ThumbButton>
         </div>
     )
