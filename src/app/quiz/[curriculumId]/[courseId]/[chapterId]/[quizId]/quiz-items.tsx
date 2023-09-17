@@ -100,12 +100,14 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
 )
 
 const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
-    <div
+    <motion.button
+        type="button"
         className={`rounded-xl flex-grow flex items-center justify-center px-4 text-base text-white bg-point1`}
         onClick={() => handleSubmit()}
+        whileTap={{ scale: 0.95 }}
     >
         제출
-    </div>
+    </motion.button>
 )
 
 const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
