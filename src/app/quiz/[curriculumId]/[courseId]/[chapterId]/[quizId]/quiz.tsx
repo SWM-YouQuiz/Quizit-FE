@@ -1,6 +1,5 @@
 
 import React, {cache, ReactNode} from "react";
-import {Share, ThumbDown, ThumbUp} from "@/components/svgs";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
@@ -54,7 +53,7 @@ const TopSideContainer = ({children}: {children: ReactNode}) => (
 
 const QuizHeader = ({quizHtml}: {quizHtml: Quiz}) => (
     <div className="h-[22px] w-full flex justify-between">
-        <QuizAnswerRate/>
+        <QuizAnswerRate answerRate={quizHtml.answerRate}/>
         <QuizTools
             quizId={quizHtml.id}
             likedUserIds={quizHtml.likedUserIds}
@@ -63,9 +62,9 @@ const QuizHeader = ({quizHtml}: {quizHtml: Quiz}) => (
     </div>
 )
 
-const QuizAnswerRate = () => (
+const QuizAnswerRate = ({answerRate}: {answerRate: number}) => (
     <div className="rounded bg-point3 font-semibold text-white px-1.5 grid place-items-center">
-        <p className="text-xs text-center leading-[16px]">정답률: 50%</p>
+        <p className="text-xs text-center leading-[16px]">정답률:&nbsp;{answerRate.toFixed(1)}%</p>
     </div>
 )
 
