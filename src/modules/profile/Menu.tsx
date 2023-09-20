@@ -5,7 +5,7 @@ import LogoutButton from "@/modules/profile/components/LogoutButton";
 const menuData: Menu[] = [
     {
         title: "내가 푼 퀴즈",
-        href: ""
+        href: "profile/quizList/correctQuizIds"
     },
     {
         title: "좋아요 한 퀴즈",

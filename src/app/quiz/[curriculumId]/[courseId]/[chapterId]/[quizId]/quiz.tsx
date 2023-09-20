@@ -26,8 +26,6 @@ const getQuizHtml = async (quizId: string) => {
 const QuizComponent = async ({id}: {id: string}) => {
     const quizHtml = await getQuizHtml(id);
 
-    console.log("quizHtml", quizHtml);
-
     return (
         <div className="flex flex-col h-full justify-between w-full">
             <TopSideContainer>
