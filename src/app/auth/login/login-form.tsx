@@ -85,7 +85,7 @@ const LoginForm = () => {
             />
             <div className="flex justify-end text-sm">
                 <span>처음 오셨나요?</span>
-                <Link href="/auth/register/email" className="text-primary-900" replace={true}>&nbsp;회원가입</Link>
+                <Link href="/auth/register/email" className="text-primary-900">&nbsp;회원가입</Link>
             </div>
         </form>
     )

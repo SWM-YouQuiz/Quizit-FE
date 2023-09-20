@@ -12,7 +12,7 @@ const ProfilePage = () => {
                 <div className="font-bold">프로필</div>
                 <Setting/>
             </Header>
-            <div className="flex-grow overflow-y-auto p-5">
+            <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>
             </div>
         </div>
@@ -32,8 +32,7 @@ const BodyContainer = () => {
 const ProfileCard = () => (
     <Link
         className="flex space-x-3"
-        href="mypage"
-        replace={true}
+        href="profile/badge"
     >
         <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
             <Image

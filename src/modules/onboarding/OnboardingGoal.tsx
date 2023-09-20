@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 
 const OnboardingGoal = () => {
     return (
-        <div className="flex-grow flex flex-col items-center bg-bg-primary overflow-y-auto p-5 justify-evenly">
+        <div className="flex-grow flex flex-col items-center bg-secondary-50 overflow-y-auto p-5 justify-evenly">
             <div className="text-center text-secondary-800 text-lg mb-10 font-semibold px-16 whitespace-break-spaces">목표 시간을 선택해주세요</div>
             <Onboarding4/>
             <div className="w-full flex flex-col space-y-2.5">

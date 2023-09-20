@@ -2,6 +2,7 @@ import {Header} from "@/components/Header";
 import {BackArrow, Rightarrow, Setting} from "@/components/svgs";
 import Link from "next/link";
 import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
+import Ready from "@/components/Ready";
 
 const MyPage = () => {
     return (
@@ -10,7 +11,7 @@ const MyPage = () => {
                 <Link href="/profile">
                     <BackArrow/>
                 </Link>
-                <div className="font-bold">마이페이지</div>
+                <div className="font-bold">프로필</div>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>
@@ -23,9 +24,6 @@ export default MyPage;
 
 const BodyContainer = () => {
     return (
-        <div className="space-y-8">
-            <NicknameEdit/>
-            <GoalEdit/>
-        </div>
+        <Ready />
     )
 }

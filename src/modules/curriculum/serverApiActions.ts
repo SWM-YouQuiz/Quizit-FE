@@ -2,6 +2,7 @@ import {requestApi} from "@/util/fetcher";
 import {cache} from "react";
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
+import 'server-only';
 
 export const getCourses = cache(async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
     const session = await authenticateSession(authOptions);

@@ -13,7 +13,7 @@ const RegisterNicknamePassword = () => {
 const HeadContainer = () => (
     <div className="flex flex-col w-full">
         <div className="relative flex justify-between">
-            <Link className="text-sm" href={"/auth/register/email"} replace={true}>
+            <Link className="text-sm" href={"/auth/register/email"}>
                 이전
             </Link>
         </div>

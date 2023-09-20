@@ -1,7 +1,6 @@
 export {default as HeartWhite} from "./heartwhite.svg";
+export {default as HeartRed} from "./heartred.svg";
 export {default as Share} from "./share.svg";
-export {default as ThumbUp} from "./thumbup.svg";
-export {default as ThumbDown} from "./thumbdown.svg";
 export {default as ReactIcon} from "./React-icon.svg";
 export {default as Alert} from "./alert.svg";
 export {default as BackArrow} from "./backarrow.svg";

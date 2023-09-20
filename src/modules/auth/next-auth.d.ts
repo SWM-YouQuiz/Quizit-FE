@@ -13,12 +13,14 @@ declare module "next-auth" {
     interface Session {
         user: {
             accessToken: string,
-            refreshToken: string
+            refreshToken: string,
+            user: UserInfo
         }
     }
     interface User {
         accessToken: string,
         refreshToken: string
+        user: UserInfo
     }
 }
 
@@ -28,6 +30,7 @@ declare module "next-auth/jwt" {
     /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
     interface JWT {
         accessToken: string,
-        refreshToken: string
+        refreshToken: string,
+        user: UserInfo
     }
 }

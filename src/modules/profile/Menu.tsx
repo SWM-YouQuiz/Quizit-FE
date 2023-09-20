@@ -44,7 +44,6 @@ const Item = ({title, href}: Menu) => (
     <Link
         className="flex justify-between items-center h-[52px]"
         href={href}
-        replace={true}
     >
         <div className="text-[17px] text-secondary-900">{title}</div>
         <Rightarrow/>

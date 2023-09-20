@@ -1,9 +1,12 @@
 "use client"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {cn} from "@/util/tailwind";
-import {HeartWhite} from "@/components/svgs";
+import {HeartRed, HeartWhite} from "@/components/svgs";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
+import {getQuizMark} from "@/modules/quiz/serverApiActions";
+import {getSession, useSession} from "next-auth/react";
+import { motion } from 'framer-motion';
 
 const optionSignature = [
     'A',
@@ -13,14 +16,18 @@ const optionSignature = [
 ]
 
 const statusColor: Record<ItemStatus, string> = {
-    'idle': 'text-secondary-800  bg-primary-50',
-    'select': 'text-primary-800  bg-primary-200',
-    'correct': 'text-primary-800  bg-primary-200 inner-border-2 inner-border-primary-800',
-    'wrong': 'bg-bg-error inner-border-2 inner-border-error'
+    'idle': 'text-secondary-800  bg-primary-50 inner-border-primary-800',
+    'select': 'text-secondary-800  bg-primary-50 inner-border-primary-800 inner-border-2',
+    'correct': 'text-primary-800 bg-primary-200 inner-border-2 inner-border-primary-800',
+    'wrong': 'bg-bg-error inner-border-error'
 };
 
-export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
-    const {id: quizId, options: quizOptions} = quizHtml;
+type QuizItemsProps = {
+    quizHtml: Quiz,
+}
+
+export const QuizItems = ({quizHtml}: QuizItemsProps) => {
+    const {id: quizId, options: quizOptions, markedUserIds} = quizHtml;
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
@@ -54,7 +61,7 @@ export const QuizItems = ({quizHtml}: {quizHtml: Quiz}) => {
                 }
             </div>
             <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
-                <HeartButton clicked={false}/>
+                <HeartButton quizId={quizId} markedUserIds={markedUserIds}/>
                 {
                     isQuizGraded() ? (
                         <ExplanationButton handleClick={openBottomSheet}/>
@@ -82,21 +89,25 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
     idx: number,
     handleOptionClicked: (selectedIndex: number) => void
 }) => (
-    <div
-        className={cn(`min-h-[50px] w-full p-4 whitespace-normal break-words rounded-xl text-[13px]`, statusColor[itemStatus])}
+    <motion.button
+        type="button"
+        className={cn(`flex min-h-[50px] w-full p-4 whitespace-normal break-words rounded-xl text-[13px]`, statusColor[itemStatus])}
         onClick={() => handleOptionClicked(idx)}
+        whileTap={{ scale: 0.95 }}
     >
         {itemString}
-    </div>
+    </motion.button>
 )
 
 const SubmitButton = ({handleSubmit}: {handleSubmit: () => void}) => (
-    <div
+    <motion.button
+        type="button"
         className={`rounded-xl flex-grow flex items-center justify-center px-4 text-base text-white bg-point1`}
         onClick={() => handleSubmit()}
+        whileTap={{ scale: 0.95 }}
     >
         제출
-    </div>
+    </motion.button>
 )
 
 const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
@@ -108,8 +119,49 @@ const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
     </div>
 )
 
-const HeartButton = ({clicked}: {clicked: boolean}) => (
-    <div className="w-[50px] rounded-xl bg-primary-50 grid place-items-center">
-        <HeartWhite/>
-    </div>
-)
+const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+    const [isMarked, setIsMarked] = useState(false);
+
+    const checkMarked = async (_markedUserIds: string[]) => {
+        const session = await getSession();
+        if(session) {
+            if(_markedUserIds.some(userId => userId === session.user.user.id)) {
+                setIsMarked(true);
+            } else {
+                setIsMarked(false);
+            }
+        }
+    }
+
+    useEffect(() => {
+        checkMarked(markedUserIds);
+    },[])
+
+    const handleHeartClicked = () => {
+        getQuizMark({id: quizId})
+            .then((quiz) => {
+                checkMarked(quiz.markedUserIds)
+            })
+    }
+
+    return (
+        <motion.button
+            type="button"
+            className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
+            onClick={handleHeartClicked}
+            whileTap={{ scale: 0.9 }}
+        >
+            {
+                isMarked ? (
+                    <motion.div whileTap={{ scale: 0.6, opacity: 0.5 }}>
+                        <HeartRed/>
+                    </motion.div>
+                ) : (
+                    <motion.div whileTap={{ scale: 1.4, opacity: 0.5 }}>
+                        <HeartWhite/>
+                    </motion.div>
+                )
+            }
+        </motion.button>
+    )
+}

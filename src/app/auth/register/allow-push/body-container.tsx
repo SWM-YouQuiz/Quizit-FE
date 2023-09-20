@@ -20,24 +20,20 @@ const BodyContainer = () => {
             username: data.username,
             password: data.password,
             nickname: data.nickname,
-            allowPush: data.allowPush
+            allowPush: data.allowPush,
+            dailyTarget: 10,
+            image: ""
         })
-    }
-    const checkValidAccess = () => {
-        if(!isValid) {
-            router.replace("/");
-        }
     }
 
     const login = async () => {
-        console.log("here");
         const username = getValues("username");
         const password = getValues("password");
         await signIn("credentials", {
             username: username,
             password: password,
-            callbackUrl: `${window.location.origin}`,  // 현재 페이지로 리다이렉트
-            redirect: false  // 리다이렉트 방지
+            callbackUrl: `${window.location.origin}`,
+            redirect: false
         });
         router.replace("/onboarding/0");
     }

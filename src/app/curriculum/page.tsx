@@ -14,7 +14,7 @@ const Curriculum = async () => {
                 <div className="font-bold">퀴즈</div>
                 <Alert/>
             </Header>
-            <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
+            <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <HeaderContainer title="커리큘럼"/>
                 <BodyContainer curriculums={curriculums}/>
             </div>

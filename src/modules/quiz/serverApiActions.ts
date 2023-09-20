@@ -2,6 +2,7 @@
 import {requestApi} from "@/util/fetcher";
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
+import 'server-only';
 
 export const getQuiz = async ({quizId}: {quizId: string}): Promise<Quiz> => {
     const session = await authenticateSession(authOptions);
@@ -37,6 +38,26 @@ export const getQuizOfChapter = async ({chapterId, page, size, range}: GetQuizOf
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/chapter/${chapterId}?page=${page}&size=${size}&range=${range}`,
+        method: 'GET',
+        token: session.user.accessToken
+    });
+}
+
+export const getQuizMark = async ({id}: {id: string}): Promise<Quiz> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/mark`,
+        method: 'GET',
+        token: session.user.accessToken
+    });
+}
+
+export const getQuizEvaluate = async ({id, isLike}: {id: string, isLike: 'True'|'False'}): Promise<Quiz> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/evaluate?isLike=${isLike}`,
         method: 'GET',
         token: session.user.accessToken
     });
