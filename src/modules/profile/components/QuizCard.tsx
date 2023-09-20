@@ -2,6 +2,7 @@ import Link from "next/link";
 import {cn} from "@/util/tailwind";
 import {ReactNode} from "react";
 import Image from "next/image";
+import "server-only";
 
 type CardProps = {
     href?: string,

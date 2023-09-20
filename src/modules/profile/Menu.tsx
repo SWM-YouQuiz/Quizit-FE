@@ -2,7 +2,7 @@ import Link from "next/link";
 import {Rightarrow} from "@/components/svgs";
 import LogoutButton from "@/modules/profile/components/LogoutButton";
 
-const menuData: Menu[] = [
+export const menuData: Menu[] = [
     {
         title: "내가 푼 퀴즈",
         href: "profile/quizList/correctQuizIds"
