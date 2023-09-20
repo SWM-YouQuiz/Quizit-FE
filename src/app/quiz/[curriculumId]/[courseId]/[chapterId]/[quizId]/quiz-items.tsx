@@ -151,17 +151,9 @@ const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: st
             onClick={handleHeartClicked}
             whileTap={{ scale: 0.9 }}
         >
-            {
-                isMarked ? (
-                    <motion.div whileTap={{ scale: 0.6, opacity: 0.5 }}>
-                        <HeartRed/>
-                    </motion.div>
-                ) : (
-                    <motion.div whileTap={{ scale: 1.4, opacity: 0.5 }}>
-                        <HeartWhite/>
-                    </motion.div>
-                )
-            }
+        {
+            isMarked ? <HeartRed/> : <HeartWhite/>
+        }
         </motion.button>
     )
 }
