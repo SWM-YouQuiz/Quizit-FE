@@ -4,7 +4,7 @@ import React from "react";
 
 const ShareButton = () => {
     const handleClick = () => {
-        console.log("navigator", navigator.share)
+        alert(JSON.stringify(navigator.share))
         if (navigator.share) {
             navigator.share({
                 title: "Quiz IT",
@@ -13,7 +13,7 @@ const ShareButton = () => {
             })
                 .then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
-        } else {
+        } else if (navigator.clipboard) {
             navigator.clipboard.writeText(window.location.href)
                 .then(() => {
                     alert("클립보드에 링크가 복사되었습니다.")
@@ -24,6 +24,7 @@ const ShareButton = () => {
     return (
         <button type="button" onClick={handleClick}>
             <Share/>
+            <p>hello</p>
         </button>
     )
 }
