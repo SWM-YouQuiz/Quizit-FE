@@ -3,18 +3,25 @@ import {ReactNode, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import getQuizAction from "@/modules/profile/quizList/getQuizAction";
 import delay from "delay";
-
+type QuizCardComponent = {
+    id: string,
+    component: ReactNode
+}
 const QuizList = ({quizIds}: {quizIds: string[]}) => {
     const refetchAmount = 6;
-    const [quizzes, setQuizzes] = useState<ReactNode[]>([]);
+    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([]);
     const [page, setPage] = useState(0);
 
     const { ref, inView } = useInView();
 
     const refetch = async () => {
         await delay(100);
-        const newQuizzes = await getQuizAction({quizIds: quizIds, page: page, refetchAmount: refetchAmount});
-        setQuizzes(prev => [...prev, ...newQuizzes]);
+
+        getQuizAction({quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount)})
+            .then((newQuizCardComponents) => {
+                setQuizzes(prev => [...prev, ...newQuizCardComponents]);
+            })
+
         setPage(prev => prev + 1);
     }
 
@@ -27,10 +34,13 @@ const QuizList = ({quizIds}: {quizIds: string[]}) => {
     return (
         <div className="space-y-6">
             {
-                quizzes.map(quizCardComponent => (
-                    <>
-                        {quizCardComponent}
-                    </>
+                !quizzes || quizzes.length === 0 ? (
+                    <p>loading</p>
+                    ) :
+                quizzes.map(({id, component}) => (
+                    <div key={id}>
+                        {component}
+                    </div>
                 ))
             }
             <div

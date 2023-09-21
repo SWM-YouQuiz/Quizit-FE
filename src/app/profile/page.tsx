@@ -6,6 +6,7 @@ import Link from "next/link";
 import Menu from "@/modules/profile/Menu";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
+import {authenticateSession} from "@/util/session";
 
 const ProfilePage = () => {
     return (
@@ -32,7 +33,7 @@ const BodyContainer = () => {
 }
 
 const ProfileCard = async () => {
-    const session = await getServerSession(authOptions);
+    const session = await authenticateSession(authOptions);
 
     return (
         <Link
@@ -52,7 +53,7 @@ const ProfileCard = async () => {
                     <div className="text-[13px] text-secondary-400 leading-[16px] mb-[3px]">Lv.100</div>
                     <div className="text-lg text-secondary-900 font-semibold leading-[21px] mb-[7px]">정의찬</div>
                     <div className="bg-primary-100 px-2 py-1 text-primary-900 rounded text-[13px]">
-                        하루 목표 {session?.user.user.dailyTarget}개
+                        하루 목표 {session.user.user.dailyTarget}개
                     </div>
                 </div>
                 <Rightarrow className="self-center"/>

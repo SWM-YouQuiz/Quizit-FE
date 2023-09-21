@@ -2,11 +2,9 @@
 import React, {useEffect, useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {cn} from "@/util/tailwind";
-import {HeartRed, HeartWhite} from "@/components/svgs";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
-import {getQuizMark} from "@/modules/quiz/serverApiActions";
-import {getSession, useSession} from "next-auth/react";
 import { motion } from 'framer-motion';
+import {HeartSquareButton} from "@/components/HeartButton";
 
 const optionSignature = [
     'A',
@@ -61,7 +59,7 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
                 }
             </div>
             <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
-                <HeartButton quizId={quizId} markedUserIds={markedUserIds}/>
+                <HeartSquareButton quizId={quizId} markedUserIds={markedUserIds}/>
                 {
                     isQuizGraded() ? (
                         <ExplanationButton handleClick={openBottomSheet}/>
@@ -119,41 +117,3 @@ const ExplanationButton = ({handleClick}: {handleClick: () => void}) => (
     </div>
 )
 
-const HeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
-    const [isMarked, setIsMarked] = useState(false);
-
-    const checkMarked = async (_markedUserIds: string[]) => {
-        const session = await getSession();
-        if(session) {
-            if(_markedUserIds.some(userId => userId === session.user.user.id)) {
-                setIsMarked(true);
-            } else {
-                setIsMarked(false);
-            }
-        }
-    }
-
-    useEffect(() => {
-        checkMarked(markedUserIds);
-    },[])
-
-    const handleHeartClicked = () => {
-        getQuizMark({id: quizId})
-            .then((quiz) => {
-                checkMarked(quiz.markedUserIds)
-            })
-    }
-
-    return (
-        <motion.button
-            type="button"
-            className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
-            onClick={handleHeartClicked}
-            whileTap={{ scale: 0.9 }}
-        >
-        {
-            isMarked ? <HeartRed/> : <HeartWhite/>
-        }
-        </motion.button>
-    )
-}
