@@ -4,7 +4,8 @@ import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {cn} from "@/util/tailwind";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 import { motion } from 'framer-motion';
-import {HeartSquareButton} from "@/components/HeartButton";
+import {HeartSquareButton} from "@/components/Heartbutton";
+
 
 const optionSignature = [
     'A',

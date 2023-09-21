@@ -3,14 +3,20 @@ import {Rightarrow, Setting} from "@/components/svgs";
 import Menu, {menuData} from "@/modules/profile/Menu";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
-import QuizCard from "@/modules/profile/components/QuizCard";
 import QuizList from "@/modules/profile/quizList/QuizList";
+import {ReactNode, Suspense} from "react";
+import QuizCard from "@/modules/profile/components/QuizCard";
 
 const validRoute = [
     "correctQuizIds",
     "incorrectQuizIds",
     "markedQuizIds"
 ]
+
+export type QuizCardComponent = {
+    id: string,
+    component: ReactNode
+}
 
 const getTitle = (group: keyof UserInfo) => {
     let title = "";
@@ -32,7 +38,16 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
         throw new Error("오류가 발생했습니다.");
     }
 
-    const quizzes = session.user.user[params.group] as string[];
+    const quizzIds = session.user.user[params.group] as string[];
+    const firstQuizzId = quizzIds[0];
+    const init: QuizCardComponent = {
+        id: firstQuizzId,
+        component: (
+            <Suspense key={`quizId-${firstQuizzId}`} fallback={<QuizCard quizId={"-1"}/> }>
+                <QuizCard quizId={firstQuizzId}/>
+            </Suspense>
+        )
+    }
 
     return (
         <div className="flex flex-col h-full">
@@ -41,7 +56,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                 <Setting/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
-                <QuizList quizIds={quizzes}/>
+                <QuizList quizIds={quizzIds.slice(1)} init={init}/>
             </div>
         </div>
     )

@@ -54,7 +54,7 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
     )
 }
 
-export const HeartButton  = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+const Heartbutton  = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
     const {handleHeartClicked, isMarked} = useHeartButton({quizId, markedUserIds});
 
     return (
@@ -69,3 +69,4 @@ export const HeartButton  = ({quizId, markedUserIds}: {quizId: string, markedUse
         </motion.button>
     )
 }
+export default Heartbutton;

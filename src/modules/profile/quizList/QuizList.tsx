@@ -3,25 +3,29 @@ import {ReactNode, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import getQuizAction from "@/modules/profile/quizList/getQuizAction";
 import delay from "delay";
-type QuizCardComponent = {
-    id: string,
-    component: ReactNode
-}
-const QuizList = ({quizIds}: {quizIds: string[]}) => {
+import Divider from "@/modules/profile/quizList/Divider";
+import {QuizCardComponent} from "@/app/profile/quizList/[group]/page";
+
+
+const QuizList = ({quizIds, init}: {quizIds: string[], init: QuizCardComponent}) => {
     const refetchAmount = 6;
-    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([]);
-    const [page, setPage] = useState(0);
+    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([init]);
+    const [page, setPage] = useState(1);
 
     const { ref, inView } = useInView();
 
     const refetch = async () => {
         await delay(100);
 
-        getQuizAction({quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount)})
-            .then((newQuizCardComponents) => {
-                setQuizzes(prev => [...prev, ...newQuizCardComponents]);
-            })
+        console.log("page", quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount));
 
+        getQuizAction({quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount)})
+            .then(newQuizComponents =>
+                setQuizzes(prev => [
+                    ...prev,
+                    ...newQuizComponents
+                ])
+            )
         setPage(prev => prev + 1);
     }
 
@@ -34,9 +38,6 @@ const QuizList = ({quizIds}: {quizIds: string[]}) => {
     return (
         <div className="space-y-6">
             {
-                !quizzes || quizzes.length === 0 ? (
-                    <p>loading</p>
-                    ) :
                 quizzes.map(({id, component}) => (
                     <div key={id}>
                         {component}
