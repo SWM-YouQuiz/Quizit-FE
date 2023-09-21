@@ -5,6 +5,7 @@ import Image from "next/image";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import {nonData} from "@/modules/quiz/quizDummy";
 import Heartbutton from "@/components/Heartbutton";
+import {calculateDateDifference} from "@/util/etc";
 
 type CardProps = {
     href?: string,
@@ -31,12 +32,12 @@ const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
                     />
                 </div>
                 <div className="flex-grow space-y-3">
-                    <div className="flex">
+                    <div className="flex items-start">
                         <div className="flex-grow flex flex-col justify-evenly">
                             <div className="text-secondary-400 text-[13px]">
                                 임시 path
                             </div>
-                            <div className="font-semibold text-base">
+                            <div className="font-semibold text-sm">
                                 {quiz.question}
                             </div>
                         </div>
@@ -45,7 +46,9 @@ const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
                 </div>
             </div>
             <div className="flex justify-end">
-                <div>hello</div>
+                <div className="text-secondary-400 text-[13px]">
+                    {calculateDateDifference(new Date(), new Date(quiz.createdDate))}일전
+                </div>
             </div>
         </Link>
     )

@@ -39,6 +39,12 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
     }
 
     const quizzIds = session.user.user[params.group] as string[];
+
+    quizzIds.sort((a, b) => {
+        if(a > b) return -1;
+        else return 1;
+    });
+
     const firstQuizzId = quizzIds[0];
     const init: QuizCardComponent = {
         id: firstQuizzId,
