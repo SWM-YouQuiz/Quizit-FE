@@ -23,13 +23,15 @@ const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
             className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4", className)}
         >
             <div className="flex space-x-2">
-                <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
-                    <Image
-                        src={"/next.svg"}
-                        width={48}
-                        height={48}
-                        alt={"퀴즈가 포함된 코스 로고"}
-                    />
+                <div>
+                    <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
+                        <Image
+                            src={"/next.svg"}
+                            width={48}
+                            height={48}
+                            alt={"퀴즈가 포함된 코스 로고"}
+                        />
+                    </div>
                 </div>
                 <div className="flex-grow space-y-3">
                     <div className="flex items-start">
