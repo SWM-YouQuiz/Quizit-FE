@@ -25,7 +25,7 @@ const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
             <div className="flex space-x-2">
                 <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
                     <Image
-                        src={"./next.svg"}
+                        src={"/next.svg"}
                         width={48}
                         height={48}
                         alt={"퀴즈가 포함된 코스 로고"}

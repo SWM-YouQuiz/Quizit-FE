@@ -7,9 +7,9 @@ import Divider from "@/modules/profile/quizList/Divider";
 import {QuizCardComponent} from "@/app/profile/quizList/[group]/page";
 
 
-const QuizList = ({quizIds, init}: {quizIds: string[], init: QuizCardComponent}) => {
+const QuizList = ({quizIds, init}: {quizIds: string[], init: QuizCardComponent[]}) => {
     const refetchAmount = 6;
-    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([init]);
+    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([...init]);
     const [page, setPage] = useState(1);
 
     const { ref, inView } = useInView();
@@ -17,20 +17,23 @@ const QuizList = ({quizIds, init}: {quizIds: string[], init: QuizCardComponent})
     const refetch = async () => {
         await delay(100);
 
-        console.log("page", quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount));
+        console.log("page", page, quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount));
 
+        if(page * refetchAmount + refetchAmount > quizIds.length) return;
         getQuizAction({quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount)})
-            .then(newQuizComponents =>
+            .then(newQuizComponents => {
                 setQuizzes(prev => [
                     ...prev,
                     ...newQuizComponents
                 ])
-            )
-        setPage(prev => prev + 1);
+                setPage(prev => prev + 1);
+            })
+
     }
 
     useEffect(() => {
         if(inView) {
+            console.log("active");
             refetch();
         }
     },[inView]);

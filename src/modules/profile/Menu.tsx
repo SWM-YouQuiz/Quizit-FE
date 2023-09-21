@@ -4,16 +4,16 @@ import LogoutButton from "@/modules/profile/components/LogoutButton";
 
 export const menuData: Menu[] = [
     {
-        title: "내가 푼 퀴즈",
-        href: "profile/quizList/correctQuizIds"
-    },
-    {
-        title: "좋아요 한 퀴즈",
-        href: ""
+        title: "찜 한 퀴즈",
+        href: "profile/quizList/markedQuizIds"
     },
     {
         title: "틀린 퀴즈",
-        href: ""
+        href: "profile/quizList/incorrectQuizIds"
+    },
+    {
+        title: "맞힌 퀴즈",
+        href: "profile/quizList/correctQuizIds"
     },
     {
         title: "프로필 설정",

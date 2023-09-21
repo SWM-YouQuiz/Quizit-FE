@@ -1,17 +1,11 @@
 import {Header} from "@/components/Header";
 import {Rightarrow, Setting} from "@/components/svgs";
 import Menu, {menuData} from "@/modules/profile/Menu";
-import {getServerSession} from "next-auth";
+import {getServerSession, Session} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
 import QuizList from "@/modules/profile/quizList/QuizList";
 import {ReactNode, Suspense} from "react";
 import QuizCard from "@/modules/profile/components/QuizCard";
-
-const validRoute = [
-    "correctQuizIds",
-    "incorrectQuizIds",
-    "markedQuizIds"
-]
 
 export type QuizCardComponent = {
     id: string,
@@ -31,29 +25,37 @@ const getTitle = (group: keyof UserInfo) => {
     throw new Error("잘못된 접근입니다.");
 }
 
-const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
-    const session = await getServerSession(authOptions);
+const getQuizIds = async (group: keyof UserInfo, session: Session) => {
+    const quizIds = session.user.user[group] as string[];
 
-    if(!session) {
-        throw new Error("오류가 발생했습니다.");
-    }
+    console.log("group", group);
 
-    const quizzIds = session.user.user[params.group] as string[];
-
-    quizzIds.sort((a, b) => {
+    quizIds.sort((a, b) => {
         if(a > b) return -1;
         else return 1;
     });
 
-    const firstQuizzId = quizzIds[0];
-    const init: QuizCardComponent = {
-        id: firstQuizzId,
-        component: (
-            <Suspense key={`quizId-${firstQuizzId}`} fallback={<QuizCard quizId={"-1"}/> }>
-                <QuizCard quizId={firstQuizzId}/>
-            </Suspense>
-        )
+    return quizIds;
+}
+
+const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
+    const session = await getServerSession(authOptions);
+    if(!session) {
+        throw new Error("오류가 발생했습니다.");
     }
+
+    const quizIds = await getQuizIds(params.group, session);
+
+    const firstQuizzId = quizIds.slice(0,6);
+    const init: QuizCardComponent[] = firstQuizzId.map(quizId => ({
+            id: quizId,
+            component: (
+                <Suspense key={`quizId-${quizId}`} fallback={<QuizCard quizId={"-1"}/> }>
+                    <QuizCard quizId={quizId}/>
+                </Suspense>
+            )
+        })
+    )
 
     return (
         <div className="flex flex-col h-full">
@@ -62,7 +64,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                 <Setting/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
-                <QuizList quizIds={quizzIds.slice(1)} init={init}/>
+                <QuizList quizIds={quizIds.slice(1)} init={init}/>
             </div>
         </div>
     )
