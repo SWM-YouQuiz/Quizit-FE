@@ -66,7 +66,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                 <Setting/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
-                <QuizList quizIds={quizIds.slice(1)} init={init}/>
+                <QuizList quizIds={quizIds.slice(1)} init={init} markedQuizIds={markedQuizIds}/>
             </div>
         </div>
     )
