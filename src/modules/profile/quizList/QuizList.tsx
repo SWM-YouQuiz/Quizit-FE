@@ -3,7 +3,6 @@ import {ReactNode, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import getQuizAction from "@/modules/profile/quizList/getQuizAction";
 import delay from "delay";
-import Divider from "@/modules/profile/quizList/Divider";
 import {QuizCardComponent} from "@/app/profile/quizList/[group]/page";
 
 

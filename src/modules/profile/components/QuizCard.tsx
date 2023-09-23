@@ -11,9 +11,10 @@ type CardProps = {
     href?: string,
     className?: string,
     quizId: string
+    markedQuizIds: string[]
 }
 
-const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
+const QuizCard = async ({href="", quizId, className="", markedQuizIds}: CardProps) => {
     const quiz = await getQuiz({quizId: quizId})
         .catch(e => nonData);
 
@@ -43,7 +44,7 @@ const QuizCard = async ({href="", quizId, className=""}: CardProps) => {
                                 {quiz.question}
                             </div>
                         </div>
-                        <Heartbutton quizId={quiz.id} markedUserIds={quiz.markedUserIds}/>
+                        <Heartbutton quizId={quiz.id} markedQuizIds={markedQuizIds}/>
                     </div>
                 </div>
             </div>

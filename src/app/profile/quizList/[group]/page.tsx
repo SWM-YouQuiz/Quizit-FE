@@ -1,11 +1,12 @@
 import {Header} from "@/components/Header";
-import {Rightarrow, Setting} from "@/components/svgs";
+import {BackArrow, Rightarrow, Setting} from "@/components/svgs";
 import Menu, {menuData} from "@/modules/profile/Menu";
-import {getServerSession, Session} from "next-auth";
-import {authOptions} from "@/modules/auth/auth";
 import QuizList from "@/modules/profile/quizList/QuizList";
 import {ReactNode, Suspense} from "react";
 import QuizCard from "@/modules/profile/components/QuizCard";
+import {authenticateSession} from "@/util/session";
+import {getUser} from "@/modules/profile/serverApiActions";
+import Link from "next/link";
 
 export type QuizCardComponent = {
     id: string,
@@ -25,8 +26,8 @@ const getTitle = (group: keyof UserInfo) => {
     throw new Error("잘못된 접근입니다.");
 }
 
-const getQuizIds = async (group: keyof UserInfo, session: Session) => {
-    const quizIds = session.user.user[group] as string[];
+const getQuizIds = async (group: keyof UserInfo, user: UserInfo) => {
+    const quizIds = user[group] as string[]
 
     console.log("group", group);
 
@@ -39,19 +40,17 @@ const getQuizIds = async (group: keyof UserInfo, session: Session) => {
 }
 
 const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
-    const session = await getServerSession(authOptions);
-    if(!session) {
-        throw new Error("오류가 발생했습니다.");
-    }
+    const user = await getUser();
+    const {markedQuizIds} = user;
 
-    const quizIds = await getQuizIds(params.group, session);
+    const quizIds = await getQuizIds(params.group, user);
 
     const firstQuizzId = quizIds.slice(0,6);
     const init: QuizCardComponent[] = firstQuizzId.map(quizId => ({
             id: quizId,
             component: (
-                <Suspense key={`quizId-${quizId}`} fallback={<QuizCard quizId={"-1"}/> }>
-                    <QuizCard quizId={quizId}/>
+                <Suspense key={`quizId-${quizId}`} fallback={<QuizCard quizId={"-1"}  markedQuizIds={markedQuizIds}/> }>
+                    <QuizCard quizId={quizId} markedQuizIds={markedQuizIds}/>
                 </Suspense>
             )
         })
@@ -60,10 +59,13 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
+                <Link href="/profile">
+                    <BackArrow/>
+                </Link>
                 <div className="font-bold">{getTitle(params.group)}</div>
                 <Setting/>
             </Header>
-            <div className="flex-grow overflow-y-auto p-5 bg-white">
+            <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
                 <QuizList quizIds={quizIds.slice(1)} init={init}/>
             </div>
         </div>

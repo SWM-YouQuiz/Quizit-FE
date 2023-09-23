@@ -5,7 +5,7 @@ import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
 
-const useHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
     const [isMarked, setIsMarked] = useState(false);
 
     const checkMarked = async (_markedUserIds: string[]) => {
@@ -37,8 +37,13 @@ const useHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds:
     return {handleHeartClicked, isMarked};
 }
 
+
+const useHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+
+}
+
 export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
-    const {handleHeartClicked, isMarked} = useHeartButton({quizId, markedUserIds});
+    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds});
 
     return (
         <motion.button
@@ -54,8 +59,8 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
     )
 }
 
-const Heartbutton  = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
-    const {handleHeartClicked, isMarked} = useHeartButton({quizId, markedUserIds});
+const Heartbutton  = ({quizId, markedQuizIds}: {quizId: string, markedQuizIds: string[]}) => {
+    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds: markedQuizIds});
 
     return (
         <motion.button
