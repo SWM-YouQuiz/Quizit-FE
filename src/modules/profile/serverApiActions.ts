@@ -1,3 +1,4 @@
+"use server"
 import 'server-only';
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";

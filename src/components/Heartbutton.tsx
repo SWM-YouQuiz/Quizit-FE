@@ -4,6 +4,10 @@ import {getSession} from "next-auth/react";
 import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/modules/auth/auth";
+import {authenticateSession} from "@/util/session";
+import {getUser} from "@/modules/profile/serverApiActions";
 
 const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
     const [isMarked, setIsMarked] = useState(false);
@@ -38,8 +42,35 @@ const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUs
 }
 
 
-const useHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+const useHeartButton = ({quizId, markedQuizIds}: {quizId: string, markedQuizIds: string[]}) => {
+    const [isMarked, setIsMarked] = useState(false);
 
+    const checkMarked = async () => {
+        const user = await getUser();
+        const _markedQuizIds = user.markedQuizIds;
+        if (_markedQuizIds.some(markedQuizId => quizId === markedQuizId)) {
+            setIsMarked(true);
+        } else {
+            setIsMarked(false);
+        }
+    }
+
+    useEffect(() => {
+        checkMarked();
+    }, [])
+
+    const handleHeartClicked = () => {
+        console.log("clicked!!", quizId, markedQuizIds);
+        getQuizMark({id: quizId})
+            .then((quiz) => {
+                checkMarked()
+            })
+            .catch(e => {
+                console.log("error!!@!@!", e);
+            })
+    }
+
+    return {handleHeartClicked, isMarked};
 }
 
 export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
@@ -60,7 +91,7 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
 }
 
 const Heartbutton  = ({quizId, markedQuizIds}: {quizId: string, markedQuizIds: string[]}) => {
-    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds: markedQuizIds});
+    const {handleHeartClicked, isMarked} = useHeartButton({quizId, markedQuizIds: markedQuizIds});
 
     return (
         <motion.button
