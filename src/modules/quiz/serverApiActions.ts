@@ -3,6 +3,7 @@ import {requestApi} from "@/util/fetcher";
 import {authenticateSession} from "@/util/session";
 import {authOptions} from "@/modules/auth/auth";
 import 'server-only';
+import {revalidateTag} from "next/cache";
 
 export const getQuiz = async ({quizId}: {quizId: string}): Promise<Quiz> => {
     const session = await authenticateSession(authOptions);
@@ -11,6 +12,7 @@ export const getQuiz = async ({quizId}: {quizId: string}): Promise<Quiz> => {
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${quizId}`,
         method: 'GET',
         token: session.user.accessToken,
+        tags: [quizId]
     });
 }
 
@@ -61,4 +63,8 @@ export const getQuizEvaluate = async ({id, isLike}: {id: string, isLike: 'True'|
         method: 'GET',
         token: session.user.accessToken
     });
+}
+
+export const revalidateTagAction = ({tag}: {tag: string}) => {
+    revalidateTag(tag);
 }

@@ -1,6 +1,6 @@
 "use client"
 import React, {MouseEventHandler, ReactNode, useEffect, useState} from "react";
-import {getQuizEvaluate, getQuizMark} from "@/modules/quiz/serverApiActions";
+import {getQuiz, getQuizEvaluate, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {getSession} from "next-auth/react";
 import {cn} from "@/util/tailwind";
@@ -43,6 +43,7 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
                 setLikedCount(quiz.likedUserIds.length)
                 setUnlikedCount(quiz.unlikedUserIds.length)
                 checkLiked(quiz.likedUserIds, quiz.unlikedUserIds);
+                revalidateTagAction({tag: quizId});
             })
     }
 

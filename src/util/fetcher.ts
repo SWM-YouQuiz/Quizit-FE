@@ -7,9 +7,10 @@ export interface RequestParams {
     method: string;
     body?: Record<string, unknown>;
     token?: string;
+    tags?: string[];
 }
 
-export const requestApi = async ({endpoint, method, body, token}: RequestParams) => {
+export const requestApi = async ({endpoint, method, body, token, tags}: RequestParams) => {
     let headers: HeadersInit = {"Content-Type": "application/json"};
 
     if (token) {
@@ -19,7 +20,8 @@ export const requestApi = async ({endpoint, method, body, token}: RequestParams)
     const response = await fetch(`${endpoint}`, {
         method,
         headers,
-        ...(body && { body: JSON.stringify(body) })
+        ...(body && { body: JSON.stringify(body) }),
+        ...(tags && { next: { tags: tags}})
     });
 
     let data;
