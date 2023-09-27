@@ -1,7 +1,7 @@
 "use client"
 import React, {useEffect, useState} from "react";
 import {getSession} from "next-auth/react";
-import {getQuizMark} from "@/modules/quiz/serverApiActions";
+import {getQuizMark, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
 import {getServerSession} from "next-auth";
@@ -28,10 +28,10 @@ const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUs
     }, [])
 
     const handleHeartClicked = () => {
-        console.log("clicked!!", quizId, markedUserIds);
         getQuizMark({id: quizId})
             .then((quiz) => {
-                checkMarked(quiz.markedUserIds)
+                checkMarked(quiz.markedUserIds);
+                revalidateTagAction({tag: quizId});
             })
             .catch(e => {
                 console.log("error!!@!@!", e);
