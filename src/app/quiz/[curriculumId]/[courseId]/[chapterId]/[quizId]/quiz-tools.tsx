@@ -43,7 +43,6 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
                 setLikedCount(quiz.likedUserIds.length)
                 setUnlikedCount(quiz.unlikedUserIds.length)
                 checkLiked(quiz.likedUserIds, quiz.unlikedUserIds);
-                revalidateTagAction({tag: quizId});
             })
     }
 

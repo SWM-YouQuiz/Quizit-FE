@@ -2,7 +2,7 @@
 import React, {cache, ReactNode} from "react";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
-import {getQuiz} from "@/modules/quiz/serverApiActions";
+import {getQuiz, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import "@/modules/quiz/styles/one-light.css";
 import {QuizItems} from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-items";
 import QuizTools from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-tools";

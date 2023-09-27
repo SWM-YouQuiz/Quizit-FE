@@ -24,7 +24,6 @@ const ShareButton = () => {
     return (
         <button type="button" onClick={handleClick}>
             <Share/>
-            <p>hello</p>
         </button>
     )
 }

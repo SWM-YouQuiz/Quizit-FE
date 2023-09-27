@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import {getQuizComponentsAction} from "@/modules/quiz/getQuizComponentsAction";
-import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
+import {getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 
 type QuizSwiperProps = {
     quizExplanationComponents: QuizComponents[];

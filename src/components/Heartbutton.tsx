@@ -31,7 +31,6 @@ const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUs
         getQuizMark({id: quizId})
             .then((quiz) => {
                 checkMarked(quiz.markedUserIds);
-                revalidateTagAction({tag: quizId});
             })
             .catch(e => {
                 console.log("error!!@!@!", e);
