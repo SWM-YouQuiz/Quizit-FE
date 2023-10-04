@@ -1,22 +1,26 @@
 "use client"
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import {getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
+import Loading from "@/components/Loading";
 
 type QuizSwiperProps = {
-    quizzes: Quiz[],
     chapterId: string,
     couseId: string,
     curriculumId: string
 }
 
-const QuizSwiper = ({quizzes, curriculumId, couseId, chapterId}: QuizSwiperProps) => {
+const QuizSwiper = ({curriculumId, couseId, chapterId}: QuizSwiperProps) => {
     const [page, setPage] = useState(1);
-    const [quizQueue, setQuizQueue] = useState<Quiz[]>(quizzes);
+    const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
+
+    useEffect(() => {
+        addNewQuiz({chapterId: chapterId});
+    }, []);
 
     const addNewQuiz = async ({chapterId}: {chapterId: string}) => {
         const nextPage = page+1;
@@ -29,9 +33,7 @@ const QuizSwiper = ({quizzes, curriculumId, couseId, chapterId}: QuizSwiperProps
         window.history.replaceState(null, "", `${currentQuizId}`);
     }
 
-    console.log("quizzes", quizzes);
-
-    if(!quizQueue || quizQueue.length===0) return <p>loading</p>
+    if(!quizQueue || quizQueue.length===0) return <Loading/>
     return (
         <Swiper
             className="container h-full w-full"
