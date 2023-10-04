@@ -33,10 +33,8 @@ const QuizComponent = ({quiz}: {quiz: Quiz}) => {
 
     return (
         <div className="flex flex-col h-full justify-between w-full">
-            <TopSideContainer>
-                <QuizHeader quizHtml={quizHtml}/>
-                <QuizContent quizContentHtml={quizHtml.question}/>
-            </TopSideContainer>
+            <QuizHeader quizHtml={quizHtml}/>
+            <QuizContent quizContentHtml={quizHtml.question}/>
             <BottomSideContainer>
                 <QuizItems quizHtml={quizHtml}/>
             </BottomSideContainer>
@@ -45,13 +43,6 @@ const QuizComponent = ({quiz}: {quiz: Quiz}) => {
 }
 
 export default QuizComponent;
-
-
-const TopSideContainer = ({children}: {children: ReactNode}) => (
-    <div className="w-full flex flex-col">
-        {children}
-    </div>
-)
 
 
 const QuizHeader = ({quizHtml}: {quizHtml: Quiz}) => (
@@ -72,7 +63,7 @@ const QuizAnswerRate = ({answerRate}: {answerRate: number}) => (
 )
 
 const QuizContent = ({quizContentHtml}: {quizContentHtml: string}) => (
-    <div className="mt-2 flex-auto overflow-y-auto min-h-0 text-secondary-800" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
+    <div className="mt-2 flex-1 overflow-y-auto text-secondary-800" dangerouslySetInnerHTML={{ __html: quizContentHtml }}/>
 )
 
 const BottomSideContainer = ({children} : {children: ReactNode}) => {
