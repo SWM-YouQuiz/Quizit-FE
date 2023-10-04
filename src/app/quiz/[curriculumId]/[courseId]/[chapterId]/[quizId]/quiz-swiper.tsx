@@ -4,37 +4,32 @@ import React, {useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import {getQuizComponentsAction} from "@/modules/quiz/getQuizComponentsAction";
 import {getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
+import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 
 type QuizSwiperProps = {
-    quizExplanationComponents: QuizComponents[];
+    quizzes: Quiz[],
     chapterId: string,
     couseId: string,
     curriculumId: string
 }
 
-const QuizSwiper = ({quizExplanationComponents, curriculumId, couseId, chapterId}: QuizSwiperProps) => {
-    const [page, setPage] = useState(0);
-    const [quizQueue, setQuizQueue] = useState(quizExplanationComponents);
+const QuizSwiper = ({quizzes, curriculumId, couseId, chapterId}: QuizSwiperProps) => {
+    const [page, setPage] = useState(1);
+    const [quizQueue, setQuizQueue] = useState<Quiz[]>(quizzes);
 
     const addNewQuiz = async ({chapterId}: {chapterId: string}) => {
         const nextPage = page+1;
         const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101"});
-        const quizIds = quizzes.map(quiz => quiz.id);
-        getQuizComponentsAction(quizIds)
-            .then(newQuizComponents =>
-                    setQuizQueue(prev => [
-                        ...prev,
-                        ...newQuizComponents
-                    ])
-            )
-        setPage(nextPage);
+        setQuizQueue(prev => [...prev, ...quizzes]);
+        setPage(prev => prev + 1);
     }
 
     const replaceUrlToCurrentQuiz = (currentQuizId: string) => {
         window.history.replaceState(null, "", `${currentQuizId}`);
     }
+
+    console.log("quizzes", quizzes);
 
     if(!quizQueue || quizQueue.length===0) return <p>loading</p>
     return (
@@ -54,9 +49,9 @@ const QuizSwiper = ({quizExplanationComponents, curriculumId, couseId, chapterId
                 await addNewQuiz({chapterId: chapterId});
             }}
         >
-            {quizQueue.map(({id, quizComponent}, idx) => (
-                <SwiperSlide key={`quiz-${id}-${idx}`}>
-                    {quizComponent}
+            {quizQueue.map((quiz, idx) => (
+                <SwiperSlide key={`quiz-${quiz.id}-${idx}`}>
+                    <QuizComponent quiz={quiz}/>
                 </SwiperSlide>
             ))}
         </Swiper>

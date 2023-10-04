@@ -1,5 +1,5 @@
-
-import React, {cache, ReactNode} from "react";
+"use client"
+import React, {cache, ReactNode, useEffect, useState} from "react";
 import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
 import {markdownToHtmlString} from "@/util/markdown";
 import {getQuiz, revalidateTagAction} from "@/modules/quiz/serverApiActions";
@@ -15,16 +15,21 @@ const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Qui
     }
 }
 
-const getQuizHtml = async (quizId: string) => {
-    if(quizId === "-1") return nonData;
-    const quiz = await getQuiz({quizId: quizId});
-    const quizContentHtmlString = await markdownToHtmlString(quiz.question);
-    const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
-    return quizContentHtml;
-}
 
-const QuizComponent = async ({id}: {id: string}) => {
-    const quizHtml = await getQuizHtml(id);
+
+const QuizComponent = ({quiz}: {quiz: Quiz}) => {
+    const [quizHtml, setQuizHtml] = useState(quiz);
+
+    useEffect(() => {
+        const getQuizHtml = async (quiz: Quiz) => {
+            const quizContentHtmlString = await markdownToHtmlString(quiz.question);
+            const quizContentHtml = changeQuizContentString(quiz, quizContentHtmlString);
+            return quizContentHtml;
+        }
+
+        getQuizHtml(quiz)
+            .then(quizContentHtml => setQuizHtml(quizContentHtml));
+    }, [quiz])
 
     return (
         <div className="flex flex-col h-full justify-between w-full">

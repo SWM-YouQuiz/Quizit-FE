@@ -5,6 +5,7 @@ import {Header} from "@/components/Header";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 import ShareButton from "@/modules/quiz/components/ShareButton";
+import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 
 type QuizPageParams = {
     curriculumId: string,
@@ -12,15 +13,14 @@ type QuizPageParams = {
     chapterId: string,
     quizId: string
 }
-const QuizPage = ({ params }: { params: QuizPageParams }) => {
-    const quizExplanationComponents: QuizComponents[] = [{
-            id: params.quizId,
-            quizComponent: (
-                <Suspense key={`quiz-suspense-${params.quizId}`} fallback={<QuizComponent id={"-1"}/>}>
-                    <QuizComponent id={params.quizId}/>
-                </Suspense>
-            )
-        }]
+
+const _getQuiz = async ({quizId}: {quizId: string}) => {
+    const quiz = await getQuiz({quizId: quizId});
+    return quiz;
+}
+
+const QuizPage = async ({ params }: { params: QuizPageParams }) => {
+    const quizzes = [await _getQuiz({quizId: params.quizId})];
 
     return (
         <div className="flex flex-col h-full">
@@ -33,7 +33,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
             </Header>
             <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll bg-white">
                 <QuizSwiper
-                    quizExplanationComponents={quizExplanationComponents}
+                    quizzes={quizzes}
                     chapterId={params.chapterId}
                     couseId={params.courseId}
                     curriculumId={params.curriculumId}

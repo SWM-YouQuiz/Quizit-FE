@@ -5,7 +5,6 @@ import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 import {Header} from "@/components/Header";
 import Link from "next/link";
 import {BackArrow, Share} from "@/components/svgs";
-import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 
 type QuizPageParams = {
@@ -26,17 +25,6 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
         throw new Error("퀴즈가 없거나 불러오는 중 오류가 발생했습니다.");
     }
 
-    const quizExplanationComponents: QuizComponents[] = quizzes.map(quiz => (
-        {
-            id: quiz.id,
-            quizComponent: (
-                <Suspense key={`quiz-suspense-${quiz.id}`} fallback={<QuizComponent id={"-1"}/>}>
-                    <QuizComponent id={quiz.id}/>
-                </Suspense>
-            )
-        })
-    );
-
     return (
         <div className="flex flex-col h-full">
             <Header>
@@ -48,7 +36,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
             </Header>
             <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll bg-white">
                 <QuizSwiper
-                    quizExplanationComponents={quizExplanationComponents}
+                    quizzes={quizzes}
                     chapterId={params.chapterId}
                     couseId={params.courseId}
                     curriculumId={params.curriculumId}
