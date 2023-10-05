@@ -39,15 +39,15 @@ const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes, c
                 alt={alt}
             />
         </div>
-        <div className="flex-grow space-y-3">
+        <div className="flex-grow space-y-3 overflow-hidden">
             <div className="flex">
                 <div className="flex-grow flex flex-col justify-evenly">
-                    <div className="text-secondary-400 text-[13px]">
+                    <p className="text-secondary-400 text-[13px]">
                         {path}
-                    </div>
-                    <div className="font-semibold text-base">
+                    </p>
+                    <p className="font-semibold text-base overflow-hidden whitespace-nowrap truncate">
                         {title}
-                    </div>
+                    </p>
                 </div>
                 {children}
             </div>
