@@ -8,6 +8,7 @@ import {getQuiz, getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/ser
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import Loading from "@/components/Loading";
 import quiz from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
+import Ending from "@/components/Ending";
 
 type QuizSwiperProps = {
     chapterId: string,
@@ -19,6 +20,7 @@ type QuizSwiperProps = {
 const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps) => {
     const [page, setPage] = useState(-1);
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
+    const [end, setEnd] = useState(false);
 
     useEffect(() => {
         if(quizId) {
@@ -36,8 +38,12 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
     const addNewQuiz = async (chapterId: string) => {
         const nextPage = page+1;
         const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101"});
-        setQuizQueue(prev => [...prev, ...quizzes]);
-        setPage(prev => prev + 1);
+        if(quizzes.length === 0) {
+            setEnd(true);
+        } else {
+            setQuizQueue(prev => [...prev, ...quizzes]);
+            setPage(prev => prev + 1);
+        }
     }
 
     const replaceUrlToCurrentQuiz = (currentQuizId: string) => {
@@ -56,17 +62,25 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
                 replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onSlideChange={(swiper) => {
-                replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
+                if(quizQueue.length < swiper.activeIndex) {
+                    replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
+                }
             }}
             onReachEnd={async (swiper ) => {
                 await addNewQuiz(chapterId);
             }}
         >
+
             {quizQueue.map((quiz, idx) => (
                 <SwiperSlide key={`quiz-${quiz.id}-${idx}`}>
                     <QuizComponent quiz={quiz}/>
                 </SwiperSlide>
             ))}
+            {end && (
+                <SwiperSlide>
+                    <Ending curriculumId={curriculumId} courseId={couseId}/>
+                </SwiperSlide>
+            )}
         </Swiper>
     );
 };
