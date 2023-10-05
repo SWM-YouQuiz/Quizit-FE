@@ -1,11 +1,11 @@
 "use client"
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import {getQuizComponentsAction} from "@/modules/quiz/getQuizComponentsAction";
-import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
+import {getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 
 type QuizSwiperProps = {
     quizExplanationComponents: QuizComponents[];
@@ -23,12 +23,12 @@ const QuizSwiper = ({quizExplanationComponents, curriculumId, couseId, chapterId
         const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101"});
         const quizIds = quizzes.map(quiz => quiz.id);
         getQuizComponentsAction(quizIds)
-            .then((newQuizComponents =>
+            .then(newQuizComponents =>
                     setQuizQueue(prev => [
                         ...prev,
                         ...newQuizComponents
                     ])
-            ))
+            )
         setPage(nextPage);
     }
 

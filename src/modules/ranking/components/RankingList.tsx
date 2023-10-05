@@ -30,7 +30,7 @@ const RankingList = async () => {
 
 export default RankingList;
 
-const MyItem = ({user, ranking}: {user: User, ranking: number}) => {
+const MyItem = ({user, ranking}: {user: UserInfo, ranking: number}) => {
 
     return (
         <div className="relative top-[36px] z-50 flex justify-between inner-border-2 inner-border-primary-900 w-80 p-4 rounded-2xl bg-white">
@@ -47,7 +47,7 @@ const ItemContainer = ({children}: {children: ReactNode}) => {
     )
 }
 
-const Item = ({user, ranking}: {user: User, ranking: number}) => {
+const Item = ({user, ranking}: {user: UserInfo, ranking: number}) => {
     return (
         <>
             <div className="flex">
