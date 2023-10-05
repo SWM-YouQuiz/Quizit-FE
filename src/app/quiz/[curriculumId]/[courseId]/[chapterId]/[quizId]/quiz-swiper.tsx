@@ -4,25 +4,36 @@ import React, {useEffect, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import {getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
+import {getQuiz, getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import Loading from "@/components/Loading";
+import quiz from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 
 type QuizSwiperProps = {
     chapterId: string,
     couseId: string,
-    curriculumId: string
+    curriculumId: string,
+    quizId?: string
 }
 
-const QuizSwiper = ({curriculumId, couseId, chapterId}: QuizSwiperProps) => {
-    const [page, setPage] = useState(1);
+const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps) => {
+    const [page, setPage] = useState(-1);
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
 
     useEffect(() => {
-        addNewQuiz({chapterId: chapterId});
+        if(quizId) {
+            addSingleQuiz(quizId);
+        } else {
+            addNewQuiz(chapterId);
+        }
     }, []);
 
-    const addNewQuiz = async ({chapterId}: {chapterId: string}) => {
+    const addSingleQuiz = async (quizId: string) => {
+        const quiz = await getQuiz({quizId: quizId});
+        setQuizQueue([quiz]);
+    }
+
+    const addNewQuiz = async (chapterId: string) => {
         const nextPage = page+1;
         const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101"});
         setQuizQueue(prev => [...prev, ...quizzes]);
@@ -48,7 +59,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId}: QuizSwiperProps) => {
                 replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onReachEnd={async (swiper ) => {
-                await addNewQuiz({chapterId: chapterId});
+                await addNewQuiz(chapterId);
             }}
         >
             {quizQueue.map((quiz, idx) => (

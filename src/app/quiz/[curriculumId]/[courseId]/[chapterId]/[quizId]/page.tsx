@@ -14,14 +14,7 @@ type QuizPageParams = {
     quizId: string
 }
 
-const _getQuiz = async ({quizId}: {quizId: string}) => {
-    const quiz = await getQuiz({quizId: quizId});
-    return quiz;
-}
-
 const QuizPage = async ({ params }: { params: QuizPageParams }) => {
-    const quizzes = [await _getQuiz({quizId: params.quizId})];
-
     return (
         <div className="flex flex-col h-full">
             <Header>
@@ -33,7 +26,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
             </Header>
             <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll bg-white">
                 <QuizSwiper
-                    quizzes={quizzes}
+                    quizId={params.quizId}
                     chapterId={params.chapterId}
                     couseId={params.courseId}
                     curriculumId={params.curriculumId}
