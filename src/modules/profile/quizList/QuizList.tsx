@@ -6,7 +6,7 @@ import delay from "delay";
 import {QuizCardComponent} from "@/app/profile/quizList/[group]/page";
 
 
-const QuizList = ({quizIds, init, markedQuizIds}: {quizIds: string[], init: QuizCardComponent[], markedQuizIds: string[]}) => {
+const QuizList = ({quizIds, init, userId}: {quizIds: string[], init: QuizCardComponent[], userId: string}) => {
     const refetchAmount = 6;
     const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([...init]);
     const [page, setPage] = useState(1);
@@ -21,7 +21,7 @@ const QuizList = ({quizIds, init, markedQuizIds}: {quizIds: string[], init: Quiz
         if(page * refetchAmount + refetchAmount > quizIds.length) return;
         getQuizAction({
             quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount),
-            markedQuizIds: markedQuizIds
+            userId: userId
         })
             .then(newQuizComponents => {
                 setQuizzes(prev => [

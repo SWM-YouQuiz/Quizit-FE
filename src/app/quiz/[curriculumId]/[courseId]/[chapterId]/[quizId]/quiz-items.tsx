@@ -5,6 +5,7 @@ import {cn} from "@/util/tailwind";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 import { motion } from 'framer-motion';
 import {HeartSquareButton} from "@/components/Heartbutton";
+import {getSession, useSession} from "next-auth/react";
 
 
 const optionSignature = [

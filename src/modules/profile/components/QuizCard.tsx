@@ -1,22 +1,31 @@
+"use client"
 import Link from "next/link";
 import {cn} from "@/util/tailwind";
-import {ReactNode} from "react";
+import {ReactNode, useEffect, useState} from "react";
 import Image from "next/image";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import {nonData} from "@/modules/quiz/quizDummy";
-import Heartbutton from "@/components/Heartbutton";
+import Heartbutton, {HeartSquareButton} from "@/components/Heartbutton";
 import {calculateDateDifference} from "@/util/etc";
 
 type CardProps = {
     href?: string,
     className?: string,
-    quizId: string
-    markedQuizIds: string[]
+    quizId: string,
+    userId: string
 }
 
-const QuizCard = async ({href="", quizId, className="", markedQuizIds}: CardProps) => {
-    const quiz = await getQuiz({quizId: quizId})
-        .catch(e => nonData);
+const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
+    const [quiz, setQuiz] = useState<Quiz>(nonData);
+
+    useEffect(() => {
+        _getQuiz(quizId);
+    }, [quizId]);
+
+    const _getQuiz = async (quizId: string) => {
+        const _quiz = await getQuiz({quizId: quizId});
+        setQuiz(_quiz);
+    }
 
     return (
         <Link
@@ -44,7 +53,7 @@ const QuizCard = async ({href="", quizId, className="", markedQuizIds}: CardProp
                                 {quiz.question}
                             </div>
                         </div>
-                        <Heartbutton quizId={quiz.id} markedQuizIds={markedQuizIds}/>
+                        <Heartbutton quizId={quiz.id} markedUserIds={quiz.markedUserIds} userId={userId}/>
                     </div>
                 </div>
             </div>

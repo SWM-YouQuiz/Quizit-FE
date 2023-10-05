@@ -11,8 +11,7 @@ export const getQuiz = async ({quizId}: {quizId: string}): Promise<Quiz> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${quizId}`,
         method: 'GET',
-        token: session.user.accessToken,
-        tags: [quizId]
+        token: session.user.accessToken
     });
 }
 
