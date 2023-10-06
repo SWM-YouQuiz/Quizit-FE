@@ -49,9 +49,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
     const init: QuizCardComponent[] = firstQuizzId.map(quizId => ({
             id: quizId,
             component: (
-                <Suspense key={`quizId-${quizId}`} fallback={<QuizCard quizId={"-1"} userId={user.id}/>}>
-                    <QuizCard quizId={quizId} userId={user.id}/>
-                </Suspense>
+                <QuizCard quizId={quizId} userId={user.id}/>
             )
         })
     )

@@ -43,17 +43,14 @@ const QuizList = ({quizIds, init, userId}: {quizIds: string[], init: QuizCardCom
     return (
         <div className="space-y-6">
             {
-                quizzes.map(({id, component}) => (
+                quizzes.slice(0, -1).map(({id, component}) => (
                     <div key={id}>
                         {component}
                     </div>
                 ))
             }
-            <div
-                className="flex justify-center items-center p-4 col-span-1 sm:col-span-2 md:col-span-3"
-                ref={ref}
-            >
-               load more
+            <div ref={ref}>
+                {quizzes[quizzes.length-1].component}
             </div>
         </div>
     )
