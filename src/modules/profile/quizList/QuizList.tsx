@@ -1,59 +1,56 @@
 "use client"
-import {ReactNode, useEffect, useState} from "react";
-import {useInView} from "react-intersection-observer";
-import getQuizAction from "@/modules/profile/quizList/getQuizAction";
-import delay from "delay";
-import {QuizCardComponent} from "@/app/profile/quizList/[group]/page";
+import { ReactNode, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { getUser } from "@/modules/profile/serverApiActions";
+import QuizCard from "@/modules/profile/components/QuizCard";
 
-
-const QuizList = ({quizIds, init, userId}: {quizIds: string[], init: QuizCardComponent[], userId: string}) => {
+const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const refetchAmount = 6;
-    const [quizzes, setQuizzes] = useState<QuizCardComponent[]>([...init]);
+    const [quizIds, setQuizIds] = useState<string[]>([]);
     const [page, setPage] = useState(1);
+    const [userId, setUserId] = useState("");
+    const [hasMore, setHasMore] = useState(true);
 
     const { ref, inView } = useInView();
 
     const refetch = async () => {
-        await delay(100);
+        if (!hasMore) return;
 
-        console.log("page", page, quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount));
+        if (page * refetchAmount + refetchAmount > quizIds.length) {
+            setHasMore(false);
+            return;
+        }
 
-        if(page * refetchAmount + refetchAmount > quizIds.length) return;
-        getQuizAction({
-            quizIds: quizIds.slice(page * refetchAmount, page * refetchAmount + refetchAmount),
-            userId: userId
-        })
-            .then(newQuizComponents => {
-                setQuizzes(prev => [
-                    ...prev,
-                    ...newQuizComponents
-                ])
-                setPage(prev => prev + 1);
-            })
+        setPage(prev => prev + 1);
+    };
 
-    }
+    const getGroupQuizIds = async () => {
+        const user = await getUser();
+        const quizIds = user[group] as string[];
+        setQuizIds(quizIds);
+        setUserId(user.id);
+    };
 
     useEffect(() => {
-        if(inView) {
-            console.log("active");
+        if (inView) {
             refetch();
         }
-    },[inView]);
+    }, [inView]);
+
+    useEffect(() => {
+        getGroupQuizIds();
+    }, []);
 
     return (
         <div className="space-y-6">
-            {
-                quizzes.slice(0, -1).map(({id, component}) => (
-                    <div key={id}>
-                        {component}
-                    </div>
-                ))
-            }
-            <div ref={ref}>
-                {quizzes[quizzes.length-1].component}
-            </div>
+            {quizIds
+                .slice(0, page * refetchAmount)
+                .map(quizId => (
+                    <QuizCard key={quizId} quizId={quizId} userId={userId} />
+                ))}
+            {hasMore && <div ref={ref}></div>}
         </div>
-    )
-}
+    );
+};
 
 export default QuizList;

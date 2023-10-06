@@ -41,19 +41,6 @@ const getQuizIds = async (group: keyof UserInfo, user: UserInfo) => {
 }
 
 const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
-    const {user} = (await authenticateSession(authOptions)).user;
-
-    const quizIds = await getQuizIds(params.group, user);
-
-    const firstQuizzId = quizIds.slice(0,6);
-    const init: QuizCardComponent[] = firstQuizzId.map(quizId => ({
-            id: quizId,
-            component: (
-                <QuizCard quizId={quizId} userId={user.id}/>
-            )
-        })
-    )
-
     return (
         <div className="flex flex-col h-full">
             <Header>
@@ -64,7 +51,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                 <Setting/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
-                <QuizList quizIds={quizIds.slice(1)} init={init} userId={user.id}/>
+                <QuizList group={params.group}/>
             </div>
         </div>
     )
