@@ -8,7 +8,8 @@ type Course = {
 type Chapter = {
     id: string,
     description: string,
-    courseId: string
+    courseId: string,
+    document: string
 }
 
 type Curriculum = {
