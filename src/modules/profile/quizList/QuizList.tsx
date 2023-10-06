@@ -14,13 +14,14 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const { ref, inView } = useInView();
 
     const refetch = async () => {
+        console.log("hasmore",hasMore)
         if (!hasMore) return;
 
-        if (page * refetchAmount + refetchAmount > quizIds.length) {
+        if (page * refetchAmount >= quizIds.length) {
             setHasMore(false);
+            console.log("hasmore false")
             return;
         }
-
         setPage(prev => prev + 1);
     };
 
@@ -32,10 +33,10 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
     };
 
     useEffect(() => {
-        if (inView) {
+        if (inView && quizIds.length > 0) {
             refetch();
         }
-    }, [inView]);
+    }, [inView, quizIds]);
 
     useEffect(() => {
         getGroupQuizIds();
