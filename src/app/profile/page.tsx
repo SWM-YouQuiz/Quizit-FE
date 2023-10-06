@@ -42,7 +42,7 @@ const ProfileCard = async () => {
         >
             <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
                 <Image
-                    src={"next.svg"}
+                    src={"https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg"}
                     width={72}
                     height={72}
                     alt={"profileImage"}
