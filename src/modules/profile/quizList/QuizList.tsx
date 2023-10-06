@@ -42,6 +42,9 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
         getGroupQuizIds();
     }, []);
 
+    if(quizIds.length <= 0 || !userId)
+        return null;
+
     return (
         <div className="space-y-6">
             {quizIds
