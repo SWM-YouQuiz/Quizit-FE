@@ -1,3 +1,4 @@
+"use server"
 import {requestApi} from "@/util/fetcher";
 import {cache} from "react";
 import {authenticateSession} from "@/util/session";
@@ -33,3 +34,13 @@ export const getCurriculums = cache(async (): Promise<Curriculum[]> => {
         token: session.user.accessToken,
     });
 });
+
+export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chapter> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/curriculum/${chapterId}`,
+        method: 'GET',
+        token: session.user.accessToken,
+    });
+}

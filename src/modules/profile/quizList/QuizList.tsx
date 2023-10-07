@@ -14,12 +14,10 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const { ref, inView } = useInView();
 
     const refetch = async () => {
-        console.log("hasmore",hasMore)
         if (!hasMore) return;
 
         if (page * refetchAmount >= quizIds.length) {
             setHasMore(false);
-            console.log("hasmore false")
             return;
         }
         setPage(prev => prev + 1);

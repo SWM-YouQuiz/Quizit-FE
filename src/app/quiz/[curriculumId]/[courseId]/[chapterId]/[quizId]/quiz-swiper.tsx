@@ -7,7 +7,6 @@ import 'swiper/css';
 import {getQuiz, getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import Loading from "@/components/Loading";
-import quiz from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import Ending from "@/components/Ending";
 
 type QuizSwiperProps = {
