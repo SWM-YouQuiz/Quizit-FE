@@ -15,7 +15,7 @@ export const nonData: Quiz = {
     unlikedUserIds: [],
     markedUserIds: [],
     likedUserIds: [],
-    "createdDate": "2023-08-04T07:59:57.914"
+    "createdDate": new Date().toISOString()
 }
 // export const quizDummy: Quiz[] = [{'content': '**Python**에서 `list.append(x)` 메서드를 사용하면 어떤 작업을 수행할 수 있습니까?',
 //     'items': [{'item_content': '리스트의 마지막에 항목 x를 추가합니다.'},

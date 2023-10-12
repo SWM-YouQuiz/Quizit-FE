@@ -7,6 +7,7 @@ import QuizCard from "@/modules/profile/components/QuizCard";
 import {authenticateSession} from "@/util/session";
 import {getUser} from "@/modules/profile/serverApiActions";
 import Link from "next/link";
+import {authOptions} from "@/modules/auth/auth";
 
 export type QuizCardComponent = {
     id: string,
@@ -40,22 +41,6 @@ const getQuizIds = async (group: keyof UserInfo, user: UserInfo) => {
 }
 
 const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
-    const user = await getUser();
-    const {markedQuizIds} = user;
-
-    const quizIds = await getQuizIds(params.group, user);
-
-    const firstQuizzId = quizIds.slice(0,6);
-    const init: QuizCardComponent[] = firstQuizzId.map(quizId => ({
-            id: quizId,
-            component: (
-                <Suspense key={`quizId-${quizId}`} fallback={<QuizCard quizId={"-1"}  markedQuizIds={markedQuizIds}/> }>
-                    <QuizCard quizId={quizId} markedQuizIds={markedQuizIds}/>
-                </Suspense>
-            )
-        })
-    )
-
     return (
         <div className="flex flex-col h-full">
             <Header>
@@ -66,7 +51,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                 <Setting/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
-                <QuizList quizIds={quizIds.slice(1)} init={init} markedQuizIds={markedQuizIds}/>
+                <QuizList group={params.group}/>
             </div>
         </div>
     )

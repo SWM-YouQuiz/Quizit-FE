@@ -46,7 +46,7 @@ const BodyContainer = ({chapters, courseTitle, curriculumId, courseId}: BodyCont
     <div className="w-full space-y-4">
         <OptionSheetContainer>
         {
-            chapters.map(({id, description, courseId}, idx) => (
+            chapters.map(({id, description, courseId, document}, idx) => (
                     <Card
                         key={`chapter-${id}`}
                         href={`/quiz/${curriculumId}/${courseId}/${id}`}
@@ -57,7 +57,7 @@ const BodyContainer = ({chapters, courseTitle, curriculumId, courseId}: BodyCont
                         solvedQuizzes={40}
                         title={description}
                     >
-                        <Options documentUrl="https://nextjs.org/docs/app/building-your-application/routing"/>
+                        <Options documentUrl={document}/>
                     </Card>
                 )
             )

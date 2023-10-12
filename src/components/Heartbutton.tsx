@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect, useState} from "react";
-import {getSession} from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import {getQuizMark, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
@@ -9,23 +9,20 @@ import {authOptions} from "@/modules/auth/auth";
 import {authenticateSession} from "@/util/session";
 import {getUser} from "@/modules/profile/serverApiActions";
 
-const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
+const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const [isMarked, setIsMarked] = useState(false);
 
     const checkMarked = async (_markedUserIds: string[]) => {
-        const session = await getSession();
-        if (session) {
-            if (_markedUserIds.some(userId => userId === session.user.user.id)) {
-                setIsMarked(true);
-            } else {
-                setIsMarked(false);
-            }
+        if (_markedUserIds.some(_userId => _userId === userId)) {
+            setIsMarked(true);
+        } else {
+            setIsMarked(false);
         }
     }
 
     useEffect(() => {
         checkMarked(markedUserIds);
-    }, [])
+    }, [markedUserIds, userId]);
 
     const handleHeartClicked = () => {
         getQuizMark({id: quizId})
@@ -40,40 +37,10 @@ const useSquareHeartButton = ({quizId, markedUserIds}: {quizId: string, markedUs
     return {handleHeartClicked, isMarked};
 }
 
-
-const useHeartButton = ({quizId, markedQuizIds}: {quizId: string, markedQuizIds: string[]}) => {
-    const [isMarked, setIsMarked] = useState(false);
-
-    const checkMarked = async () => {
-        const user = await getUser();
-        const _markedQuizIds = user.markedQuizIds;
-        if (_markedQuizIds.some(markedQuizId => quizId === markedQuizId)) {
-            setIsMarked(true);
-        } else {
-            setIsMarked(false);
-        }
-    }
-
-    useEffect(() => {
-        checkMarked();
-    }, [])
-
-    const handleHeartClicked = () => {
-        console.log("clicked!!", quizId, markedQuizIds);
-        getQuizMark({id: quizId})
-            .then((quiz) => {
-                checkMarked()
-            })
-            .catch(e => {
-                console.log("error!!@!@!", e);
-            })
-    }
-
-    return {handleHeartClicked, isMarked};
-}
-
 export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
-    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds});
+    const {data, status} = useSession();
+    const userId = status === "authenticated" ? data.user.user.id : "-1";
+    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
 
     return (
         <motion.button
@@ -89,8 +56,8 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
     )
 }
 
-const Heartbutton  = ({quizId, markedQuizIds}: {quizId: string, markedQuizIds: string[]}) => {
-    const {handleHeartClicked, isMarked} = useHeartButton({quizId, markedQuizIds: markedQuizIds});
+const Heartbutton  = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
+    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
 
     return (
         <motion.button
