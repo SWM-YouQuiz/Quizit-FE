@@ -6,7 +6,20 @@ export type OptionSheetContextType = null | {
     handleOptionsClick: MouseEventHandler<HTMLDivElement>,
     handleDocumentClick: MouseEventHandler<HTMLDivElement>,
     handleCancelClick: MouseEventHandler<HTMLDivElement>,
-    setDocumentUrl: Dispatch<SetStateAction<string>>
+    setDocumentUrl: Dispatch<SetStateAction<string>>,
 }
 
 export const OptionSheetContext = createContext<OptionSheetContextType>(null);
+
+
+export type QuizFilterContextType = {
+    quizFilter: QuizFilter
+}
+
+export const QuizFilterContext = createContext<QuizFilterContextType>({
+    quizFilter: {
+        markedQuiz: false,
+        incorrectQuiz: false,
+        unsolvedQuiz: false
+    }
+});

@@ -17,3 +17,9 @@ type Curriculum = {
     title: string,
     image: string
 }
+
+type QuizFilter = {
+    markedQuiz: boolean,
+    incorrectQuiz: boolean,
+    unsolvedQuiz: boolean
+}

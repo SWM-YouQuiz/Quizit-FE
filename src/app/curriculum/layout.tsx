@@ -1,12 +1,22 @@
 import {ReactNode} from "react";
-import Navbar from "@/components/Navbar";
 import Layout from "@/components/Layout";
+import {QuizFilterContext} from "@/modules/curriculum/Context";
 
 const CourseLayout = ({children}: {children: ReactNode}) => {
 
+    const quizFilter: QuizFilter = {
+        incorrectQuiz: false,
+        markedQuiz: false,
+        unsolvedQuiz: false
+    }
+
     return (
         <Layout>
-            {children}
+            <QuizFilterContext.Provider value={{
+                quizFilter: quizFilter
+            }}>
+                {children}
+            </QuizFilterContext.Provider>
         </Layout>
     )
 }
