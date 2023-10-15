@@ -49,7 +49,10 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
     const convertedMessages = useMessageToHtmlString(messages, isLoading);
 
     return (
-        <form className="flex flex-col justify-between h-full" onSubmit={handleSubmit}>
+        <form
+            className="flex flex-col justify-between h-full"
+            onSubmit={e => handleSubmit(e, {options: {body: {chapterId: quizHtml.chapterId}}})}
+        >
             <MessageBlockes convertedMessages={convertedMessages} />
             <Input handleInputChange={handleInputChange} input={input}/>
         </form>
