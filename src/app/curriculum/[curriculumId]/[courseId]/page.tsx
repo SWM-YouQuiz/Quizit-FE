@@ -12,6 +12,7 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
     const courses = await getCourses({curriculumId: params.curriculumId});
 
     const course = courses.find(course => course.id === params.courseId) as Course;
+    const sortedChapters = chapters.sort((a, b) => parseInt(a.index) - parseInt(b.index));
 
     return (
         <div className="flex flex-col h-full">
@@ -20,14 +21,14 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">{course.title}</div>
-                <Filter/>
+                <Link href="/curriculum/filter">
+                    <Filter/>
+                </Link>
             </Header>
             <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer
                     chapters={chapters}
-                    courseTitle={course.title}
                     curriculumId={params.curriculumId}
-                    courseId={params.courseId}
                 />
             </div>
         </div>
@@ -38,20 +39,18 @@ export default Chapter;
 
 type BodyContainerProps = {
     chapters: Chapter[],
-    courseTitle: string,
-    curriculumId: string,
-    courseId: string
+    curriculumId: string
 }
-const BodyContainer = ({chapters, courseTitle, curriculumId, courseId}: BodyContainerProps) => (
+const BodyContainer = ({chapters, curriculumId}: BodyContainerProps) => (
     <div className="w-full space-y-4">
         <OptionSheetContainer>
         {
-            chapters.map(({id, description, courseId, document}, idx) => (
+            chapters.map(({id, description, courseId, document,index, image}, idx) => (
                     <Card
                         key={`chapter-${id}`}
                         href={`/quiz/${curriculumId}/${courseId}/${id}`}
                         alt={courseId}
-                        imageUrl={`https://quizit-storage.s3.ap-northeast-2.amazonaws.com/${courseTitle}.png`}
+                        imageUrl={image}
                         path={`Chapter ${idx+1}`}
                         allQuizzes={100}
                         solvedQuizzes={40}
