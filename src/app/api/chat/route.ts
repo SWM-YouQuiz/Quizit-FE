@@ -1,23 +1,17 @@
-import { Configuration, OpenAIApi } from 'openai-edge'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
+import {NextRequest} from "next/server";
+import {LangChainStream, StreamingTextResponse} from "ai";
+import {makeQAChain} from "@/lib/langchain/QAChain";
+import {getMemory} from "@/lib/langchain/utils";
 
-const config = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-})
-const openai = new OpenAIApi(config)
 
-export const runtime = 'edge'
+export async function POST(req: NextRequest) {
+    const body = await req.json();
+    const { messages, chapterId } = body;
+    const { memory, question } = getMemory(messages);
 
-export async function POST(req: Request) {
-    const { messages } = await req.json()
+    const {callChain, stream} = makeQAChain({memory, question, chapterId: chapterId});
 
-    const response = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        stream: true,
-        temperature: 0.7,
-        messages
-    })
+    callChain();
 
-    const stream = OpenAIStream(response)
-    return new StreamingTextResponse(stream)
+    return new StreamingTextResponse(stream);
 }

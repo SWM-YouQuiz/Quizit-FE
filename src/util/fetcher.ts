@@ -20,8 +20,7 @@ export const requestApi = async ({endpoint, method, body, token, tags}: RequestP
     const response = await fetch(`${endpoint}`, {
         method,
         headers,
-        ...(body && { body: JSON.stringify(body) }),
-        ...(tags && { next: { tags: tags}})
+        ...(body && { body: JSON.stringify(body) })
     });
 
     let data;

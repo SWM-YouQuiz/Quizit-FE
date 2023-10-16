@@ -36,7 +36,7 @@ const QuizComponent = ({quiz}: {quiz: Quiz}) => {
             <QuizHeader quizHtml={quizHtml}/>
             <QuizContent quizContentHtml={quizHtml.question}/>
             <BottomSideContainer>
-                <QuizItems quizHtml={quizHtml}/>
+                <QuizItems quizHtml={quizHtml} />
             </BottomSideContainer>
         </div>
     )

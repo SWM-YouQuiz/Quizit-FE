@@ -7,6 +7,7 @@ import {getQuiz} from "@/modules/quiz/serverApiActions";
 import {nonData} from "@/modules/quiz/quizDummy";
 import Heartbutton, {HeartSquareButton} from "@/components/Heartbutton";
 import {calculateDateDifference} from "@/util/etc";
+import {getChapter} from "@/modules/curriculum/serverApiActions";
 
 type CardProps = {
     href?: string,
@@ -17,6 +18,7 @@ type CardProps = {
 
 const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
     const [quiz, setQuiz] = useState<Quiz>(nonData);
+    const [chapterImg, setChapterImg] = useState("/next.svg");
 
     useEffect(() => {
         _getQuiz(quizId);
@@ -25,6 +27,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
     const _getQuiz = async (quizId: string) => {
         const _quiz = await getQuiz({quizId: quizId});
         setQuiz(_quiz);
+        // const chapter = await getChapter({chapterId: _quiz.chapterId});
     }
 
     return (
@@ -36,7 +39,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
                 <div>
                     <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
                         <Image
-                            src={"/next.svg"}
+                            src={chapterImg}
                             width={48}
                             height={48}
                             alt={"퀴즈가 포함된 코스 로고"}
