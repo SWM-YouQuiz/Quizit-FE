@@ -9,7 +9,9 @@ type Chapter = {
     id: string,
     description: string,
     courseId: string,
-    document: string
+    document: string,
+    image: string,
+    index: string
 }
 
 type Curriculum = {

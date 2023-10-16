@@ -1,3 +1,4 @@
+"use client"
 import {createContext, Dispatch, MouseEventHandler, SetStateAction} from "react";
 
 export type OptionSheetContextType = null | {
@@ -13,7 +14,8 @@ export const OptionSheetContext = createContext<OptionSheetContextType>(null);
 
 
 export type QuizFilterContextType = {
-    quizFilter: QuizFilter
+    quizFilter: QuizFilter,
+    setQuizFilter: undefined |  Dispatch<SetStateAction<QuizFilter>>
 }
 
 export const QuizFilterContext = createContext<QuizFilterContextType>({
@@ -21,5 +23,6 @@ export const QuizFilterContext = createContext<QuizFilterContextType>({
         markedQuiz: false,
         incorrectQuiz: false,
         unsolvedQuiz: false
-    }
+    },
+    setQuizFilter: undefined
 });

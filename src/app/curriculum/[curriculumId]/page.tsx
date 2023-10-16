@@ -17,7 +17,9 @@ const Course = async ({params}: {params: {curriculumId: string}}) => {
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">{curriculum.title}</div>
-                <Filter/>
+                <Link href="/curriculum/filter">
+                    <Filter/>
+                </Link>
             </Header>
             <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer courses={courses}/>
