@@ -1,7 +1,7 @@
-import {ReactNode} from "react";
-import {Onboarding1, Onboarding3, Onboarding4, Onboarding2} from "@/components/character";
+import React, {ReactNode} from "react";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
+import Image from "next/image";
 
 type OnBoardingType = {
     svg: ReactNode,
@@ -10,15 +10,39 @@ type OnBoardingType = {
 
 const onBordingData: OnBoardingType[] = [
     {
-        svg: <Onboarding1/>,
+        svg: <Image
+                src="../characters/onboarding1.svg"
+                alt="지식을 탐구하는 퀴즈보"
+                sizes="100vw"
+                fill
+                style={{
+                    objectFit: 'none',
+                }}
+            />,
         content: "언제 어디서나\n개발 지식을 점검해보세요"
     },
     {
-        svg: <Onboarding2/>,
+        svg: <Image
+                src="../characters/onboarding2.svg"
+                alt="퀴즈잇에 의사소통하는 퀴즈보"
+                sizes="100vw"
+                fill
+                style={{
+                    objectFit: 'none',
+                }}
+            />,
         content: "퀴즈를 풀고 자세한 풀이를\n퀴즈보에게 요청해보세요"
     },
     {
-        svg: <Onboarding3/>,
+        svg: <Image
+                src="../characters/onboarding3.svg"
+                alt="뱃지를 획득하는 퀴즈보"
+                sizes="100vw"
+                fill
+                style={{
+                    objectFit: 'none',
+                }}
+            />,
         content: "특정 조건을 달성하여\n뱃지를 획득하고 성장하세요"
     }
 ]
@@ -42,7 +66,7 @@ export const Onboarding = ({svg, content, page}: OnBoardingType & {page: number}
         </div>
         <Link
             href={`/onboarding/${page+1}`}
-            className="w-full"
+            className="w-full z-50"
         >
             <Button context="다음"/>
         </Link>
