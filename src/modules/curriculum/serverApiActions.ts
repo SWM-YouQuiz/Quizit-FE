@@ -44,3 +44,33 @@ export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chap
         token: session.user.accessToken,
     });
 }
+
+export const getCurriculumProgress = async ({curriculumId}: {curriculumId: string}): Promise<Progress> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/curriculum/${curriculumId}/progress`,
+        method: 'GET',
+        token: session.user.accessToken,
+    });
+}
+
+export const getCourseProgress = async ({courseId}: {courseId: string}): Promise<Progress> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/course/${courseId}/progress`,
+        method: 'GET',
+        token: session.user.accessToken,
+    });
+}
+
+export const getChapterProgress = async ({chapterId}: {chapterId: string}): Promise<Progress> => {
+    const session = await authenticateSession(authOptions);
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}/progress`,
+        method: 'GET',
+        token: session.user.accessToken,
+    });
+}

@@ -52,9 +52,9 @@ const BodyContainer = ({chapters, curriculumId}: BodyContainerProps) => (
                         alt={courseId}
                         imageUrl={image}
                         path={`Chapter ${idx+1}`}
-                        allQuizzes={100}
-                        solvedQuizzes={40}
                         title={description}
+                        id={id}
+                        type="chapter"
                     >
                         <Options documentUrl={document}/>
                     </Card>

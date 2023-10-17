@@ -36,12 +36,12 @@ const BodyContainer = ({courses}: {courses: Course[]}) => (
             courses.map(({id, title, image, curriculumId}) => (
                 <Card
                     key={`course-${id}`}
+                    id={id}
+                    type="course"
                     href={`${curriculumId}/${id}`}
                     alt={title}
                     imageUrl={image}
                     path={title}
-                    solvedQuizzes={50}
-                    allQuizzes={400}
                     title={title}
                 />
             ))

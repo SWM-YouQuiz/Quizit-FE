@@ -3,33 +3,46 @@ import Image from 'next/image'
 import Link from "next/link";
 import {ReactNode} from "react";
 import Options from "@/modules/curriculum/components/Options";
+import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
 
 type CardProps = {
+    type: "curriculum" | "course" | "chapter",
+    id: string,
     href?: string,
     imageUrl: string,
     path: string,
     title: string,
-    allQuizzes: number,
-    solvedQuizzes: number,
     alt: string,
     className?: string,
     children?: ReactNode
 }
-const Card = ({href="", imageUrl, path, title, allQuizzes, solvedQuizzes, alt, className="", children=null}: CardProps) => {
+
+const handleGetProgress = async ({type, id}: {type: CardProps["type"], id: string}) => {
+    if(type === "curriculum") {
+        return getCurriculumProgress({curriculumId: id});
+    } else if (type === "course") {
+        return getCourseProgress({courseId: id});
+    } else {
+        return getChapterProgress({chapterId: id});
+    }
+}
+const Card = async ({type, id, href="", imageUrl, path, title, alt, className="", children=null}: CardProps) => {
+    const progress = await handleGetProgress({type, id});
+
     return (
         <Link
             href={href}
             className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4", className)}
         >
-            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} allQuizzes={allQuizzes} solvedQuizzes={solvedQuizzes}>
+            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} total={progress.total} solved={progress.solved}>
                 {children}
             </MainContainer>
         </Link>
     )
 }
 
-type MainContainerProps = Omit<CardProps, 'className' | 'options'>;
-const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes, children}: MainContainerProps) => (
+type MainContainerProps = Omit<CardProps, 'className' | 'options' | 'type' | 'id'> & Progress;
+const MainContainer = ({imageUrl, path, title, alt, total, solved, children}: MainContainerProps) => (
     <div className="flex space-x-2">
         <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
             <Image
@@ -51,20 +64,20 @@ const MainContainer = ({imageUrl, path, title, alt, allQuizzes, solvedQuizzes, c
                 </div>
                 {children}
             </div>
-            <ProgressBar allQuizzes={allQuizzes} solvedQuizzes={solvedQuizzes}/>
+            <ProgressBar total={total} solved={solved}/>
         </div>
     </div>
 )
 
-type ProgressBarProps = Pick<CardProps, 'allQuizzes' | 'solvedQuizzes'>
-const ProgressBar = ({allQuizzes, solvedQuizzes}: ProgressBarProps) => (
+type ProgressBarProps = Progress
+const ProgressBar = ({total, solved}: ProgressBarProps) => (
     <div className="space-y-1.5">
         <div className="overflow-hidden flex rounded bg-primary-50 h-2.5">
-            <div style={{ width: `${solvedQuizzes / allQuizzes * 100}%` }} className="shadow-none flex flex-col text-center rounded whitespace-nowrap text-white justify-center bg-primary-800"></div>
+            <div style={{ width: `${solved / total * 100}%` }} className="shadow-none flex flex-col text-center rounded whitespace-nowrap text-white justify-center bg-primary-800"></div>
         </div>
         <div className="leading-[14px] text-xs">
-            <span className="text-point1">{`${solvedQuizzes}문제 완료`}</span>
-            <span>{`/ ${allQuizzes}문제`}</span>
+            <span className="text-point1">{`${solved}문제 완료`}</span>
+            <span>{`/ ${total}문제`}</span>
         </div>
     </div>
 )
