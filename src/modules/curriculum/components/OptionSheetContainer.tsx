@@ -1,5 +1,5 @@
 "use client"
-import {createContext, Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState} from "react";
+import {Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState} from "react";
 import OptionSheet from "@/modules/curriculum/components/OptionSheet";
 import {OptionSheetContext} from "@/modules/curriculum/Context";
 
@@ -33,6 +33,7 @@ const OptionSheetContainer = ({children}: OptionSheetContainer) => {
         event.preventDefault();
         closeBottomSheet();
     }
+
     return (
         <OptionSheetContext.Provider value={{
             closeBottomSheet,
