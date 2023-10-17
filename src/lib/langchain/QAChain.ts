@@ -3,47 +3,32 @@ import {ZepVectorStore} from "langchain/vectorstores/zep";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
 import {ChatOpenAI} from "langchain/chat_models/openai";
 import {PromptTemplate} from "langchain/prompts";
-import {ConversationalRetrievalQAChain} from "langchain/chains";
-import {BufferMemory} from "langchain/memory";
+import { Document } from "langchain/document";
+import {RunnableSequence} from "langchain/schema/runnable";
+import {BytesOutputParser, StringOutputParser} from "langchain/schema/output_parser";
 
-const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, return the conversation history excerpt that includes any relevant context to the question if it exists and rephrase the follow up question to be a standalone question.
-Chat History:
-{chat_history}
-Follow Up Input: {question}
-Your answer should follow the following format:
-\`\`\`
-Use the following pieces of context to answer the users question.
-If you don't know the answer, just say that you don't know, don't try to make up an answer.
-----------------
-<Relevant chat history excerpt as context here>
-Standalone question: <Rephrased question here>
-\`\`\`
-Your answer:`;
+type makeQAChainProps = {
+    messages: Message[],
+    question: string,
+    chapterId: string,
+    quizQuestion: string,
+    options: string[],
+    answer: string,
+    choice: string
+}
 
-const template = `You are a chatbot helping customers with their questions in korean. 친절하게 답변해주세요.
-  
-  {context}
-  
-  Human: {question}
-  Assistant:
-  `;
-
-export const makeQAChain = ({memory, question, chapterId}: {memory: BufferMemory, question: string, chapterId: string}) => {
-    const {
-        stream,
-        handlers: {
-            handleChainEnd,
-            handleLLMStart,
-            handleLLMNewToken,
-            handleLLMError,
-            handleChainStart,
-            handleChainError,
-            handleToolStart,
-            handleToolError,
-        },
-    } = LangChainStream();
+const formatMessage = (message: Message) => {
+    return `${message.role}: ${message.content}`;
+};
+export const makeQAChain = ({messages, question, chapterId, quizQuestion, options, answer, choice}: makeQAChainProps) => {
+    const quizInfo = `
+        문제: ${quizQuestion}
+        문항들: ${options}
+        정답: ${answer}
+        사용자의 선택: ${choice}`
 
     const collectionName = chapterId;
+    const formattedPreviousMessages = messages.slice(0, -1).map(formatMessage);
 
     const zepConfig = {
         apiUrl: process.env.ZEP_URL as string, // the URL of your Zep implementation
@@ -56,58 +41,67 @@ export const makeQAChain = ({memory, question, chapterId}: {memory: BufferMemory
     );
     let id = "";
 
-    const handlers = {
-        handleLLMStart: (llm: any, prompts: string[], runId: string) => {
-            id = runId;
-            return handleLLMStart(llm, prompts, runId);
-        },
-        handleLLMNewToken,
-        handleLLMError,
-        handleChainStart,
-        handleChainError,
-        handleToolStart,
-        handleToolError,
-    };
-
     const llm = new ChatOpenAI({
         modelName: "gpt-3.5-turbo-16k",
         streaming: true,
-        temperature: 1,
-        callbacks: [handlers],
-    });
-    const nonStreamingModel = new ChatOpenAI({});
-
-    const prompt = new PromptTemplate({
-        template,
-        inputVariables: ["question", "context"],
+        temperature: 1
     });
 
-    const chain = ConversationalRetrievalQAChain.fromLLM(
-        llm,
-        vectorDB.asRetriever(),
-        {
-            memory,
-            returnSourceDocuments: true,
-            qaChainOptions: {
-                type: "stuff",
-                prompt: prompt,
-            },
-            questionGeneratorChainOptions: {
-                llm: nonStreamingModel,
-                template: CONDENSE_QUESTION_TEMPLATE,
-            },
-        }
+    const retriever = vectorDB.asRetriever();
+
+
+    const serializeDocs = (docs: Array<Document>) =>
+        docs.map((doc) => doc.pageContent).join("\n\n");
+
+    /**
+     * Create a prompt template for generating an answer based on context and
+     * a question.
+     *
+     * Chat history will be an empty string if it's the first question.
+     *
+     * inputVariables: ["chatHistory", "context", "question"]
+     */
+    const questionPrompt = PromptTemplate.fromTemplate(
+        `당신은 사용자가 푼 퀴즈에 대한 해설을 해주는 역할입니다. 마지막에 다음 문맥을 사용하여 질문에 친절하게 답하세요. 답을 모른다면 답을 지어내지 마십시오.
+QUIZ: {quizInfo}
+----------
+CONTEXT: {context}
+----------
+CHAT HISTORY: {chatHistory}
+----------
+QUESTION: {question}
+----------
+답변:`
     );
 
-    const callChain = () => {
-        chain.call({ question }).then(async (response) => {
-            const sources = JSON.stringify(
-                response.sourceDocuments.map((document: any) => document.metadata.source)
-            );
-            await handleLLMNewToken(`##SOURCE_DOCUMENTS##${sources}`);
-            await handleChainEnd(null, id);
-        });
+    const chain = RunnableSequence.from([
+        {
+            question: (input: { question: string; chatHistory?: string }) =>
+                input.question,
+            chatHistory: (input: { question: string; chatHistory?: string }) =>
+                input.chatHistory ?? "",
+            context: async (input: { question: string; chatHistory?: string }) => {
+                const relevantDocs = await retriever.getRelevantDocuments(input.question);
+                const serialized = serializeDocs(relevantDocs);
+                return serialized;
+            },
+            quizInfo:  (input: { question: string; chatHistory?: string }) =>
+                quizInfo,
+        },
+        questionPrompt,
+        llm,
+        new BytesOutputParser()
+    ]);
+
+
+    const callChain = async () => {
+        return await chain.stream({
+            chatHistory: formattedPreviousMessages.join("\n"),
+            question: question,
+        })
     }
 
-    return {callChain, stream};
+
+
+    return {callChain};
 }
