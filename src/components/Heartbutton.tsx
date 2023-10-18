@@ -8,9 +8,21 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
 import {authenticateSession} from "@/util/session";
 import {getUser} from "@/modules/profile/serverApiActions";
+import {useDebounce} from "@/lib/hooks/useDebounce";
 
 const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const [isMarked, setIsMarked] = useState(false);
+    const handleHeartClicked = () => {
+        getQuizMark({id: quizId})
+            .then((quiz) => {
+                checkMarked(quiz.markedUserIds);
+            })
+            .catch(e => {
+                console.log("error!!@!@!", e);
+            })
+    }
+
+    const { call: debouncedClick } = useDebounce(handleHeartClicked, 3000);
 
     const checkMarked = async (_markedUserIds: string[]) => {
         if (_markedUserIds.some(_userId => _userId === userId)) {
@@ -24,29 +36,19 @@ const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, 
         checkMarked(markedUserIds);
     }, [markedUserIds, userId]);
 
-    const handleHeartClicked = () => {
-        getQuizMark({id: quizId})
-            .then((quiz) => {
-                checkMarked(quiz.markedUserIds);
-            })
-            .catch(e => {
-                console.log("error!!@!@!", e);
-            })
-    }
-
-    return {handleHeartClicked, isMarked};
+    return {debouncedClick, isMarked};
 }
 
 export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
     const {data, status} = useSession();
     const userId = status === "authenticated" ? data.user.user.id : "-1";
-    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
+    const {debouncedClick, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
 
     return (
         <motion.button
             type="button"
             className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
-            onClick={handleHeartClicked}
+            onClick={debouncedClick}
             whileTap={{ scale: 0.9 }}
         >
             {
@@ -57,12 +59,12 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
 }
 
 const Heartbutton  = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
-    const {handleHeartClicked, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
+    const {debouncedClick, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
 
     return (
         <motion.button
             type="button"
-            onClick={handleHeartClicked}
+            onClick={debouncedClick}
             whileTap={{ scale: 0.9 }}
         >
             {

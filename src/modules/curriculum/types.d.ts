@@ -25,3 +25,8 @@ type QuizFilter = {
     incorrectQuiz: boolean,
     unsolvedQuiz: boolean
 }
+
+type Progress = {
+    total: number,
+    solved: number
+}

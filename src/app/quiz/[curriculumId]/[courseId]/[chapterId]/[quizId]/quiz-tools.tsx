@@ -6,6 +6,7 @@ import {getSession} from "next-auth/react";
 import {cn} from "@/util/tailwind";
 import ThumbupIcon from "@/components/icons/ThumbupIcon";
 import ThumbdownIcon from "@/components/icons/ThumbdownIcon";
+import {useDebounce} from "@/lib/hooks/useDebounce";
 
 type QuizToolsProps = {
     quizId: string,
@@ -16,6 +17,20 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
     const [likedCount, setLikedCount] = useState<number>(likedUserIds.length);
     const [unlikedCount, setUnlikedCount] = useState<number>(unlikedUserIds.length);
     const [status, setStatus] = useState<'liked'|'unliked'|'idle'>('idle');
+
+    const handleOnClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+        const isLike = event.currentTarget.name === "up" ? "True" : "False";
+
+        getQuizEvaluate({id: quizId, isLike: isLike})
+            .then(quiz => {
+                setLikedCount(quiz.likedUserIds.length)
+                setUnlikedCount(quiz.unlikedUserIds.length)
+                checkLiked(quiz.likedUserIds, quiz.unlikedUserIds);
+            })
+    }
+
+    const { call: debouncedClick } = useDebounce(handleOnClick, 3000);
 
     const checkLiked = async (likedUserIds: string[], unlikedUserIds: string[]) => {
         const session = await getSession();
@@ -32,27 +47,15 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
 
     useEffect(() => {
         checkLiked(likedUserIds, unlikedUserIds);
-        console.log("likedUserIds", likedUserIds, unlikedUserIds);
     },[likedUserIds, unlikedUserIds])
-    const handleOnClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-        event.stopPropagation();
-        const isLike = event.currentTarget.name === "up" ? "True" : "False";
-
-        getQuizEvaluate({id: quizId, isLike: isLike})
-            .then(quiz => {
-                setLikedCount(quiz.likedUserIds.length)
-                setUnlikedCount(quiz.unlikedUserIds.length)
-                checkLiked(quiz.likedUserIds, quiz.unlikedUserIds);
-            })
-    }
 
     return (
         <div className="flex space-x-1.5">
-            <ThumbButton handleClick={handleOnClick} name="up" className={status==='liked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
+            <ThumbButton handleClick={debouncedClick} name="up" className={status==='liked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
                 <ThumbupIcon/>
                 <span className="text-center text-xs">{likedCount}</span>
             </ThumbButton>
-            <ThumbButton handleClick={handleOnClick} name="down" className={status==='unliked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
+            <ThumbButton handleClick={debouncedClick} name="down" className={status==='unliked' ? 'stroke-primary-800 text-primary-800 inner-border-primary-800' : 'text-bg-secondary stroke-bg-secondary'}>
                 <ThumbdownIcon/>
                 <span className="text-center text-xs">{unlikedCount}</span>
             </ThumbButton>

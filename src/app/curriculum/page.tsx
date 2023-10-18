@@ -54,8 +54,8 @@ const BodyContainer = ({curriculums}: {curriculums: Curriculum[]}) => (
                     imageUrl={image}
                     alt={title}
                     path={title}
-                    allQuizzes={1000}
-                    solvedQuizzes={200}
+                    id={id}
+                    type="curriculum"
                 />
             ))
         }

@@ -41,9 +41,7 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
 
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
         initialMessages: [
-            {id: invisibleMessageId, role: "system", content: systemPrompt},
-            {id: invisibleMessageId, role: "user", content: makeUserPrompt(question, answer)},
-            {id: `quiz-${quizId}-2`, role: "assistant", content: solution}
+            {id: `quiz-${quizId}-1`, role: "assistant", content: solution}
         ]
     })
     const convertedMessages = useMessageToHtmlString(messages, isLoading);
@@ -51,7 +49,17 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
     return (
         <form
             className="flex flex-col justify-between h-full"
-            onSubmit={e => handleSubmit(e, {options: {body: {chapterId: quizHtml.chapterId}}})}
+            onSubmit={e => handleSubmit(e, {
+                options: {
+                    body: {
+                        chapterId: quizHtml.chapterId,
+                        question: question,
+                        options: JSON.stringify(quizOptions),
+                        answer: quizOptions[answer],
+                        choice: quizOptions[select]
+                    }
+                }
+            })}
         >
             <MessageBlockes convertedMessages={convertedMessages} />
             <Input handleInputChange={handleInputChange} input={input}/>

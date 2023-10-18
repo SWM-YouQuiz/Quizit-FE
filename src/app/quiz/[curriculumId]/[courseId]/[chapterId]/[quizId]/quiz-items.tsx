@@ -91,11 +91,11 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
 }) => (
     <motion.button
         type="button"
-        className={cn(`flex min-h-[50px] w-full p-4 whitespace-normal break-words rounded-xl text-[13px]`, statusColor[itemStatus])}
+        className={cn(`flex min-h-[50px] w-full p-4 rounded-xl`, statusColor[itemStatus])}
         onClick={() => handleOptionClicked(idx)}
         whileTap={{ scale: 0.95 }}
     >
-        {itemString}
+        <p className="whitespace-normal break-keep text-[13px]">{itemString}</p>
     </motion.button>
 )
 

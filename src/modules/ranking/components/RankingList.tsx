@@ -13,7 +13,7 @@ const RankingList = async () => {
     return (
         <div className="flex flex-col items-center -mt-[24px]">
             <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>
-            <div className="h-1/2 w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
+            <div className="h-[calc(100dvh-250px)] w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
                 <div className="flex flex-col">
                     {
                         rankingList.map((user, idx) => (

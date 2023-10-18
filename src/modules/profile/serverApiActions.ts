@@ -23,3 +23,11 @@ export const getUser = async (): Promise<UserInfo> => {
         token: session.user.accessToken,
     });
 };
+
+export const getUserFromId = async ({id, accessToken}: {id: string, accessToken: string}): Promise<UserInfo> => {
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/user/user/${id}`,
+        method: 'GET',
+        token: accessToken,
+    });
+};

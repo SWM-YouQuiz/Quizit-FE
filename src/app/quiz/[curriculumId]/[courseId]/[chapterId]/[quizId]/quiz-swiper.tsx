@@ -61,8 +61,10 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
                 replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onSlideChange={(swiper) => {
-                if(quizQueue.length - 1 > swiper.activeIndex) {
+                try {
                     replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
+                } catch {
+
                 }
             }}
             onReachEnd={async (swiper ) => {
