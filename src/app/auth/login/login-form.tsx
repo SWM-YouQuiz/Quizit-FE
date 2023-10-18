@@ -7,11 +7,15 @@ import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {SplashMarkDark} from "@/components/svgs";
 import Link from "next/link";
+import Image from "next/image";
 
 type Inputs = {
     username: string
     password: string
 }
+
+const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/btn_google_signin_light_normal_web@2x.png`;
+const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/kakao_login_medium_narrow.png`
 
 const LoginForm = () => {
     const {
@@ -27,6 +31,7 @@ const LoginForm = () => {
         const user = await signIn("credentials", {
             username: data.username,
             password: data.password,
+            type: "-1",
             callbackUrl: `${window.location.origin}`,  // 현재 페이지로 리다이렉트
             redirect: false  // 리다이렉트 방지
         });
@@ -83,8 +88,23 @@ const LoginForm = () => {
                 disabled={checkDisable()}
                 value="로그인"
             />
+            <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`} prefetch={false}>
+                <Image
+                    src={googleImgSrc}
+                    alt="구글 로그인 버튼 이미지"
+                    width={160}
+                    height={10}
+                />
+            </Link>
+            <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`} prefetch={false}>
+                <Image
+                    src={kakaoImgSrc}
+                    alt="카카오 로그인 버튼 이미지"
+                    width={160}
+                    height={10}
+                />
+            </Link>
             <div className="flex justify-end text-sm">
-                <span>처음 오셨나요?</span>
                 <Link href="/auth/register/email" className="text-primary-900">&nbsp;회원가입</Link>
             </div>
         </form>

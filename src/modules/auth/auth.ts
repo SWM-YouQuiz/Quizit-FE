@@ -1,6 +1,7 @@
 import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {loginApi} from "@/modules/auth/serverApiActions";
+import {getUser, getUserFromId} from "@/modules/profile/serverApiActions";
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -13,16 +14,29 @@ export const authOptions: NextAuthOptions = {
             credentials: {
                 username: {label: "username", type: "username",},
                 password: { label: "password", type: "password" },
+                type: {label: "type", type: "type"}
             },
             async authorize(credentials) {
                 if(!credentials) {
                     throw new Error("잘못된 요청입니다.");
                 }
-                try{
-                    const json = await loginApi({body: credentials});
-                    return json as any;
-                } catch {
-                    throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
+                if(credentials.type === "-1") {
+                    try {
+                        const json = await loginApi({body: credentials});
+                        return json as any;
+                    } catch {
+                        throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
+                    }
+                } else {
+                    const accessToken = credentials.username;
+                    const refreshToken = credentials.password;
+                    const id = credentials.type
+
+                    const user = await getUserFromId({id: id, accessToken: accessToken})
+
+                    return {
+                        accessToken, refreshToken, user
+                    }
                 }
             },
         }),

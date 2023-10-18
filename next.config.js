@@ -4,7 +4,20 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_A
 
 const nextConfig = {
     images: {
-        domains: ["quizit-storage.s3.ap-northeast-2.amazonaws.com"]
+        domains: [
+            "quizit-storage.s3.ap-northeast-2.amazonaws.com",
+        ],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**/quizit.org',
+            },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3000'
+            }
+        ]
     },
     output: 'standalone',
     poweredByHeader: false,
