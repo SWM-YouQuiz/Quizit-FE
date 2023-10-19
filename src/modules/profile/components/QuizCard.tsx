@@ -28,11 +28,9 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
         try {
             const _quiz = await getQuiz({quizId: quizId});
             const chapter = await getChapter({chapterId: _quiz?.chapterId});
-            console.log("quiz", _quiz);
             setQuiz(_quiz);
             setChapter(chapter);
         } catch(e) {
-            console.log("e", e);
             return;
         }
     }
