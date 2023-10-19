@@ -17,8 +17,8 @@ type Inputs = {
 const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/btn_google_signin_light_normal_web@2x.png`;
 const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/kakao_login_medium_narrow.png`;
 
-const googleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`;
-const kakaoOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`;
+const googleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/google`;
+const kakaoOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/kakao`;
 
 const LoginForm = () => {
     const {
