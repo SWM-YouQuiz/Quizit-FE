@@ -1,11 +1,14 @@
 "use client"
 
-import React, {startTransition, useEffect, useMemo, useRef, useState} from "react";
+import React, {startTransition, useContext, useEffect, useMemo, useRef, useState} from "react";
 import {useChat, useCompletion} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 import {Send} from "@/components/svgs";
 import { subscribe, isSupported } from 'on-screen-keyboard-detector';
+import Image from "next/image";
+import {getSession, useSession} from "next-auth/react";
+import {QuizContext} from "@/modules/curriculum/Context";
 
 
 const systemPrompt = `
@@ -88,24 +91,40 @@ const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
 }
 
 const MessageBlock = ({message}: {message: Message}) => {
+    const {user} = useContext(QuizContext);
+    const image = "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg"
     if(message.role === 'user') {
         return (
             <div className="flex self-end space-x-2">
-                <div className="bg-primary-50 rounded-b-xl rounded-tl-xl p-2.5">
-                    <div className="text-xs text-secondary-800" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
+                <div className="flex-1 bg-primary-50 rounded-b-xl rounded-tl-xl p-2.5">
+                    <div className="text-xs text-secondary-800 break-all" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
                 </div>
-                <div className="flex flex-col justify-start">
-                    <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
+                <div className="flex flex-col justify-start w-[28px]">
+                    <div className="border border-neutral-100 rounded-full">
+                        <Image
+                            src={image}
+                            width={30}
+                            height={30}
+                            alt={"퀴즈보"}
+                        />
+                    </div>
                 </div>
             </div>
         )
     } else {
         return (
             <div className="flex space-x-2">
-                <div className="flex flex-col justify-start">
-                    <div className="w-[28px] h-[28px] bg-primary-800 rounded-full"/>
+                <div className="flex flex-col justify-start w-[28px]">
+                    <div className="border border-neutral-100 rounded-full">
+                        <Image
+                            src={image}
+                            width={30}
+                            height={30}
+                            alt={"profileImage"}
+                        />
+                    </div>
                 </div>
-                <div className="bg-bg-primary rounded-b-xl rounded-tr-xl p-2.5">
+                <div className="flex-1 bg-bg-primary rounded-b-xl rounded-tr-xl p-2.5">
                     <div className="text-xs text-secondary-800" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
                 </div>
             </div>

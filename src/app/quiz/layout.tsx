@@ -1,12 +1,16 @@
 import {ReactNode, Suspense} from "react";
 import Layout from "@/components/Layout";
+import QuizContainer from "@/modules/quiz/components/QuizContext";
 
 const QuizLayout = ({children}: {children: ReactNode}) => {
 
     return (
-        <Layout navbar={false}>
-            {children}
-        </Layout>
+        <QuizContainer>
+            <Layout navbar={false}>
+                {children}
+            </Layout>
+        </QuizContainer>
+
     )
 }
 

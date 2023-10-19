@@ -26,3 +26,11 @@ export const QuizFilterContext = createContext<QuizFilterContextType>({
     },
     setQuizFilter: undefined
 });
+
+export type QuizContextType = {
+    user: UserInfo | undefined
+}
+
+export const QuizContext = createContext<QuizContextType>({
+    user: undefined
+})

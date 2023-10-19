@@ -2,10 +2,10 @@
 import {ReactNode, useState} from "react";
 import {QuizFilterContext} from "@/modules/curriculum/Context";
 
-type OptionSheetContainer = {
+type QuizFilterContainerProps= {
     children: ReactNode
 }
-const QuizFilterContainer = ({children}: OptionSheetContainer) => {
+const QuizFilterContainer = ({children}: QuizFilterContainerProps) => {
     const [quizFilter, setQuizFilter] = useState<QuizFilter>({
         incorrectQuiz: false, markedQuiz: false, unsolvedQuiz: false
     })
