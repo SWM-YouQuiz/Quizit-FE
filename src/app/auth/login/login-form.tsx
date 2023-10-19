@@ -17,6 +17,9 @@ type Inputs = {
 const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/btn_google_signin_light_normal_web@2x.png`;
 const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/kakao_login_medium_narrow.png`
 
+const googleOAuthUrl = `${`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`}`
+const kakaoOAuthUrl = `${`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`}`
+
 const LoginForm = () => {
     const {
         register,
@@ -88,7 +91,7 @@ const LoginForm = () => {
                 disabled={checkDisable()}
                 value="로그인"
             />
-            <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`} prefetch={false}>
+            <Link href={googleOAuthUrl} prefetch={false}>
                 <Image
                     src={googleImgSrc}
                     alt="구글 로그인 버튼 이미지"
@@ -96,7 +99,7 @@ const LoginForm = () => {
                     height={10}
                 />
             </Link>
-            <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`} prefetch={false}>
+            <Link href={kakaoOAuthUrl} prefetch={false}>
                 <Image
                     src={kakaoImgSrc}
                     alt="카카오 로그인 버튼 이미지"
