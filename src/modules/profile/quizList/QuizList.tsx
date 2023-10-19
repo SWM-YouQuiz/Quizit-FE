@@ -48,7 +48,7 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
             {quizIds
                 .slice(0, page * refetchAmount)
                 .map(quizId => (
-                    <QuizCard key={quizId} quizId={quizId} userId={userId} />
+                    <QuizCard key={quizId} href={`${group}/${quizId}`} quizId={quizId} userId={userId} />
                 ))}
             {hasMore && <div ref={ref}></div>}
         </div>
