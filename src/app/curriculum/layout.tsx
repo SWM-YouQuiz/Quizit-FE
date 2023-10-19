@@ -5,12 +5,6 @@ import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterConta
 
 const CourseLayout = ({children}: {children: ReactNode}) => {
 
-    const quizFilter: QuizFilter = {
-        incorrectQuiz: false,
-        markedQuiz: false,
-        unsolvedQuiz: false
-    }
-
     return (
         <Layout>
             <QuizFilterContainer>
