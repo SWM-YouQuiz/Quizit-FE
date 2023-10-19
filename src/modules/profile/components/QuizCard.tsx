@@ -17,18 +17,27 @@ type CardProps = {
 }
 
 const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
-    const [quiz, setQuiz] = useState<Quiz>(nonData);
-    const [chapterImg, setChapterImg] = useState("/next.svg");
+    const [quiz, setQuiz] = useState<Quiz>();
+    const [chapter, setChapter] = useState<Chapter>();
 
     useEffect(() => {
         _getQuiz(quizId);
     }, [quizId]);
 
     const _getQuiz = async (quizId: string) => {
-        const _quiz = await getQuiz({quizId: quizId});
-        setQuiz(_quiz);
-        // const chapter = await getChapter({chapterId: _quiz.chapterId});
+        try {
+            const _quiz = await getQuiz({quizId: quizId});
+            // const chapter = await getChapter({chapterId: _quiz.chapterId});
+            setQuiz(_quiz);
+            // setChapter(chapter);
+        } catch(e) {
+            console.log("e", e);
+            return;
+        }
     }
+
+    if(!quiz) return null;
+
 
     return (
         <Link
@@ -39,7 +48,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
                 <div>
                     <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
                         <Image
-                            src={chapterImg}
+                            src={chapter ? chapter.image : "/next.svg"}
                             width={48}
                             height={48}
                             alt={"퀴즈가 포함된 코스 로고"}
@@ -50,7 +59,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
                     <div className="flex items-start">
                         <div className="flex-grow flex flex-col justify-evenly">
                             <div className="text-secondary-400 text-[13px]">
-                                임시 path
+
                             </div>
                             <div className="font-semibold text-sm">
                                 {quiz.question}
