@@ -39,7 +39,7 @@ export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chap
     const session = await authenticateSession(authOptions);
 
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/quiz/curriculum/${chapterId}`,
+        endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
         method: 'GET',
         token: session.user.accessToken,
     });
