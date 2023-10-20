@@ -5,7 +5,7 @@ import {redirect} from "next/navigation";
 
 const AuthLayout = async ({children}: {children: ReactNode}) => {
     return (
-        <div className="flex-grow relative max-h-screen p-4">
+        <div className="flex-grow relative max-h-screen p-4 bg-primary-900">
             {children}
         </div>
     )

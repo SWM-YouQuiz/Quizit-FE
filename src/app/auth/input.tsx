@@ -16,7 +16,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> =
         return (
             <div className="flex flex-col w-full space-y-1">
                 <div className="flex justify-between">
-                    <div className="text-[13px] font-semibold">{label}</div>
+                    <div className="text-[13px] font-semibold text-white">{label}</div>
                     {
                         errors[name] && (
                             <div className="flex h-fit items-center text-xs text-error">
