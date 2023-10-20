@@ -8,7 +8,7 @@ const OAuth = ({searchParams}: {searchParams: any}) => {
         username: searchParams.accessToken,
         password: searchParams.refreshToken,
         type: searchParams.id,
-        callbackUrl: "onboarding/0",
+        callbackUrl: "https://quizit.org/onboarding/0",
     });
 
     return (
