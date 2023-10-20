@@ -10,7 +10,7 @@ export default function Error({error, reset}: { error: Error, reset: () => void 
     console.error(error)
 
     return (
-        <div className="p-5 space-y-2 flex items-center">
+        <div className="p-5 space-y-2 flex flex-col items-center">
             <p>죄송합니다. 예상치 못한 에러가 발생했어요.</p>
             <Image
                 className="mt-40"

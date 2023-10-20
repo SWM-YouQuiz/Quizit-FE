@@ -5,8 +5,7 @@ import {useEffect, useState} from "react";
 import {getSession} from "next-auth/react";
 
 const HeaderContainer = () => {
-    const [user, setUser] = useState<UserInfo>();
-
+    const [solvedQuizCount, setSolvedQuizCount] = useState(0);
     const getUser = async () => {
         const session = await getSession();
         return session;
@@ -16,20 +15,17 @@ const HeaderContainer = () => {
        getUser()
            .then(session => {
                if(session) {
-                   setUser(session.user.user);
+                   const user = session.user.user;
+                   const solvedQuizCount = getSolvedQuizCount(user);
+                   setSolvedQuizCount(solvedQuizCount)
                }
            })
     },[])
 
-    const getSolvedQuizCount = () => {
-        if(user) {
-            return user.correctQuizIds.length + user.incorrectQuizIds.length;
-        } else {
-            return 0;
-        }
+    const getSolvedQuizCount = (user: UserInfo) => {
+        return user.correctQuizIds.length + user.incorrectQuizIds.length;
     }
 
-    const solvedQuizCount = getSolvedQuizCount();
 
     return (
         <div className="flex justify-between">

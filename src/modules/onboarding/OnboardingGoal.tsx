@@ -12,7 +12,7 @@ const OnboardingGoal = () => {
                 alt="열심히 공부하는 퀴즈보"
                 width={240}
                 height={240}
-            />,
+            />
             <div className="w-full flex flex-col space-y-2.5">
                 <GoalEditItem title="캐주얼" goalCount={5}/>
                 <GoalEditItem title="보통" goalCount={10}/>

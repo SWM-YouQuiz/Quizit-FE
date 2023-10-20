@@ -79,7 +79,7 @@ const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
     }, [convertedMessages]);
 
     return (
-        <div className="flex flex-col space-y-2.5 overflow-auto">
+        <div className="flex flex-col space-y-2.5 overflow-y-auto overflow-x-hidden">
             {
                 convertedMessages.map(message => !isInvisibleMessage(message.id) && (
                     <MessageBlock key={message.id} message={message}/>
