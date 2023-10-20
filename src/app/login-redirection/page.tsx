@@ -3,12 +3,14 @@
 import {signIn} from "next-auth/react";
 import {CodingCharacter} from "@/components/character";
 
+const callbackUrl = `${process.env.NEXT_PUBLIC_SERVICE_URL}/onboarding/0`
+
 const OAuth = ({searchParams}: {searchParams: any}) => {
     signIn("credentials", {
         username: searchParams.accessToken,
         password: searchParams.refreshToken,
         type: searchParams.id,
-        callbackUrl: "https://quizit.org/onboarding/0",
+        callbackUrl: callbackUrl,
     });
 
     return (
