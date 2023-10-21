@@ -15,28 +15,6 @@ const Head = () => {
             <meta name="msapplication-tap-highlight" content="no" />
             <meta name="theme-color" content="#5741D3" />
 
-            <link rel="apple-touch-icon" sizes="20x20" href="/icons/ios/20.png" />
-            <link rel="apple-touch-icon" sizes="29x29" href="/icons/ios/29.png" />
-            <link rel="apple-touch-icon" sizes="32x32" href="/icons/ios/32.png" />
-            <link rel="apple-touch-icon" sizes="40x40" href="/icons/ios/40.png" />
-            <link rel="apple-touch-icon" sizes="50x50" href="/icons/ios/50.png" />
-            <link rel="apple-touch-icon" sizes="57x57" href="/icons/ios/57.png" />
-            <link rel="apple-touch-icon" sizes="58x58" href="/icons/ios/58.png" />
-            <link rel="apple-touch-icon" sizes="60x60" href="/icons/ios/60.png" />
-            <link rel="apple-touch-icon" sizes="64x64" href="/icons/ios/64.png" />
-            <link rel="apple-touch-icon" sizes="72x72" href="/icons/ios/72.png" />
-            <link rel="apple-touch-icon" sizes="76x76" href="/icons/ios/76.png" />
-            <link rel="apple-touch-icon" sizes="80x80" href="/icons/ios/80.png" />
-            <link rel="apple-touch-icon" sizes="87x87" href="/icons/ios/87.png" />
-            <link rel="apple-touch-icon" sizes="100x100" href="/icons/ios/100.png" />
-            <link rel="apple-touch-icon" sizes="114x114" href="/icons/ios/114.png" />
-            <link rel="apple-touch-icon" sizes="120x120" href="/icons/ios/120.png" />
-            <link rel="apple-touch-icon" sizes="128x128" href="/icons/ios/128.png" />
-            <link rel="apple-touch-icon" sizes="144x144" href="/icons/ios/144.png" />
-            <link rel="apple-touch-icon" sizes="152x152" href="/icons/ios/152.png" />
-            <link rel="apple-touch-icon" sizes="167x167" href="/icons/ios/167.png" />
-            <link rel="apple-touch-icon" sizes="180x180" href="/icons/ios/180.png" />
-            <link rel="apple-touch-icon" sizes="192x192" href="/icons/ios/192.png" />
             <link rel="apple-touch-icon" sizes="256x256" href="/icons/ios/256.png" />
             <link rel="apple-touch-icon" sizes="512x512" href="/icons/ios/512.png" />
             <link rel="apple-touch-icon" sizes="1024x1024" href="/icons/ios/1024.png" />
