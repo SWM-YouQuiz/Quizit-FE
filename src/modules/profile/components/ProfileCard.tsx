@@ -2,29 +2,19 @@
 import Link from "next/link";
 import Image from "next/image";
 import {Rightarrow} from "@/components/svgs";
-import {useEffect, useState} from "react";
-import {getSession} from "next-auth/react";
+import {getSession, signOut, useSession} from "next-auth/react";
 
-const ProfileCard = async () => {
-    const [dailyTarget, setDailyTarget] = useState(0);
-    const [profileImage, setProfileImage] = useState("");
-    const getUser = async () => {
-        const session = await getSession();
-        if(session) {
-            return session.user.user;
-        }
+const ProfileCard = () => {
+    const {data: session, status} = useSession();
+    if(status !== "authenticated") {
+        signOut();
         return null;
     }
+    const user = session.user.user;
 
-    useEffect(() => {
-        getUser()
-            .then(user => {
-                if(user) {
-                    setDailyTarget(user.dailyTarget);
-                    setProfileImage(user.image);
-                }
-            })
-    },[]);
+    console.log(user.image, "image")
+
+    const image = (user.image && user.image !== "none") ? user.image : "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character2.svg"
 
     return (
         <Link
@@ -33,7 +23,7 @@ const ProfileCard = async () => {
         >
             <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">
                 <Image
-                    src={profileImage ? profileImage : "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character2.svg"}
+                    src={image}
                     width={72}
                     height={72}
                     alt={"profileImage"}
@@ -41,10 +31,10 @@ const ProfileCard = async () => {
             </div>
             <div className="flex-grow flex justify-between">
                 <div className="flex flex-col justify-between">
-                    <div className="text-[13px] text-secondary-400 leading-[16px] mb-[3px]">Lv.100</div>
+                    <div className="text-[13px] text-secondary-400 leading-[16px] mb-[3px]">Lv.{user.level}</div>
                     <div className="text-lg text-secondary-900 font-semibold leading-[21px] mb-[7px]">정의찬</div>
                     <div className="bg-primary-100 px-2 py-1 text-primary-900 rounded text-[13px]">
-                        하루 목표 {dailyTarget}개
+                        하루 목표 {user.dailyTarget}개
                     </div>
                 </div>
                 <Rightarrow className="self-center"/>
