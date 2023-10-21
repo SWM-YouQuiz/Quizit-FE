@@ -8,12 +8,12 @@ const RankingList = async () => {
     const rankingList = await getUserRanking();
     const session = await getServerSession(authOptions) as Session;
 
-    const myRanking = rankingList.findIndex(user => user.id === "64d51262a2caa56a8b9ddb8a")
+    const myRanking = rankingList.findIndex(user => user.id === session.user.user.id)
 
     return (
         <div className="flex flex-col items-center -mt-[24px]">
             <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>
-            <div className="h-[calc(100dvh-250px)] w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
+            <div className="h-[calc(100dvh-350px)] w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
                 <div className="flex flex-col">
                     {
                         rankingList.map((user, idx) => (
@@ -60,7 +60,7 @@ const Item = ({user, ranking}: {user: UserInfo, ranking: number}) => {
                     />
                 </div>
                 <div className="ml-2.5 flex flex-col justify-between">
-                    {/*<div className="leading-[18px] text-secondary-400 text-[13px]">lv.100</div>*/}
+                    <div className="leading-[18px] text-secondary-400 text-[13px]">lv.{user.level}</div>
                     <div className="leading-[19px] text-secondary-900 font-semibold">{user.nickname}</div>
                 </div>
             </div>
