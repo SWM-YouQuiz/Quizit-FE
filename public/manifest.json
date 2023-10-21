@@ -1,47 +1,145 @@
 {
-    "theme_color": "#5741D3",
-    "background_color": "#5741D2",
-    "display": "fullscreen",
-    "scope": "/",
-    "start_url": "/",
-    "name": "Quiz IT",
-    "short_name": "Quiz IT",
-    "description": "Quiz IT",
-    "icons": [
-        {
-            "src": "/icons/android/drawable/icon.png",
-            "sizes": "96x96",
-            "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-hdpi/icon.png",
-          "sizes": "72x72",
-          "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-idpi/icon.png",
-          "sizes": "36x36",
-          "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-mdpi/icon.png",
-          "sizes": "48x48",
-          "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-xhdpi/icon.png",
-          "sizes": "96x96",
-          "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-xxhdpi/icon.png",
-          "sizes": "144x144",
-          "type": "image/png"
-        },
-        {
-          "src": "/icons/android/drawable-xxxhdpi/icon.png",
-          "sizes": "192x192",
-          "type": "image/png"
-        }
-    ]
+  "theme_color": "#5741D3",
+  "background_color": "#5741D2",
+  "display": "fullscreen",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Quiz IT",
+  "short_name": "Quiz IT",
+  "description": "Quiz IT",
+  "icons": [
+    {
+      "src": "icons/windows11/SmallTile.scale-100.png",
+      "sizes": "71x71"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-125.png",
+      "sizes": "89x89"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-150.png",
+      "sizes": "107x107"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-200.png",
+      "sizes": "142x142"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-400.png",
+      "sizes": "284x284"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-100.png",
+      "sizes": "150x150"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-125.png",
+      "sizes": "188x188"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-150.png",
+      "sizes": "225x225"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-200.png",
+      "sizes": "300x300"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-400.png",
+      "sizes": "600x600"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-100.png",
+      "sizes": "310x150"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-125.png",
+      "sizes": "388x188"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-150.png",
+      "sizes": "465x225"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-200.png",
+      "sizes": "620x300"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-400.png",
+      "sizes": "1240x600"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-100.png",
+      "sizes": "310x310"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-125.png",
+      "sizes": "388x388"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-150.png",
+      "sizes": "465x465"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-200.png",
+      "sizes": "620x620"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-400.png",
+      "sizes": "1240x1240"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-100.png",
+      "sizes": "620x300"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-125.png",
+      "sizes": "775x375"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-150.png",
+      "sizes": "930x450"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-200.png",
+      "sizes": "1240x600"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-400.png",
+      "sizes": "2480x1200"
+    },
+    {
+      "src": "icons/ios/60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icons/ios/76.png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "icons/ios/120.png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "icons/ios/152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "icons/ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "icons/ios/1024.png",
+      "sizes": "1024x1024"
+    }
+  ],
+  "id": "001",
+  "dir": "auto",
+  "lang": "ko",
+  "orientation": "portrait",
+  "categories": [
+    "books",
+    "education",
+    "kids"
+  ]
 }
