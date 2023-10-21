@@ -22,7 +22,7 @@ const BodyContainer = () => {
     return (
         <div className="space-y-6">
             <ProfileCard/>
-            <CalendarHeatmapComponent/>
+            {/*<CalendarHeatmapComponent/>*/}
             <Menu/>
         </div>
     )
