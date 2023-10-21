@@ -86,7 +86,7 @@ const LoginForm = () => {
             />
             <input
                 className={`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white
-                ${checkDisable() ? "bg-secondary-200" : "bg-primary-900"}`}
+                ${checkDisable() ? "bg-secondary-200" : "bg-secondary-900"}`}
                 type="submit"
                 disabled={checkDisable()}
                 value="로그인"
