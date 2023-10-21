@@ -20,7 +20,7 @@ const RootLayout = async ({children,}: { children: ReactNode }) => {
     const session = await getServerSession(authOptions);
 
     return (
-        <html lang="en">
+        <html lang="ko" className="overscroll-none">
             <Head />
             <body className="h-screen w-full flex flex-col">
                 <NextAuthProvider session={session}>

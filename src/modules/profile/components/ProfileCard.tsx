@@ -1,6 +1,4 @@
 "use client"
-import {authenticateSession} from "@/util/session";
-import {authOptions} from "@/modules/auth/auth";
 import Link from "next/link";
 import Image from "next/image";
 import {Rightarrow} from "@/components/svgs";
