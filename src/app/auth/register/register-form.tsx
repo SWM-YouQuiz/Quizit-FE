@@ -13,6 +13,13 @@ type Inputs = {
     allowPush: boolean
 }
 
+const imageList = [
+    "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character2.svg",
+    "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character3.svg",
+    "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character4.svg",
+    "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character5.svg"
+]
+
 const RegisterForm = () => {
     const {
         register,
@@ -22,18 +29,15 @@ const RegisterForm = () => {
     } = useForm<Inputs>();
     const [errorMessage, setErrorMessage] = useState("");
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-        console.log("data",data);
         const response = registerApi({
             username: data.username,
             password: data.password,
             nickname: data.nickname,
             allowPush: data.allowPush,
-            image: "",
+            image: imageList[Math.floor(Math.random()*4)],
             dailyTarget: 10
         })
             .then(r => r.json())
-            .then(json => console.log("r", json))
-            .catch(e => console.log("register error", e));
     }
 
     const username = watch("username", "");
