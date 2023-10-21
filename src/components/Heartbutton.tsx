@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React, {MouseEventHandler, useEffect, useState} from "react";
 import {getSession, useSession} from "next-auth/react";
 import {getQuizMark, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
@@ -12,7 +12,8 @@ import {useDebounce} from "@/lib/hooks/useDebounce";
 
 const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const [isMarked, setIsMarked] = useState(false);
-    const handleHeartClicked = () => {
+    const handleHeartClicked:MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
         getQuizMark({id: quizId})
             .then((quiz) => {
                 checkMarked(quiz.markedUserIds);
@@ -48,7 +49,11 @@ export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, mark
         <motion.button
             type="button"
             className="w-[50px] rounded-xl bg-primary-50 grid place-items-center"
-            onClick={debouncedClick}
+            onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                debouncedClick();
+            }}
             whileTap={{ scale: 0.9 }}
         >
             {
@@ -64,7 +69,11 @@ const Heartbutton  = ({quizId, markedUserIds, userId}: {quizId: string, markedUs
     return (
         <motion.button
             type="button"
-            onClick={debouncedClick}
+            onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                debouncedClick(e);
+            }}
             whileTap={{ scale: 0.9 }}
         >
             {
