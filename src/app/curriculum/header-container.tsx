@@ -8,14 +8,16 @@ const HeaderContainer = () => {
     const [solvedQuizCount, setSolvedQuizCount] = useState(0);
     const getUser = async () => {
         const session = await getSession();
-        return session;
+        if(session) {
+            return session.user.user;
+        }
+        return null;
     }
 
     useEffect(() => {
        getUser()
-           .then(session => {
-               if(session) {
-                   const user = session.user.user;
+           .then(user => {
+               if(user) {
                    const solvedQuizCount = getSolvedQuizCount(user);
                    setSolvedQuizCount(solvedQuizCount)
                }
