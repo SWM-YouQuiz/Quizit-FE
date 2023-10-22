@@ -1,7 +1,8 @@
+"use client"
 import {cn} from "@/util/tailwind";
 import Image from 'next/image'
 import Link from "next/link";
-import {ReactNode} from "react";
+import {ReactNode, useEffect, useState} from "react";
 import Options from "@/modules/curriculum/components/Options";
 import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
 
@@ -17,32 +18,38 @@ type CardProps = {
     children?: ReactNode
 }
 
-const handleGetProgress = async ({type, id}: {type: CardProps["type"], id: string}) => {
-    if(type === "curriculum") {
-        return getCurriculumProgress({curriculumId: id});
-    } else if (type === "course") {
-        return getCourseProgress({courseId: id});
-    } else {
-        return getChapterProgress({chapterId: id});
+const Card = ({type, id, href="", imageUrl, path, title, alt, className="", children=null}: CardProps) => {
+    const [progress, setProgress] = useState<Progress | null>(null);
+
+    const handleGetProgress = async ({type, id}: {type: CardProps["type"], id: string}) => {
+        if(type === "curriculum") {
+            return getCurriculumProgress({curriculumId: id});
+        } else if (type === "course") {
+            return getCourseProgress({courseId: id});
+        } else {
+            return getChapterProgress({chapterId: id});
+        }
     }
-}
-const Card = async ({type, id, href="", imageUrl, path, title, alt, className="", children=null}: CardProps) => {
-    const progress = await handleGetProgress({type, id});
+
+    useEffect(() => {
+        handleGetProgress({type, id})
+            .then(r => setProgress(r));
+    }, [id, type])
 
     return (
         <Link
             href={href}
-            className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4", className)}
+            className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4 h-[120px]", className)}
         >
-            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} total={progress.total} solved={progress.solved}>
+            <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} progress={progress}>
                 {children}
             </MainContainer>
         </Link>
     )
 }
 
-type MainContainerProps = Omit<CardProps, 'className' | 'options' | 'type' | 'id'> & Progress;
-const MainContainer = ({imageUrl, path, title, alt, total, solved, children}: MainContainerProps) => (
+type MainContainerProps = Omit<CardProps, 'className' | 'options' | 'type' | 'id'> & {progress: Progress | null};
+const MainContainer = ({imageUrl, path, title, alt, progress, children}: MainContainerProps) => (
     <div className="flex space-x-2">
         <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">
             <Image
@@ -64,7 +71,7 @@ const MainContainer = ({imageUrl, path, title, alt, total, solved, children}: Ma
                 </div>
                 {children}
             </div>
-            <ProgressBar total={total} solved={solved}/>
+            {progress && <ProgressBar total={progress.total} solved={progress.solved}/>}
         </div>
     </div>
 )
