@@ -1,11 +1,12 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {useQuizState} from "@/modules/quiz/hooks/useQuizState";
 import {cn} from "@/util/tailwind";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import {HeartSquareButton} from "@/components/Heartbutton";
-import {getSession, useSession} from "next-auth/react";
+import {QuizContext} from "@/modules/curriculum/Context";
+import {signOut} from "next-auth/react";
 
 
 const optionSignature = [
@@ -30,6 +31,12 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
     const {id: quizId, options: quizOptions, markedUserIds} = quizHtml;
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+    const {user} = useContext(QuizContext);
+
+    if(user === undefined) {
+        signOut();
+        return null;
+    }
 
     const closeBottomSheet = () => {
         setIsBottomSheetOpen(false);
@@ -61,7 +68,7 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
                 }
             </div>
             <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
-                <HeartSquareButton quizId={quizId} markedUserIds={markedUserIds}/>
+                <HeartSquareButton quizId={quizId} markedUserIds={markedUserIds} userId={user.id}/>
                 {
                     isQuizGraded() ? (
                         <ExplanationButton handleClick={openBottomSheet}/>

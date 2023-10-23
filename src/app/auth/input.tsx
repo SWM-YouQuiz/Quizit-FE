@@ -1,7 +1,7 @@
 "use client"
 
-import React, { InputHTMLAttributes, ForwardRefRenderFunction, forwardRef } from 'react';
-import { FieldError, FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import React, {forwardRef, ForwardRefRenderFunction, InputHTMLAttributes} from 'react';
+import {FieldErrors, UseFormRegister} from "react-hook-form";
 import {default as InputComponent} from "@/components/ui/Input";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {

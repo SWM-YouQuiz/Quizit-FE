@@ -1,11 +1,9 @@
-import React, {cache, Suspense} from "react";
+import React from "react";
 import Link from "next/link";
-import {BackArrow, Filter, Share} from "@/components/svgs";
+import {BackArrow} from "@/components/svgs";
 import {Header} from "@/components/Header";
-import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 import ShareButton from "@/modules/quiz/components/ShareButton";
-import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 
 type QuizPageParams = {
     curriculumId: string,

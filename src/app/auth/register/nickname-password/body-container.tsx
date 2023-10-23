@@ -2,8 +2,6 @@
 import {useFormContext} from "react-hook-form";
 import Input from "@/app/auth/input";
 import NextButton from "@/app/auth/register/next-button";
-import {useEffect} from "react";
-import {useRouter} from "next/navigation";
 
 const BodyContainer = () => {
     const { register, watch, formState: {errors, isValid} } = useFormContext<RegisterInputs>()

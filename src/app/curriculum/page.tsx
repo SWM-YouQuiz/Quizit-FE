@@ -1,6 +1,4 @@
-
-import {getCourses, getCurriculums} from "@/modules/curriculum/serverApiActions";
-import {cn} from "@/util/tailwind";
+import {getCurriculums} from "@/modules/curriculum/serverApiActions";
 import {Header} from "@/components/Header";
 import {Alert} from "@/components/svgs";
 import Card from "@/modules/curriculum/components/Card";
@@ -13,7 +11,9 @@ const Curriculum = async () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">퀴즈</div>
-                <Alert/>
+                <div className="hidden">
+                    <Alert/>
+                </div>
             </Header>
             <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <HeaderContainer />
@@ -37,7 +37,7 @@ const BodyContainer = ({curriculums}: {curriculums: Curriculum[]}) => (
                 <Card
                     key={`curriculum-${id}`}
                     href={`curriculum/${id}`}
-                    title={`총 n개의 코스`}
+                    title={`총 6개의 코스`}
                     imageUrl={image}
                     alt={title}
                     path={title}

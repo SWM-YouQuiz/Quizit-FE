@@ -1,7 +1,7 @@
 "use client"
-import { ReactNode, useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { getUser } from "@/modules/profile/serverApiActions";
+import {useEffect, useState} from "react";
+import {useInView} from "react-intersection-observer";
+import {getUser} from "@/modules/profile/serverApiActions";
 import QuizCard from "@/modules/profile/components/QuizCard";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {

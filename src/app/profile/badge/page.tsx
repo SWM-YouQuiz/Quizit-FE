@@ -1,7 +1,6 @@
 import {Header} from "@/components/Header";
-import {BackArrow, Rightarrow, Setting} from "@/components/svgs";
+import {BackArrow} from "@/components/svgs";
 import Link from "next/link";
-import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
 import Ready from "@/components/Ready";
 
 const MyPage = () => {

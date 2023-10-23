@@ -1,9 +1,6 @@
 "use server"
-import {
-    HumanMessage, AIMessage,
-} from "langchain/schema";
-import { BufferMemory, ChatMessageHistory } from "langchain/memory";
-import {BaseMessage} from "langchain/schema";
+import {AIMessage, BaseMessage, HumanMessage,} from "langchain/schema";
+import {BufferMemory, ChatMessageHistory} from "langchain/memory";
 import {Message} from "ai";
 
 const getChatMessages = (history: Message[]): BaseMessage[] => {

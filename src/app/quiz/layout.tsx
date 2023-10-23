@@ -1,4 +1,4 @@
-import {ReactNode, Suspense} from "react";
+import {ReactNode} from "react";
 import Layout from "@/components/Layout";
 import QuizContainer from "@/modules/quiz/components/QuizContext";
 

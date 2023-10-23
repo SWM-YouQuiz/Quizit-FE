@@ -1,7 +1,7 @@
 "use client"
 
 import {ReactNode} from "react";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import {FormProvider, useForm} from "react-hook-form";
 
 const Provider = ({children}: {children: ReactNode}) => {
     const methods = useForm<RegisterInputs>();

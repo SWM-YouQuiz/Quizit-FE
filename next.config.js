@@ -40,4 +40,9 @@ const withPWA = require('next-pwa')({
     buildExcludes: ["app-build-manifest.json"],
 })
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: true,
+    openAnalyzer: true,
+});
+
 module.exports = withPWA(nextConfig)

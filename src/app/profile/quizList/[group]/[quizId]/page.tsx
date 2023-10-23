@@ -1,6 +1,5 @@
 "use client"
 import React, {useEffect, useState} from "react";
-import Link from "next/link";
 import {BackArrow} from "@/components/svgs";
 import {Header} from "@/components/Header";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";

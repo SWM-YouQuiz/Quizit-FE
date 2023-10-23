@@ -1,13 +1,8 @@
 "use client"
 import React, {MouseEventHandler, useEffect, useState} from "react";
-import {getSession, useSession} from "next-auth/react";
-import {getQuizMark, revalidateTagAction} from "@/modules/quiz/serverApiActions";
+import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/modules/auth/auth";
-import {authenticateSession} from "@/util/session";
-import {getUser} from "@/modules/profile/serverApiActions";
 import {useDebounce} from "@/lib/hooks/useDebounce";
 
 const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
@@ -40,9 +35,7 @@ const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, 
     return {debouncedClick, isMarked};
 }
 
-export const HeartSquareButton = ({quizId, markedUserIds}: {quizId: string, markedUserIds: string[]}) => {
-    const {data, status} = useSession();
-    const userId = status === "authenticated" ? data.user.user.id : "-1";
+export const HeartSquareButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const {debouncedClick, isMarked} = useSquareHeartButton({quizId, markedUserIds, userId});
 
     return (

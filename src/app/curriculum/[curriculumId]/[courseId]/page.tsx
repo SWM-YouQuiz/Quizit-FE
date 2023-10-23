@@ -1,12 +1,11 @@
 import {getChapters, getCourses} from "@/modules/curriculum/serverApiActions";
-import {cn} from "@/util/tailwind";
 import {Header} from "@/components/Header";
-import {Alert, BackArrow, Filter} from "@/components/svgs";
+import {BackArrow, Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
-import OptionSheet from "@/modules/curriculum/components/OptionSheet";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
+
 const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
     const chapters = await getChapters({courseId: params.courseId});
     const courses = await getCourses({curriculumId: params.curriculumId});

@@ -1,9 +1,9 @@
 import {getCourses, getCurriculums} from "@/modules/curriculum/serverApiActions";
-import {cn} from "@/util/tailwind";
 import {Header} from "@/components/Header";
-import {Alert, BackArrow, Filter} from "@/components/svgs";
+import {BackArrow, Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
+
 const Course = async ({params}: {params: {curriculumId: string}}) => {
     const courses = await getCourses({curriculumId: params.curriculumId});
     const curriculums = await getCurriculums();

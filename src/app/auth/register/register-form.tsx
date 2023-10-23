@@ -1,6 +1,6 @@
 "use client"
 
-import { useForm, SubmitHandler } from "react-hook-form"
+import {SubmitHandler, useForm} from "react-hook-form"
 import Input from "@/app/auth/input";
 import {registerApi} from "@/modules/auth/serverApiActions";
 import {useState} from "react";

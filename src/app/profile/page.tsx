@@ -1,6 +1,5 @@
 import {Header} from "@/components/Header";
-import {Rightarrow, Setting} from "@/components/svgs";
-import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
+import {Setting} from "@/components/svgs";
 import Menu from "@/modules/profile/Menu";
 import ProfileCard from "@/modules/profile/components/ProfileCard";
 
@@ -9,7 +8,9 @@ const ProfilePage = () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">프로필</div>
-                <Setting/>
+                <div className="hidden">
+                    <Setting/>
+                </div>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>

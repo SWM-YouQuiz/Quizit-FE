@@ -1,6 +1,4 @@
 import LoginForm from "@/app/auth/login/login-form";
-import Link from "next/link";
-import {SplashMarkDark} from "@/components/svgs";
 import Image from "next/image";
 
 const Login = async () => {

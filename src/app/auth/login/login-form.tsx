@@ -1,11 +1,10 @@
 "use client"
 
-import { useForm, SubmitHandler } from "react-hook-form"
+import {SubmitHandler, useForm} from "react-hook-form"
 import {signIn} from "next-auth/react";
 import Input from "@/app/auth/input";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {SplashMarkDark} from "@/components/svgs";
 import Link from "next/link";
 import Image from "next/image";
 
