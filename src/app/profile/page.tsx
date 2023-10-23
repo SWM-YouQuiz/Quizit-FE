@@ -8,7 +8,9 @@ const ProfilePage = () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">프로필</div>
-                <Setting/>
+                <div className="hidden">
+                    <Setting/>
+                </div>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>

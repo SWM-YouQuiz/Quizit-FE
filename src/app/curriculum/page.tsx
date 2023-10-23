@@ -11,7 +11,9 @@ const Curriculum = async () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">퀴즈</div>
-                <Alert/>
+                <div className="hidden">
+                    <Alert/>
+                </div>
             </Header>
             <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <HeaderContainer />
