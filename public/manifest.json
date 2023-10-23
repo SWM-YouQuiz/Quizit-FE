@@ -1,7 +1,7 @@
 {
   "theme_color": "#5741D3",
   "background_color": "#5741D2",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Quiz IT",
