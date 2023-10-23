@@ -1,12 +1,9 @@
 "use client"
-import React, {cache, ReactNode, useEffect, useState} from "react";
-import {nonData, quizDummy} from "@/modules/quiz/quizDummy";
+import React, {ReactNode, useEffect, useState} from "react";
 import {markdownToHtmlString} from "@/util/markdown";
-import {getQuiz, revalidateTagAction} from "@/modules/quiz/serverApiActions";
 import "@/modules/quiz/styles/one-light.css";
 import {QuizItems} from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-items";
 import QuizTools from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-tools";
-import quizTools from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-tools";
 
 const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Quiz => {
     return {

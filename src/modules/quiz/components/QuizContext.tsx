@@ -1,6 +1,6 @@
 "use client"
 import {ReactNode, useEffect, useState} from "react";
-import {QuizContext, QuizFilterContext} from "@/modules/curriculum/Context";
+import {QuizContext} from "@/modules/curriculum/Context";
 import {useSession} from "next-auth/react";
 
 type QuizContextProps = {

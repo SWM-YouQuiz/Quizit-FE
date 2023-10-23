@@ -1,6 +1,6 @@
 "use client"
 import React, {MouseEventHandler, ReactNode, useEffect, useState} from "react";
-import {getQuiz, getQuizEvaluate, revalidateTagAction} from "@/modules/quiz/serverApiActions";
+import {getQuizEvaluate} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {getSession} from "next-auth/react";
 import {cn} from "@/util/tailwind";

@@ -1,4 +1,3 @@
-import {CodingCharacter} from "@/components/character";
 import Image from "next/image";
 import React from "react";
 

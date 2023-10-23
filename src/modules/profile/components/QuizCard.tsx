@@ -1,11 +1,10 @@
 "use client"
 import Link from "next/link";
 import {cn} from "@/util/tailwind";
-import {ReactNode, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Image from "next/image";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
-import {nonData} from "@/modules/quiz/quizDummy";
-import Heartbutton, {HeartSquareButton} from "@/components/Heartbutton";
+import Heartbutton from "@/components/Heartbutton";
 import {calculateDateDifference} from "@/util/etc";
 import {getChapter} from "@/modules/curriculum/serverApiActions";
 

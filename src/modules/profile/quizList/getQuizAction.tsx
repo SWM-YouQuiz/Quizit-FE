@@ -1,6 +1,6 @@
 "use server"
 import QuizCard from "@/modules/profile/components/QuizCard";
-import {ReactNode, Suspense} from "react";
+import {Suspense} from "react";
 
 const getQuizAction = async ({quizIds, userId}: {quizIds: string[], userId: string}) => {
     return quizIds.map(quizId => ({

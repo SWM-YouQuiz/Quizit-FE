@@ -1,4 +1,3 @@
-import {CodingCharacter, Onboarding5} from "@/components/character";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,7 +9,7 @@ const Ready = ({curriculumId, courseId}: {curriculumId: string, courseId: string
             <div className="mt-[180px] flex flex-col items-center">
                 <Image
                     src="/characters/onboarding5.svg"
-                    alt="열심히 공부하는 퀴즈보"
+                    alt="목표를 달성한 퀴즈보"
                     width={240}
                     height={240}
                 />

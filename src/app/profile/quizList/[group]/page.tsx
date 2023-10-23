@@ -1,13 +1,9 @@
 import {Header} from "@/components/Header";
-import {BackArrow, Rightarrow, Setting} from "@/components/svgs";
-import Menu, {menuData} from "@/modules/profile/Menu";
+import {BackArrow, Setting} from "@/components/svgs";
+import {menuData} from "@/modules/profile/Menu";
 import QuizList from "@/modules/profile/quizList/QuizList";
-import {ReactNode, Suspense} from "react";
-import QuizCard from "@/modules/profile/components/QuizCard";
-import {authenticateSession} from "@/util/session";
-import {getUser} from "@/modules/profile/serverApiActions";
+import {ReactNode} from "react";
 import Link from "next/link";
-import {authOptions} from "@/modules/auth/auth";
 
 export type QuizCardComponent = {
     id: string,

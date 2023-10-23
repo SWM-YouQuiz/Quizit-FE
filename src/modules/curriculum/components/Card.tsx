@@ -3,7 +3,6 @@ import {cn} from "@/util/tailwind";
 import Image from 'next/image'
 import Link from "next/link";
 import {ReactNode, useEffect, useState} from "react";
-import Options from "@/modules/curriculum/components/Options";
 import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
 
 type CardProps = {

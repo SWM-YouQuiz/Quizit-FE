@@ -1,6 +1,6 @@
 "use client"
 import {default as OptionsSvg} from "@/components/svgs/options.svg";
-import {MouseEventHandler, ReactNode, useContext, useState} from "react";
+import {MouseEventHandler, useContext} from "react";
 import {OptionSheetContext, OptionSheetContextType} from "@/modules/curriculum/Context";
 
 type OptionsProps = {

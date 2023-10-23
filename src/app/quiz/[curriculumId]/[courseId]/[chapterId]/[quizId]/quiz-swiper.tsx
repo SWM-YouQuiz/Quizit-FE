@@ -1,10 +1,10 @@
 "use client"
 
 import React, {useEffect, useState} from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import {Swiper, SwiperSlide} from 'swiper/react';
 
 import 'swiper/css';
-import {getQuiz, getQuizOfChapter, revalidateTagAction} from "@/modules/quiz/serverApiActions";
+import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import Loading from "@/components/Loading";
 import Ending from "@/components/Ending";

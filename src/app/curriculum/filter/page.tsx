@@ -1,15 +1,11 @@
 "use client"
 import {MouseEventHandler, ReactNode, useContext} from "react";
-import {
-    QuizFilterContext,
-    QuizFilterContextType
-} from "@/modules/curriculum/Context";
+import {QuizFilterContext, QuizFilterContextType} from "@/modules/curriculum/Context";
 import {Header} from "@/components/Header";
 import {motion} from "framer-motion";
-import {BackArrow, Cancel, Check} from "@/components/svgs";
+import {Cancel, Check} from "@/components/svgs";
 import {useRouter} from "next/navigation";
 import {cn} from "@/util/tailwind";
-import AllQuizIcon from "@/components/icons/AllQuizIcon";
 import MarkedQuizIcon from "@/components/icons/MarkedQuizIcon";
 import UnsolvedQuizIcon from "@/components/icons/UnsolvedQuizIcon";
 import IncorrectQuizIcon from "@/components/icons/IncorrectQuizIcon";

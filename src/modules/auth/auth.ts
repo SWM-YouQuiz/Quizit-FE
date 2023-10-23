@@ -1,7 +1,7 @@
 import type {NextAuthOptions} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {loginApi} from "@/modules/auth/serverApiActions";
-import {getUser, getUserFromId} from "@/modules/profile/serverApiActions";
+import {getUserFromId} from "@/modules/profile/serverApiActions";
 
 export const authOptions: NextAuthOptions = {
     session: {

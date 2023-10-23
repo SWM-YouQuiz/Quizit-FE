@@ -1,11 +1,11 @@
-import {LangChainStream, Message} from "ai";
+import {Message} from "ai";
 import {ZepVectorStore} from "langchain/vectorstores/zep";
 import {OpenAIEmbeddings} from "langchain/embeddings/openai";
 import {ChatOpenAI} from "langchain/chat_models/openai";
 import {PromptTemplate} from "langchain/prompts";
-import { Document } from "langchain/document";
+import {Document} from "langchain/document";
 import {RunnableSequence} from "langchain/schema/runnable";
-import {BytesOutputParser, StringOutputParser} from "langchain/schema/output_parser";
+import {BytesOutputParser} from "langchain/schema/output_parser";
 
 type makeQAChainProps = {
     messages: Message[],

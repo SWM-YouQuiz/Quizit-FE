@@ -1,7 +1,6 @@
 "use client"
 import Sheet, {SheetRef} from "react-modal-sheet";
-import React, {ReactNode, useRef, useState} from "react";
-import {TapHandlers} from "framer-motion";
+import React, {ReactNode, useRef} from "react";
 
 type OpenSheetProps = {
     isBottomSheetOpen: boolean,

@@ -1,6 +1,7 @@
-import {Onboarding5} from "@/components/character";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
+import React from "react";
 
 const OnboardingFinish = ({page}: {page: number}) => {
 
@@ -8,7 +9,13 @@ const OnboardingFinish = ({page}: {page: number}) => {
         <div className="flex-grow overflow-y-auto p-5 bg-white">
             <div className="h-full flex flex-col items-center space-y-2 justify-between">
                 <div className="mt-[180px] flex flex-col items-center">
-                    <Onboarding5/>
+                    <Image
+                        className="mt-40"
+                        src="/characters/onboarding5.svg"
+                        alt="목표를 달성한 퀴즈보"
+                        width={240}
+                        height={240}
+                    />
                     <div className="text-center text-secondary-800 text-lg mb-10 font-semibold px-16 whitespace-break-spaces">{"모든 준비가 끝났어요.\n시작해볼까요?"}</div>
                 </div>
                 <Link

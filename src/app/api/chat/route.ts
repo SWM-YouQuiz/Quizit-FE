@@ -1,5 +1,5 @@
 import {NextRequest} from "next/server";
-import {OpenAIStream, StreamingTextResponse} from "ai";
+import {StreamingTextResponse} from "ai";
 import {makeQAChain} from "@/lib/langchain/QAChain";
 import {getMemory} from "@/lib/langchain/utils";
 

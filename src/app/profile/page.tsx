@@ -1,6 +1,5 @@
 import {Header} from "@/components/Header";
-import {Rightarrow, Setting} from "@/components/svgs";
-import CalendarHeatmapComponent from "@/modules/profile/CalendarHeatmap";
+import {Setting} from "@/components/svgs";
 import Menu from "@/modules/profile/Menu";
 import ProfileCard from "@/modules/profile/components/ProfileCard";
 

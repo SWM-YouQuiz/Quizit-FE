@@ -2,7 +2,7 @@ import './globals.css'
 import {ReactNode} from "react";
 import Head from "@/app/head";
 import {NextAuthProvider} from "@/app/provider";
-import {getServerSession, Session} from "next-auth";
+import {getServerSession} from "next-auth";
 import {authOptions} from "@/modules/auth/auth";
 
 export const metadata = {

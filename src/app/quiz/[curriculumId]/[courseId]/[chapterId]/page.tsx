@@ -1,10 +1,7 @@
-
-import React, {cache, Suspense} from "react";
-import {redirect} from "next/navigation";
-import {getQuizOfChapter} from "@/modules/quiz/serverApiActions";
+import React from "react";
 import {Header} from "@/components/Header";
 import Link from "next/link";
-import {BackArrow, Share} from "@/components/svgs";
+import {BackArrow} from "@/components/svgs";
 import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 import ShareButton from "@/modules/quiz/components/ShareButton";
 

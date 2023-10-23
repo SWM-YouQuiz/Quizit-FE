@@ -1,13 +1,12 @@
 "use client"
 
-import React, {startTransition, useContext, useEffect, useMemo, useRef, useState} from "react";
-import {useChat, useCompletion} from "ai/react";
+import React, {useContext, useEffect, useRef, useState} from "react";
+import {useChat} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 import {Send} from "@/components/svgs";
-import { subscribe, isSupported } from 'on-screen-keyboard-detector';
+import {isSupported, subscribe} from 'on-screen-keyboard-detector';
 import Image from "next/image";
-import {getSession, useSession} from "next-auth/react";
 import {QuizContext} from "@/modules/curriculum/Context";
 
 

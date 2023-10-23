@@ -2,7 +2,7 @@
 import {SubmitHandler, useFormContext} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import Button from "@/components/ui/Button";
-import {loginApi, registerApi} from "@/modules/auth/serverApiActions";
+import {registerApi} from "@/modules/auth/serverApiActions";
 import {signIn} from "next-auth/react";
 
 const BodyContainer = () => {
