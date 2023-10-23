@@ -14,6 +14,7 @@ const appleImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/apple.sv
 
 const googleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/google`;
 const kakaoOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/kakao`;
+const appleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/apple`;
 
 
 const LoginForm = () => {
@@ -46,7 +47,7 @@ const LoginForm = () => {
                         />
                     </div>
                 </Link>
-                <Link href={googleOAuthUrl} prefetch={false}
+                <Link href={kakaoOAuthUrl} prefetch={false}
                       className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-[#fae300]">
                     <div className="flex items-center justify-center w-full h-full">
                         <Image
@@ -58,7 +59,7 @@ const LoginForm = () => {
                         />
                     </div>
                 </Link>
-                <Link href={googleOAuthUrl} prefetch={false}
+                <Link href={appleOAuthUrl} prefetch={false}
                       className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-black">
                     <div className="flex items-center justify-center w-full h-full">
                         <Image
