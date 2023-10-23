@@ -12,14 +12,14 @@ const BodyContainer = () => {
                 label="이메일"
                 register={register}
                 errors={errors}
-                {...register("username", {
+                {...register("email", {
                     required: "required",
                     pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: "이메일 형식이 맞지 않습니다."
                     }
                 })}
-                aria-invalid={errors.username ? "true" : "false"}
+                aria-invalid={errors.email ? "true" : "false"}
             />
             <NextButton href={"/auth/register/nickname-password"} context={"다음"} disable={!isValid}/>
         </div>

@@ -19,7 +19,7 @@ const BodyContainer = () => {
         return registerApi({
             username: data.username,
             password: data.password,
-            nickname: data.nickname,
+            email: data.email,
             allowPush: data.allowPush,
             dailyTarget: 10,
             image: ""
@@ -27,10 +27,10 @@ const BodyContainer = () => {
     }
 
     const login = async () => {
-        const username = getValues("username");
+        const email = getValues("email");
         const password = getValues("password");
         await signIn("credentials", {
-            username: username,
+            email: email,
             password: password,
             callbackUrl: `${window.location.origin}`,
             redirect: false
@@ -43,7 +43,7 @@ const BodyContainer = () => {
             .then(() => login())
             .catch((err: Error) => {
                 console.log("register error", err.message);
-                setError("username", {type: "conflict", message: "이미 존재하는 이메일입니다."});
+                setError("email", {type: "conflict", message: "이미 존재하는 이메일입니다."});
                 router.replace("/auth/register/email");
             })
     }

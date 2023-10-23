@@ -9,7 +9,7 @@ type Inputs = {
     username: string
     password: string
     passwordComfirm: string
-    nickname: string
+    email: string
     allowPush: boolean
 }
 
@@ -32,7 +32,7 @@ const RegisterForm = () => {
         const response = registerApi({
             username: data.username,
             password: data.password,
-            nickname: data.nickname,
+            email: data.email,
             allowPush: data.allowPush,
             image: imageList[Math.floor(Math.random()*4)],
             dailyTarget: 10
@@ -40,13 +40,13 @@ const RegisterForm = () => {
             .then(r => r.json())
     }
 
-    const username = watch("username", "");
+    const email = watch("email", "");
     const password = watch("password", "");
     const passwordConfirm = watch("passwordComfirm", "");
-    const nickname = watch("nickname", "");
+    const username = watch("username", "");
 
     const checkDisable = () => {
-        return username === "" || password === "" || passwordConfirm === "" || nickname === "";
+        return email === "" || password === "" || passwordConfirm === "" || username === "";
     }
 
     return (
@@ -62,14 +62,14 @@ const RegisterForm = () => {
                 label="이메일"
                 register={register}
                 errors={errors}
-                {...register("username", {
+                {...register("email", {
                     required: "required",
                     pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: "이메일 형식이 맞지 않습니다."
                     }
                 })}
-                aria-invalid={errors.username ? "true" : "false"}
+                aria-invalid={errors.email ? "true" : "false"}
             />
             <Input
                 label="비밀번호"
@@ -95,9 +95,9 @@ const RegisterForm = () => {
                 aria-invalid={errors.passwordComfirm ? "true" : "false"}
             />
             <Input
-                label="닉네임"
+                label="사용자 이름"
                 register={register}
-                name="nickname"
+                name="username"
                 errors={errors}
                 aria-invalid={errors.passwordComfirm ? "true" : "false"}
             />

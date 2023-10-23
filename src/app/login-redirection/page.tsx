@@ -6,7 +6,7 @@ import React from "react";
 
 const OAuth = ({searchParams}: {searchParams: any}) => {
     signIn("credentials", {
-        username: searchParams.accessToken,
+        email: searchParams.accessToken,
         password: searchParams.refreshToken,
         type: searchParams.id,
         callbackUrl: "https://quizit.org/onboarding/0",

@@ -2,14 +2,14 @@ type RegisterInputs = {
     username: string
     password: string
     passwordComfirm: string
-    nickname: string
+    email: string
     allowPush: boolean
 }
 
 type UserInfo = {
     "id": string,
     "username": string,
-    "nickname": string,
+    "email": string,
     "image": string,
     "level": number,
     "role": "USER" | "ADMIN",

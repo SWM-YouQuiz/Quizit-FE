@@ -32,7 +32,7 @@ const ProfileCard = () => {
             <div className="flex-grow flex justify-between">
                 <div className="flex flex-col justify-between">
                     <div className="text-[13px] text-secondary-400 leading-[16px] mb-[3px]">Lv.{user.level}</div>
-                    <div className="text-lg text-secondary-900 font-semibold leading-[21px] mb-[7px]">{user.nickname}</div>
+                    <div className="text-lg text-secondary-900 font-semibold leading-[21px] mb-[7px]">{user.username}</div>
                     <div className="bg-primary-100 px-2 py-1 text-primary-900 rounded text-[13px]">
                         하루 목표 {user.dailyTarget}개
                     </div>

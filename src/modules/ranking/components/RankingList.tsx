@@ -61,7 +61,7 @@ const Item = ({user, ranking}: {user: UserInfo, ranking: number}) => {
                 </div>
                 <div className="ml-2.5 flex flex-col justify-between">
                     <div className="leading-[18px] text-secondary-400 text-[13px]">lv.{user.level}</div>
-                    <div className="leading-[19px] text-secondary-900 font-semibold">{user.nickname}</div>
+                    <div className="leading-[19px] text-secondary-900 font-semibold">{user.username}</div>
                 </div>
             </div>
             <div className="self-center leading-[19px] font-semibold text-secondary-900">

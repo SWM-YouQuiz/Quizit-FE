@@ -4,7 +4,7 @@ import 'server-only';
 
 type LoginApi = {
     body: {
-        username: string,
+        email: string,
         password: string
     }
 }
@@ -25,7 +25,7 @@ export const logoutApi = async (): Promise<Response> => {
 
 type registerApiProps = {
     password: string,
-    nickname: string,
+    email: string,
     allowPush: boolean,
     username: string,
     image: string,

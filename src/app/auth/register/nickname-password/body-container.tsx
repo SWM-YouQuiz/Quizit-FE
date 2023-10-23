@@ -12,10 +12,10 @@ const BodyContainer = () => {
                 label="닉네임"
                 register={register}
                 errors={errors}
-                {...register("nickname", {
+                {...register("username", {
                     required: "required"
                 })}
-                aria-invalid={errors.username ? "true" : "false"}
+                aria-invalid={errors.email ? "true" : "false"}
             />
             <Input
                 label="비밀번호"
@@ -25,7 +25,7 @@ const BodyContainer = () => {
                 {...register("password", {
                     required: "required"
                 })}
-                aria-invalid={errors.username ? "true" : "false"}
+                aria-invalid={errors.email ? "true" : "false"}
             />
             <NextButton href={"/auth/register/allow-push"} context={"다음"} disable={!isValid}/>
         </div>

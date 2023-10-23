@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "Sign in",
             credentials: {
-                username: {label: "username", type: "username",},
+                email: {label: "email", type: "email",},
                 password: { label: "password", type: "password" },
                 type: {label: "type", type: "type"}
             },
@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
                         throw new Error("없는 사용자 이름이거나 잘못된 비밀번호 입니다.");
                     }
                 } else {
-                    const accessToken = credentials.username;
+                    const accessToken = credentials.email;
                     const refreshToken = credentials.password;
                     const id = credentials.type
 
@@ -42,12 +42,15 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        jwt: async function ({token, user}) {
+        jwt: async function ({token, user, session, trigger}) {
             // token과 user값을 모두 제공해야 token이 유지됨
             if(user && user.accessToken && user.refreshToken) {
                 token.accessToken = user.accessToken;
                 token.refreshToken = user.refreshToken;
                 token.user = user.user;
+            }
+            if (trigger === "update" && session?.user) {
+                token.user = session.user
             }
             return token;
         },

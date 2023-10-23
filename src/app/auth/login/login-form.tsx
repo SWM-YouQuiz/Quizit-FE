@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 type Inputs = {
-    username: string
+    email: string
     password: string
 }
 
@@ -31,7 +31,7 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
         const user = await signIn("credentials", {
-            username: data.username,
+            email: data.email,
             password: data.password,
             type: "-1",
             callbackUrl: `${window.location.origin}`,  // 현재 페이지로 리다이렉트
@@ -45,11 +45,11 @@ const LoginForm = () => {
         }
     }
 
-    const username = watch("username", "");
+    const email = watch("email", "");
     const password = watch("password", "");
 
     const checkDisable = () => {
-        return username === "" || password === "";
+        return email === "" || password === "";
     }
 
     return (
@@ -66,14 +66,14 @@ const LoginForm = () => {
                 label="이메일"
                 register={register}
                 errors={errors}
-                {...register("username", {
+                {...register("email", {
                     required: "required",
                     pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: "이메일 형식이 맞지 않습니다."
                     }
                 })}
-                aria-invalid={errors.username ? "true" : "false"}
+                aria-invalid={errors.email ? "true" : "false"}
             />
             <Input
                 label="비밀번호"
