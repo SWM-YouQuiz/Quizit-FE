@@ -9,7 +9,9 @@ const RankingPage = () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">리더보드</div>
-                <Alert/>
+                <div className="hidden">
+                    <Alert/>
+                </div>
             </Header>
             <div className="flex-grow flex flex-col justify-between pt-4 bg-secondary-50">
                 <Carousel/>

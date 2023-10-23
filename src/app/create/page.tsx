@@ -7,7 +7,9 @@ const CreatePage = () => {
         <div className="flex flex-col h-full">
             <Header>
                 <div className="font-bold">생성</div>
-                <Alert/>
+                <div className="hidden">
+                    <Alert/>
+                </div>
             </Header>
             <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <Ready/>
