@@ -8,9 +8,10 @@ export interface RequestParams {
     body?: Record<string, unknown>;
     token?: string;
     tags?: string[];
+    cache?: RequestCache
 }
 
-export const requestApi = async ({endpoint, method, body, token, tags}: RequestParams) => {
+export const requestApi = async ({endpoint, method, body, token, cache}: RequestParams) => {
     let headers: HeadersInit = {"Content-Type": "application/json"};
 
     if (token) {
@@ -20,6 +21,7 @@ export const requestApi = async ({endpoint, method, body, token, tags}: RequestP
     const response = await fetch(`${endpoint}`, {
         method,
         headers,
+        ...(cache && {cache}),
         ...(body && { body: JSON.stringify(body) })
     });
 

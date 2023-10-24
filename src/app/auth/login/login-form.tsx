@@ -1,115 +1,77 @@
 "use client"
 
-import {SubmitHandler, useForm} from "react-hook-form"
-import {signIn} from "next-auth/react";
-import Input from "@/app/auth/input";
-import {useState} from "react";
-import {useRouter} from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 type Inputs = {
-    username: string
+    email: string
     password: string
 }
 
-const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/btn_google_signin_light_normal_web@2x.png`;
-const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/oauth/kakao_login_medium_narrow.png`;
+const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/google.svg`;
+const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/kakao.svg`;
+const appleImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/apple.svg`;
 
-const googleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/google`;
-const kakaoOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/kakao`;
+const googleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`;
+const kakaoOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`;
+const appleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/apple`;
+
 
 const LoginForm = () => {
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm<Inputs>()
-    const [errorMessage, setErrorMessage] = useState("");
-    const router = useRouter();
-
-    const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-        const user = await signIn("credentials", {
-            username: data.username,
-            password: data.password,
-            type: "-1",
-            callbackUrl: `${window.location.origin}`,  // 현재 페이지로 리다이렉트
-            redirect: false  // 리다이렉트 방지
-        });
-
-        if (user?.error) {  // user 객체의 error 프로퍼티 확인
-            setErrorMessage(user.error);  // 에러 메시지 설정
-        } else {
-            router.replace("/curriculum");
-        }
-    }
-
-    const username = watch("username", "");
-    const password = watch("password", "");
-
-    const checkDisable = () => {
-        return username === "" || password === "";
-    }
-
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5 flex flex-col">
-            {
-                errorMessage && (
-                    <div className="flex h-fit items-center text-xs text-error">
-                        {`⚠ ${errorMessage}`}
-                    </div>
-                )
-            }
-
-            <Input
-                label="이메일"
-                register={register}
-                errors={errors}
-                {...register("username", {
-                    required: "required",
-                    pattern: {
-                        value: /\S+@\S+\.\S+/,
-                        message: "이메일 형식이 맞지 않습니다."
-                    }
-                })}
-                aria-invalid={errors.username ? "true" : "false"}
-            />
-            <Input
-                label="비밀번호"
-                register={register}
-                name={"password"}
-                type="password"
-                errors={errors}
-                aria-invalid={errors.password ? "true" : "false"}
-            />
-            <input
-                className={`rounded-xl h-12 flex items-center justify-center px-4 text-base text-white
-                ${checkDisable() ? "bg-secondary-200" : "bg-secondary-900"}`}
-                type="submit"
-                disabled={checkDisable()}
-                value="로그인"
-            />
-            <Link href={googleOAuthUrl} prefetch={false}>
-                <Image
-                    src={googleImgSrc}
-                    alt="구글 로그인 버튼 이미지"
-                    width={160}
-                    height={10}
-                />
-            </Link>
-            <Link href={kakaoOAuthUrl} prefetch={false}>
-                <Image
-                    src={kakaoImgSrc}
-                    alt="카카오 로그인 버튼 이미지"
-                    width={160}
-                    height={10}
-                />
-            </Link>
-            <div className="flex justify-end text-sm">
-                <Link href="/auth/register/email" className="text-primary-900">&nbsp;회원가입</Link>
+        <div className="container mx-auto">
+            <div className="relative my-4 flex justify-between">
+                <div className="flex w-full items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center">
+                    <span className="px-2 text-sm text-secondary-50 whitespace-nowrap">
+                      다음으로 로그인
+                    </span>
+                </div>
+                <div className="flex w-full items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-300"></div>
+                </div>
             </div>
-        </form>
+
+            <div className="w-full flex justify-evenly">
+                <Link href={googleOAuthUrl} prefetch={false}
+                      className="flex items-center justify-between bg-white border border-gray-300 rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <div className="flex items-center justify-center w-full h-full p-3">
+                        <Image
+                            className="block"
+                            src={googleImgSrc}
+                            alt="구글 로그인 버튼 이미지"
+                            width={48}
+                            height={48}
+                        />
+                    </div>
+                </Link>
+                <Link href={kakaoOAuthUrl} prefetch={false}
+                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-[#fae300]">
+                    <div className="flex items-center justify-center w-full h-full">
+                        <Image
+                            className="block"
+                            src={kakaoImgSrc}
+                            alt="카카오 로그인 버튼 이미지"
+                            width={48}
+                            height={48}
+                        />
+                    </div>
+                </Link>
+                <Link href={appleOAuthUrl} prefetch={false}
+                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-black">
+                    <div className="flex items-center justify-center w-full h-full">
+                        <Image
+                            src={appleImgSrc}
+                            alt="애플 로그인 버튼 이미지"
+                            width={56}
+                            height={56}
+                        />
+                    </div>
+                </Link>
+            </div>
+        </div>
     )
 }
 

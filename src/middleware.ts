@@ -1,17 +1,14 @@
-import { withAuth } from "next-auth/middleware";
 import {NextRequest, NextResponse} from "next/server";
 
-export default withAuth(
-    function middleware(request: NextRequest) {
-        if (request.nextUrl.pathname === '/') {
-            return NextResponse.redirect(new URL('/curriculum', request.url))
-        }
-    },
-    {
-    pages: {
-        signIn: "/auth/login",
-    },
-});
+export const middleware = (request: NextRequest) => {
+    if (request.nextUrl.pathname === '/') {
+        return NextResponse.redirect(new URL('/curriculum', request.url))
+    }
+
+    if(!request.cookies.has('refreshToken')) {
+        return NextResponse.redirect(new URL('/auth/login', request.url))
+    }
+ }
 
 
 export const config = {
@@ -21,6 +18,16 @@ export const config = {
         "/create/:path*",
         "/profile/:path*",
         "/onboarding/:path*",
+        "/quiz/:path*",
         "/"
     ]
 }
+
+export const matcher = [
+    "/curriculum/:path*",
+    "/ranking/:path*",
+    "/create/:path*",
+    "/profile/:path*",
+    "/onboarding/:path*",
+    "/"
+]

@@ -5,8 +5,9 @@ import {cn} from "@/util/tailwind";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 import {motion} from 'framer-motion';
 import {HeartSquareButton} from "@/components/Heartbutton";
-import {QuizContext} from "@/modules/curriculum/Context";
-import {signOut} from "next-auth/react";
+import {QuizContext} from "@/modules/Context";
+import {signOut} from "@/modules/serverActions";
+import {useRouter} from "next/navigation";
 
 
 const optionSignature = [
@@ -28,6 +29,7 @@ type QuizItemsProps = {
 }
 
 export const QuizItems = ({quizHtml}: QuizItemsProps) => {
+    const router = useRouter();
     const {id: quizId, options: quizOptions, markedUserIds} = quizHtml;
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -35,6 +37,7 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
 
     if(user === undefined) {
         signOut();
+        router.replace("/auth/login");
         return null;
     }
 

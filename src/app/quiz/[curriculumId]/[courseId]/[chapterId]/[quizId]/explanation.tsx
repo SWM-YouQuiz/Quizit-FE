@@ -1,13 +1,12 @@
 "use client"
 
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useChat} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
 import {Send} from "@/components/svgs";
 import {isSupported, subscribe} from 'on-screen-keyboard-detector';
 import Image from "next/image";
-import {QuizContext} from "@/modules/curriculum/Context";
 
 
 const systemPrompt = `
@@ -90,7 +89,6 @@ const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
 }
 
 const MessageBlock = ({message}: {message: Message}) => {
-    const {user} = useContext(QuizContext);
     const image = "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg"
     if(message.role === 'user') {
         return (

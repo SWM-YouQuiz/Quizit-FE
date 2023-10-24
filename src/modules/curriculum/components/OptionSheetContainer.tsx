@@ -1,7 +1,7 @@
 "use client"
 import {MouseEventHandler, ReactNode, useState} from "react";
 import OptionSheet from "@/modules/curriculum/components/OptionSheet";
-import {OptionSheetContext} from "@/modules/curriculum/Context";
+import {OptionSheetContext} from "@/modules/Context";
 
 type OptionSheetContainer = {
     children: ReactNode

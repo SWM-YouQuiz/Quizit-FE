@@ -1,12 +1,12 @@
 "use client"
-import React, {MouseEventHandler, ReactNode, useEffect, useState} from "react";
+import React, {MouseEventHandler, ReactNode, useContext, useEffect, useState} from "react";
 import {getQuizEvaluate} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
-import {getSession} from "next-auth/react";
 import {cn} from "@/util/tailwind";
 import ThumbupIcon from "@/components/icons/ThumbupIcon";
 import ThumbdownIcon from "@/components/icons/ThumbdownIcon";
 import {useDebounce} from "@/lib/hooks/useDebounce";
+import {QuizContext} from "@/modules/Context";
 
 type QuizToolsProps = {
     quizId: string,
@@ -14,6 +14,7 @@ type QuizToolsProps = {
     unlikedUserIds: string[]
 }
 const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
+    const {user, accessToken} = useContext(QuizContext);
     const [likedCount, setLikedCount] = useState<number>(likedUserIds.length);
     const [unlikedCount, setUnlikedCount] = useState<number>(unlikedUserIds.length);
     const [status, setStatus] = useState<'liked'|'unliked'|'idle'>('idle');
@@ -22,7 +23,7 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
         event.stopPropagation();
         const isLike = event.currentTarget.name === "up" ? "True" : "False";
 
-        getQuizEvaluate({id: quizId, isLike: isLike})
+        getQuizEvaluate({id: quizId, isLike: isLike, accessToken})
             .then(quiz => {
                 setLikedCount(quiz.likedUserIds.length)
                 setUnlikedCount(quiz.unlikedUserIds.length)
@@ -33,11 +34,11 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
     const { call: debouncedClick } = useDebounce(handleOnClick, 3000);
 
     const checkLiked = async (likedUserIds: string[], unlikedUserIds: string[]) => {
-        const session = await getSession();
-        if(session) {
-            if (likedUserIds.some(userId => userId === session.user.user.id)) {
+
+        if(user) {
+            if (likedUserIds.some(userId => userId === user.id)) {
                 setStatus('liked');
-            } else if (unlikedUserIds.some(userId => userId === session.user.user.id)) {
+            } else if (unlikedUserIds.some(userId => userId === user.id)) {
                 setStatus('unliked');
             } else {
                 setStatus('idle');

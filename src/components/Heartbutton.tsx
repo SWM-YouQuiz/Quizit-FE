@@ -1,15 +1,16 @@
 "use client"
-import React, {MouseEventHandler, useEffect, useState} from "react";
+import React, {MouseEventHandler, useContext, useEffect, useState} from "react";
 import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
 import {useDebounce} from "@/lib/hooks/useDebounce";
+import {QuizContext} from "@/modules/Context";
 
 const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const [isMarked, setIsMarked] = useState(false);
+    const {accessToken} = useContext(QuizContext);
     const handleHeartClicked:MouseEventHandler<HTMLButtonElement> = (event) => {
-        event.stopPropagation();
-        getQuizMark({id: quizId})
+        getQuizMark({accessToken: accessToken, id: quizId})
             .then((quiz) => {
                 checkMarked(quiz.markedUserIds);
             })

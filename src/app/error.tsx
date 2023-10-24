@@ -4,6 +4,7 @@ import React from 'react'
 import Button from "@/components/ui/Button";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
+import {signOut} from "@/modules/serverActions";
 
 export default function Error({error, reset}: { error: Error, reset: () => void }) {
     const router = useRouter();
@@ -27,6 +28,14 @@ export default function Error({error, reset}: { error: Error, reset: () => void 
                 className="bg-secondary-900"
                 onClick={() => router.back()}
                 context={"돌아가기"}
+            />
+            <Button
+                className="bg-secondary-900"
+                onClick={() => {
+                    signOut();
+                    router.replace("/auth/login")
+                }}
+                context={"로그아웃"}
             />
         </div>
     )

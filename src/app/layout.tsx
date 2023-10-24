@@ -1,9 +1,7 @@
 import './globals.css'
 import {ReactNode} from "react";
 import Head from "@/app/head";
-import {NextAuthProvider} from "@/app/provider";
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/modules/auth/auth";
+import QuizContainer from "@/modules/quiz/components/QuizContext";
 
 export const metadata = {
     title: 'Quiz IT',
@@ -17,15 +15,13 @@ export const metadata = {
 }
 
 const RootLayout = async ({children,}: { children: ReactNode }) => {
-    const session = await getServerSession(authOptions);
-
     return (
         <html lang="ko" className="overscroll-none">
             <Head />
             <body className="h-screen w-full flex flex-col">
-                <NextAuthProvider session={session}>
+                <QuizContainer>
                     {children}
-                </NextAuthProvider>
+                </QuizContainer>
             </body>
         </html>
     )

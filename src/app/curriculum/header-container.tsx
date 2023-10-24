@@ -1,27 +1,18 @@
 "use client"
 
 import {cn} from "@/util/tailwind";
-import {useEffect, useState} from "react";
-import {getSession} from "next-auth/react";
+import {useContext, useEffect, useState} from "react";
+import {QuizContext} from "@/modules/Context";
 
 const HeaderContainer = () => {
+    const {user} = useContext(QuizContext);
     const [solvedQuizCount, setSolvedQuizCount] = useState(0);
-    const getUser = async () => {
-        const session = await getSession();
-        if(session) {
-            return session.user.user;
-        }
-        return null;
-    }
 
     useEffect(() => {
-       getUser()
-           .then(user => {
-               if(user) {
-                   const solvedQuizCount = getSolvedQuizCount(user);
-                   setSolvedQuizCount(solvedQuizCount)
-               }
-           })
+       if(user) {
+           const solvedQuizCount = getSolvedQuizCount(user);
+           setSolvedQuizCount(solvedQuizCount)
+       }
     },[])
 
     const getSolvedQuizCount = (user: UserInfo) => {
