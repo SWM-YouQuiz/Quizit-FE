@@ -11,7 +11,7 @@ export interface RequestParams {
     cache?: RequestCache
 }
 
-export const requestApi = async ({endpoint, method, body, token, cache}: RequestParams) => {
+export const requestApi = async ({endpoint, method, body, token, cache, tags}: RequestParams) => {
     let headers: HeadersInit = {"Content-Type": "application/json"};
 
     if (token) {
@@ -22,6 +22,7 @@ export const requestApi = async ({endpoint, method, body, token, cache}: Request
         method,
         headers,
         ...(cache && {cache}),
+        ...(tags && { next: { tags } }),
         ...(body && { body: JSON.stringify(body) })
     });
 

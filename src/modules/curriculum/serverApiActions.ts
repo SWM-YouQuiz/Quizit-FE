@@ -43,13 +43,13 @@ export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chap
     });
 }
 
-export const getCurriculumProgress = async ({curriculumId}: {curriculumId: string}): Promise<Progress> => {
-    const accessToken = getAccessToken();
+export const getCurriculumProgress = async ({curriculumId, accessToken}: {curriculumId: string, accessToken: string}): Promise<Progress> => {
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum/${curriculumId}/progress`,
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        tags: [curriculumId]
     });
 }
 
@@ -63,12 +63,12 @@ export const getCourseProgress = async ({courseId}: {courseId: string}): Promise
     });
 }
 
-export const getChapterProgress = async ({chapterId}: {chapterId: string}): Promise<Progress> => {
-    const accessToken = getAccessToken();
+export const getChapterProgress = async ({chapterId, accessToken}: {chapterId: string} & AccessToken): Promise<Progress> => {
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}/progress`,
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        tags: [chapterId]
     });
 }

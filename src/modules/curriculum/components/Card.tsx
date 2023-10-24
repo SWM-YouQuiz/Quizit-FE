@@ -2,8 +2,9 @@
 import {cn} from "@/util/tailwind";
 import Image from 'next/image'
 import Link from "next/link";
-import {ReactNode, useEffect, useState} from "react";
+import {ReactNode, useContext, useEffect, useState} from "react";
 import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
+import {QuizContext} from "@/modules/Context";
 
 type CardProps = {
     type: "curriculum" | "course" | "chapter",
@@ -18,15 +19,16 @@ type CardProps = {
 }
 
 const Card = ({type, id, href="", imageUrl, path, title, alt, className="", children=null}: CardProps) => {
+    const {accessToken} = useContext(QuizContext)
     const [progress, setProgress] = useState<Progress | null>(null);
 
     const handleGetProgress = async ({type, id}: {type: CardProps["type"], id: string}) => {
         if(type === "curriculum") {
-            return getCurriculumProgress({curriculumId: id});
+            return getCurriculumProgress({curriculumId: id, accessToken});
         } else if (type === "course") {
             return getCourseProgress({courseId: id});
         } else {
-            return getChapterProgress({chapterId: id});
+            return getChapterProgress({chapterId: id, accessToken});
         }
     }
 
