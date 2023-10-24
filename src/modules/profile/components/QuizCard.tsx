@@ -29,6 +29,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
         try {
             const _quiz = await getQuiz({quizId: quizId, accessToken});
             const chapter = await getChapter({chapterId: _quiz?.chapterId});
+
             setQuiz(_quiz);
             setChapter(chapter);
         } catch(e) {
@@ -36,8 +37,10 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
         }
     }
 
+
     if(!quiz) return null;
 
+    const question = quiz.question.replace(/(```|\\`\\`\\`)[\s\S]*?\1/g, '');
 
     return (
         <Link
@@ -62,7 +65,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
 
                             </div>
                             <div className="font-semibold text-sm">
-                                {quiz.question}
+                                {question}
                             </div>
                         </div>
                         <Heartbutton quizId={quiz.id} markedUserIds={quiz.markedUserIds} userId={userId}/>
