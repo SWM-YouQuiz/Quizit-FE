@@ -26,6 +26,9 @@ const Carousel = ({courses}: {courses: Course[]}) => {
             }}
             pagination={true}
             modules={[EffectCoverflow ]}
+            style={{
+                overflow: 'visible'
+            }}
         >
 
             {
@@ -48,7 +51,7 @@ type CarouselItemProps = {
 
 const CarouselItem = ({title, image}: CarouselItemProps) => {
     return (
-        <div className="w-full h-full grid place-items-center bg-white rounded-2xl p-5">
+        <div className="w-full h-full grid place-items-center bg-white rounded-2xl p-5 drop-shadow">
             <div className="flex flex-col items-center">
                 <div className="grid place-items-center border border-neutral-100 w-[60px] h-[60px] rounded-full bg-white mb-1">
                     <Image
