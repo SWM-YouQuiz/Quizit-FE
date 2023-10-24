@@ -5,6 +5,7 @@ import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
+import MotionDiv from "@/lib/animation/MotionDiv";
 
 const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
     const chapters = await getChapters({courseId: params.courseId});
@@ -24,12 +25,12 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
                     <Filter/>
                 </Link>
             </Header>
-            <div className="flex-grow bg-bg-primary overflow-y-auto p-5">
+            <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer
                     chapters={chapters}
                     curriculumId={params.curriculumId}
                 />
-            </div>
+            </MotionDiv>
         </div>
     )
 }
