@@ -4,7 +4,7 @@ import {getQuizMark} from "@/modules/quiz/serverApiActions";
 import {motion} from "framer-motion";
 import {HeartRed, HeartWhite} from "@/components/svgs";
 import {useDebounce} from "@/lib/hooks/useDebounce";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, markedUserIds: string[], userId: string}) => {
     const [isMarked, setIsMarked] = useState(false);

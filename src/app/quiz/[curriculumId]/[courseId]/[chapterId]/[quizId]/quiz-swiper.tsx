@@ -8,7 +8,7 @@ import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import QuizLoading from "@/components/QuizLoading";
 import Ending from "@/components/Ending";
-import {QuizContext, QuizFilterContext} from "@/modules/Context";
+import {QuizContext, QuizFilterContext} from "@/lib/context/Context";
 import {useFilter} from "@/modules/quiz/hooks/useFilter";
 import {getUser} from "@/modules/profile/serverApiActions";
 import QuizNull from "@/components/QuizNull";

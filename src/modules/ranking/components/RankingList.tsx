@@ -2,7 +2,7 @@
 import {getUserRanking} from "@/modules/ranking/serverApiActions";
 import Image from "next/image";
 import React, {ReactNode, useContext} from "react";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 const RankingList = async () => {
     const {user, accessToken} = useContext(QuizContext);

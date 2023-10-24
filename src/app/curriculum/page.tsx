@@ -3,6 +3,7 @@ import {Header} from "@/components/Header";
 import {Alert} from "@/components/svgs";
 import Card from "@/modules/curriculum/components/Card";
 import HeaderContainer from "@/app/curriculum/header-container";
+import MotionDiv from "@/lib/animation/MotionDiv";
 
 const Curriculum = async () => {
     const curriculums = await getCurriculums();
@@ -15,10 +16,10 @@ const Curriculum = async () => {
                     <Alert/>
                 </div>
             </Header>
-            <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
+            <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <HeaderContainer />
                 <BodyContainer curriculums={curriculums}/>
-            </div>
+            </MotionDiv>
         </div>
     )
 }

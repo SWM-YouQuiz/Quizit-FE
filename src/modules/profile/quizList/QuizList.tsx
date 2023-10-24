@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import {getUser} from "@/modules/profile/serverApiActions";
 import QuizCard from "@/modules/profile/components/QuizCard";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const refetchAmount = 6;

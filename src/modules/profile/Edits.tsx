@@ -6,7 +6,7 @@ import Input from "@/components/ui/Input";
 import {updateUser} from "@/modules/profile/serverApiActions";
 import {motion} from "framer-motion";
 import {cn} from "@/util/tailwind";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 import {useRouter} from "next/navigation";
 
 export const NicknameEdit = () => {
