@@ -8,7 +8,10 @@ import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import QuizLoading from "@/components/QuizLoading";
 import Ending from "@/components/Ending";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext, QuizFilterContext} from "@/modules/Context";
+import {useFilter} from "@/modules/quiz/hooks/useFilter";
+import {getUser} from "@/modules/profile/serverApiActions";
+import QuizNull from "@/components/QuizNull";
 
 type QuizSwiperProps = {
     chapterId: string,
@@ -18,32 +21,58 @@ type QuizSwiperProps = {
 }
 
 const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps) => {
-    const {accessToken} = useContext(QuizContext);
+    const {accessToken, user, dispatch} = useContext(QuizContext);
+    const {quizFilter} = useContext(QuizFilterContext);
+    if(user === undefined) throw new Error("유저를 찾을 수 없습니다.");
+    const {filter} = useFilter(quizFilter, user);
     const [page, setPage] = useState(-1);
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
     const [end, setEnd] = useState(false);
-    
-    console.log("quiz swiper accessToken!@!@!@!@!@!@", accessToken);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         if(quizId) {
             addSingleQuiz(quizId);
         } else {
-            addNewQuiz(chapterId);
+            addNewQuiz(chapterId, page);
         }
     }, [quizId]);
+
+    const updateUser = () => {
+        getUser({accessToken, cache: 'no-store'})
+            .then(user => {
+                if (dispatch) {
+                    dispatch({type: 'SET_USER', payload: user});
+                }
+            })
+    }
+
+    useEffect(() => {
+        (async () => {
+            await updateUser();
+            setLoading(false);
+        })();
+    }, [])
 
     const addSingleQuiz = async (quizId: string) => {
         const quiz = await getQuiz({quizId: quizId, accessToken});
         setQuizQueue([quiz]);
     }
 
-    const addNewQuiz = async (chapterId: string) => {
+    const addNewQuiz = async (chapterId: string, page: number) => {
         const nextPage = page+1;
         const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101", accessToken});
         if(quizzes.length === 0) {
             setEnd(true);
         } else {
-            setQuizQueue(prev => [...prev, ...quizzes]);
+            const filteredQuizzes = filter(quizzes);
+
+            if(filteredQuizzes.length === 0) {
+                await addNewQuiz(chapterId, nextPage);
+                return;
+            }
+
+            setQuizQueue(prev => [...prev, ...filteredQuizzes]);
             setPage(prev => prev + 1);
         }
     }
@@ -51,8 +80,10 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
     const replaceUrlToCurrentQuiz = (currentQuizId: string) => {
         window.history.replaceState(null, "", `${currentQuizId}`);
     }
-
-    if(!quizQueue || quizQueue.length===0) return <QuizLoading/>
+    if(!quizQueue || quizQueue.length===0 || loading) {
+        if(end) return <QuizNull curriculumId={curriculumId} courseId={couseId}/>
+        else return <QuizLoading/>
+    }
     return (
         <Swiper
             className="container h-full w-full"
@@ -71,7 +102,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
                 }
             }}
             onReachEnd={async (swiper ) => {
-                await addNewQuiz(chapterId);
+                await addNewQuiz(chapterId, page);
             }}
         >
 

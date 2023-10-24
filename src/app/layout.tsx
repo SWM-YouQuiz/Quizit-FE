@@ -2,6 +2,7 @@ import './globals.css'
 import {ReactNode} from "react";
 import Head from "@/app/head";
 import QuizContainer from "@/modules/quiz/components/QuizContext";
+import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterContainer";
 
 export const metadata = {
     title: 'Quiz IT',
@@ -20,7 +21,9 @@ const RootLayout = async ({children,}: { children: ReactNode }) => {
             <Head />
             <body className="h-screen w-full flex flex-col">
                 <QuizContainer>
-                    {children}
+                    <QuizFilterContainer>
+                        {children}
+                    </QuizFilterContainer>
                 </QuizContainer>
             </body>
         </html>
