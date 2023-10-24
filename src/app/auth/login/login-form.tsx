@@ -12,9 +12,9 @@ const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/google.s
 const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/kakao.svg`;
 const appleImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/apple.svg`;
 
-const googleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/google`;
-const kakaoOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/kakao`;
-const appleOAuthUrl = `https://quizit.org/api/auth/oauth2/authorization/apple`;
+const googleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`;
+const kakaoOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`;
+const appleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/apple`;
 
 
 const LoginForm = () => {
