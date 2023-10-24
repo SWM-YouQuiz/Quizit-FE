@@ -6,8 +6,6 @@ import {getUser} from "@/modules/profile/serverApiActions";
 import {setCookie} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";
 
-const serviceUrl = process.env.NEXT_PUBLIC_SERVICE_URL ?? "https://quizit.org";
-
 const OAuth = ({searchParams}: {searchParams: any}) => {
     const router = useRouter();
     const {user, accessToken, dispatch } = useContext(QuizContext);
@@ -48,9 +46,9 @@ const OAuth = ({searchParams}: {searchParams: any}) => {
         const initializeUser = async () => {
             await Promise.all([setUser(), setRefeshToken(), setAccessToken()]); // 각 함수가 반환할 프로미스를 기다립니다.
             if (isSignUp==="true") {
-                router.replace(`${serviceUrl}/onboarding/0`);
+                router.replace(`/onboarding/0`);
             } else {
-                router.replace(`${serviceUrl}/curriculum`);
+                router.replace(`/curriculum`);
             }
         }
 

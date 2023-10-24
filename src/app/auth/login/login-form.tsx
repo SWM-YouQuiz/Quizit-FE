@@ -8,13 +8,13 @@ type Inputs = {
     password: string
 }
 
-const googleImgSrc =`${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/google.svg`;
-const kakaoImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/kakao.svg`;
-const appleImgSrc = `${process.env.NEXT_PUBLIC_SERVICE_URL}/icons/oauth/apple.svg`;
+const googleImgSrc =`/icons/oauth/google.svg`;
+const kakaoImgSrc = `/icons/oauth/kakao.svg`;
+const appleImgSrc = `/icons/oauth/apple.svg`;
 
-const googleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/google`;
-const kakaoOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/kakao`;
-const appleOAuthUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth2/authorization/apple`;
+const googleOAuthUrl = `/api/auth/oauth2/authorization/google`;
+const kakaoOAuthUrl = `/api/auth/oauth2/authorization/kakao`;
+const appleOAuthUrl = `/api/auth/oauth2/authorization/apple`;
 
 
 const LoginForm = () => {
@@ -42,8 +42,8 @@ const LoginForm = () => {
                             className="block"
                             src={googleImgSrc}
                             alt="구글 로그인 버튼 이미지"
-                            width={48}
-                            height={48}
+                            width={56}
+                            height={56}
                         />
                     </div>
                 </Link>
@@ -54,21 +54,19 @@ const LoginForm = () => {
                             className="block"
                             src={kakaoImgSrc}
                             alt="카카오 로그인 버튼 이미지"
-                            width={48}
-                            height={48}
-                        />
-                    </div>
-                </Link>
-                <Link href={appleOAuthUrl} prefetch={false}
-                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-black">
-                    <div className="flex items-center justify-center w-full h-full">
-                        <Image
-                            src={appleImgSrc}
-                            alt="애플 로그인 버튼 이미지"
                             width={56}
                             height={56}
                         />
                     </div>
+                </Link>
+                <Link href={appleOAuthUrl} prefetch={false}
+                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-[#fae300]">
+                    <Image
+                        src={appleImgSrc}
+                        alt="애플 로그인 버튼 이미지"
+                        width={56}
+                        height={56}
+                    />
                 </Link>
             </div>
         </div>
