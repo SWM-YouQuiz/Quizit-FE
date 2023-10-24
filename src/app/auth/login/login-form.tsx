@@ -60,7 +60,7 @@ const LoginForm = () => {
                     </div>
                 </Link>
                 <Link href={appleOAuthUrl} prefetch={false}
-                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-[#fae300]">
+                      className="flex items-center justify-between rounded px-0 py-0 h-14 w-14 max-w-full min-w-min cursor-pointer transition-all ease-in-out duration-200 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-black">
                     <Image
                         src={appleImgSrc}
                         alt="애플 로그인 버튼 이미지"

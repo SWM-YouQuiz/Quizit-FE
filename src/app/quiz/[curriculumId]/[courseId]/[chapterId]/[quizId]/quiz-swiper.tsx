@@ -12,6 +12,8 @@ import {QuizContext, QuizFilterContext} from "@/modules/Context";
 import {useFilter} from "@/modules/quiz/hooks/useFilter";
 import {getUser} from "@/modules/profile/serverApiActions";
 import QuizNull from "@/components/QuizNull";
+import {revalidate} from "@/modules/serverActions";
+
 
 type QuizSwiperProps = {
     chapterId: string,
@@ -52,6 +54,10 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
             await updateUser();
             setLoading(false);
         })();
+
+        revalidate(curriculumId);
+        revalidate(couseId);
+        revalidate(chapterId);
     }, [])
 
     const addSingleQuiz = async (quizId: string) => {

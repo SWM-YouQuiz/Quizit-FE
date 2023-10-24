@@ -1,6 +1,7 @@
 'use server'
 
 import {cookies} from "next/headers";
+import {revalidateTag} from "next/cache";
 
 export const setCookie = async ({key, value}: {key: string, value: string}) => {
     cookies().set({
@@ -23,4 +24,12 @@ export const getAccessToken = () => {
 export const signOut = () => {
     cookies().delete('accessToken');
     cookies().delete('refreshToken');
+}
+
+export const getCookie = async () => {
+    return cookies().get('test');
+}
+
+export const revalidate = (tag: string) => {
+    revalidateTag(tag);
 }
