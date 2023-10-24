@@ -1,8 +1,10 @@
-import {useCallback, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import {useOptionState} from "@/modules/quiz/hooks/useOptionState";
 import {postQuizCheck} from "@/modules/quiz/serverApiActions";
+import {QuizContext} from "@/modules/Context";
 
 export const useQuizState = (quizId: string) => {
+    const {accessToken} = useContext(QuizContext);
     const { itemsStatus, changeItemSelect, changeSelectWrong, changeSelectCorrect, changeAnswerCorrect } = useOptionState();
     const [quizStatus, setQuizStatus] = useState<QuizStatus>('default');
     const [solution, setSolution] = useState("");
@@ -30,7 +32,7 @@ export const useQuizState = (quizId: string) => {
 
     const checkAnswer = async () => {
         const select = findSelect();
-        const { answer, solution } = await postQuizCheck({quizId: quizId, answer: select});
+        const { answer, solution } = await postQuizCheck({quizId: quizId, answer: select, accessToken});
         setStates(solution, answer, select);
         handleCheck(answer);
     }

@@ -1,13 +1,14 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import 'swiper/css';
 import {getQuiz, getQuizOfChapter} from "@/modules/quiz/serverApiActions";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
-import Loading from "@/components/Loading";
+import QuizLoading from "@/components/QuizLoading";
 import Ending from "@/components/Ending";
+import {QuizContext} from "@/modules/Context";
 
 type QuizSwiperProps = {
     chapterId: string,
@@ -17,26 +18,28 @@ type QuizSwiperProps = {
 }
 
 const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps) => {
+    const {accessToken} = useContext(QuizContext);
     const [page, setPage] = useState(-1);
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
     const [end, setEnd] = useState(false);
-
+    
+    console.log("quiz swiper accessToken!@!@!@!@!@!@", accessToken);
     useEffect(() => {
         if(quizId) {
             addSingleQuiz(quizId);
         } else {
             addNewQuiz(chapterId);
         }
-    }, []);
+    }, [quizId]);
 
     const addSingleQuiz = async (quizId: string) => {
-        const quiz = await getQuiz({quizId: quizId});
+        const quiz = await getQuiz({quizId: quizId, accessToken});
         setQuizQueue([quiz]);
     }
 
     const addNewQuiz = async (chapterId: string) => {
         const nextPage = page+1;
-        const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101"});
+        const quizzes = await getQuizOfChapter({chapterId: chapterId, page: nextPage, size: 3, range: "-1,101", accessToken});
         if(quizzes.length === 0) {
             setEnd(true);
         } else {
@@ -49,7 +52,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
         window.history.replaceState(null, "", `${currentQuizId}`);
     }
 
-    if(!quizQueue || quizQueue.length===0) return <Loading/>
+    if(!quizQueue || quizQueue.length===0) return <QuizLoading/>
     return (
         <Swiper
             className="container h-full w-full"

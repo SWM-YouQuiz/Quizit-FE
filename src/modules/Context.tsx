@@ -27,10 +27,12 @@ export const QuizFilterContext = createContext<QuizFilterContextType>({
     setQuizFilter: undefined
 });
 
-export type QuizContextType = {
-    user: UserInfo | undefined
+export type QuizContextType = QuizContextState & {
+    dispatch: Dispatch<QuizContextAction> | undefined
 }
 
 export const QuizContext = createContext<QuizContextType>({
-    user: undefined
+    user: undefined,
+    accessToken: "",
+    dispatch: undefined
 })

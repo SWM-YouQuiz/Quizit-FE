@@ -1,11 +1,13 @@
 "use client"
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import {getUser} from "@/modules/profile/serverApiActions";
 import QuizCard from "@/modules/profile/components/QuizCard";
+import {QuizContext} from "@/modules/Context";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const refetchAmount = 6;
+    const {accessToken} = useContext(QuizContext);
     const [quizIds, setQuizIds] = useState<string[]>([]);
     const [page, setPage] = useState(1);
     const [userId, setUserId] = useState("");
@@ -24,7 +26,7 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
     };
 
     const getGroupQuizIds = async () => {
-        const user = await getUser();
+        const user = await getUser({accessToken, cache: 'no-store'});
         const quizIds = user[group] as string[];
         setQuizIds(quizIds);
         setUserId(user.id);

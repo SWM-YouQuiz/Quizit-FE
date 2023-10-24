@@ -2,17 +2,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import {Rightarrow} from "@/components/svgs";
-import {signOut, useSession} from "next-auth/react";
+import {useContext} from "react";
+import {QuizContext} from "@/modules/Context";
+import {useRouter} from "next/navigation";
 
 const ProfileCard = () => {
-    const {data: session, status} = useSession();
-    if(status !== "authenticated") {
-        signOut();
-        return null;
-    }
-    const user = session.user.user;
+    const {user} = useContext(QuizContext);
+    const router = useRouter();
 
-    console.log(user.image, "image")
+    if(user === undefined) {
+        throw new Error("유저 정보를 찾을 수 없습니다.");
+    }
 
     const image = (user.image && user.image !== "none") ? user.image : "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character2.svg"
 

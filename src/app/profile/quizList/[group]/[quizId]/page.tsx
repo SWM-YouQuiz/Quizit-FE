@@ -1,25 +1,27 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {BackArrow} from "@/components/svgs";
 import {Header} from "@/components/Header";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import ShareButton from "@/modules/quiz/components/ShareButton";
 import {useRouter} from "next/navigation";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
-import Loading from "@/components/Loading";
+import QuizLoading from "@/components/QuizLoading";
+import {QuizContext} from "@/modules/Context";
 
 type QuizPageParams = {
     quizId: string
 }
 
 const QuizPage = ({ params }: { params: QuizPageParams }) => {
+    const {accessToken} = useContext(QuizContext);
     const [quiz, setQuiz] = useState<Quiz|null>(null);
     const router = useRouter();
 
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const _quiz = await getQuiz({quizId: params.quizId});
+                const _quiz = await getQuiz({quizId: params.quizId, accessToken});
                 console.log("here", _quiz);
                 setQuiz(_quiz);
             } catch (error) {
@@ -34,7 +36,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
         console.log("quiz Changed!", quiz);
     }, [quiz])
 
-    if (quiz === null) return <Loading />;
+    if (quiz === null) return <QuizLoading />;
 
     return (
         <div className="flex flex-col h-full">

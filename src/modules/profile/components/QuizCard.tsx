@@ -1,12 +1,13 @@
 "use client"
 import Link from "next/link";
 import {cn} from "@/util/tailwind";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Image from "next/image";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import Heartbutton from "@/components/Heartbutton";
 import {calculateDateDifference} from "@/util/etc";
 import {getChapter} from "@/modules/curriculum/serverApiActions";
+import {QuizContext} from "@/modules/Context";
 
 type CardProps = {
     href?: string,
@@ -16,6 +17,7 @@ type CardProps = {
 }
 
 const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
+    const {accessToken} = useContext(QuizContext);
     const [quiz, setQuiz] = useState<Quiz>();
     const [chapter, setChapter] = useState<Chapter>();
 
@@ -25,7 +27,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
 
     const _getQuiz = async (quizId: string) => {
         try {
-            const _quiz = await getQuiz({quizId: quizId});
+            const _quiz = await getQuiz({quizId: quizId, accessToken});
             const chapter = await getChapter({chapterId: _quiz?.chapterId});
             setQuiz(_quiz);
             setChapter(chapter);

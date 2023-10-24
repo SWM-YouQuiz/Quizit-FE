@@ -1,33 +1,28 @@
 "use server"
 import 'server-only';
-import {authenticateSession} from "@/util/session";
-import {authOptions} from "@/modules/auth/auth";
 import {requestApi} from "@/util/fetcher";
 
 type UpdateUserProps = {
     image: string,
     dailyTarget: number,
     username: string,
-    allowPush: boolean
+    allowPush: boolean,
 }
-export const updateUser = async ({body}: {body: UpdateUserProps}): Promise<UserInfo> => {
-    const session = await authenticateSession(authOptions);
-
+export const updateUser = async ({body, accessToken, userId}: {body: UpdateUserProps, userId: string} & AccessToken): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/${session.user.user.id}`,
+        endpoint: `${process.env.API_URL}/api/user/user/${userId}`,
         method: 'PUT',
-        token: session.user.accessToken,
+        token: accessToken,
         body: body
     });
 };
 
-export const getUser = async (): Promise<UserInfo> => {
-    const session = await authenticateSession(authOptions);
-
+export const getUser = async ({accessToken, cache}: {cache?: RequestCache} & AccessToken): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/${session.user.user.id}`,
+        endpoint: `${process.env.API_URL}/api/user/user/authentication`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken,
+        cache
     });
 };
 

@@ -1,76 +1,74 @@
 "use server"
 import {requestApi} from "@/util/fetcher";
-import {cache} from "react";
-import {authenticateSession} from "@/util/session";
-import {authOptions} from "@/modules/auth/auth";
 import 'server-only';
+import {getAccessToken} from "@/modules/serverActions";
 
-export const getCourses = cache(async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
-    const session = await authenticateSession(authOptions);
+export const getCourses = async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
-});
+}
 
-export const getChapters = cache(async ({courseId}: {courseId: string}): Promise<Chapter[]> => {
-    const session = await authenticateSession(authOptions);
+export const getChapters = async ({courseId}: {courseId: string}): Promise<Chapter[]> => {
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/course/${courseId}`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
-});
+}
 
-export const getCurriculums = cache(async (): Promise<Curriculum[]> => {
-    const session = await authenticateSession(authOptions);
+export const getCurriculums = async (): Promise<Curriculum[]> => {
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
-});
+}
 
 export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chapter> => {
-    const session = await authenticateSession(authOptions);
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
 }
 
 export const getCurriculumProgress = async ({curriculumId}: {curriculumId: string}): Promise<Progress> => {
-    const session = await authenticateSession(authOptions);
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum/${curriculumId}/progress`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
 }
 
 export const getCourseProgress = async ({courseId}: {courseId: string}): Promise<Progress> => {
-    const session = await authenticateSession(authOptions);
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/${courseId}/progress`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
 }
 
 export const getChapterProgress = async ({chapterId}: {chapterId: string}): Promise<Progress> => {
-    const session = await authenticateSession(authOptions);
+    const accessToken = getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}/progress`,
         method: 'GET',
-        token: session.user.accessToken,
+        token: accessToken
     });
 }
