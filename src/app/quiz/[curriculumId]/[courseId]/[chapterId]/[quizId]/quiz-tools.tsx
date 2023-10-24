@@ -6,7 +6,7 @@ import {cn} from "@/util/tailwind";
 import ThumbupIcon from "@/components/icons/ThumbupIcon";
 import ThumbdownIcon from "@/components/icons/ThumbdownIcon";
 import {useDebounce} from "@/lib/hooks/useDebounce";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 type QuizToolsProps = {
     quizId: string,

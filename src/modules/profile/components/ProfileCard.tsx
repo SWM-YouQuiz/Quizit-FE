@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {Rightarrow} from "@/components/svgs";
 import {useContext} from "react";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 import {useRouter} from "next/navigation";
 
 const ProfileCard = () => {

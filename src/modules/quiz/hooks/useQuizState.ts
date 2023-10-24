@@ -1,7 +1,7 @@
 import {useCallback, useContext, useState} from "react";
 import {useOptionState} from "@/modules/quiz/hooks/useOptionState";
 import {postQuizCheck} from "@/modules/quiz/serverApiActions";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 export const useQuizState = (quizId: string) => {
     const {accessToken} = useContext(QuizContext);

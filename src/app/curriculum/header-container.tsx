@@ -2,7 +2,7 @@
 
 import {cn} from "@/util/tailwind";
 import {useContext, useEffect, useState} from "react";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 const HeaderContainer = () => {
     const {user} = useContext(QuizContext);

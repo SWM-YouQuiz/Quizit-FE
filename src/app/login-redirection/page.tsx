@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import React, {useContext, useEffect} from "react";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 import {getUser} from "@/modules/profile/serverApiActions";
 import {setCookie} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";

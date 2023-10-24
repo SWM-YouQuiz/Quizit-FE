@@ -1,7 +1,7 @@
 "use client"
 import {ReactNode, useEffect, useReducer, useState} from "react";
-import {QuizContext} from "@/modules/Context";
-import {quizReducer} from "@/modules/Reducer";
+import {QuizContext} from "@/lib/context/Context";
+import {quizReducer} from "@/lib/context/Reducer";
 import {postRefresh} from "@/modules/auth/serverApiActions";
 import {useRouter} from "next/navigation";
 import {pathToRegexp} from "path-to-regexp";

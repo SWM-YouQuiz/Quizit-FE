@@ -1,6 +1,6 @@
 "use client"
 import {MouseEventHandler, ReactNode, useContext} from "react";
-import {QuizFilterContext, QuizFilterContextType} from "@/modules/Context";
+import {QuizFilterContext, QuizFilterContextType} from "@/lib/context/Context";
 import {Header} from "@/components/Header";
 import {motion} from "framer-motion";
 import {Cancel, Check} from "@/components/svgs";

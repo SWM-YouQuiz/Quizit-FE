@@ -5,7 +5,7 @@ import {cn} from "@/util/tailwind";
 import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/explanation-sheet";
 import {motion} from 'framer-motion';
 import {HeartSquareButton} from "@/components/Heartbutton";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 import {signOut} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";
 

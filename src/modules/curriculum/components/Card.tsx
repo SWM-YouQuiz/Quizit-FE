@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from "next/link";
 import {ReactNode, useContext, useEffect, useState} from "react";
 import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 type CardProps = {
     type: "curriculum" | "course" | "chapter",

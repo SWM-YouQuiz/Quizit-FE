@@ -3,6 +3,7 @@ import {ReactNode} from "react";
 import Head from "@/app/head";
 import QuizContainer from "@/modules/quiz/components/QuizContext";
 import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterContainer";
+import {AnimationWrapper} from "@/lib/animation/AnimationWrapper";
 
 export const metadata = {
     title: 'Quiz IT',
@@ -22,7 +23,9 @@ const RootLayout = async ({children,}: { children: ReactNode }) => {
             <body className="h-screen w-full flex flex-col">
                 <QuizContainer>
                     <QuizFilterContainer>
-                        {children}
+                        <AnimationWrapper>
+                            {children}
+                        </AnimationWrapper>
                     </QuizFilterContainer>
                 </QuizContainer>
             </body>

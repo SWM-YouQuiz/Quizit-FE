@@ -7,7 +7,7 @@ import ShareButton from "@/modules/quiz/components/ShareButton";
 import {useRouter} from "next/navigation";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import QuizLoading from "@/components/QuizLoading";
-import {QuizContext} from "@/modules/Context";
+import {QuizContext} from "@/lib/context/Context";
 
 type QuizPageParams = {
     quizId: string

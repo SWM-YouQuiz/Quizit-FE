@@ -1,6 +1,6 @@
 "use client"
 import {ReactNode, useState} from "react";
-import {QuizFilterContext} from "@/modules/Context";
+import {QuizFilterContext} from "@/lib/context/Context";
 
 type QuizFilterContainerProps= {
     children: ReactNode
