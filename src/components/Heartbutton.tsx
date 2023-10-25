@@ -13,10 +13,7 @@ const useSquareHeartButton = ({quizId, markedUserIds, userId}: {quizId: string, 
         getQuizMark({accessToken: accessToken, id: quizId})
             .then((quiz) => {
                 checkMarked(quiz.markedUserIds);
-            })
-            .catch(e => {
-                console.log("error!!@!@!", e);
-            })
+            });
     }
 
     const { call: debouncedClick } = useDebounce(handleHeartClicked, 3000);

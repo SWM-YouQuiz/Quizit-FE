@@ -22,7 +22,6 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
         const fetchQuiz = async () => {
             try {
                 const _quiz = await getQuiz({quizId: params.quizId, accessToken});
-                console.log("here", _quiz);
                 setQuiz(_quiz);
             } catch (error) {
                 console.error("An error occurred while fetching the quiz:", error);
@@ -31,10 +30,6 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
         }
         fetchQuiz();
     }, [params.quizId]);
-
-    useEffect(() => {
-        console.log("quiz Changed!", quiz);
-    }, [quiz])
 
     if (quiz === null) return <QuizLoading />;
 

@@ -26,8 +26,6 @@ const getTitle = (group: keyof UserInfo) => {
 const getQuizIds = async (group: keyof UserInfo, user: UserInfo) => {
     const quizIds = user[group] as string[]
 
-    console.log("group", group);
-
     quizIds.sort((a, b) => {
         if(a > b) return -1;
         else return 1;

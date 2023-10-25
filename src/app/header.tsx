@@ -12,7 +12,6 @@ const Header = () => {
     const route = useRouter()
 
     const handleClick = () => {
-        console.log("hello")
         route.back();
     }
 
