@@ -11,6 +11,7 @@ const MyPage = () => {
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">마이페이지</div>
+                <div/>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">
                 <BodyContainer/>

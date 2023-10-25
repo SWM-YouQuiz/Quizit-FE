@@ -2,7 +2,7 @@
 import React, {forwardRef, ForwardRefRenderFunction} from "react";
 import {cn} from "@/util/tailwind";
 
-type InputProps = {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
     className?: string
 }
 const Input: ForwardRefRenderFunction<HTMLInputElement, InputProps> = ({className="", ...props}, ref) => {
