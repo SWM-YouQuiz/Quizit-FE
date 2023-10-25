@@ -14,6 +14,8 @@ type QuizContextProps = {
     children: ReactNode
 }
 
+const JWT_EXPIRRY_TIME = 10000 * 60 * 1000;
+
 const QuizContainer = ({children}: QuizContextProps) => {
     const router = useRouter();
     const [state, dispatch] = useReducer(quizReducer, {
@@ -57,9 +59,23 @@ const QuizContainer = ({children}: QuizContextProps) => {
         return false;
     }
 
+    const onSilentRefresh = async () => {
+        postRefresh()
+            .then(token => {
+                onLoginSuccess({accessToken: token.accessToken})
+            })
+            .catch(e => console.error("Token refresh failed!"));
+    }
+
+    const onLoginSuccess = ({accessToken}: AccessToken) => {
+        setAccessToken(accessToken);
+        setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
+    }
+
     const _postRefresh = async () => {
         try {
             const token = await postRefresh();
+            onLoginSuccess({accessToken: token.accessToken});
             await setAccessToken(token.accessToken);
             await setUser(token.accessToken);
         } catch (error) {
@@ -69,6 +85,8 @@ const QuizContainer = ({children}: QuizContextProps) => {
             }
         }
     };
+
+
 
     useEffect(() => {
         (async () => {

@@ -1,7 +1,6 @@
 "use server"
 import {requestApi} from "@/util/fetcher";
 import 'server-only';
-import {cookies} from "next/headers";
 
 type LoginApi = {
     body: {
@@ -42,25 +41,15 @@ export const registerApi = async (body: registerApiProps): Promise<Response> => 
     return response;
 }
 
-export const postRefresh = async (): Promise<Token> => {
-    const cookie = cookies();
-    const refreshToken = cookie.get('refreshToken');
-    const accessToken = cookie.get('accessToken');
-
-    if(refreshToken === undefined) throw new Error("세션이 만료되었습니다.");
-    if(accessToken) return {
-        accessToken: accessToken.value,
-        refreshToken: refreshToken.value
-    }
-
+export const postRefresh = async (): Promise<AccessToken> => {
     const response = requestApi({
-        endpoint: `${process.env.API_URL}/api/auth/refresh`,
+        endpoint: `${process.env.API_URL}/api/auth/auth/refresh`,
         method: 'POST',
-        body: {
-            userId: "6536b6d117e7d1777e2d84cf",
-            refreshToken: refreshToken.value
-        }
+        credentials: 'include'
     })
+
+
 
     return response;
 }
+
