@@ -42,7 +42,9 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
                     <BackArrow/>
                 </Link>
                 <div className="font-bold">{getTitle(params.group)}</div>
-                <Setting/>
+                <div className="hidden">
+                    <Setting/>
+                </div>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
                 <QuizList group={params.group}/>
