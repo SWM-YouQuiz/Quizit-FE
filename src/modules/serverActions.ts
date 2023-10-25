@@ -20,7 +20,8 @@ export const getAccessToken = () => {
     return accessToken.value;
 }
 
-export const signOut = () => {
+export const deleteToken = () => {
+    console.log("delete all token!!!");
     cookies().delete('accessToken');
     cookies().delete('refreshToken');
 }

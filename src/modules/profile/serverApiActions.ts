@@ -34,3 +34,11 @@ export const getUserFromId = async ({id, accessToken}: {id: string, accessToken:
         token: accessToken,
     });
 };
+
+export const getUserDeletion = async ({provider, accessToken}: {provider: string} & AccessToken): Promise<UserInfo> => {
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/auth/oauth2/revoke/${provider}`,
+        method: 'GET',
+        token: accessToken,
+    });
+};
