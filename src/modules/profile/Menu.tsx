@@ -1,6 +1,4 @@
-import Link from "next/link";
-import {Rightarrow} from "@/components/svgs";
-import LogoutButton from "@/modules/profile/components/LogoutButton";
+import Item from "@/modules/profile/components/Item";
 
 export const menuData: Menu[] = [
     {
@@ -33,20 +31,9 @@ const Menu = () => {
                     />
                 ))
             }
-            <LogoutButton/>
         </div>
     )
 }
 
 export default Menu;
 
-const Item = ({title, href}: Menu) => (
-    <Link
-        className="flex justify-between items-center h-[52px]"
-        href={href}
-        prefetch={false}
-    >
-        <div className="text-[17px] text-secondary-900">{title}</div>
-        <Rightarrow/>
-    </Link>
-)

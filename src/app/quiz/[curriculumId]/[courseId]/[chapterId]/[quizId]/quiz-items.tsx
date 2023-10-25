@@ -6,7 +6,7 @@ import ExplanationSheet from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[
 import {motion} from 'framer-motion';
 import {HeartSquareButton} from "@/components/Heartbutton";
 import {QuizContext} from "@/lib/context/Context";
-import {signOut} from "@/modules/serverActions";
+import {deleteToken} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";
 
 
@@ -36,7 +36,7 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
     const {user} = useContext(QuizContext);
 
     if(user === undefined) {
-        signOut();
+        deleteToken();
         router.replace("/auth/login");
         return null;
     }

@@ -1,6 +1,6 @@
 "use client"
 import {Rightarrow} from "@/components/svgs";
-import {signOut} from "@/modules/serverActions";
+import {deleteToken} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";
 
 const LogoutButton = () => {
@@ -8,9 +8,9 @@ const LogoutButton = () => {
 
     return (
         <div
-            className="flex justify-between items-center h-[52px]"
+            className="flex justify-between items-center h-[52px] px-5 bg-white"
             onClick={() => {
-                signOut();
+                deleteToken();
                 router.replace("/auth/login");
             }}
         >

@@ -1,6 +1,6 @@
 "use client"
 
-import {signOut} from "@/modules/serverActions";
+import {deleteToken} from "@/modules/serverActions";
 import {useRouter} from "next/navigation";
 
 const SignOutButton = () => {
@@ -10,7 +10,7 @@ const SignOutButton = () => {
         <button
             className="block"
             onClick={() => {
-                signOut();
+                deleteToken();
                 router.replace("/auth/login");
             }}>
             로그아웃

@@ -24,9 +24,11 @@ export default MyPage;
 
 const BodyContainer = () => {
     return (
-        <div className="space-y-8">
-            <NicknameEdit/>
-            <GoalEdit/>
+        <div className="h-full flex flex-col justify-between">
+            <div className="space-y-8">
+                <NicknameEdit/>
+                <GoalEdit/>
+            </div>
         </div>
     )
 }

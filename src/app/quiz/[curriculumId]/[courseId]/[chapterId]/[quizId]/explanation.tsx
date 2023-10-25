@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {useChat} from "ai/react";
 import {useMessageToHtmlString} from "@/modules/quiz/hooks/useRemark";
 import {Message} from "ai";
@@ -8,6 +8,7 @@ import {Send} from "@/components/svgs";
 import {isSupported, subscribe} from 'on-screen-keyboard-detector';
 import Image from "next/image";
 import {motion} from "framer-motion"
+import {QuizContext} from "@/lib/context/Context";
 
 
 const systemPrompt = `
@@ -115,6 +116,10 @@ const ErrorMessage = () => (
 )
 
 const MessageBlock = ({message}: {message: Message}) => {
+    const {user} = useContext(QuizContext);
+
+    const userImage = user?.image ?? image;
+
     if(message.role === 'user') {
         return (
             <motion.div

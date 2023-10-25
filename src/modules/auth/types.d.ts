@@ -13,6 +13,7 @@ type UserInfo = {
     "image": string,
     "level": number,
     "role": "USER" | "ADMIN",
+    provider: string,
     "allowPush": boolean,
     "dailyTarget": number,
     "answerRate": number,
