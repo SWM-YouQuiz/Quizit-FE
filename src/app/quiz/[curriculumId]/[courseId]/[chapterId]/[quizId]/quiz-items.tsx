@@ -105,7 +105,7 @@ const QuizItem = ({itemString, itemStatus, idx, handleOptionClicked}: {
         onClick={() => handleOptionClicked(idx)}
         whileTap={{ scale: 0.95 }}
     >
-        <p className="whitespace-normal break-keep text-[13px]">{itemString}</p>
+        <p className="whitespace-normal break-keep text-[12px]">{itemString}</p>
     </motion.button>
 )
 

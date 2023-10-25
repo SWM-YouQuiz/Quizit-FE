@@ -130,7 +130,7 @@ const MessageBlock = ({message}: {message: Message}) => {
                 <div className="flex flex-col justify-start w-[28px]">
                     <div className="border border-neutral-100 rounded-full">
                         <Image
-                            src={image}
+                            src={userImage}
                             width={30}
                             height={30}
                             alt={"퀴즈보"}
