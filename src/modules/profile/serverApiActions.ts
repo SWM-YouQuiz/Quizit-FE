@@ -13,7 +13,7 @@ export const updateUser = async ({body, accessToken, userId}: {body: UpdateUserP
         endpoint: `${process.env.API_URL}/api/user/user/${userId}`,
         method: 'PUT',
         token: accessToken,
-        body: body
+        body: body,
     });
 };
 
@@ -22,6 +22,7 @@ export const getUser = async ({accessToken, cache}: {cache?: RequestCache} & Acc
         endpoint: `${process.env.API_URL}/api/user/user/authentication`,
         method: 'GET',
         token: accessToken,
+        tags: ['user'],
         cache
     });
 };
