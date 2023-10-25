@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import 'swiper/css';
@@ -10,35 +10,65 @@ import '@/modules/ranking/styles/styles.css';
 
 import {EffectCoverflow} from 'swiper/modules';
 import Image from "next/image";
+import RankingList from "@/modules/ranking/components/RankingList";
+import {getUserCourseRanking, getUserRanking} from "@/modules/ranking/serverApiActions";
+import {QuizContext} from "@/lib/context/Context";
 
 const Carousel = ({courses}: {courses: Course[]}) => {
-    return (
-        <Swiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            coverflowEffect={{
-                rotate: 10,
-                stretch: -20,
-                modifier: 1,
-                slideShadows: false,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow ]}
-            style={{
-                overflow: 'visible'
-            }}
-        >
+    const {accessToken} = useContext(QuizContext);
+    const [rankingList, setRankingList] = useState<UserInfo[]>([]);
 
-            {
-                courses.map(course => (
-                    <SwiperSlide key={course.id}>
-                        <CarouselItem title={course.title} image={course.image}/>
-                    </SwiperSlide>
-                ))
-            }
-        </Swiper>
+    useEffect(() => {
+        console.log("rankingList", rankingList);
+    },[rankingList])
+
+    return (
+        <>
+            <Swiper
+                effect={'coverflow'}
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView={'auto'}
+                coverflowEffect={{
+                    rotate: 10,
+                    stretch: -20,
+                    modifier: 1,
+                    slideShadows: false,
+                }}
+                pagination={true}
+                modules={[EffectCoverflow ]}
+                style={{
+                    overflow: 'visible'
+                }}
+                onSlideChange={(swiper) => {
+                    const index = swiper.activeIndex
+                    if(index === 0) {
+                        getUserRanking({accessToken})
+                            .then(rankingList => setRankingList(rankingList))
+                    } else {
+                        const activeCourseId = courses[index-1].id
+                        getUserCourseRanking({accessToken, courseId: activeCourseId})
+                            .then(rankingList => setRankingList(rankingList))
+                    }
+                }}
+                onInit={() => {
+                    getUserRanking({accessToken})
+                        .then(rankingList => setRankingList(rankingList))
+                }}
+            >
+                <SwiperSlide>
+                    <CarouselItem title="전체 랭킹" image="/characters/onboarding4.svg"/>
+                </SwiperSlide>
+                {
+                    courses.map(course => (
+                        <SwiperSlide key={course.id}>
+                            <CarouselItem title={course.title} image={course.image}/>
+                        </SwiperSlide>
+                    ))
+                }
+            </Swiper>
+            <RankingList rankingList={rankingList}/>
+        </>
     );
 }
 

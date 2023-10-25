@@ -27,7 +27,6 @@ const RankingPage = async () => {
             </Header>
             <div className="flex-grow flex flex-col justify-between pt-4 bg-secondary-50">
                 <Carousel courses={courses}/>
-                {/*<RankingList />*/}
             </div>
         </div>
     )

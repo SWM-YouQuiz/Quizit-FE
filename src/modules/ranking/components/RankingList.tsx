@@ -1,20 +1,22 @@
 "use client"
-import {getUserRanking} from "@/modules/ranking/serverApiActions";
 import Image from "next/image";
 import React, {ReactNode, useContext} from "react";
 import {QuizContext} from "@/lib/context/Context";
 
-const RankingList = async () => {
+type RankingList = {
+    rankingList: UserInfo[]
+}
+const RankingList = ({rankingList}: RankingList) => {
     const {user, accessToken} = useContext(QuizContext);
-    const rankingList = await getUserRanking({accessToken, courseId: "652d04e9255cfd7d7706f56f"});
+
 
     if(!user) throw new Error('유저 정보를 찾을 수 없습니다.');
 
     const myRanking = rankingList.findIndex(_user => _user.id === user.id)
-
+    console.log("myranking", user);
     return (
         <div className="flex flex-col items-center -mt-[24px]">
-            <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>
+            {myRanking!==-1 && <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>}
             <div className="h-[calc(100dvh-350px)] w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
                 <div className="flex flex-col">
                     {
