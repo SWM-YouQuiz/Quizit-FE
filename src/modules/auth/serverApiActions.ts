@@ -1,7 +1,6 @@
 "use server"
 import {requestApi} from "@/util/fetcher";
 import 'server-only';
-import {cookies} from "next/headers";
 
 type LoginApi = {
     body: {
@@ -43,16 +42,14 @@ export const registerApi = async (body: registerApiProps): Promise<Response> => 
 }
 
 export const postRefresh = async (): Promise<AccessToken> => {
-    const cookie = cookies();
-    const refreshToken = cookie.get('refreshToken');
-
-    if(refreshToken === undefined) throw new Error("세션이 만료되었습니다.");
-
     const response = requestApi({
         endpoint: `${process.env.API_URL}/api/auth/auth/refresh`,
         method: 'POST',
         credentials: 'include'
     })
 
+
+
     return response;
 }
+
