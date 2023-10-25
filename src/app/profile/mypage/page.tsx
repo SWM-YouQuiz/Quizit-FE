@@ -2,6 +2,7 @@ import {Header} from "@/components/Header";
 import {BackArrow} from "@/components/svgs";
 import Link from "next/link";
 import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
+import Button from "@/components/ui/Button";
 
 const MyPage = () => {
     return (
@@ -24,9 +25,13 @@ export default MyPage;
 
 const BodyContainer = () => {
     return (
-        <div className="space-y-8">
-            <NicknameEdit/>
-            <GoalEdit/>
+        <div className="h-full flex flex-col justify-between">
+            <div className="space-y-8">
+                <NicknameEdit/>
+                <GoalEdit/>
+            </div>
+
+            <Button context={"회원 탈퇴"} className="self-end bg-white text-error text-sm"/>
         </div>
     )
 }

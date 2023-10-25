@@ -1,5 +1,5 @@
 "use client"
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import 'swiper/css';
@@ -13,10 +13,16 @@ import Image from "next/image";
 import RankingList from "@/modules/ranking/components/RankingList";
 import {getUserCourseRanking, getUserRanking} from "@/modules/ranking/serverApiActions";
 import {QuizContext} from "@/lib/context/Context";
+import {revalidate} from "@/modules/serverActions";
 
 const Carousel = ({courses}: {courses: Course[]}) => {
     const {accessToken} = useContext(QuizContext);
     const [rankingList, setRankingList] = useState<UserInfo[]>([]);
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        revalidate('ranking');
+    },[]);
 
     return (
         <>
@@ -37,7 +43,8 @@ const Carousel = ({courses}: {courses: Course[]}) => {
                     overflow: 'visible'
                 }}
                 onSlideChange={(swiper) => {
-                    const index = swiper.activeIndex
+                    const index = swiper.activeIndex;
+                    setIndex(index);
                     if(index === 0) {
                         getUserRanking({accessToken})
                             .then(rankingList => setRankingList(rankingList))
@@ -63,7 +70,7 @@ const Carousel = ({courses}: {courses: Course[]}) => {
                     ))
                 }
             </Swiper>
-            <RankingList rankingList={rankingList}/>
+            <RankingList key={`${index}`} rankingList={rankingList}/>
         </>
     );
 }

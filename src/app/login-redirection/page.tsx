@@ -10,7 +10,6 @@ const OAuth = ({searchParams}: {searchParams: any}) => {
     const router = useRouter();
     const {user, accessToken, dispatch } = useContext(QuizContext);
     const _accessToken: string = searchParams.accessToken;
-    const _refreshToken: string = searchParams.refreshToken;
     const isSignUp: string = searchParams.isSignUp;
 
     const setUser = async () => {
@@ -21,15 +20,6 @@ const OAuth = ({searchParams}: {searchParams: any}) => {
             dispatch({ type: 'SET_TOKEN', payload: _accessToken });
         } catch (error) {
             console.error("An error occurred when setting the user:", error);
-        }
-    }
-
-    const setRefeshToken = async () => {
-        if (!_refreshToken) return;
-        try {
-            await setCookie({key: "refreshToken", value: _refreshToken});
-        } catch (error) {
-            console.error("An error occurred when setting the refresh token:", error);
         }
     }
 
@@ -44,7 +34,7 @@ const OAuth = ({searchParams}: {searchParams: any}) => {
 
     useEffect(() => {
         const initializeUser = async () => {
-            await Promise.all([setUser(), setRefeshToken(), setAccessToken()]); // 각 함수가 반환할 프로미스를 기다립니다.
+            await Promise.all([setUser(), setAccessToken()]);
             if (isSignUp==="true") {
                 router.replace(`/onboarding/0`);
             } else {

@@ -18,7 +18,7 @@ const ProfileCard = () => {
 
     return (
         <Link
-            className="flex space-x-3"
+            className="flex space-x-3 px-5"
             href="profile/badge"
         >
             <div className="grid place-items-center border border-neutral-100 w-18 h-18 rounded-full">

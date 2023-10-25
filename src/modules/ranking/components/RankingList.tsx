@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, {ReactNode, useContext} from "react";
 import {QuizContext} from "@/lib/context/Context";
+import MotionDiv from "@/lib/animation/MotionDiv";
 
 type RankingList = {
     rankingList: UserInfo[]
@@ -44,9 +45,9 @@ const MyItem = ({user, ranking}: {user: UserInfo, ranking: number}) => {
 
 const ItemContainer = ({children}: {children: ReactNode}) => {
     return (
-        <div className="flex justify-between px-5 py-4">
+        <MotionDiv className="flex justify-between px-5 py-4">
             {children}
-        </div>
+        </MotionDiv>
     )
 }
 

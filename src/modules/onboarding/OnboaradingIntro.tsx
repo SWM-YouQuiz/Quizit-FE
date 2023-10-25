@@ -60,7 +60,7 @@ const OnboardingIntro = ({page}: {page: number}) => {
 
 export const Onboarding = ({svg, content, page}: OnBoardingType & {page: number}) => (
     <div className="h-full flex flex-col items-center space-y-2 justify-between">
-        <div className="mt-[180px] flex flex-col items-center">
+        <div className="mt-[160px] flex flex-col items-center">
             {svg}
             <div className="text-center text-secondary-800 text-lg mb-10 font-semibold px-16 whitespace-break-spaces">{content}</div>
         </div>
