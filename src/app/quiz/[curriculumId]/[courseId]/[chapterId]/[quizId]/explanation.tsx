@@ -7,6 +7,7 @@ import {Message} from "ai";
 import {Send} from "@/components/svgs";
 import {isSupported, subscribe} from 'on-screen-keyboard-detector';
 import Image from "next/image";
+import {motion} from "framer-motion"
 
 
 const systemPrompt = `
@@ -27,8 +28,10 @@ type ExplanationComponentProps = {
     select: number
 }
 
+const image = "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg"
+
 const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationComponentProps) => {
-    const {id: quizId, question, options: quizOptions} = quizHtml
+    const {id: quizId, question, options: quizOptions} = quizHtml;
 
     const makeUserPrompt = (question: string, answer: number,) => {
         return `
@@ -40,7 +43,7 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
     `;
     }
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
         initialMessages: [
             {id: `quiz-${quizId}-1`, role: "assistant", content: solution}
         ]
@@ -62,13 +65,13 @@ const ExplanationComponent = ({quizHtml, answer, solution, select}: ExplanationC
                 }
             })}
         >
-            <MessageBlockes convertedMessages={convertedMessages} />
+            <MessageBlockes convertedMessages={convertedMessages} isLoading={isLoading} error={error}/>
             <Input handleInputChange={handleInputChange} input={input}/>
         </form>
     )
 }
 
-const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
+const MessageBlockes= ({convertedMessages, isLoading, error}: {convertedMessages: Message[], isLoading: boolean, error?: Error}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -83,16 +86,44 @@ const MessageBlockes= ({convertedMessages}: {convertedMessages: Message[]}) => {
                     <MessageBlock key={message.id} message={message}/>
                 ))
             }
+            {error && (
+                <ErrorMessage />
+            )}
             <div ref={ref} />
         </div>
     )
 }
 
+const ErrorMessage = () => (
+    <div className="flex space-x-2">
+        <div className="flex flex-col justify-start w-[28px]">
+            <div className="border border-neutral-100 rounded-full">
+                <Image
+                    src={image}
+                    width={30}
+                    height={30}
+                    alt={"profileImage"}
+                />
+            </div>
+        </div>
+        <div className="flex-1 bg-bg-primary rounded-b-xl rounded-tr-xl p-2.5">
+            <div className="text-xs text-secondary-800">
+                요청이 너무 많습니다. 잠시 후 다시 시도해주세요.
+            </div>
+        </div>
+    </div>
+)
+
 const MessageBlock = ({message}: {message: Message}) => {
-    const image = "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg"
     if(message.role === 'user') {
         return (
-            <div className="flex self-end space-x-2">
+            <motion.div
+                initial={{ opacity: 0, x: 15 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 15 }}
+                transition={{ delay: 0.2 }}
+                className="flex self-end space-x-2"
+            >
                 <div className="flex-1 bg-primary-50 rounded-b-xl rounded-tl-xl p-2.5">
                     <div className="text-xs text-secondary-800 break-all" dangerouslySetInnerHTML={{ __html: (message.content) }}/>
                 </div>
@@ -106,7 +137,7 @@ const MessageBlock = ({message}: {message: Message}) => {
                         />
                     </div>
                 </div>
-            </div>
+            </motion.div>
         )
     } else {
         return (
