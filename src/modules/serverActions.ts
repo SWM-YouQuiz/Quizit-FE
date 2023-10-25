@@ -15,7 +15,6 @@ export const setCookie = async ({key, value}: {key: string, value: string}) => {
 export const getAccessToken = () => {
     const accessToken =  cookies().get('accessToken');
     if(!accessToken) {
-        console.log("accessToken is null!!", accessToken)
         throw new Error('401');
     }
     return accessToken.value;
