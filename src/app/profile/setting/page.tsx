@@ -36,8 +36,10 @@ const BodyContainer = () => {
 
             <div>
                 <Label>계정</Label>
-                <LogoutButton/>
-                <AccountDeletionButton/>
+                <div className="space-y-1">
+                    <LogoutButton/>
+                    <AccountDeletionButton/>
+                </div>
             </div>
         </div>
     )

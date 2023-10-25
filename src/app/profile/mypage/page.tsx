@@ -2,7 +2,6 @@ import {Header} from "@/components/Header";
 import {BackArrow} from "@/components/svgs";
 import Link from "next/link";
 import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
-import Button from "@/components/ui/Button";
 
 const MyPage = () => {
     return (
@@ -30,8 +29,6 @@ const BodyContainer = () => {
                 <NicknameEdit/>
                 <GoalEdit/>
             </div>
-
-            <Button context={"회원 탈퇴"} className="self-end bg-white text-error text-sm"/>
         </div>
     )
 }
