@@ -6,6 +6,7 @@ import {getUserDeletion} from "@/modules/profile/serverApiActions";
 import {QuizContext} from "@/lib/context/Context";
 import {useContext, useState} from "react";
 import Modal from "@/components/ui/Modal";
+import Button from "@/components/ui/Button";
 
 const description = `
     하단의 계정 삭제 버튼을 누르면 당신의 계정과 관련된 데이터가 전부 삭제됩니다. 계정 삭제는 취소할 수 없습니다.
@@ -43,10 +44,11 @@ const AccountDeletionButton = () => {
                 <Rightarrow/>
             </div>
             <Modal onClose={closeModal} open={isModalOpen}>
-                <div className="flex flex-col space-y-2.5 overflow-auto">
+                <div className="flex flex-col justify-between space-y-2.5 overflow-auto">
                     <p className="break-keep text-secondary-900 text-sm">
                         {description}
                     </p>
+                    <Button context="회원 탈퇴" className="bg-error text-white font-semibold" onClick={handleClick}/>
                 </div>
             </Modal>
         </>
