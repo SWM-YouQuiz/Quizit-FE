@@ -68,7 +68,7 @@ const QuizCard = ({href="", quizId, className="", userId}: CardProps) => {
                         <div className="flex items-start">
                             <div className="flex-grow flex flex-col justify-evenly">
                                 <div className="text-secondary-400 text-[13px]">
-
+                                    {chapter?.description}
                                 </div>
                                 <div className="font-semibold text-sm">
                                     {question}
