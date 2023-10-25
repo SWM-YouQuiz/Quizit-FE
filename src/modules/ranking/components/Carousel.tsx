@@ -1,5 +1,5 @@
 "use client"
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import 'swiper/css';
@@ -17,10 +17,6 @@ import {QuizContext} from "@/lib/context/Context";
 const Carousel = ({courses}: {courses: Course[]}) => {
     const {accessToken} = useContext(QuizContext);
     const [rankingList, setRankingList] = useState<UserInfo[]>([]);
-
-    useEffect(() => {
-        console.log("rankingList", rankingList);
-    },[rankingList])
 
     return (
         <>

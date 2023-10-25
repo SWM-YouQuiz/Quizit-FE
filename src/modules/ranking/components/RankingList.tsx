@@ -9,11 +9,10 @@ type RankingList = {
 const RankingList = ({rankingList}: RankingList) => {
     const {user, accessToken} = useContext(QuizContext);
 
-
     if(!user) throw new Error('유저 정보를 찾을 수 없습니다.');
 
     const myRanking = rankingList.findIndex(_user => _user.id === user.id)
-    console.log("myranking", user);
+
     return (
         <div className="flex flex-col items-center -mt-[24px]">
             {myRanking!==-1 && <MyItem user={rankingList[myRanking]} ranking={myRanking + 1}/>}

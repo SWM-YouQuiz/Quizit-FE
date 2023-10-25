@@ -17,7 +17,6 @@ export const NicknameEdit = () => {
     const [loading, setLoading] = useState(false);
 
     const handleUserUpdate = async () => {
-        console.log("asdfsdf", username, user, dispatch)
         if(!username || !user || !dispatch) return;
         setLoading(true);
         const updatedUser = await updateUser({
@@ -73,13 +72,13 @@ export const GoalEdit = () => {
                 <Downarrow/>
             </div>
             <Modal onClose={closeModal} open={isModalOpen}>
-                <GoalEditModal user={user} dispatch={dispatch} accessToken={accessToken}/>
+                <GoalEditModal user={user} dispatch={dispatch} accessToken={accessToken} closeModal={closeModal}/>
             </Modal>
         </div>
     )
 }
 
-const GoalEditModal = ({user, dispatch, accessToken}: QuizContextType) => {
+const GoalEditModal = ({user, dispatch, accessToken, closeModal}: QuizContextType & {closeModal: () => void}) => {
 
    const router = useRouter();
 
@@ -95,10 +94,10 @@ const GoalEditModal = ({user, dispatch, accessToken}: QuizContextType) => {
 
     return (
         <div className="flex flex-col space-y-2.5 overflow-auto">
-            <GoalEditItem title="캐주얼" goalCount={5} user={user} update={update} accessToken={accessToken}/>
-            <GoalEditItem title="보통" goalCount={10} user={user} update={update} accessToken={accessToken}/>
-            <GoalEditItem title="열심히" goalCount={20} user={user} update={update} accessToken={accessToken}/>
-            <GoalEditItem title="하드코어" goalCount={40} user={user} update={update} accessToken={accessToken}/>
+            <GoalEditItem title="캐주얼" goalCount={5} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
+            <GoalEditItem title="보통" goalCount={10} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
+            <GoalEditItem title="열심히" goalCount={20} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
+            <GoalEditItem title="하드코어" goalCount={40} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
         </div>
     )
 }
@@ -108,9 +107,10 @@ type GoarEditItem = {
     goalCount: number,
     user: UserInfo,
     update: (user: UserInfo) => void,
+    closeModal: () => void
 } & AccessToken;
 
-const GoalEditItem = ({title, goalCount, user, update, accessToken}: GoarEditItem) => {
+const GoalEditItem = ({title, goalCount, user, update, accessToken, closeModal}: GoarEditItem) => {
     const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
         updateUser({
@@ -122,6 +122,7 @@ const GoalEditItem = ({title, goalCount, user, update, accessToken}: GoarEditIte
             accessToken: accessToken
         }).then(user => {
             update(user);
+            closeModal();
         })
     }
 
