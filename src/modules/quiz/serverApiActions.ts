@@ -41,7 +41,8 @@ export const getQuizMark = async ({id, accessToken}: {id: string} & AccessToken)
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/mark`,
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        cache: 'no-store'
     });
 }
 
@@ -49,6 +50,7 @@ export const getQuizEvaluate = async ({id, isLike, accessToken}: {id: string, is
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/evaluate?isLike=${isLike}`,
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        cache: 'no-store'
     });
 }
