@@ -14,11 +14,15 @@ import {revalidate} from "@/modules/serverActions";
 export const NicknameEdit = () => {
     const {user, dispatch, accessToken} = useContext(QuizContext);
     const [username, setUsername] = useState(user?.username);
-    const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<'loading'|'error'|'idle'>('idle');
 
     const handleUserUpdate = async () => {
         if(!username || !user || !dispatch) return;
-        setLoading(true);
+        if(username.length <= 0 || 10 < username.length) {
+            setStatus('error');
+            return;
+        }
+        setStatus('loading');
         const updatedUser = await updateUser({
             body: {
                 ...user,
@@ -30,19 +34,28 @@ export const NicknameEdit = () => {
         revalidate('user');
         revalidate('ranking');
         dispatch({type: 'SET_USER', payload: updatedUser});
-        setLoading(false);
+        setStatus('idle');
     }
+
+    const usernameLength = username ? username.length : 0;
 
     return (
         <div className="space-y-3">
-            <div className="text-secondary-900 font-bold">닉네임 변경</div>
+            <div className="text-secondary-900 font-bold">
+                닉네임 변경&nbsp;
+                <span className={`font-normal text-sm ${usernameLength > 10 ? 'text-error' : ''}`}>({usernameLength}/10)</span>
+            </div>
             <div className="flex space-x-2">
-                <Input value={username} onChange={e => setUsername(e.target.value)}/>
+                <Input
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    className={status === 'error' ? `border-error` : ''}
+                />
                 <Button
                     context="변경"
                     className="w-20"
                     onClick={handleUserUpdate}
-                    disable={loading}
+                    disable={status==='loading'}
                 />
             </div>
         </div>
