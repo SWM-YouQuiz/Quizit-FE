@@ -1,4 +1,4 @@
-
+import Script from "next/script";
 
 const Head = () => {
     return (
@@ -104,6 +104,25 @@ const Head = () => {
             <meta
                 name='viewport'
                 content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+            />
+            {/* Global Site Tag (gtag.js) - Google Analytics */}
+            <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${"G-KXBG9R1T4R"}`}
+            />
+            <Script
+                id="gtag-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${"G-KXBG9R1T4R"}', {
+              page_path: window.location.pathname,
+            });
+          `,
+                }}
             />
         </>
     )
