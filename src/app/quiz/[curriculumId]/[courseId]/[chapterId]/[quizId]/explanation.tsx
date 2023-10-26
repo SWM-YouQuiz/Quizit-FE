@@ -118,7 +118,7 @@ const ErrorMessage = () => (
 const MessageBlock = ({message}: {message: Message}) => {
     const {user} = useContext(QuizContext);
 
-    const userImage = user?.image ?? image;
+    const userImage = user === undefined || user.image === "" ? image : user.image;
 
     if(message.role === 'user') {
         return (
