@@ -6,7 +6,7 @@ import React from "react";
 const Ready = ({curriculumId, courseId}: {curriculumId: string, courseId: string}) => {
     return (
         <div className="h-full flex flex-col items-center space-y-2 justify-between">
-            <div className="mt-[160px] flex flex-col items-center">
+            <div className="mt-[calc(50dvh-240px)] flex flex-col items-center">
                 <Image
                     src="/characters/onboarding5.svg"
                     alt="목표를 달성한 퀴즈보"
