@@ -32,6 +32,7 @@ const QuizContainer = ({children}: QuizContextProps) => {
         });
         try {
             await setCookie({key: "accessToken", value: _accessToken});
+            await setUser(_accessToken);
         } catch (error) {
             console.error("An error occurred when setting the access token:", error);
         }
@@ -62,27 +63,28 @@ const QuizContainer = ({children}: QuizContextProps) => {
     const onSilentRefresh = async () => {
         postRefresh()
             .then(token => {
+                console.log("silentRefresh!!");
                 onLoginSuccess({accessToken: token.accessToken})
             })
             .catch(e => console.error("Token refresh failed!"));
     }
 
-    const onLoginSuccess = ({accessToken}: AccessToken) => {
-        setAccessToken(accessToken);
+    const onLoginSuccess = async ({accessToken}: AccessToken) => {
+        await setAccessToken(accessToken);
         setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
     }
 
     const _postRefresh = async () => {
         try {
             const token = await postRefresh();
-            onLoginSuccess({accessToken: token.accessToken});
-            await setAccessToken(token.accessToken);
-            await setUser(token.accessToken);
+            await onLoginSuccess({accessToken: token.accessToken})
         } catch (error) {
             console.error("An error occurred during token refresh:", error);
             if (checkIsAuthRequiredRoute()) {
                 router.replace("/auth/login");
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -91,7 +93,6 @@ const QuizContainer = ({children}: QuizContextProps) => {
     useEffect(() => {
         (async () => {
             await _postRefresh();
-            setLoading(false);
         })();
     }, []);
 

@@ -1,3 +1,5 @@
+import {cookies} from "next/headers";
+
 export const makeToken = (token: string) => {
     return `Bearer ${token}`
 }
@@ -13,7 +15,10 @@ export interface RequestParams {
 }
 
 export const requestApi = async ({endpoint, method, body, token, cache, tags, credentials}: RequestParams) => {
-    let headers: HeadersInit = {"Content-Type": "application/json"};
+    let headers: HeadersInit = {
+        "Content-Type": "application/json",
+        ...(credentials==="include" && {Cookie: cookies().toString()})
+    };
 
     if (token) {
         headers["Authorization"] = makeToken(token);

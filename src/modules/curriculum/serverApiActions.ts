@@ -4,7 +4,7 @@ import 'server-only';
 import {getAccessToken} from "@/modules/serverActions";
 
 export const getCourses = async ({curriculumId}: {curriculumId: string}): Promise<Course[]> => {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
@@ -14,7 +14,7 @@ export const getCourses = async ({curriculumId}: {curriculumId: string}): Promis
 }
 
 export const getChapters = async ({courseId}: {courseId: string}): Promise<Chapter[]> => {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/course/${courseId}`,
@@ -24,7 +24,7 @@ export const getChapters = async ({courseId}: {courseId: string}): Promise<Chapt
 }
 
 export const getCurriculums = async (): Promise<Curriculum[]> => {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum`,
@@ -34,7 +34,7 @@ export const getCurriculums = async (): Promise<Curriculum[]> => {
 }
 
 export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chapter> => {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
@@ -54,7 +54,7 @@ export const getCurriculumProgress = async ({curriculumId, accessToken}: {curric
 }
 
 export const getCourseProgress = async ({courseId}: {courseId: string}): Promise<Progress> => {
-    const accessToken = getAccessToken();
+    const accessToken = await getAccessToken();
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/${courseId}/progress`,

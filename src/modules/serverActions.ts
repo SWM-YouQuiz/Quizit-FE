@@ -12,7 +12,7 @@ export const setCookie = async ({key, value}: {key: string, value: string}) => {
     })
 }
 
-export const getAccessToken = () => {
+export const getAccessToken = async () => {
     const accessToken =  cookies().get('accessToken');
     if(!accessToken) {
         throw new Error('401');
