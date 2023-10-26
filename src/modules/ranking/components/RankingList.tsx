@@ -26,6 +26,9 @@ const RankingList = ({rankingList}: RankingList) => {
                             </ItemContainer>
                         ))
                     }
+                    <ItemContainer key={user.id}>
+                        <p></p>
+                    </ItemContainer>
                 </div>
             </div>
         </div>
