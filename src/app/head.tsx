@@ -108,7 +108,7 @@ const Head = () => {
             {/* Global Site Tag (gtag.js) - Google Analytics */}
             <Script
                 strategy="afterInteractive"
-                src={`https://www.googletagmanager.com/gtag/js?id=${"G-KXBG9R1T4R"}`}
+                src={`https://www.googletagmanager.com/gtag/js?id=G-KXBG9R1T4R`}
             />
             <Script
                 id="gtag-init"
@@ -118,7 +118,7 @@ const Head = () => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${"G-KXBG9R1T4R"}', {
+            gtag('config', 'G-KXBG9R1T4R', {
               page_path: window.location.pathname,
             });
           `,
