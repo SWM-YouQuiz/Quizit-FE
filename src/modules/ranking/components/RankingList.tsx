@@ -52,12 +52,13 @@ const ItemContainer = ({children}: {children: ReactNode}) => {
 }
 
 const Item = ({user, ranking}: {user: UserInfo, ranking: number}) => {
+    const userImage = user.image === "" ? "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg" : user.image
     return (
         <>
             <div className="flex">
                 <div className="grid place-items-center border border-neutral-100 w-[40px] h-[40px] rounded-full bg-white">
                     <Image
-                        src={"./next.svg"}
+                        src={userImage}
                         width={40}
                         height={40}
                         alt={"next"}
