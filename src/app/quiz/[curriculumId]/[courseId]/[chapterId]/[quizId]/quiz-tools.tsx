@@ -31,7 +31,7 @@ const QuizTools = ({quizId, likedUserIds, unlikedUserIds}: QuizToolsProps) => {
             })
     }
 
-    const { call: debouncedClick } = useDebounce(handleOnClick, 3000);
+    const { call: debouncedClick } = useDebounce(handleOnClick, 1000);
 
     const checkLiked = async (likedUserIds: string[], unlikedUserIds: string[]) => {
 
