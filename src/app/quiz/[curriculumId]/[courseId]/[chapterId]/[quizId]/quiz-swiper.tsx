@@ -40,7 +40,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
         }
     }, [quizId]);
 
-    const updateUser = () => {
+    const updateUser = async () => {
         getUser({accessToken, cache: 'no-store'})
             .then(user => {
                 if (dispatch) {
@@ -55,9 +55,11 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
             setLoading(false);
         })();
 
-        revalidate(curriculumId);
-        revalidate(couseId);
-        revalidate(chapterId);
+        return () => {
+            revalidate(curriculumId);
+            revalidate(couseId);
+            revalidate(chapterId);
+        }
     }, [])
 
     const addSingleQuiz = async (quizId: string) => {
