@@ -22,7 +22,7 @@ export const useQuizState = (quizId: string) => {
                return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     const handleSubmit = async () => {
