@@ -1,12 +1,15 @@
 import {ReactNode} from "react";
 import Layout from "@/components/Layout";
+import QuizTouchEventHandler from "@/modules/quiz/QuizTouchEventHandler";
 
 const QuizLayout = ({children}: {children: ReactNode}) => {
 
     return (
 
             <Layout navbar={false}>
-                {children}
+                <QuizTouchEventHandler>
+                    {children}
+                </QuizTouchEventHandler>
             </Layout>
 
     )
