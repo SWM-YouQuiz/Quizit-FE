@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Quiz IT",
-  "short_name": "Quiz IT",
-  "description": "Quiz IT",
+  "name": "퀴즈잇(Quizit): 퀴즈로 지식을 잇다.",
+  "short_name": "퀴즈잇(Quizit)",
+  "description": "퀴즈잇(Quizit)은 생성형AI로 생성된 퀴즈로 다양한 지식을 학습할 수 있는 서비스입니다. 퀴즈를 풀고, 자세한 해설을 '퀴즈보'에게 요청해보세요!",
   "icons": [
     {
       "src": "icons/windows11/SmallTile.scale-100.png",

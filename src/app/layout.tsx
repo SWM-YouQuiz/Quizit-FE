@@ -6,8 +6,8 @@ import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterConta
 import {AnimationWrapper} from "@/lib/animation/AnimationWrapper";
 
 export const metadata = {
-    title: 'Quiz IT',
-    description: 'Quiz IT',
+    title: '퀴즈잇(Quizit)',
+    description: '퀴즈잇(Quizit): 퀴즈로 지식을 잇다.',
     viewport: {
         width: 'device-width',
         initialScale: 1,
