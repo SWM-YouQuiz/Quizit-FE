@@ -18,7 +18,7 @@ export const NicknameEdit = () => {
 
     const handleUserUpdate = async () => {
         if(!username || !user || !dispatch) return;
-        if(username.length <= 0 || 10 < username.length) {
+        if(username.length <= 1 || 10 < username.length) {
             setStatus('error');
             return;
         }
