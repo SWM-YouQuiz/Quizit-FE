@@ -32,8 +32,8 @@ export default function Error({error, reset}: { error: Error, reset: () => void 
             <Button
                 className="bg-secondary-900"
                 onClick={() => {
-                    deleteToken();
                     router.replace("/auth/login")
+                    deleteToken();
                 }}
                 context={"로그아웃"}
             />

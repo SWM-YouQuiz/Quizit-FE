@@ -27,12 +27,12 @@ const AccountDeletionButton = () => {
 
     const handleClick = async () => {
         if(!user) return;
-        deleteToken();
         await getUserDeletion({
             provider: user.provider.toLowerCase(),
             accessToken
         })
         router.replace("/auth/login");
+        deleteToken();
     }
 
     if(!user) return null;

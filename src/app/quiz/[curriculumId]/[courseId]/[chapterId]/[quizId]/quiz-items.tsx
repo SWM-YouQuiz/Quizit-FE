@@ -36,8 +36,8 @@ export const QuizItems = ({quizHtml}: QuizItemsProps) => {
     const {user} = useContext(QuizContext);
 
     if(user === undefined) {
-        deleteToken();
         router.replace("/auth/login");
+        deleteToken();
         return null;
     }
 
