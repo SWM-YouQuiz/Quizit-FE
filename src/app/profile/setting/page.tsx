@@ -1,18 +1,15 @@
 import {Header} from "@/components/Header";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 import Item from "@/modules/profile/components/Item";
 import LogoutButton from "@/modules/profile/components/LogoutButton";
 import AccountDeletionButton from "@/modules/profile/components/AccountDeletionButton";
-import Link from "next/link";
-import {BackArrow} from "@/components/svgs";
+import BackButton from "@/components/BackButton";
 
 const Setting = () => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/profile">
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">설정</div>
                 <div />
             </Header>

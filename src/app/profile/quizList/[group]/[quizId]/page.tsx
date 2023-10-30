@@ -1,6 +1,5 @@
 "use client"
 import React, {useContext, useEffect, useState} from "react";
-import {BackArrow} from "@/components/svgs";
 import {Header} from "@/components/Header";
 import QuizComponent from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz";
 import ShareButton from "@/modules/quiz/components/ShareButton";
@@ -8,6 +7,7 @@ import {useRouter} from "next/navigation";
 import {getQuiz} from "@/modules/quiz/serverApiActions";
 import QuizLoading from "@/components/QuizLoading";
 import {QuizContext} from "@/lib/context/Context";
+import BackButton from "@/components/BackButton";
 
 type QuizPageParams = {
     quizId: string
@@ -36,9 +36,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <button type="button" onClick={() => router.back()}>
-                    <BackArrow/>
-                </button>
+                <BackButton/>
                 <div className="font-bold">퀴즈</div>
                 <ShareButton/>
             </Header>

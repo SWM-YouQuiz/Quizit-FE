@@ -1,15 +1,13 @@
 import {Header} from "@/components/Header";
-import {BackArrow} from "@/components/svgs";
-import Link from "next/link";
 import Ready from "@/components/Ready";
+import BackButton from "@/components/BackButton";
+import React from "react";
 
 const MyPage = () => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/profile">
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">프로필</div>
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-white">

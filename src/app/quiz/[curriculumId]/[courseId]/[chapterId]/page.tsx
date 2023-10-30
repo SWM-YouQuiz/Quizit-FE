@@ -1,10 +1,9 @@
 import React from "react";
 import {Header} from "@/components/Header";
-import Link from "next/link";
-import {BackArrow} from "@/components/svgs";
 import QuizSwiper from "@/app/quiz/[curriculumId]/[courseId]/[chapterId]/[quizId]/quiz-swiper";
 import ShareButton from "@/modules/quiz/components/ShareButton";
 import MotionDiv from "@/lib/animation/MotionDiv";
+import BackButton from "@/components/BackButton";
 
 type QuizPageParams = {
     curriculumId: string,
@@ -17,9 +16,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/${params.curriculumId}/${params.courseId}`}>
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">퀴즈</div>
                 <ShareButton/>
             </Header>
