@@ -1,9 +1,9 @@
 import {Header} from "@/components/Header";
-import {BackArrow, Setting} from "@/components/svgs";
+import {Setting} from "@/components/svgs";
 import {menuData} from "@/modules/profile/Menu";
 import QuizList from "@/modules/profile/quizList/QuizList";
-import {ReactNode} from "react";
-import Link from "next/link";
+import React, {ReactNode} from "react";
+import BackButton from "@/components/BackButton";
 
 export type QuizCardComponent = {
     id: string,
@@ -38,9 +38,7 @@ const QuizListPage = async ({params}: {params: {group: keyof UserInfo}}) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/profile">
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">{getTitle(params.group)}</div>
                 <div className="hidden">
                     <Setting/>

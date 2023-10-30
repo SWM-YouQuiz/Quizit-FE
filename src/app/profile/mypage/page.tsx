@@ -1,15 +1,13 @@
 import {Header} from "@/components/Header";
-import {BackArrow} from "@/components/svgs";
-import Link from "next/link";
 import {GoalEdit, NicknameEdit} from "@/modules/profile/Edits";
+import BackButton from "@/components/BackButton";
+import React from "react";
 
 const MyPage = () => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href="/profile">
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">마이페이지</div>
                 <div/>
             </Header>

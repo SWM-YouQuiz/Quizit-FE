@@ -1,11 +1,13 @@
 import {getChapters, getCourses} from "@/modules/curriculum/serverApiActions";
 import {Header} from "@/components/Header";
-import {BackArrow, Filter} from "@/components/svgs";
+import {Filter} from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
 import MotionDiv from "@/lib/animation/MotionDiv";
+import BackButton from "@/components/BackButton";
+import React from "react";
 
 const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
     const chapters = await getChapters({courseId: params.courseId});
@@ -17,9 +19,7 @@ const Chapter = async ({params}: {params: {curriculumId: string, courseId: strin
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <Link href={`/curriculum/${params.curriculumId}`}>
-                    <BackArrow/>
-                </Link>
+                <BackButton/>
                 <div className="font-bold">{course.title}</div>
                 <Link href="/curriculum/filter">
                     <Filter/>
