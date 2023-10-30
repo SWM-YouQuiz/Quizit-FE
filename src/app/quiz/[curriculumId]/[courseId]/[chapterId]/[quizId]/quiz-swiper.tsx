@@ -17,12 +17,12 @@ import {revalidate} from "@/modules/serverActions";
 
 type QuizSwiperProps = {
     chapterId: string,
-    couseId: string,
+    courseId: string,
     curriculumId: string,
     quizId?: string
 }
 
-const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps) => {
+const QuizSwiper = ({curriculumId, courseId, chapterId, quizId}: QuizSwiperProps) => {
     const {accessToken, user, dispatch} = useContext(QuizContext);
     const {quizFilter} = useContext(QuizFilterContext);
     if(user === undefined) throw new Error("유저를 찾을 수 없습니다.");
@@ -57,7 +57,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
 
         return () => {
             revalidate(curriculumId);
-            revalidate(couseId);
+            revalidate(courseId);
             revalidate(chapterId);
         }
     }, [])
@@ -89,7 +89,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
         window.history.replaceState(null, "", `${currentQuizId}`);
     }
     if(!quizQueue || quizQueue.length===0 || loading) {
-        if(end) return <QuizNull curriculumId={curriculumId} courseId={couseId}/>
+        if(end) return <QuizNull curriculumId={curriculumId} courseId={courseId}/>
         else return <QuizLoading/>
     }
     return (
@@ -99,7 +99,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
             navigation
             spaceBetween={4}
             onInit={(swiper) => {
-                window.history.replaceState(null, "", `/quiz/${curriculumId}/${couseId}/${chapterId}/${quizQueue[swiper.activeIndex].id}`);
+                window.history.replaceState(null, "", `/quiz/${curriculumId}/${courseId}/${chapterId}/${quizQueue[swiper.activeIndex].id}`);
                 replaceUrlToCurrentQuiz(quizQueue[swiper.activeIndex].id);
             }}
             onSlideChange={(swiper) => {
@@ -121,7 +121,7 @@ const QuizSwiper = ({curriculumId, couseId, chapterId, quizId}: QuizSwiperProps)
             ))}
             {end && (
                 <SwiperSlide>
-                    <Ending curriculumId={curriculumId} courseId={couseId}/>
+                    <Ending curriculumId={curriculumId} courseId={courseId}/>
                 </SwiperSlide>
             )}
         </Swiper>

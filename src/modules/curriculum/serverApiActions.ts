@@ -53,13 +53,13 @@ export const getCurriculumProgress = async ({curriculumId, accessToken}: {curric
     });
 }
 
-export const getCourseProgress = async ({courseId}: {courseId: string}): Promise<Progress> => {
-    const accessToken = await getAccessToken();
+export const getCourseProgress = async ({courseId, accessToken}: {courseId: string} & AccessToken): Promise<Progress> => {
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/${courseId}/progress`,
         method: 'GET',
-        token: accessToken
+        token: accessToken,
+        tags: [courseId]
     });
 }
 

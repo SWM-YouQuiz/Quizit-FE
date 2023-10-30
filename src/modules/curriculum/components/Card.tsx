@@ -26,7 +26,7 @@ const Card = ({type, id, href="", imageUrl, path, title, alt, className="", chil
         if(type === "curriculum") {
             return getCurriculumProgress({curriculumId: id, accessToken});
         } else if (type === "course") {
-            return getCourseProgress({courseId: id});
+            return getCourseProgress({courseId: id, accessToken});
         } else {
             return getChapterProgress({chapterId: id, accessToken});
         }

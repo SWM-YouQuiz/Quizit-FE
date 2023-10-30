@@ -23,7 +23,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
             <MotionDiv className="flex-grow bg-white overflow-y-auto p-5">
                 <QuizSwiper
                     chapterId={params.chapterId}
-                    couseId={params.courseId}
+                    courseId={params.courseId}
                     curriculumId={params.curriculumId}
                 />
             </MotionDiv>

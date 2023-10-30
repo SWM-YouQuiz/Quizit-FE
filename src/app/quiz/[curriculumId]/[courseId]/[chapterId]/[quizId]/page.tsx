@@ -24,7 +24,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
                 <QuizSwiper
                     quizId={params.quizId}
                     chapterId={params.chapterId}
-                    couseId={params.courseId}
+                    courseId={params.courseId}
                     curriculumId={params.curriculumId}
                 />
             </MotionDiv>
