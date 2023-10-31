@@ -1,13 +1,11 @@
-
-
 export function quizReducer(state: QuizContextState, action: QuizContextAction): QuizContextState {
     switch (action.type) {
-        case 'SET_USER':
+        case "SET_USER":
             return {
                 ...state,
                 user: action.payload,
             };
-        case 'SET_TOKEN':
+        case "SET_TOKEN":
             return {
                 ...state,
                 accessToken: action.payload,

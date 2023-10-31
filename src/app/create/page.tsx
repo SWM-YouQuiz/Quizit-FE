@@ -1,6 +1,6 @@
 import Ready from "@/components/Ready";
-import {Header} from "@/components/Header";
-import {Alert} from "@/components/svgs";
+import { Header } from "@/components/Header";
+import { Alert } from "@/components/svgs";
 
 const CreatePage = () => {
     return (
@@ -8,14 +8,14 @@ const CreatePage = () => {
             <Header>
                 <div className="font-bold">생성</div>
                 <div className="hidden">
-                    <Alert/>
+                    <Alert />
                 </div>
             </Header>
             <div className="flex-grow bg-secondary-50 overflow-y-auto p-5">
-                <Ready/>
+                <Ready />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CreatePage;

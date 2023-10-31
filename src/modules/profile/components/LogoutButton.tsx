@@ -1,7 +1,7 @@
-"use client"
-import {Rightarrow} from "@/components/svgs";
-import {deleteToken} from "@/modules/serverActions";
-import {useRouter} from "next/navigation";
+"use client";
+import { Rightarrow } from "@/components/svgs";
+import { deleteToken } from "@/modules/serverActions";
+import { useRouter } from "next/navigation";
 
 const LogoutButton = () => {
     const router = useRouter();
@@ -15,9 +15,9 @@ const LogoutButton = () => {
             }}
         >
             <div className="text-[17px] text-secondary-900">로그아웃</div>
-            <Rightarrow/>
+            <Rightarrow />
         </div>
-    )
-}
+    );
+};
 
 export default LogoutButton;

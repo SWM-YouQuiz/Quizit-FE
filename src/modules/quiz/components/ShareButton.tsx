@@ -1,5 +1,5 @@
-"use client"
-import {Share} from "@/components/svgs";
+"use client";
+import { Share } from "@/components/svgs";
 import React from "react";
 
 const ShareButton = () => {
@@ -14,22 +14,22 @@ const ShareButton = () => {
         tempInput.setSelectionRange(0, 99999);
 
         try {
-            const successful = document.execCommand('copy');
-            const msg = successful ? 'successful' : 'unsuccessful';
+            const successful = document.execCommand("copy");
+            const msg = successful ? "successful" : "unsuccessful";
             alert("클립보드에 링크가 복사되었습니다.");
         } catch (err) {
-            console.log('Unable to copy the URL, error: ', err);
+            console.log("Unable to copy the URL, error: ", err);
         }
 
         // 임시 요소를 제거합니다.
         document.body.removeChild(tempInput);
-    }
+    };
 
     return (
         <button type="button" onClick={handleClick}>
-            <Share/>
+            <Share />
         </button>
-    )
-}
+    );
+};
 
 export default ShareButton;

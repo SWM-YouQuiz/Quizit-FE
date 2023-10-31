@@ -7,4 +7,4 @@ export const calculateDateDifference = (DateA: Date, DateB: Date) => {
     const diffInDays = Math.floor(diffInHours / 24);
 
     return diffInDays;
-}
+};

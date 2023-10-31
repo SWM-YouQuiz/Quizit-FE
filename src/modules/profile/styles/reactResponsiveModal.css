@@ -29,7 +29,7 @@
 .react-responsive-modal-containerCenter:after {
     width: 0;
     height: 100%;
-    content: '';
+    content: "";
     display: inline-block;
     vertical-align: middle;
 }
@@ -38,7 +38,7 @@
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-    background: #F8F8F8;
+    background: #f8f8f8;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
     margin: 1.2rem;
     padding: 1.2rem;

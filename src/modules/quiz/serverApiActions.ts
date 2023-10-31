@@ -1,56 +1,70 @@
-"use server"
-import {requestApi} from "@/util/fetcher";
-import 'server-only';
+"use server";
+import { requestApi } from "@/util/fetcher";
+import "server-only";
 
-export const getQuiz = async ({quizId, accessToken}: {quizId: string} & AccessToken): Promise<Quiz> => {
+export const getQuiz = async ({ quizId, accessToken }: { quizId: string } & AccessToken): Promise<Quiz> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${quizId}`,
-        method: 'GET',
+        method: "GET",
         token: accessToken,
-        cache: 'no-store'
+        cache: "no-store",
     });
-}
+};
 
-export const postQuizCheck = async ({quizId, answer, accessToken}: {quizId: string, answer: number} & AccessToken): Promise<QuizCheck> => {
+export const postQuizCheck = async ({
+    quizId,
+    answer,
+    accessToken,
+}: {
+    quizId: string;
+    answer: number;
+} & AccessToken): Promise<QuizCheck> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${quizId}/check`,
-        method: 'POST',
+        method: "POST",
         token: accessToken,
         body: {
-            answer
-        }
+            answer,
+        },
     });
-}
+};
 
 type GetQuizOfChapterProps = {
-    chapterId: string,
-    page: number,
-    size: number,
-    range: string
+    chapterId: string;
+    page: number;
+    size: number;
+    range: string;
 } & AccessToken;
-export const getQuizOfChapter = async ({chapterId, page, size, range, accessToken}: GetQuizOfChapterProps): Promise<Quiz[]> => {
+export const getQuizOfChapter = async ({ chapterId, page, size, range, accessToken }: GetQuizOfChapterProps): Promise<Quiz[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/chapter/${chapterId}?page=${page}&size=${size}&range=${range}`,
-        method: 'GET',
+        method: "GET",
         token: accessToken,
-        cache: 'no-store'
+        cache: "no-store",
     });
-}
+};
 
-export const getQuizMark = async ({id, accessToken}: {id: string} & AccessToken): Promise<Quiz> => {
+export const getQuizMark = async ({ id, accessToken }: { id: string } & AccessToken): Promise<Quiz> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/mark`,
-        method: 'GET',
+        method: "GET",
         token: accessToken,
-        cache: 'no-store'
+        cache: "no-store",
     });
-}
+};
 
-export const getQuizEvaluate = async ({id, isLike, accessToken}: {id: string, isLike: 'True'|'False'} & AccessToken): Promise<Quiz> => {
+export const getQuizEvaluate = async ({
+    id,
+    isLike,
+    accessToken,
+}: {
+    id: string;
+    isLike: "True" | "False";
+} & AccessToken): Promise<Quiz> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/quiz/${id}/evaluate?isLike=${isLike}`,
-        method: 'GET',
+        method: "GET",
         token: accessToken,
-        cache: 'no-store'
+        cache: "no-store",
     });
-}
+};

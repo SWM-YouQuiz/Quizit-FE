@@ -1,5 +1,5 @@
-"use client"
-import {ReactNode, useEffect} from "react";
+"use client";
+import { ReactNode, useEffect } from "react";
 
 const QuizTouchEventHandler = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
@@ -13,7 +13,7 @@ const QuizTouchEventHandler = ({ children }: { children: ReactNode }) => {
                 const element = event.target;
 
                 // <pre> 태그 내부에서 발생한 이벤트인 경우 기본 동작을 허용합니다.
-                if (element.closest('pre')) {
+                if (element.closest("pre")) {
                     return;
                 }
             }
@@ -22,13 +22,17 @@ const QuizTouchEventHandler = ({ children }: { children: ReactNode }) => {
             event.preventDefault();
         };
 
-        document.addEventListener('touchstart', touchStartHandler, { passive: false });
-        document.addEventListener('touchmove', touchMoveHandler, { passive: false });
+        document.addEventListener("touchstart", touchStartHandler, {
+            passive: false,
+        });
+        document.addEventListener("touchmove", touchMoveHandler, {
+            passive: false,
+        });
 
         // 컴포넌트가 Unmount될 때 이벤트 리스너를 정리하는 Cleanup 함수입니다.
         return () => {
-            document.removeEventListener('touchstart', touchStartHandler);
-            document.removeEventListener('touchmove', touchMoveHandler);
+            document.removeEventListener("touchstart", touchStartHandler);
+            document.removeEventListener("touchmove", touchMoveHandler);
         };
     }, []);
 

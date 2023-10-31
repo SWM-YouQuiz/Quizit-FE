@@ -1,41 +1,41 @@
-"use client"
-import {Downarrow} from "@/components/svgs";
-import React, {MouseEventHandler, useContext, useState} from "react";
-import Modal from "@/components/ui/Modal"
+"use client";
+import { Downarrow } from "@/components/svgs";
+import React, { MouseEventHandler, useContext, useState } from "react";
+import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
-import {updateUser} from "@/modules/profile/serverApiActions";
-import {motion} from "framer-motion";
-import {cn} from "@/util/tailwind";
-import {QuizContext, QuizContextType} from "@/lib/context/Context";
-import {useRouter} from "next/navigation";
+import { updateUser } from "@/modules/profile/serverApiActions";
+import { motion } from "framer-motion";
+import { cn } from "@/util/tailwind";
+import { QuizContext, QuizContextType } from "@/lib/context/Context";
+import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
-import {revalidate} from "@/modules/serverActions";
+import { revalidate } from "@/modules/serverActions";
 
 export const NicknameEdit = () => {
-    const {user, dispatch, accessToken} = useContext(QuizContext);
+    const { user, dispatch, accessToken } = useContext(QuizContext);
     const [username, setUsername] = useState(user?.username);
-    const [status, setStatus] = useState<'loading'|'error'|'idle'>('idle');
+    const [status, setStatus] = useState<"loading" | "error" | "idle">("idle");
 
     const handleUserUpdate = async () => {
-        if(!username || !user || !dispatch) return;
-        if(username.length <= 1 || 10 < username.length) {
-            setStatus('error');
+        if (!username || !user || !dispatch) return;
+        if (username.length <= 1 || 10 < username.length) {
+            setStatus("error");
             return;
         }
-        setStatus('loading');
+        setStatus("loading");
         const updatedUser = await updateUser({
             body: {
                 ...user,
-                username
+                username,
             },
             accessToken,
-            userId: user.id
+            userId: user.id,
         });
-        revalidate('user');
-        revalidate('ranking');
-        dispatch({type: 'SET_USER', payload: updatedUser});
-        setStatus('idle');
-    }
+        revalidate("user");
+        revalidate("ranking");
+        dispatch({ type: "SET_USER", payload: updatedUser });
+        setStatus("idle");
+    };
 
     const usernameLength = username ? username.length : 0;
 
@@ -43,36 +43,27 @@ export const NicknameEdit = () => {
         <div className="space-y-3">
             <div className="text-secondary-900 font-bold">
                 닉네임 변경&nbsp;
-                <span className={`font-normal text-sm ${usernameLength > 10 ? 'text-error' : ''}`}>({usernameLength}/10)</span>
+                <span className={`font-normal text-sm ${usernameLength > 10 ? "text-error" : ""}`}>({usernameLength}/10)</span>
             </div>
             <div className="flex space-x-2">
-                <Input
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    className={status === 'error' ? `border-error` : ''}
-                />
-                <Button
-                    context="변경"
-                    className="w-20"
-                    onClick={handleUserUpdate}
-                    disable={status==='loading'}
-                />
+                <Input value={username} onChange={(e) => setUsername(e.target.value)} className={status === "error" ? `border-error` : ""} />
+                <Button context="변경" className="w-20" onClick={handleUserUpdate} disable={status === "loading"} />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export const GoalEdit = () => {
-    const {user, dispatch, accessToken} = useContext(QuizContext);
+    const { user, dispatch, accessToken } = useContext(QuizContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const closeModal = () => {
         setIsModalOpen(false);
-    }
+    };
 
     const openModal = () => {
         setIsModalOpen(true);
-    }
+    };
 
     return (
         <div className="space-y-3">
@@ -82,62 +73,61 @@ export const GoalEdit = () => {
                 onClick={() => openModal()}
             >
                 <div className="text-secondary-400">하루 {user?.dailyTarget}개</div>
-                <Downarrow/>
+                <Downarrow />
             </div>
             <Modal onClose={closeModal} open={isModalOpen}>
-                <GoalEditModal user={user} dispatch={dispatch} accessToken={accessToken} closeModal={closeModal}/>
+                <GoalEditModal user={user} dispatch={dispatch} accessToken={accessToken} closeModal={closeModal} />
             </Modal>
         </div>
-    )
-}
+    );
+};
 
-const GoalEditModal = ({user, dispatch, accessToken, closeModal}: QuizContextType & {closeModal: () => void}) => {
+const GoalEditModal = ({ user, dispatch, accessToken, closeModal }: QuizContextType & { closeModal: () => void }) => {
+    const router = useRouter();
 
-   const router = useRouter();
+    if (user === undefined) {
+        throw new Error("유저 정보를 찾을 수 없습니다.");
+    }
 
-   if(user === undefined) {
-       throw new Error("유저 정보를 찾을 수 없습니다.");
-   }
-
-   const update = (user: UserInfo) => {
-       if (dispatch) {
-           dispatch({type: 'SET_USER', payload: user});
-       }
-   }
+    const update = (user: UserInfo) => {
+        if (dispatch) {
+            dispatch({ type: "SET_USER", payload: user });
+        }
+    };
 
     return (
         <div className="flex flex-col space-y-2.5 overflow-auto">
-            <GoalEditItem title="캐주얼" goalCount={5} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
-            <GoalEditItem title="보통" goalCount={10} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
-            <GoalEditItem title="열심히" goalCount={20} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
-            <GoalEditItem title="하드코어" goalCount={40} user={user} update={update} accessToken={accessToken} closeModal={closeModal}/>
+            <GoalEditItem title="캐주얼" goalCount={5} user={user} update={update} accessToken={accessToken} closeModal={closeModal} />
+            <GoalEditItem title="보통" goalCount={10} user={user} update={update} accessToken={accessToken} closeModal={closeModal} />
+            <GoalEditItem title="열심히" goalCount={20} user={user} update={update} accessToken={accessToken} closeModal={closeModal} />
+            <GoalEditItem title="하드코어" goalCount={40} user={user} update={update} accessToken={accessToken} closeModal={closeModal} />
         </div>
-    )
-}
+    );
+};
 
 type GoarEditItem = {
-    title: string,
-    goalCount: number,
-    user: UserInfo,
-    update: (user: UserInfo) => void,
-    closeModal: () => void
+    title: string;
+    goalCount: number;
+    user: UserInfo;
+    update: (user: UserInfo) => void;
+    closeModal: () => void;
 } & AccessToken;
 
-const GoalEditItem = ({title, goalCount, user, update, accessToken, closeModal}: GoarEditItem) => {
+const GoalEditItem = ({ title, goalCount, user, update, accessToken, closeModal }: GoarEditItem) => {
     const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
         updateUser({
             body: {
                 ...user,
-                dailyTarget: goalCount
+                dailyTarget: goalCount,
             },
             userId: user.id,
-            accessToken: accessToken
-        }).then(user => {
+            accessToken: accessToken,
+        }).then((user) => {
             update(user);
             closeModal();
-        })
-    }
+        });
+    };
 
     const selected = user.dailyTarget === goalCount ? "inner-border-2 inner-border-primary-900" : "";
 
@@ -151,5 +141,5 @@ const GoalEditItem = ({title, goalCount, user, update, accessToken, closeModal}:
             <div className="text-secondary-900">{title}</div>
             <div className="text-secondary-800 text-[13px]">하루 {goalCount}문제 이상</div>
         </motion.button>
-    )
-}
+    );
+};

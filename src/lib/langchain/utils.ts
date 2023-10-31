@@ -1,19 +1,14 @@
-"use server"
-import {AIMessage, BaseMessage, HumanMessage,} from "langchain/schema";
-import {BufferMemory, ChatMessageHistory} from "langchain/memory";
-import {Message} from "ai";
+"use server";
+import { AIMessage, BaseMessage, HumanMessage } from "langchain/schema";
+import { BufferMemory, ChatMessageHistory } from "langchain/memory";
+import { Message } from "ai";
 
 const getChatMessages = (history: Message[]): BaseMessage[] => {
-    return history.map((message) =>
-        message.role === "user"
-            ? new HumanMessage(message.content)
-            : new AIMessage(message.content)
-    );
+    return history.map((message) => (message.role === "user" ? new HumanMessage(message.content) : new AIMessage(message.content)));
 };
 
 const extractLastQuestion = (messages: Message[]) => {
-    const question =
-        messages.length > 0 ? messages[messages.length - 1].content : "";
+    const question = messages.length > 0 ? messages[messages.length - 1].content : "";
     const previousMessages = messages.slice(0, messages.length - 1);
 
     return { question, previousMessages };
