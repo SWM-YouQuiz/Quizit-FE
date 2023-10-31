@@ -10,8 +10,8 @@ const LogoutButton = () => {
         <div
             className="flex justify-between items-center h-[52px] px-5 bg-white"
             onClick={() => {
-                router.replace("/auth/login");
                 deleteToken();
+                router.replace("/auth/login");
             }}
         >
             <div className="text-[17px] text-secondary-900">로그아웃</div>

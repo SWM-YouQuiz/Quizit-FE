@@ -10,8 +10,8 @@ const SignOutButton = () => {
         <button
             className="block"
             onClick={() => {
-                router.replace("/auth/login");
                 deleteToken();
+                router.replace("/auth/login");
             }}
         >
             로그아웃

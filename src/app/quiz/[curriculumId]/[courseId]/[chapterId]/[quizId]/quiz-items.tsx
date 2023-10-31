@@ -30,8 +30,8 @@ export const QuizItems = ({ quizHtml }: QuizItemsProps) => {
     const { user } = useContext(QuizContext);
 
     if (user === undefined) {
-        router.replace("/auth/login");
         deleteToken();
+        router.replace("/auth/login");
         return null;
     }
 

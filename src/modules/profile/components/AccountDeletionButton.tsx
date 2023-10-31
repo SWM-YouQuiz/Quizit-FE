@@ -31,8 +31,8 @@ const AccountDeletionButton = () => {
             provider: user.provider.toLowerCase(),
             accessToken,
         });
-        router.replace("/auth/login");
         deleteToken();
+        router.replace("/auth/login");
     };
 
     if (!user) return null;
