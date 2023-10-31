@@ -50,14 +50,14 @@ const BodyContainer = ({context}: {context: QuizFilterContextType}) => {
                     <p className="text-base text-secondary-900 leading-[19px] font-bold">퀴즈 분류</p>
                     <ToggleButton
                         name="markedQuiz"
-                        text="찜 한 퀴즈만 보여주기"
+                        text="찜한 퀴즈만 보여주기"
                         toggle={quizFilter["markedQuiz"]}
                         handleToggle={handleToggle}
                         icon={<MarkedQuizIcon />}
                     />
                     <ToggleButton
                         name="unsolvedQuiz"
-                        text="안 푼 퀴즈만 보여주기"
+                        text="안푼 퀴즈만 보여주기"
                         toggle={quizFilter["unsolvedQuiz"]}
                         handleToggle={handleToggle}
                         icon={<UnsolvedQuizIcon />}

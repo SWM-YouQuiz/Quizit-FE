@@ -2,9 +2,10 @@
 import {cn} from "@/util/tailwind";
 import Image from 'next/image'
 import Link from "next/link";
-import {ReactNode, useContext, useEffect, useState} from "react";
+import {ReactNode, useContext} from "react";
 import {getChapterProgress, getCourseProgress, getCurriculumProgress} from "@/modules/curriculum/serverApiActions";
 import {QuizContext} from "@/lib/context/Context";
+import {useQuery} from "@tanstack/react-query";
 
 type CardProps = {
     type: "curriculum" | "course" | "chapter",
@@ -19,23 +20,19 @@ type CardProps = {
 }
 
 const Card = ({type, id, href="", imageUrl, path, title, alt, className="", children=null}: CardProps) => {
-    const {accessToken} = useContext(QuizContext)
-    const [progress, setProgress] = useState<Progress | null>(null);
-
-    const handleGetProgress = async ({type, id}: {type: CardProps["type"], id: string}) => {
-        if(type === "curriculum") {
-            return getCurriculumProgress({curriculumId: id, accessToken});
-        } else if (type === "course") {
-            return getCourseProgress({courseId: id, accessToken});
-        } else {
-            return getChapterProgress({chapterId: id, accessToken});
+    const {accessToken} = useContext(QuizContext);
+    const {data: progress, isFetching} = useQuery({
+        queryKey: [type, id],
+        queryFn: () => {
+            if(type === "curriculum") {
+                return getCurriculumProgress({curriculumId: id, accessToken});
+            } else if (type === "course") {
+                return getCourseProgress({courseId: id, accessToken});
+            } else {
+                return getChapterProgress({chapterId: id, accessToken});
+            }
         }
-    }
-
-    useEffect(() => {
-        handleGetProgress({type, id})
-            .then(r => setProgress(r));
-    }, [id, type])
+    });
 
     return (
         <Link
@@ -49,7 +46,7 @@ const Card = ({type, id, href="", imageUrl, path, title, alt, className="", chil
     )
 }
 
-type MainContainerProps = Omit<CardProps, 'className' | 'options' | 'type' | 'id'> & {progress: Progress | null};
+type MainContainerProps = Omit<CardProps, 'className' | 'options' | 'type' | 'id'> & {progress: Progress | undefined};
 const MainContainer = ({imageUrl, path, title, alt, progress, children}: MainContainerProps) => (
     <div className="flex space-x-2">
         <div className="grid place-items-center border border-neutral-100 w-12 h-12 rounded-full">

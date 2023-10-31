@@ -8,6 +8,7 @@ import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetCon
 import MotionDiv from "@/lib/animation/MotionDiv";
 import BackButton from "@/components/BackButton";
 import React from "react";
+import {HydratedChapters} from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
 
 const Chapter = async ({params}: {params: {curriculumId: string, courseId: string}}) => {
     const chapters = await getChapters({courseId: params.courseId});
@@ -46,18 +47,19 @@ const BodyContainer = ({chapters, curriculumId}: BodyContainerProps) => (
         <OptionSheetContainer>
         {
             chapters.map(({id, description, courseId, document,index, image}, idx) => (
-                    <Card
-                        key={`chapter-${id}`}
-                        href={`/quiz/${curriculumId}/${courseId}/${id}`}
-                        alt={courseId}
-                        imageUrl={image}
-                        path={`Chapter ${idx+1}`}
-                        title={description}
-                        id={id}
-                        type="chapter"
-                    >
-                        <Options documentUrl={document}/>
-                    </Card>
+                    <HydratedChapters key={`chapter-${id}`} chapterId={id}>
+                        <Card
+                            href={`/quiz/${curriculumId}/${courseId}/${id}`}
+                            alt={courseId}
+                            imageUrl={image}
+                            path={`Chapter ${idx+1}`}
+                            title={description}
+                            id={id}
+                            type="chapter"
+                        >
+                            <Options documentUrl={document}/>
+                        </Card>
+                    </HydratedChapters>
                 )
             )
         }

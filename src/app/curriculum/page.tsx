@@ -4,6 +4,7 @@ import {Alert} from "@/components/svgs";
 import Card from "@/modules/curriculum/components/Card";
 import HeaderContainer from "@/app/curriculum/header-container";
 import MotionDiv from "@/lib/animation/MotionDiv";
+import {HydratedCurriculums} from "@/app/curriculum/hydrated-curriculum";
 
 const _getCourses = async (curriculums: Curriculum[]) => {
     const courses2d: Course[][] = await Promise.all(
@@ -43,16 +44,17 @@ const BodyContainer = ({curriculums, courses}: {curriculums: Curriculum[], cours
         <div className="mt-8 text-lg font-bold text-secondary-900">전체 커리큘럼</div>
         {
             curriculums.map(({id, title, image},idx) => (
-                <Card
-                    key={`curriculum-${id}`}
-                    href={`curriculum/${id}`}
-                    title={`총 ${courses[idx].length}개의 코스`}
-                    imageUrl={image}
-                    alt={title}
-                    path={title}
-                    id={id}
-                    type="curriculum"
-                />
+                <HydratedCurriculums key={`curriculum-${id}`} curriculumId={id}>
+                    <Card
+                        href={`curriculum/${id}`}
+                        title={`총 ${courses[idx].length}개의 코스`}
+                        imageUrl={image}
+                        alt={title}
+                        path={title}
+                        id={id}
+                        type="curriculum"
+                    />
+                </HydratedCurriculums>
             ))
         }
     </div>

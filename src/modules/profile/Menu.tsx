@@ -2,7 +2,7 @@ import Item from "@/modules/profile/components/Item";
 
 export const menuData: Menu[] = [
     {
-        title: "찜 한 퀴즈",
+        title: "찜한 퀴즈",
         href: "profile/quizList/markedQuizIds"
     },
     {

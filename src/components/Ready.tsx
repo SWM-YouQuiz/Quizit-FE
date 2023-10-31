@@ -11,7 +11,7 @@ const Ready = () => {
                 width={240}
                 height={240}
             />
-            <div className="text-center text-secondary-800 text-lg mb-10 font-semibold">아직 준비중인 페이지입니다!</div>
+            <div className="text-center text-secondary-800 text-lg mb-10 font-semibold">아직 준비 중인 페이지입니다!</div>
         </div>
     )
 }

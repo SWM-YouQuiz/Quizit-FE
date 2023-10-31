@@ -43,7 +43,7 @@ export const getChapter = async ({chapterId}: {chapterId: string}): Promise<Chap
     });
 }
 
-export const getCurriculumProgress = async ({curriculumId, accessToken}: {curriculumId: string, accessToken: string}): Promise<Progress> => {
+export const getCurriculumProgress = async ({curriculumId, accessToken}: {curriculumId: string} & AccessToken): Promise<Progress> => {
 
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum/${curriculumId}/progress`,
