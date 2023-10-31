@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
     overflow-x: hidden;
     overflow-y: hidden;
 }
 body {
-    touch-action:none;
-    font-family: 'pretendard', serif;
+    touch-action: none;
+    font-family: "pretendard", serif;
     padding-top: env(safe-area-inset-top);
 }
 

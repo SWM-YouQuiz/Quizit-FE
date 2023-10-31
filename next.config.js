@@ -4,40 +4,38 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_PROTOCOL + process.env.NEXT_PUBLIC_A
 
 const nextConfig = {
     images: {
-        domains: [
-            "quizit-storage.s3.ap-northeast-2.amazonaws.com",
-        ],
+        domains: ["quizit-storage.s3.ap-northeast-2.amazonaws.com"],
         remotePatterns: [
             {
-                protocol: 'https',
-                hostname: '**/quizit.org',
+                protocol: "https",
+                hostname: "**/quizit.org",
             },
             {
-                protocol: 'http',
-                hostname: 'localhost',
-                port: '3000'
-            }
-        ]
+                protocol: "http",
+                hostname: "localhost",
+                port: "3000",
+            },
+        ],
     },
-    output: 'standalone',
+    output: "standalone",
     poweredByHeader: false,
     reactStrictMode: false,
     webpack: (config) => {
         config.module.rules.push({
             test: /\.svg$/,
-            use: ['@svgr/webpack'],
+            use: ["@svgr/webpack"],
         });
         return config;
     },
     experimental: {
         serverActions: true,
     },
-}
+};
 
-const withPWA = require('next-pwa')({
-    customWorkerDir: 'src/worker',
-    dest: 'public',
+const withPWA = require("next-pwa")({
+    customWorkerDir: "src/worker",
+    dest: "public",
     buildExcludes: ["app-build-manifest.json"],
-})
+});
 
-module.exports = withPWA(nextConfig)
+module.exports = withPWA(nextConfig);

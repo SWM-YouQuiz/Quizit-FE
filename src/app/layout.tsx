@@ -1,23 +1,23 @@
-import './globals.css'
-import {ReactNode} from "react";
+import "./globals.css";
+import { ReactNode } from "react";
 import Head from "@/app/head";
 import QuizContainer from "@/modules/quiz/components/QuizContext";
 import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterContainer";
-import {AnimationWrapper} from "@/lib/animation/AnimationWrapper";
-import {ReactQueryProvider} from "@/lib/reactQuery/provider";
+import { AnimationWrapper } from "@/lib/animation/AnimationWrapper";
+import { ReactQueryProvider } from "@/lib/reactQuery/provider";
 
 export const metadata = {
-    title: '퀴즈잇(Quizit)',
-    description: '퀴즈잇(Quizit): 퀴즈로 지식을 잇다.',
+    title: "퀴즈잇(Quizit)",
+    description: "퀴즈잇(Quizit): 퀴즈로 지식을 잇다.",
     viewport: {
-        width: 'device-width',
+        width: "device-width",
         initialScale: 1,
         maximumScale: 1,
-        viewportFit: "cover"
+        viewportFit: "cover",
     },
-}
+};
 
-const RootLayout = async ({children,}: { children: ReactNode }) => {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
     return (
         <html lang="ko" className="overscroll-none">
             <Head />
@@ -25,15 +25,13 @@ const RootLayout = async ({children,}: { children: ReactNode }) => {
                 <ReactQueryProvider>
                     <QuizContainer>
                         <QuizFilterContainer>
-                            <AnimationWrapper>
-                                {children}
-                            </AnimationWrapper>
+                            <AnimationWrapper>{children}</AnimationWrapper>
                         </QuizFilterContainer>
                     </QuizContainer>
                 </ReactQueryProvider>
             </body>
         </html>
-    )
-}
+    );
+};
 
 export default RootLayout;
