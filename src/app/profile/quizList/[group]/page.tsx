@@ -4,6 +4,8 @@ import { menuData } from "@/modules/profile/Menu";
 import QuizList from "@/modules/profile/quizList/QuizList";
 import React, { ReactNode } from "react";
 import BackButton from "@/components/BackButton";
+import { getUser } from "@/modules/profile/serverApiActions";
+import { getAccessToken } from "@/modules/serverActions";
 
 export type QuizCardComponent = {
     id: string;
@@ -35,6 +37,9 @@ const getQuizIds = async (group: keyof UserInfo, user: UserInfo) => {
 };
 
 const QuizListPage = async ({ params }: { params: { group: keyof UserInfo } }) => {
+    const accessToken = await getAccessToken();
+    const user = await getUser({ accessToken, cache: "no-store" });
+
     return (
         <div className="flex flex-col h-full">
             <Header>
@@ -46,7 +51,7 @@ const QuizListPage = async ({ params }: { params: { group: keyof UserInfo } }) =
                 <div />
             </Header>
             <div className="flex-grow overflow-y-auto p-5 bg-secondary-50">
-                <QuizList group={params.group} />
+                <QuizList quizIds={user[params.group] as string[]} group={params.group} />
             </div>
         </div>
     );

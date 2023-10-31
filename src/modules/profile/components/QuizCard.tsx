@@ -3,28 +3,22 @@ import Link from "next/link";
 import { cn } from "@/util/tailwind";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import { getQuiz } from "@/modules/quiz/serverApiActions";
 import Heartbutton from "@/components/Heartbutton";
 import { calculateDateDifference } from "@/util/etc";
 import { QuizContext } from "@/lib/context/Context";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { getChapter } from "@/modules/curriculum/serverApiActions";
 
 type CardProps = {
     href?: string;
     className?: string;
-    quizId: string;
+    quiz: Quiz;
     userId: string;
 };
 
-const QuizCard = ({ href = "", quizId, className = "", userId }: CardProps) => {
+const QuizCard = ({ href = "", quiz, className = "", userId }: CardProps) => {
     const { accessToken } = useContext(QuizContext);
     const [chapter, setChapter] = useState<Chapter>();
-    const { data: quiz, isFetching } = useQuery({
-        queryKey: ["quizzes", quizId],
-        queryFn: () => getQuiz({ quizId, accessToken }),
-    });
 
     useEffect(() => {
         if (quiz) {
