@@ -1,13 +1,13 @@
-"use client"
-import {useContext, useEffect, useState} from "react";
-import {useInView} from "react-intersection-observer";
-import {getUser} from "@/modules/profile/serverApiActions";
+"use client";
+import { useContext, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { getUser } from "@/modules/profile/serverApiActions";
 import QuizCard from "@/modules/profile/components/QuizCard";
-import {QuizContext} from "@/lib/context/Context";
+import { QuizContext } from "@/lib/context/Context";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const refetchAmount = 6;
-    const {accessToken} = useContext(QuizContext);
+    const { accessToken } = useContext(QuizContext);
     const [quizIds, setQuizIds] = useState<string[]>([]);
     const [page, setPage] = useState(1);
     const [userId, setUserId] = useState("");
@@ -22,18 +22,18 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
             setHasMore(false);
             return;
         }
-        setPage(prev => prev + 1);
+        setPage((prev) => prev + 1);
     };
 
     const getGroupQuizIds = async () => {
-        const user = await getUser({accessToken, cache: 'no-store'});
+        const user = await getUser({ accessToken, cache: "no-store" });
         const quizIds = user[group] as string[];
         setQuizIds(quizIds);
         setUserId(user.id);
     };
 
     useEffect(() => {
-        if (inView && quizIds.length > 0) {
+        if (inView && 0 < quizIds.length) {
             refetch();
         }
     }, [inView, quizIds]);
@@ -42,16 +42,13 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
         getGroupQuizIds();
     }, []);
 
-    if(quizIds.length <= 0 || !userId)
-        return null;
+    if (quizIds.length <= 0 || !userId) return null;
 
     return (
         <div className="space-y-6">
-            {quizIds
-                .slice(0, page * refetchAmount)
-                .map(quizId => (
-                    <QuizCard key={quizId} href={`${group}/${quizId}`} quizId={quizId} userId={userId} />
-                ))}
+            {quizIds.slice(0, page * refetchAmount).map((quizId) => (
+                <QuizCard key={quizId} href={`${group}/${quizId}`} quizId={quizId} userId={userId} />
+            ))}
             {hasMore && <div ref={ref}></div>}
         </div>
     );
