@@ -71,6 +71,7 @@ const QuizContainer = ({children}: QuizContextProps) => {
 
     const onLoginSuccess = async ({accessToken}: AccessToken) => {
         await setAccessToken(accessToken);
+        await setCookie({key: 'refreshToken', value: accessToken});
         setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
     }
 
