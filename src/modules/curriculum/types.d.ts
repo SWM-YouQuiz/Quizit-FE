@@ -30,3 +30,11 @@ type Progress = {
     total: number;
     solved: number;
 };
+
+type ToggleButton = {
+    name: keyof QuizFilter;
+    toggle: boolean;
+    handleToggle: MouseEventHandler<HTMLButtonElement>;
+    text: string;
+    icon: ReactNode;
+};

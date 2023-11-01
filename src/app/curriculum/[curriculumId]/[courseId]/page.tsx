@@ -9,6 +9,7 @@ import MotionDiv from "@/lib/animation/MotionDiv";
 import BackButton from "@/components/BackButton";
 import React from "react";
 import { HydratedChapters } from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
+import TagContainer from "@/modules/curriculum/TagContainer";
 
 const Chapter = async ({ params }: { params: { curriculumId: string; courseId: string } }) => {
     const chapters = await getChapters({ courseId: params.courseId });
@@ -27,7 +28,7 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
                 </Link>
             </Header>
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
-                <BodyContainer chapters={chapters} curriculumId={params.curriculumId} />
+                <BodyContainer chapters={sortedChapters} curriculumId={params.curriculumId} />
             </MotionDiv>
         </div>
     );
@@ -42,6 +43,7 @@ type BodyContainerProps = {
 const BodyContainer = ({ chapters, curriculumId }: BodyContainerProps) => (
     <div className="w-full space-y-4">
         <OptionSheetContainer>
+            <TagContainer />
             {chapters.map(({ id, description, courseId, document, index, image }, idx) => (
                 <HydratedChapters key={`chapter-${id}`} chapterId={id}>
                     <Card

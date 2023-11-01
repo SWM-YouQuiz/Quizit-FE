@@ -1,5 +1,5 @@
 "use client";
-import { MouseEventHandler, ReactNode, useContext } from "react";
+import { MouseEventHandler, useContext } from "react";
 import { QuizFilterContext, QuizFilterContextType } from "@/lib/context/Context";
 import { Header } from "@/components/Header";
 import { motion } from "framer-motion";
@@ -73,13 +73,6 @@ const BodyContainer = ({ context }: { context: QuizFilterContextType }) => {
     );
 };
 
-type ToggleButton = {
-    name: keyof QuizFilter;
-    toggle: boolean;
-    handleToggle: MouseEventHandler<HTMLButtonElement>;
-    text: string;
-    icon: ReactNode;
-};
 const ToggleButton = ({ name, toggle, handleToggle, text, icon }: ToggleButton) => {
     return (
         <motion.button
