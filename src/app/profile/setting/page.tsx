@@ -26,7 +26,8 @@ const BodyContainer = () => {
             <div>
                 <Label>서비스 정보</Label>
                 <Item title="개인정보 처리방침" href="https://sw-maestro-14.notion.site/3f4b216059074bb686811ce860a273db?pvs=4" />
-                <Item title={"버전정보"} href="">
+                <Item title="디스코드 커뮤니티" href="https://discord.gg/ZYew8Ut2dF" />
+                <Item title="버전정보" href="">
                     <p className="text-secondary-900">0.1.0</p>
                 </Item>
             </div>
