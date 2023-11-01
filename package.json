@@ -11,7 +11,6 @@
     },
     "dependencies": {
         "@getzep/zep-js": "^0.7.2",
-        "@hookform/error-message": "^2.0.1",
         "@tanstack/react-query": "^5.4.3",
         "ai": "^2.1.25",
         "autoprefixer": "^10.4.14",
@@ -28,7 +27,6 @@
         "react": "18.2.0",
         "react-calendar-heatmap": "^1.9.0",
         "react-dom": "18.2.0",
-        "react-hook-form": "^7.45.2",
         "react-intersection-observer": "^9.5.2",
         "react-modal-sheet": "^2.0.0",
         "react-multi-carousel": "^2.8.4",

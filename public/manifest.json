@@ -1,351 +1,361 @@
 {
-    "theme_color": "#5741D3",
-    "background_color": "#5741D2",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/",
-    "name": "퀴즈잇(Quizit): 퀴즈로 지식을 잇다.",
-    "short_name": "퀴즈잇(Quizit)",
-    "description": "퀴즈잇(Quizit)은 생성형AI로 생성된 퀴즈로 다양한 지식을 학습할 수 있는 서비스입니다. 퀴즈를 풀고, 자세한 해설을 '퀴즈보'에게 요청해보세요!",
-    "icons": [
-        {
-            "src": "icons/windows11/SmallTile.scale-100.png",
-            "sizes": "71x71"
-        },
-        {
-            "src": "icons/windows11/SmallTile.scale-125.png",
-            "sizes": "89x89"
-        },
-        {
-            "src": "icons/windows11/SmallTile.scale-150.png",
-            "sizes": "107x107"
-        },
-        {
-            "src": "icons/windows11/SmallTile.scale-200.png",
-            "sizes": "142x142"
-        },
-        {
-            "src": "icons/windows11/SmallTile.scale-400.png",
-            "sizes": "284x284"
-        },
-        {
-            "src": "icons/windows11/Square150x150Logo.scale-100.png",
-            "sizes": "150x150"
-        },
-        {
-            "src": "icons/windows11/Square150x150Logo.scale-125.png",
-            "sizes": "188x188"
-        },
-        {
-            "src": "icons/windows11/Square150x150Logo.scale-150.png",
-            "sizes": "225x225"
-        },
-        {
-            "src": "icons/windows11/Square150x150Logo.scale-200.png",
-            "sizes": "300x300"
-        },
-        {
-            "src": "icons/windows11/Square150x150Logo.scale-400.png",
-            "sizes": "600x600"
-        },
-        {
-            "src": "icons/windows11/Wide310x150Logo.scale-100.png",
-            "sizes": "310x150"
-        },
-        {
-            "src": "icons/windows11/Wide310x150Logo.scale-125.png",
-            "sizes": "388x188"
-        },
-        {
-            "src": "icons/windows11/Wide310x150Logo.scale-150.png",
-            "sizes": "465x225"
-        },
-        {
-            "src": "icons/windows11/Wide310x150Logo.scale-200.png",
-            "sizes": "620x300"
-        },
-        {
-            "src": "icons/windows11/Wide310x150Logo.scale-400.png",
-            "sizes": "1240x600"
-        },
-        {
-            "src": "icons/windows11/LargeTile.scale-100.png",
-            "sizes": "310x310"
-        },
-        {
-            "src": "icons/windows11/LargeTile.scale-125.png",
-            "sizes": "388x388"
-        },
-        {
-            "src": "icons/windows11/LargeTile.scale-150.png",
-            "sizes": "465x465"
-        },
-        {
-            "src": "icons/windows11/LargeTile.scale-200.png",
-            "sizes": "620x620"
-        },
-        {
-            "src": "icons/windows11/LargeTile.scale-400.png",
-            "sizes": "1240x1240"
-        },
-        {
-            "src": "icons/windows11/SplashScreen.scale-100.png",
-            "sizes": "620x300"
-        },
-        {
-            "src": "icons/windows11/SplashScreen.scale-125.png",
-            "sizes": "775x375"
-        },
-        {
-            "src": "icons/windows11/SplashScreen.scale-150.png",
-            "sizes": "930x450"
-        },
-        {
-            "src": "icons/windows11/SplashScreen.scale-200.png",
-            "sizes": "1240x600"
-        },
-        {
-            "src": "icons/windows11/SplashScreen.scale-400.png",
-            "sizes": "2480x1200"
-        },
-        {
-            "src": "icons/ios/60.png",
-            "sizes": "60x60"
-        },
-        {
-            "src": "icons/ios/76.png",
-            "sizes": "76x76"
-        },
-        {
-            "src": "icons/ios/120.png",
-            "sizes": "120x120"
-        },
-        {
-            "src": "icons/ios/152.png",
-            "sizes": "152x152"
-        },
-        {
-            "src": "icons/ios/180.png",
-            "sizes": "180x180"
-        },
-        {
-            "src": "icons/ios/1024.png",
-            "sizes": "1024x1024"
-        },
-        {
-            "filename": "icons/ios/40.png",
-            "idiom": "iphone",
-            "scale": "2x",
-            "size": "20x20"
-        },
-        {
-            "filename": "icons/ios/60.png",
-            "idiom": "iphone",
-            "scale": "3x",
-            "size": "20x20"
-        },
-        {
-            "filename": "icons/ios/29.png",
-            "idiom": "iphone",
-            "scale": "1x",
-            "size": "29x29"
-        },
-        {
-            "filename": "icons/ios/58.png",
-            "idiom": "iphone",
-            "scale": "2x",
-            "size": "29x29"
-        },
-        {
-            "filename": "icons/ios/87.png",
-            "idiom": "iphone",
-            "scale": "3x",
-            "size": "29x29"
-        },
-        {
-            "filename": "icons/ios/80.png",
-            "idiom": "iphone",
-            "scale": "2x",
-            "size": "40x40"
-        },
-        {
-            "filename": "icons/ios/120.png",
-            "idiom": "iphone",
-            "scale": "3x",
-            "size": "40x40"
-        },
-        {
-            "filename": "icons/ios/57.png",
-            "idiom": "iphone",
-            "scale": "1x",
-            "size": "57x57"
-        },
-        {
-            "filename": "icons/ios/114.png",
-            "idiom": "iphone",
-            "scale": "2x",
-            "size": "57x57"
-        },
-        {
-            "filename": "icons/ios/120 1.png",
-            "idiom": "iphone",
-            "scale": "2x",
-            "size": "60x60"
-        },
-        {
-            "filename": "icons/ios/180.png",
-            "idiom": "iphone",
-            "scale": "3x",
-            "size": "60x60"
-        },
-        {
-            "filename": "icons/ios/20.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "20x20"
-        },
-        {
-            "filename": "icons/ios/40 1.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "20x20"
-        },
-        {
-            "filename": "icons/ios/29 1.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "29x29"
-        },
-        {
-            "filename": "icons/ios/58 1.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "29x29"
-        },
-        {
-            "filename": "icons/ios/40 2.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "40x40"
-        },
-        {
-            "filename": "icons/ios/80 1.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "40x40"
-        },
-        {
-            "filename": "icons/ios/50.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "50x50"
-        },
-        {
-            "filename": "icons/ios/100.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "50x50"
-        },
-        {
-            "filename": "icons/ios/72.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "72x72"
-        },
-        {
-            "filename": "icons/ios/144.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "72x72"
-        },
-        {
-            "filename": "icons/ios/76.png",
-            "idiom": "ipad",
-            "scale": "1x",
-            "size": "76x76"
-        },
-        {
-            "filename": "icons/ios/152.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "76x76"
-        },
-        {
-            "filename": "icons/ios/167.png",
-            "idiom": "ipad",
-            "scale": "2x",
-            "size": "83.5x83.5"
-        },
-        {
-            "filename": "icons/ios/1024.png",
-            "idiom": "ios-marketing",
-            "scale": "1x",
-            "size": "1024x1024"
-        },
-        {
-            "filename": "icons/ios/16 1.png",
-            "idiom": "mac",
-            "scale": "1x",
-            "size": "16x16"
-        },
-        {
-            "filename": "icons/ios/32.png",
-            "idiom": "mac",
-            "scale": "2x",
-            "size": "16x16"
-        },
-        {
-            "filename": "icons/ios/32 1.png",
-            "idiom": "mac",
-            "scale": "1x",
-            "size": "32x32"
-        },
-        {
-            "filename": "icons/ios/64.png",
-            "idiom": "mac",
-            "scale": "2x",
-            "size": "32x32"
-        },
-        {
-            "filename": "icons/ios/128.png",
-            "idiom": "mac",
-            "scale": "1x",
-            "size": "128x128"
-        },
-        {
-            "filename": "icons/ios/256.png",
-            "idiom": "mac",
-            "scale": "2x",
-            "size": "128x128"
-        },
-        {
-            "filename": "icons/ios/256 1.png",
-            "idiom": "mac",
-            "scale": "1x",
-            "size": "256x256"
-        },
-        {
-            "filename": "icons/ios/512.png",
-            "idiom": "mac",
-            "scale": "2x",
-            "size": "256x256"
-        },
-        {
-            "filename": "icons/ios/512 1.png",
-            "idiom": "mac",
-            "scale": "1x",
-            "size": "512x512"
-        },
-        {
-            "filename": "icons/ios/1024 1.png",
-            "idiom": "mac",
-            "scale": "2x",
-            "size": "512x512"
-        }
-    ],
-    "id": "001",
-    "dir": "auto",
-    "lang": "ko",
-    "orientation": "portrait",
-    "categories": ["books", "education", "kids"]
+  "theme_color": "#5741D3",
+  "background_color": "#5741D2",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "퀴즈잇(Quizit): 퀴즈로 지식을 잇다.",
+  "short_name": "퀴즈잇(Quizit)",
+  "description": "퀴즈잇(Quizit)은 생성형AI로 생성된 퀴즈로 다양한 지식을 학습할 수 있는 서비스입니다. 퀴즈를 풀고, 자세한 해설을 '퀴즈보'에게 요청해보세요!",
+  "icons": [
+    {
+      "src": "icons/windows11/SmallTile.scale-100.png",
+      "sizes": "71x71"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-125.png",
+      "sizes": "89x89"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-150.png",
+      "sizes": "107x107"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-200.png",
+      "sizes": "142x142"
+    },
+    {
+      "src": "icons/windows11/SmallTile.scale-400.png",
+      "sizes": "284x284"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-100.png",
+      "sizes": "150x150"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-125.png",
+      "sizes": "188x188"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-150.png",
+      "sizes": "225x225"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-200.png",
+      "sizes": "300x300"
+    },
+    {
+      "src": "icons/windows11/Square150x150Logo.scale-400.png",
+      "sizes": "600x600"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-100.png",
+      "sizes": "310x150"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-125.png",
+      "sizes": "388x188"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-150.png",
+      "sizes": "465x225"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-200.png",
+      "sizes": "620x300"
+    },
+    {
+      "src": "icons/windows11/Wide310x150Logo.scale-400.png",
+      "sizes": "1240x600"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-100.png",
+      "sizes": "310x310"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-125.png",
+      "sizes": "388x388"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-150.png",
+      "sizes": "465x465"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-200.png",
+      "sizes": "620x620"
+    },
+    {
+      "src": "icons/windows11/LargeTile.scale-400.png",
+      "sizes": "1240x1240"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-100.png",
+      "sizes": "620x300"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-125.png",
+      "sizes": "775x375"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-150.png",
+      "sizes": "930x450"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-200.png",
+      "sizes": "1240x600"
+    },
+    {
+      "src": "icons/windows11/SplashScreen.scale-400.png",
+      "sizes": "2480x1200"
+    },
+    {
+      "src": "icons/ios/60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "icons/ios/76.png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "icons/ios/120.png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "icons/ios/152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "icons/ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "icons/ios/1024.png",
+      "sizes": "1024x1024"
+    },
+    {
+      "filename": "icons/ios/40.png",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "20x20"
+    },
+    {
+      "filename": "icons/ios/60.png",
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "20x20"
+    },
+    {
+      "filename": "icons/ios/29.png",
+      "idiom": "iphone",
+      "scale": "1x",
+      "size": "29x29"
+    },
+    {
+      "filename": "icons/ios/58.png",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "29x29"
+    },
+    {
+      "filename": "icons/ios/87.png",
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "29x29"
+    },
+    {
+      "filename": "icons/ios/80.png",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "40x40"
+    },
+    {
+      "filename": "icons/ios/120.png",
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "40x40"
+    },
+    {
+      "filename": "icons/ios/57.png",
+      "idiom": "iphone",
+      "scale": "1x",
+      "size": "57x57"
+    },
+    {
+      "filename": "icons/ios/114.png",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "57x57"
+    },
+    {
+      "filename": "icons/ios/120 1.png",
+      "idiom": "iphone",
+      "scale": "2x",
+      "size": "60x60"
+    },
+    {
+      "filename": "icons/ios/180.png",
+      "idiom": "iphone",
+      "scale": "3x",
+      "size": "60x60"
+    },
+    {
+      "filename": "icons/ios/20.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "20x20"
+    },
+    {
+      "filename": "icons/ios/40 1.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "20x20"
+    },
+    {
+      "filename": "icons/ios/29 1.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "29x29"
+    },
+    {
+      "filename": "icons/ios/58 1.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "29x29"
+    },
+    {
+      "filename": "icons/ios/40 2.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "40x40"
+    },
+    {
+      "filename": "icons/ios/80 1.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "40x40"
+    },
+    {
+      "filename": "icons/ios/50.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "50x50"
+    },
+    {
+      "filename": "icons/ios/100.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "50x50"
+    },
+    {
+      "filename": "icons/ios/72.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "72x72"
+    },
+    {
+      "filename": "icons/ios/144.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "72x72"
+    },
+    {
+      "filename": "icons/ios/76.png",
+      "idiom": "ipad",
+      "scale": "1x",
+      "size": "76x76"
+    },
+    {
+      "filename": "icons/ios/152.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "76x76"
+    },
+    {
+      "filename": "icons/ios/167.png",
+      "idiom": "ipad",
+      "scale": "2x",
+      "size": "83.5x83.5"
+    },
+    {
+      "filename": "icons/ios/1024.png",
+      "idiom": "ios-marketing",
+      "scale": "1x",
+      "size": "1024x1024"
+    },
+    {
+      "filename": "icons/ios/16 1.png",
+      "idiom": "mac",
+      "scale": "1x",
+      "size": "16x16"
+    },
+    {
+      "filename": "icons/ios/32.png",
+      "idiom": "mac",
+      "scale": "2x",
+      "size": "16x16"
+    },
+    {
+      "filename": "icons/ios/32 1.png",
+      "idiom": "mac",
+      "scale": "1x",
+      "size": "32x32"
+    },
+    {
+      "filename": "icons/ios/64.png",
+      "idiom": "mac",
+      "scale": "2x",
+      "size": "32x32"
+    },
+    {
+      "filename": "icons/ios/128.png",
+      "idiom": "mac",
+      "scale": "1x",
+      "size": "128x128"
+    },
+    {
+      "filename": "icons/ios/256.png",
+      "idiom": "mac",
+      "scale": "2x",
+      "size": "128x128"
+    },
+    {
+      "filename": "icons/ios/256 1.png",
+      "idiom": "mac",
+      "scale": "1x",
+      "size": "256x256"
+    },
+    {
+      "filename": "icons/ios/512.png",
+      "idiom": "mac",
+      "scale": "2x",
+      "size": "256x256"
+    },
+    {
+      "filename": "icons/ios/512 1.png",
+      "idiom": "mac",
+      "scale": "1x",
+      "size": "512x512"
+    },
+    {
+      "filename": "icons/ios/1024 1.png",
+      "idiom": "mac",
+      "scale": "2x",
+      "size": "512x512"
+    },
+    {
+      "src": "icons/ios/196.png",
+      "sizes": "196x196",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "001",
+  "dir": "auto",
+  "lang": "ko",
+  "orientation": "portrait",
+  "categories": [
+    "books",
+    "education",
+    "kids"
+  ]
 }
