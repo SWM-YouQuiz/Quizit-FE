@@ -1,11 +1,10 @@
 import { getCourses, getCurriculums } from "@/modules/curriculum/serverApiActions";
 import { Header } from "@/components/Header";
-import { Filter } from "@/components/svgs";
+import { BackArrow, Filter } from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 
 import MotionDiv from "@/lib/animation/MotionDiv";
-import BackButton from "@/components/BackButton";
 import React from "react";
 import { HydratedCourses } from "@/app/curriculum/[curriculumId]/hydrated-course";
 
@@ -18,7 +17,9 @@ const Course = async ({ params }: { params: { curriculumId: string } }) => {
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <BackButton />
+                <Link href="/curriculum">
+                    <BackArrow />
+                </Link>
                 <div className="font-bold">{curriculum.title}</div>
                 <Link href="/curriculum/filter">
                     <Filter />
