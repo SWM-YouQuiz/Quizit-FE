@@ -19,16 +19,18 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
 
     return (
         <div className="flex flex-col h-full">
-            <Header>
-                <Link href={`/curriculum/${params.curriculumId}`}>
-                    <BackArrow />
-                </Link>
-                <div className="font-bold">{course.title}</div>
-                <Link href="/curriculum/filter">
-                    <Filter />
-                </Link>
-            </Header>
-            <TagContainer />
+            <div className="flex flex-col">
+                <Header>
+                    <Link href={`/curriculum/${params.curriculumId}`}>
+                        <BackArrow />
+                    </Link>
+                    <div className="font-bold">{course.title}</div>
+                    <Link href="/curriculum/filter">
+                        <Filter />
+                    </Link>
+                </Header>
+                <TagContainer />
+            </div>
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer chapters={sortedChapters} curriculumId={params.curriculumId} />
             </MotionDiv>
