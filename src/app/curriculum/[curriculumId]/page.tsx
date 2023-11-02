@@ -1,18 +1,15 @@
-import { getCourses, getCurriculums } from "@/modules/curriculum/serverApiActions";
+import { getCourses, getCurriculum } from "@/modules/curriculum/serverApiActions";
 import { Header } from "@/components/Header";
 import { BackArrow, Filter } from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 
 import MotionDiv from "@/lib/animation/MotionDiv";
-import React from "react";
+import React, { Suspense } from "react";
 import { HydratedCourses } from "@/app/curriculum/[curriculumId]/hydrated-course";
 
 const Course = async ({ params }: { params: { curriculumId: string } }) => {
     const courses = await getCourses({ curriculumId: params.curriculumId });
-    const curriculums = await getCurriculums();
-
-    const curriculum = curriculums.find((curriculum) => curriculum.id === params.curriculumId) as Curriculum;
 
     return (
         <div className="flex flex-col h-full">
@@ -20,7 +17,9 @@ const Course = async ({ params }: { params: { curriculumId: string } }) => {
                 <Link href="/curriculum">
                     <BackArrow />
                 </Link>
-                <div className="font-bold">{curriculum.title}</div>
+                <Suspense>
+                    <CourseTitle curriculumId={params.curriculumId} />
+                </Suspense>
                 <Link href="/curriculum/filter">
                     <Filter />
                 </Link>
@@ -33,6 +32,12 @@ const Course = async ({ params }: { params: { curriculumId: string } }) => {
 };
 
 export default Course;
+
+const CourseTitle = async ({ curriculumId }: { curriculumId: string }) => {
+    const curriculum = await getCurriculum({ id: curriculumId });
+
+    return <div className="font-bold">{curriculum.title}</div>;
+};
 
 const BodyContainer = ({ courses }: { courses: Course[] }) => (
     <div className="space-y-4">

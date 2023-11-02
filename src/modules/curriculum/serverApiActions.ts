@@ -33,6 +33,26 @@ export const getCurriculums = async (): Promise<Curriculum[]> => {
     });
 };
 
+export const getCurriculum = async ({ id }: { id: string }): Promise<Curriculum> => {
+    const accessToken = await getAccessToken();
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/curriculum/${id}`,
+        method: "GET",
+        token: accessToken,
+    });
+};
+
+export const getCourse = async ({ id }: { id: string }): Promise<Course> => {
+    const accessToken = await getAccessToken();
+
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/course/${id}`,
+        method: "GET",
+        token: accessToken,
+    });
+};
+
 export const getChapter = async ({ chapterId }: { chapterId: string }): Promise<Chapter> => {
     const accessToken = await getAccessToken();
 
