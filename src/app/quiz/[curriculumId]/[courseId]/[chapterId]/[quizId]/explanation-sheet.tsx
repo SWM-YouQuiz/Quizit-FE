@@ -23,7 +23,7 @@ const ExplanationSheet = ({ isBottomSheetOpen, closeBottomSheet, solution, answe
                     </Sheet.Scroller>
                 </Sheet.Content>
             </Sheet.Container>
-            <Sheet.Backdrop />
+            <Sheet.Backdrop onTap={closeBottomSheet} />
         </Sheet>
     );
 };
