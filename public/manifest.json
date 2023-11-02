@@ -341,6 +341,18 @@
       "idiom": "mac",
       "scale": "2x",
       "size": "512x512"
+    },
+    {
+      "src": "icons/ios/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/ios/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "id": "001",
