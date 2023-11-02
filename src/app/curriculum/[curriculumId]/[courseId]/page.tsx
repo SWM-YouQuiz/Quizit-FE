@@ -1,12 +1,11 @@
 import { getChapters, getCourses } from "@/modules/curriculum/serverApiActions";
 import { Header } from "@/components/Header";
-import { Filter } from "@/components/svgs";
+import { BackArrow, Filter } from "@/components/svgs";
 import Link from "next/link";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
 import MotionDiv from "@/lib/animation/MotionDiv";
-import BackButton from "@/components/BackButton";
 import React from "react";
 import { HydratedChapters } from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
 import TagContainer from "@/modules/curriculum/TagContainer";
@@ -21,7 +20,9 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
     return (
         <div className="flex flex-col h-full">
             <Header>
-                <BackButton />
+                <Link href={`/curriculum/${params.curriculumId}`}>
+                    <BackArrow />
+                </Link>
                 <div className="font-bold">{course.title}</div>
                 <Link href="/curriculum/filter">
                     <Filter />
