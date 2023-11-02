@@ -1,4 +1,4 @@
-import { getChapters, getCourses } from "@/modules/curriculum/serverApiActions";
+import { getChapters, getCourse } from "@/modules/curriculum/serverApiActions";
 import { Header } from "@/components/Header";
 import { BackArrow, Filter } from "@/components/svgs";
 import Link from "next/link";
@@ -6,17 +6,11 @@ import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
 import MotionDiv from "@/lib/animation/MotionDiv";
-import React from "react";
+import React, { Suspense } from "react";
 import { HydratedChapters } from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
 import TagContainer from "@/modules/curriculum/TagContainer";
 
-const Chapter = async ({ params }: { params: { curriculumId: string; courseId: string } }) => {
-    const chapters = await getChapters({ courseId: params.courseId });
-    const courses = await getCourses({ curriculumId: params.curriculumId });
-
-    const course = courses.find((course) => course.id === params.courseId) as Course;
-    const sortedChapters = chapters.sort((a, b) => parseInt(a.index) - parseInt(b.index));
-
+const Chapter = ({ params }: { params: { curriculumId: string; courseId: string } }) => {
     return (
         <div className="flex flex-col h-full">
             <div className="flex flex-col">
@@ -24,7 +18,9 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
                     <Link href={`/curriculum/${params.curriculumId}`}>
                         <BackArrow />
                     </Link>
-                    <div className="font-bold">{course.title}</div>
+                    <Suspense>
+                        <ChapterTitle courseId={params.courseId} />
+                    </Suspense>
                     <Link href="/curriculum/filter">
                         <Filter />
                     </Link>
@@ -32,7 +28,9 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
                 <TagContainer />
             </div>
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
-                <BodyContainer chapters={sortedChapters} curriculumId={params.curriculumId} />
+                <Suspense>
+                    <BodyContainer curriculumId={params.curriculumId} courseId={params.courseId} />
+                </Suspense>
             </MotionDiv>
         </div>
     );
@@ -40,28 +38,39 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
 
 export default Chapter;
 
+const ChapterTitle = async ({ courseId }: { courseId: string }) => {
+    const course = await getCourse({ id: courseId });
+
+    return <div className="font-bold">{course.title}</div>;
+};
+
 type BodyContainerProps = {
-    chapters: Chapter[];
+    courseId: string;
     curriculumId: string;
 };
-const BodyContainer = ({ chapters, curriculumId }: BodyContainerProps) => (
-    <div className="w-full space-y-4">
-        <OptionSheetContainer>
-            {chapters.map(({ id, description, courseId, document, index, image }, idx) => (
-                <HydratedChapters key={`chapter-${id}`} chapterId={id}>
-                    <Card
-                        href={`/quiz/${curriculumId}/${courseId}/${id}`}
-                        alt={courseId}
-                        imageUrl={image}
-                        path={`Chapter ${idx + 1}`}
-                        title={description}
-                        id={id}
-                        type="chapter"
-                    >
-                        <Options documentUrl={document} />
-                    </Card>
-                </HydratedChapters>
-            ))}
-        </OptionSheetContainer>
-    </div>
-);
+const BodyContainer = async ({ courseId, curriculumId }: BodyContainerProps) => {
+    const chapters = await getChapters({ courseId: courseId });
+    const sortedChapters = chapters.sort((a, b) => parseInt(a.index) - parseInt(b.index));
+
+    return (
+        <div className="w-full space-y-4">
+            <OptionSheetContainer>
+                {sortedChapters.map(({ id, description, courseId, document, index, image }, idx) => (
+                    <HydratedChapters key={`chapter-${id}`} chapterId={id}>
+                        <Card
+                            href={`/quiz/${curriculumId}/${courseId}/${id}`}
+                            alt={courseId}
+                            imageUrl={image}
+                            path={`Chapter ${idx + 1}`}
+                            title={description}
+                            id={id}
+                            type="chapter"
+                        >
+                            <Options documentUrl={document} />
+                        </Card>
+                    </HydratedChapters>
+                ))}
+            </OptionSheetContainer>
+        </div>
+    );
+};
