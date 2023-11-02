@@ -89,7 +89,7 @@ const Input = ({ handleInputChange, input, margin, snapTo }: InputProps) => {
     }
 
     return (
-        <div className={`relative flex bottom-[${margin}px] z-50 ${isKeyboardVisible ? "mb-80" : ""}`}>
+        <div className={`relative flex z-50 ${isKeyboardVisible ? "mb-80" : ""}`} style={{ bottom: `${margin}px` }}>
             <input
                 type="text"
                 className={`w-full bg-stone-100 rounded-xl px-5 py-2.5 pl-5 focus:outline-none`}
