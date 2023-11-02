@@ -26,7 +26,7 @@ const QuizComponent = ({ quiz }: { quiz: Quiz }) => {
     }, [quiz]);
 
     return (
-        <div className="flex flex-col h-full justify-between w-full">
+        <div className="flex flex-col h-full justify-between w-full px-5">
             <QuizHeader quizHtml={quizHtml} />
             <QuizContent quizContentHtml={quizHtml.question} />
             <BottomSideContainer>

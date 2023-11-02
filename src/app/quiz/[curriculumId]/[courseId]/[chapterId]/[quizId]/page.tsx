@@ -20,7 +20,7 @@ const QuizPage = async ({ params }: { params: QuizPageParams }) => {
                 <div className="font-bold">퀴즈</div>
                 <ShareButton />
             </Header>
-            <MotionDiv className="flex-grow bg-white overflow-y-auto p-5">
+            <MotionDiv className="flex-grow bg-white overflow-y-auto py-5">
                 <QuizSwiper quizId={params.quizId} chapterId={params.chapterId} courseId={params.courseId} curriculumId={params.curriculumId} />
             </MotionDiv>
         </div>
