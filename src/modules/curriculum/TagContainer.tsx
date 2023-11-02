@@ -28,9 +28,15 @@ const TagContainer = () => {
 
     return (
         <div className="space-x-3 flex">
-            <Tag name="markedQuiz" text="" toggle={quizFilter["markedQuiz"]} handleToggle={handleToggle} icon={<MarkedQuizIcon />} />
-            <Tag name="unsolvedQuiz" text="" toggle={quizFilter["unsolvedQuiz"]} handleToggle={handleToggle} icon={<UnsolvedQuizIcon />} />
-            <Tag name="incorrectQuiz" text="" toggle={quizFilter["incorrectQuiz"]} handleToggle={handleToggle} icon={<IncorrectQuizIcon />} />
+            <Tag name="markedQuiz" text="찜한 퀴즈만" toggle={quizFilter["markedQuiz"]} handleToggle={handleToggle} icon={<MarkedQuizIcon />} />
+            <Tag name="unsolvedQuiz" text="안푼 퀴즈만" toggle={quizFilter["unsolvedQuiz"]} handleToggle={handleToggle} icon={<UnsolvedQuizIcon />} />
+            <Tag
+                name="incorrectQuiz"
+                text="틀린 퀴즈만"
+                toggle={quizFilter["incorrectQuiz"]}
+                handleToggle={handleToggle}
+                icon={<IncorrectQuizIcon />}
+            />
         </div>
     );
 };
