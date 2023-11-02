@@ -28,6 +28,7 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
                     <Filter />
                 </Link>
             </Header>
+            <TagContainer />
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <BodyContainer chapters={sortedChapters} curriculumId={params.curriculumId} />
             </MotionDiv>
@@ -44,7 +45,6 @@ type BodyContainerProps = {
 const BodyContainer = ({ chapters, curriculumId }: BodyContainerProps) => (
     <div className="w-full space-y-4">
         <OptionSheetContainer>
-            <TagContainer />
             {chapters.map(({ id, description, courseId, document, index, image }, idx) => (
                 <HydratedChapters key={`chapter-${id}`} chapterId={id}>
                     <Card

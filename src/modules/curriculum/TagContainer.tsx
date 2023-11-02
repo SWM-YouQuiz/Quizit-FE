@@ -27,7 +27,7 @@ const TagContainer = () => {
     };
 
     return (
-        <div className="space-x-3 flex">
+        <div className="space-x-3 flex px-5 pb-2.5">
             <Tag name="markedQuiz" text="찜한 퀴즈만" toggle={quizFilter["markedQuiz"]} handleToggle={handleToggle} icon={<MarkedQuizIcon />} />
             <Tag name="unsolvedQuiz" text="안푼 퀴즈만" toggle={quizFilter["unsolvedQuiz"]} handleToggle={handleToggle} icon={<UnsolvedQuizIcon />} />
             <Tag
