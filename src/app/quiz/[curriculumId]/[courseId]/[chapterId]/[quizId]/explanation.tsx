@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useChat } from "ai/react";
+import React, { useContext, useEffect, useRef } from "react";
+import { UseChatHelpers } from "ai/react";
 import { useMessageToHtmlString } from "@/modules/quiz/hooks/useRemark";
 import { Message } from "ai";
-import { Send } from "@/components/svgs";
-import { isSupported, subscribe } from "on-screen-keyboard-detector";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { QuizContext } from "@/lib/context/Context";
@@ -26,12 +24,14 @@ type ExplanationComponentProps = {
     answer: number;
     solution: string;
     select: number;
+    chat: UseChatHelpers;
 };
 
 const image = "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg";
 
-const ExplanationComponent = ({ quizHtml, answer, solution, select }: ExplanationComponentProps) => {
+const ExplanationComponent = ({ quizHtml, answer, solution, select, chat }: ExplanationComponentProps) => {
     const { id: quizId, question, options: quizOptions } = quizHtml;
+    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = chat;
 
     const makeUserPrompt = (question: string, answer: number) => {
         return `
@@ -43,32 +43,9 @@ const ExplanationComponent = ({ quizHtml, answer, solution, select }: Explanatio
     `;
     };
 
-    const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
-        initialMessages: [{ id: `quiz-${quizId}-1`, role: "assistant", content: solution }],
-    });
     const convertedMessages = useMessageToHtmlString(messages, isLoading);
 
-    return (
-        <form
-            className="flex flex-col justify-between h-full"
-            onSubmit={(e) =>
-                handleSubmit(e, {
-                    options: {
-                        body: {
-                            chapterId: quizHtml.chapterId,
-                            question: question,
-                            options: JSON.stringify(quizOptions),
-                            answer: quizOptions[answer],
-                            choice: quizOptions[select],
-                        },
-                    },
-                })
-            }
-        >
-            <MessageBlockes convertedMessages={convertedMessages} isLoading={isLoading} error={error} />
-            <Input handleInputChange={handleInputChange} input={input} />
-        </form>
-    );
+    return <MessageBlockes convertedMessages={convertedMessages} isLoading={isLoading} error={error} />;
 };
 
 const MessageBlockes = ({ convertedMessages, isLoading, error }: { convertedMessages: Message[]; isLoading: boolean; error?: Error }) => {
@@ -138,39 +115,6 @@ const MessageBlock = ({ message }: { message: Message }) => {
             </div>
         );
     }
-};
-
-type InputProps = {
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
-    input: string;
-};
-const Input = ({ handleInputChange, input }: InputProps) => {
-    const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-
-    if (isSupported()) {
-        const unsubscribe = subscribe((visibility) => {
-            if (visibility === "hidden") {
-                setIsKeyboardVisible(false);
-            } else {
-                setIsKeyboardVisible(true);
-            }
-        });
-    }
-
-    return (
-        <div className={`relative flex ${isKeyboardVisible ? "mb-80" : ""}`}>
-            <input
-                type="text"
-                className={`w-full bg-stone-100 rounded-xl px-5 py-2.5 pl-5 focus:outline-none`}
-                placeholder="더 자세한 설명을 해주세요"
-                value={input}
-                onChange={handleInputChange}
-            />
-            <button className="absolute right-1 top-1 bottom-1 z-10" type="submit">
-                <Send />
-            </button>
-        </div>
-    );
 };
 
 export default ExplanationComponent;

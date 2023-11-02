@@ -8,6 +8,7 @@ import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetCon
 import MotionDiv from "@/lib/animation/MotionDiv";
 import React from "react";
 import { HydratedChapters } from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
+import TagContainer from "@/modules/curriculum/TagContainer";
 
 const Chapter = async ({ params }: { params: { curriculumId: string; courseId: string } }) => {
     const chapters = await getChapters({ courseId: params.courseId });
@@ -27,8 +28,9 @@ const Chapter = async ({ params }: { params: { curriculumId: string; courseId: s
                     <Filter />
                 </Link>
             </Header>
+            <TagContainer />
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
-                <BodyContainer chapters={chapters} curriculumId={params.curriculumId} />
+                <BodyContainer chapters={sortedChapters} curriculumId={params.curriculumId} />
             </MotionDiv>
         </div>
     );

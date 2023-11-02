@@ -8,6 +8,7 @@ import { HeartSquareButton } from "@/components/Heartbutton";
 import { QuizContext } from "@/lib/context/Context";
 import { deleteToken } from "@/modules/serverActions";
 import { useRouter } from "next/navigation";
+import { Check } from "@/components/svgs";
 
 const optionSignature = ["A", "B", "C", "D"];
 
@@ -15,7 +16,7 @@ const statusColor: Record<ItemStatus, string> = {
     idle: "text-secondary-800  bg-primary-50 inner-border-primary-800",
     select: "text-secondary-800  bg-primary-50 inner-border-primary-800 inner-border-2",
     correct: "text-primary-800 bg-primary-200 inner-border-2 inner-border-primary-800",
-    wrong: "bg-bg-error inner-border-error",
+    wrong: "text-error bg-bg-error inner-border-error",
 };
 
 type QuizItemsProps = {
@@ -91,11 +92,17 @@ const QuizItem = ({
 }) => (
     <motion.button
         type="button"
-        className={cn(`flex min-h-[50px] w-full p-4 rounded-xl`, statusColor[itemStatus])}
+        className={cn(`flex justify-between items-center min-h-[50px] w-full p-4 rounded-xl`, statusColor[itemStatus])}
         onClick={() => handleOptionClicked(idx)}
         whileTap={{ scale: 0.95 }}
+        animate={{
+            scale: itemStatus === "correct" ? [1.0, 1.1, 1.0] : 1.0,
+            rotate: itemStatus === "wrong" ? [0, 1, -1, 1, 0] : 0,
+        }}
+        transition={{ bounce: 1 }}
     >
         <p className="whitespace-normal break-keep text-[12px]">{itemString}</p>
+        {itemStatus === "correct" && <Check />}
     </motion.button>
 );
 
