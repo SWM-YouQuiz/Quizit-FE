@@ -341,12 +341,6 @@
       "idiom": "mac",
       "scale": "2x",
       "size": "512x512"
-    },
-    {
-      "src": "icons/ios/196.png",
-      "sizes": "196x196",
-      "type": "image/png",
-      "purpose": "any maskable"
     }
   ],
   "id": "001",
