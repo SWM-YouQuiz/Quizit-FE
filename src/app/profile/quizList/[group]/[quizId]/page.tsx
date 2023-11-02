@@ -42,7 +42,7 @@ const QuizPage = ({ params }: { params: QuizPageParams }) => {
                 <div className="font-bold">퀴즈</div>
                 <ShareButton />
             </Header>
-            <div className="flex-grow px-5 pb-5 pt-2.5 overflow-y-scroll bg-white">
+            <div className="flex-grow pb-5 pt-2.5 overflow-y-scroll bg-white">
                 <QuizComponent quiz={quiz} />
             </div>
         </div>
