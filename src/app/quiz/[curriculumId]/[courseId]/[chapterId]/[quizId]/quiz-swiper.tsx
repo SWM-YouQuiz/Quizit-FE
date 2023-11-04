@@ -61,9 +61,9 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
             revalidate(curriculumId);
             revalidate(courseId);
             revalidate(chapterId);
-            queryClient.invalidateQueries({ queryKey: ["curriculum", curriculumId] });
-            queryClient.invalidateQueries({ queryKey: ["course", courseId] });
-            queryClient.invalidateQueries({ queryKey: ["chapter", chapterId] });
+            queryClient.invalidateQueries({ queryKey: ["curriculum", curriculumId, "progress"] });
+            queryClient.invalidateQueries({ queryKey: ["course", courseId, "progress"] });
+            queryClient.invalidateQueries({ queryKey: ["chapter", chapterId, "progress"] });
         };
     }, [chapterId, courseId, curriculumId]);
 
