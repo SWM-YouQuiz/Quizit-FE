@@ -34,7 +34,7 @@ export const requestApi = async ({ endpoint, method, body, token, cache, tags, c
     });
 
     const rawCookie: string | null = response.headers.get("set-cookie");
-    console.log("rawCookie", rawCookie);
+
     if (rawCookie) {
         const cookieParts = rawCookie.split(";").map((part) => part.trim());
         const [nameValue, ...rest] = cookieParts;
