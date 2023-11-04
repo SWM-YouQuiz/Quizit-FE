@@ -57,8 +57,6 @@ const Carousel = () => {
 
     if (isCurriculumsLoading || isCoursesLoading || !courses) return null;
 
-    console.log("courses", courses);
-
     return (
         <>
             <Swiper

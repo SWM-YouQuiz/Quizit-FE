@@ -50,7 +50,6 @@ const QuizContainer = ({ children }: QuizContextProps) => {
 
     const checkIsAuthRequiredRoute = () => {
         const currentPath = window.location.pathname;
-        console.log("currentPath", currentPath);
         for (const pattern of config.matcher) {
             const regex = pathToRegexp(pattern);
 

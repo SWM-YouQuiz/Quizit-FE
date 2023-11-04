@@ -33,6 +33,23 @@ export const requestApi = async ({ endpoint, method, body, token, cache, tags, c
         ...(body && { body: JSON.stringify(body) }),
     });
 
+    const rawCookie: string | null = response.headers.get("set-cookie");
+
+    if (rawCookie) {
+        const cookieParts = rawCookie.split(";").map((part) => part.trim());
+        const [nameValue, ...rest] = cookieParts;
+        const [name, value] = nameValue.split("=");
+
+        cookies().set({
+            name,
+            value,
+            path: "/",
+            maxAge: 600000,
+            secure: true,
+            httpOnly: true,
+        });
+    }
+
     let data;
     try {
         data = await response.json();

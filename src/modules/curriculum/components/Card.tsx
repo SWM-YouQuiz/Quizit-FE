@@ -2,14 +2,10 @@
 import { cn } from "@/util/tailwind";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode, useContext } from "react";
-import { getChapterProgress, getCourseProgress, getCurriculumProgress } from "@/modules/curriculum/serverApiActions";
-import { QuizContext } from "@/lib/context/Context";
-import { useQuery } from "@tanstack/react-query";
+import { ReactNode } from "react";
 
 type CardProps = {
-    type: "curriculum" | "course" | "chapter";
-    id: string;
+    progress: Progress | undefined;
     href?: string;
     imageUrl: string;
     path: string;
@@ -19,22 +15,7 @@ type CardProps = {
     children?: ReactNode;
 };
 
-const Card = ({ type, id, href = "", imageUrl, path, title, alt, className = "", children = null }: CardProps) => {
-    const { accessToken } = useContext(QuizContext);
-    const { data: progress, isFetching } = useQuery({
-        queryKey: [type, id, "progress"],
-        queryFn: () => {
-            if (type === "curriculum") {
-                return getCurriculumProgress({ curriculumId: id, accessToken });
-            } else if (type === "course") {
-                return getCourseProgress({ courseId: id, accessToken });
-            } else {
-                return getChapterProgress({ chapterId: id, accessToken });
-            }
-        },
-        staleTime: 1000 * 60 * 60,
-    });
-
+const Card = ({ progress, href = "", imageUrl, path, title, alt, className = "", children = null }: CardProps) => {
     return (
         <Link href={href} className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4 h-[120px]", className)}>
             <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} progress={progress}>
