@@ -6,8 +6,9 @@ import { useContext } from "react";
 import { QuizContext } from "@/lib/context/Context";
 import { useIntersectionObserver } from "@/modules/profile/hooks/useIntersectionObserver";
 
-const QuizList = ({ quizIds, group }: { quizIds: string[]; group: keyof UserInfo }) => {
+const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const { accessToken, user } = useContext(QuizContext);
+    const quizIds = user ? (user[group] as string[]) : [];
     const { data, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage, isFetchingNextPage, isFetchingPreviousPage } = useInfiniteQuery({
         queryKey: ["quizzes"],
         queryFn: async ({ pageParam }) => [await getQuiz({ quizId: quizIds[pageParam], accessToken })],

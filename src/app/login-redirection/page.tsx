@@ -35,7 +35,7 @@ const OAuth = ({ searchParams }: { searchParams: any }) => {
 
     useEffect(() => {
         const initializeUser = async () => {
-            await Promise.all([setUser(), setAccessToken()]);
+            await Promise.all([setUser()]);
             if (isSignUp === "true") {
                 router.replace(`/onboarding/0`);
             } else {
