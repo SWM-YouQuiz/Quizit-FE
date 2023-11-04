@@ -20,7 +20,7 @@ export const getAccessToken = async () => {
     return accessToken.value;
 };
 
-export const deleteToken = () => {
+export const deleteToken = async () => {
     console.log("delete all token!!!");
     cookies().delete("accessToken");
     cookies().delete("refreshToken");

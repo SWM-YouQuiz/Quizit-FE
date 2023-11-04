@@ -6,7 +6,7 @@ import { postRefresh } from "@/modules/auth/serverApiActions";
 import { useRouter } from "next/navigation";
 import { pathToRegexp } from "path-to-regexp";
 import { config } from "@/middleware";
-import { setCookie } from "@/modules/serverActions";
+import { deleteToken, setCookie } from "@/modules/serverActions";
 import { getUser } from "@/modules/profile/serverApiActions";
 import Loading from "@/components/Loading";
 
@@ -50,6 +50,7 @@ const QuizContainer = ({ children }: QuizContextProps) => {
 
     const checkIsAuthRequiredRoute = () => {
         const currentPath = window.location.pathname;
+        console.log("currentPath", currentPath);
         for (const pattern of config.matcher) {
             const regex = pathToRegexp(pattern);
 
@@ -63,7 +64,6 @@ const QuizContainer = ({ children }: QuizContextProps) => {
     const onSilentRefresh = async () => {
         postRefresh()
             .then((token) => {
-                console.log("silentRefresh!!");
                 onLoginSuccess({ accessToken: token.accessToken });
             })
             .catch((e) => console.error("Token refresh failed!"));
@@ -71,7 +71,7 @@ const QuizContainer = ({ children }: QuizContextProps) => {
 
     const onLoginSuccess = async ({ accessToken }: AccessToken) => {
         await setAccessToken(accessToken);
-        await setCookie({key: 'refreshToken', value: accessToken});
+        await setCookie({ key: "refreshToken", value: accessToken });
         setTimeout(onSilentRefresh, JWT_EXPIRRY_TIME - 60000);
     };
 
@@ -81,8 +81,9 @@ const QuizContainer = ({ children }: QuizContextProps) => {
             await onLoginSuccess({ accessToken: token.accessToken });
         } catch (error) {
             console.error("An error occurred during token refresh:", error);
+            deleteToken();
             if (checkIsAuthRequiredRoute()) {
-                router.replace("/auth/login");
+                window.location.href = "/auth/login";
             }
         } finally {
             setLoading(false);

@@ -27,6 +27,7 @@ const OAuth = ({ searchParams }: { searchParams: any }) => {
         if (!_accessToken) return;
         try {
             await setCookie({ key: "accessToken", value: _accessToken });
+            await setCookie({ key: "refreshToken", value: _accessToken });
         } catch (error) {
             console.error("An error occurred when setting the access token:", error);
         }

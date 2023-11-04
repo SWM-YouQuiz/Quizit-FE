@@ -19,8 +19,9 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
             <Button
                 className="bg-secondary-900"
                 onClick={() => {
-                    deleteToken();
-                    router.replace("/auth/login");
+                    deleteToken().then(() => {
+                        window.location.href = "auth/login";
+                    });
                 }}
                 context={"로그아웃"}
             />
