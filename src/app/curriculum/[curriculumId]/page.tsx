@@ -6,7 +6,6 @@ import Card from "@/modules/curriculum/components/Card";
 
 import MotionDiv from "@/lib/animation/MotionDiv";
 import React, { Suspense } from "react";
-import { HydratedCourses } from "@/app/curriculum/[curriculumId]/hydrated-course";
 
 const Course = async ({ params }: { params: { curriculumId: string } }) => {
     const courses = await getCourses({ curriculumId: params.curriculumId });
@@ -42,9 +41,7 @@ const CourseTitle = async ({ curriculumId }: { curriculumId: string }) => {
 const BodyContainer = ({ courses }: { courses: Course[] }) => (
     <div className="space-y-4">
         {courses.map(({ id, title, image, curriculumId }) => (
-            <HydratedCourses key={`course-${id}`} courseId={id}>
-                <Card id={id} type="course" href={`${curriculumId}/${id}`} alt={title} imageUrl={image} path={title} title={title} />
-            </HydratedCourses>
+            <Card key={id} id={id} type="course" href={`${curriculumId}/${id}`} alt={title} imageUrl={image} path={title} title={title} />
         ))}
     </div>
 );

@@ -32,6 +32,7 @@ const Card = ({ type, id, href = "", imageUrl, path, title, alt, className = "",
                 return getChapterProgress({ chapterId: id, accessToken });
             }
         },
+        staleTime: 1000 * 60 * 60,
     });
 
     return (

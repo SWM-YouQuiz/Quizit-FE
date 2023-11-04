@@ -5,6 +5,7 @@ import QuizContainer from "@/modules/quiz/components/QuizContext";
 import QuizFilterContainer from "@/modules/curriculum/components/QuizFilterContainer";
 import { AnimationWrapper } from "@/lib/animation/AnimationWrapper";
 import { ReactQueryProvider } from "@/lib/reactQuery/provider";
+import { HydratedProvider } from "@/lib/reactQuery/hydrated-provider";
 
 export const metadata = {
     title: "퀴즈잇(Quizit)",
@@ -25,7 +26,9 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
                 <ReactQueryProvider>
                     <QuizContainer>
                         <QuizFilterContainer>
-                            <AnimationWrapper>{children}</AnimationWrapper>
+                            <HydratedProvider>
+                                <AnimationWrapper>{children}</AnimationWrapper>
+                            </HydratedProvider>
                         </QuizFilterContainer>
                     </QuizContainer>
                 </ReactQueryProvider>

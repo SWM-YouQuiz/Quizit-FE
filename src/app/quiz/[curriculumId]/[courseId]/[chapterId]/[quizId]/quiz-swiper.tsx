@@ -13,6 +13,7 @@ import { useFilter } from "@/modules/quiz/hooks/useFilter";
 import { getUser } from "@/modules/profile/serverApiActions";
 import QuizNull from "@/components/QuizNull";
 import { revalidate } from "@/modules/serverActions";
+import getQueryClient from "@/lib/reactQuery/get-query-client";
 
 type QuizSwiperProps = {
     chapterId: string;
@@ -30,6 +31,7 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
     const [end, setEnd] = useState(false);
     const [loading, setLoading] = useState(true);
+    const queryClient = getQueryClient();
 
     useEffect(() => {
         if (quizId) {
@@ -52,13 +54,18 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
             await updateUser();
             setLoading(false);
         })();
+    }, []);
 
+    useEffect(() => {
         return () => {
             revalidate(curriculumId);
             revalidate(courseId);
             revalidate(chapterId);
+            queryClient.invalidateQueries({ queryKey: ["curriculum", curriculumId] });
+            queryClient.invalidateQueries({ queryKey: ["course", courseId] });
+            queryClient.invalidateQueries({ queryKey: ["chapter", chapterId] });
         };
-    }, []);
+    }, [chapterId, courseId, curriculumId]);
 
     const addSingleQuiz = async (quizId: string) => {
         const quiz = await getQuiz({ quizId: quizId, accessToken });

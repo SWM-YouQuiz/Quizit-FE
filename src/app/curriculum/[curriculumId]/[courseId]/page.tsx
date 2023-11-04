@@ -7,7 +7,6 @@ import Options from "@/modules/curriculum/components/Options";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
 import MotionDiv from "@/lib/animation/MotionDiv";
 import React, { Suspense } from "react";
-import { HydratedChapters } from "@/app/curriculum/[curriculumId]/[courseId]/hydrated-chapter";
 import TagContainer from "@/modules/curriculum/TagContainer";
 
 const Chapter = ({ params }: { params: { curriculumId: string; courseId: string } }) => {
@@ -56,19 +55,18 @@ const BodyContainer = async ({ courseId, curriculumId }: BodyContainerProps) => 
         <div className="w-full space-y-4">
             <OptionSheetContainer>
                 {sortedChapters.map(({ id, description, courseId, document, index, image }, idx) => (
-                    <HydratedChapters key={`chapter-${id}`} chapterId={id}>
-                        <Card
-                            href={`/quiz/${curriculumId}/${courseId}/${id}`}
-                            alt={courseId}
-                            imageUrl={image}
-                            path={`Chapter ${idx + 1}`}
-                            title={description}
-                            id={id}
-                            type="chapter"
-                        >
-                            <Options documentUrl={document} />
-                        </Card>
-                    </HydratedChapters>
+                    <Card
+                        key={id}
+                        href={`/quiz/${curriculumId}/${courseId}/${id}`}
+                        alt={courseId}
+                        imageUrl={image}
+                        path={`Chapter ${idx + 1}`}
+                        title={description}
+                        id={id}
+                        type="chapter"
+                    >
+                        <Options documentUrl={document} />
+                    </Card>
                 ))}
             </OptionSheetContainer>
         </div>
