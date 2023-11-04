@@ -1,10 +1,11 @@
 "use client";
-import { getCourses, getCurriculums } from "@/modules/curriculum/serverApiActions";
+import { getCourses, getCurriculumProgress, getCurriculums } from "@/modules/curriculum/serverApiActions";
 import Card from "@/modules/curriculum/components/Card";
 import { useContext } from "react";
 import { QuizContext } from "@/lib/context/Context";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import Curriculum from "@/app/curriculum/page";
+import { useRouter } from "next/navigation";
 
 const _getCourses = async (curriculums: Curriculum[] | undefined, accessToken: string) => {
     if (curriculums === undefined) return undefined;
@@ -21,6 +22,7 @@ const _getCourses = async (curriculums: Curriculum[] | undefined, accessToken: s
 };
 
 const BodyContainer = () => {
+    const router = useRouter();
     const { accessToken } = useContext(QuizContext);
     const { data: curriculums, isLoading: isCurriculumsLoading } = useQuery({
         queryKey: ["curriculums"],
@@ -33,6 +35,16 @@ const BodyContainer = () => {
         queryFn: () => _getCourses(curriculums, accessToken),
         staleTime: 1000 * 60 * 60,
         enabled: !!curriculums,
+    });
+
+    const progressQueries = useQueries({
+        queries:
+            curriculums?.map((curriculum) => ({
+                queryKey: ["curriculum", curriculum.id, "progress"],
+                queryFn: () => getCurriculumProgress({ curriculumId: curriculum.id, accessToken }),
+                staleTime: 1000 * 60 * 60,
+                enabled: !!curriculums,
+            })) ?? [],
     });
 
     if (isCurriculumsLoading || !curriculums) return null;
@@ -48,8 +60,7 @@ const BodyContainer = () => {
                     imageUrl={image}
                     alt={title}
                     path={title}
-                    id={id}
-                    type="curriculum"
+                    progress={progressQueries[idx]?.data}
                 />
             ))}
         </div>

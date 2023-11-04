@@ -1,10 +1,10 @@
 "use client";
 
-import { getCourses, getCurriculum } from "@/modules/curriculum/serverApiActions";
+import { getCourseProgress, getCourses, getCurriculum } from "@/modules/curriculum/serverApiActions";
 import Card from "@/modules/curriculum/components/Card";
 import React, { useContext } from "react";
 import { QuizContext } from "@/lib/context/Context";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
 export const CourseTitle = ({ curriculumId }: { curriculumId: string }) => {
     const { accessToken } = useContext(QuizContext);
@@ -27,12 +27,30 @@ const BodyContainer = ({ curriculumId }: { curriculumId: string }) => {
         staleTime: 1000 * 60 * 60,
     });
 
+    const progressQueries = useQueries({
+        queries:
+            courses?.map((course) => ({
+                queryKey: ["course", course.id, "progress"],
+                queryFn: () => getCourseProgress({ courseId: course.id, accessToken }),
+                staleTime: 1000 * 60 * 60,
+                enabled: !!courses,
+            })) ?? [],
+    });
+
     if (!courses) return null;
 
     return (
         <div className="space-y-4">
-            {courses.map(({ id, title, image, curriculumId }) => (
-                <Card key={id} id={id} type="course" href={`${curriculumId}/${id}`} alt={title} imageUrl={image} path={title} title={title} />
+            {courses.map(({ id, title, image, curriculumId }, idx) => (
+                <Card
+                    key={id}
+                    href={`${curriculumId}/${id}`}
+                    alt={title}
+                    imageUrl={image}
+                    path={title}
+                    title={title}
+                    progress={progressQueries[idx]?.data}
+                />
             ))}
         </div>
     );
