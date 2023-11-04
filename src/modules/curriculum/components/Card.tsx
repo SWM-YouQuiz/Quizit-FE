@@ -22,7 +22,7 @@ type CardProps = {
 const Card = ({ type, id, href = "", imageUrl, path, title, alt, className = "", children = null }: CardProps) => {
     const { accessToken } = useContext(QuizContext);
     const { data: progress, isFetching } = useQuery({
-        queryKey: [type, id],
+        queryKey: [type, id, "progress"],
         queryFn: () => {
             if (type === "curriculum") {
                 return getCurriculumProgress({ curriculumId: id, accessToken });
