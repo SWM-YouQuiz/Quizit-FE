@@ -14,15 +14,50 @@ import RankingList from "@/modules/ranking/components/RankingList";
 import { getUserCourseRanking, getUserRanking } from "@/modules/ranking/serverApiActions";
 import { QuizContext } from "@/lib/context/Context";
 import { revalidate } from "@/modules/serverActions";
+import { getCourses, getCurriculums } from "@/modules/curriculum/serverApiActions";
+import { useQuery } from "@tanstack/react-query";
 
-const Carousel = ({ courses }: { courses: Course[] }) => {
+const _getCourses = async (curriculums: Curriculum[] | undefined, accessToken: string) => {
+    if (curriculums === undefined) return undefined;
+    const courses2d: Course[][] = await Promise.all(
+        curriculums.map((curriculum) =>
+            getCourses({
+                curriculumId: curriculum.id,
+                accessToken,
+            }),
+        ),
+    );
+    const courses = courses2d.reduce((acc, curr) => {
+        return acc.concat(curr);
+    }, []);
+
+    return courses;
+};
+const Carousel = () => {
     const { accessToken } = useContext(QuizContext);
     const [rankingList, setRankingList] = useState<UserInfo[]>([]);
     const [index, setIndex] = useState(0);
 
+    const { data: curriculums, isLoading: isCurriculumsLoading } = useQuery({
+        queryKey: ["curriculums"],
+        queryFn: () => getCurriculums({ accessToken }),
+        staleTime: 1000 * 60 * 60,
+    });
+
+    const { data: courses, isLoading: isCoursesLoading } = useQuery({
+        queryKey: ["course"],
+        queryFn: () => _getCourses(curriculums, accessToken),
+        staleTime: 1000 * 60 * 60,
+        enabled: !!curriculums,
+    });
+
     useEffect(() => {
         revalidate("ranking");
     }, []);
+
+    if (isCurriculumsLoading || isCoursesLoading || !courses) return null;
+
+    console.log("courses", courses);
 
     return (
         <>

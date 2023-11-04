@@ -1,11 +1,13 @@
 "use server";
 import { requestApi } from "@/util/fetcher";
 import "server-only";
-import { getAccessToken } from "@/modules/serverActions";
 
-export const getCourses = async ({ curriculumId }: { curriculumId: string }): Promise<Course[]> => {
-    const accessToken = await getAccessToken();
-
+export const getCourses = async ({
+    curriculumId,
+    accessToken,
+}: {
+    curriculumId: string;
+} & AccessToken): Promise<Course[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/curriculum/${curriculumId}`,
         method: "GET",
@@ -13,9 +15,7 @@ export const getCourses = async ({ curriculumId }: { curriculumId: string }): Pr
     });
 };
 
-export const getChapters = async ({ courseId }: { courseId: string }): Promise<Chapter[]> => {
-    const accessToken = await getAccessToken();
-
+export const getChapters = async ({ courseId, accessToken }: { courseId: string } & AccessToken): Promise<Chapter[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/course/${courseId}`,
         method: "GET",
@@ -23,9 +23,7 @@ export const getChapters = async ({ courseId }: { courseId: string }): Promise<C
     });
 };
 
-export const getCurriculums = async (): Promise<Curriculum[]> => {
-    const accessToken = await getAccessToken();
-
+export const getCurriculums = async ({ accessToken }: AccessToken): Promise<Curriculum[]> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum`,
         method: "GET",
@@ -33,9 +31,7 @@ export const getCurriculums = async (): Promise<Curriculum[]> => {
     });
 };
 
-export const getCurriculum = async ({ id }: { id: string }): Promise<Curriculum> => {
-    const accessToken = await getAccessToken();
-
+export const getCurriculum = async ({ id, accessToken }: { id: string } & AccessToken): Promise<Curriculum> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/curriculum/${id}`,
         method: "GET",
@@ -43,9 +39,7 @@ export const getCurriculum = async ({ id }: { id: string }): Promise<Curriculum>
     });
 };
 
-export const getCourse = async ({ id }: { id: string }): Promise<Course> => {
-    const accessToken = await getAccessToken();
-
+export const getCourse = async ({ id, accessToken }: { id: string } & AccessToken): Promise<Course> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/course/${id}`,
         method: "GET",
@@ -53,9 +47,7 @@ export const getCourse = async ({ id }: { id: string }): Promise<Course> => {
     });
 };
 
-export const getChapter = async ({ chapterId }: { chapterId: string }): Promise<Chapter> => {
-    const accessToken = await getAccessToken();
-
+export const getChapter = async ({ chapterId, accessToken }: { chapterId: string } & AccessToken): Promise<Chapter> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/chapter/${chapterId}`,
         method: "GET",

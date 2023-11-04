@@ -28,7 +28,7 @@ const QuizCard = ({ href = "", quiz, className = "", userId }: CardProps) => {
 
     const _getChapter = async (chapterId: string) => {
         try {
-            const chapter = await getChapter({ chapterId });
+            const chapter = await getChapter({ chapterId, accessToken });
 
             setChapter(chapter);
         } catch (e) {
