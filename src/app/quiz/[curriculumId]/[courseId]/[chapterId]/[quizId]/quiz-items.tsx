@@ -102,7 +102,7 @@ const QuizItem = ({
         transition={{ bounce: 1 }}
     >
         <p className="whitespace-normal break-keep text-[12px]">{itemString}</p>
-        {itemStatus === "correct" && <Check />}
+        {itemStatus === "correct" ? <Check /> : <div className="w-6 h-6" />}
     </motion.button>
 );
 
