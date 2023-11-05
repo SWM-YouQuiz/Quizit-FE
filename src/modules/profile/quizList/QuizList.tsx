@@ -2,16 +2,37 @@
 import QuizCard from "@/modules/profile/components/QuizCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getQuiz } from "@/modules/quiz/serverApiActions";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "@/lib/context/Context";
 import { useIntersectionObserver } from "@/modules/profile/hooks/useIntersectionObserver";
+import { getUser } from "@/modules/profile/serverApiActions";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {
-    const { accessToken, user } = useContext(QuizContext);
-    const quizIds = user ? (user[group] as string[]) : [];
+    const { accessToken, dispatch } = useContext(QuizContext);
+    const [user, setUser] = useState<UserInfo | undefined>();
+
+    useEffect(() => {
+        if (!user) {
+            getUser({ accessToken, cache: "no-store" }).then((fetchedUser) => {
+                setUser(fetchedUser);
+                if (dispatch) {
+                    dispatch({ type: "SET_USER", payload: fetchedUser });
+                }
+            });
+        }
+    }, [accessToken, dispatch, user]);
+
+    const [quizIds, setQuizIds] = useState<string[]>([]);
+    useEffect(() => {
+        if (user) {
+            setQuizIds(user[group] as string[]);
+        }
+    }, [user, group]);
+
     const { data, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage, isFetchingNextPage, isFetchingPreviousPage } = useInfiniteQuery({
-        queryKey: ["quizzes"],
+        queryKey: ["quizList", group, quizIds],
         queryFn: async ({ pageParam }) => [await getQuiz({ quizId: quizIds[pageParam], accessToken })],
+        enabled: !!quizIds.length,
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;
@@ -23,7 +44,6 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
         }),
     });
 
-    // 커스텀 훅에 hasNextPage와 fetchNextPage를 넣어 setTarget을 받아옵니다.
     const { setTarget } = useIntersectionObserver({
         hasNextPage,
         fetchNextPage,
