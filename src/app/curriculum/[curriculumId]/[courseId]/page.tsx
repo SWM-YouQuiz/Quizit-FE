@@ -9,7 +9,7 @@ import BodyContainer, { ChapterTitle } from "@/app/curriculum/[curriculumId]/[co
 const Chapter = ({ params }: { params: { curriculumId: string; courseId: string } }) => {
     return (
         <div className="flex flex-col h-full">
-            <div className="flex flex-col">
+            <div className="flex flex-col bg-white">
                 <Header>
                     <Link href={`/curriculum/${params.curriculumId}`}>
                         <BackArrow />
