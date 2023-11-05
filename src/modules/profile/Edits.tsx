@@ -1,6 +1,6 @@
 "use client";
 import { Downarrow } from "@/components/svgs";
-import React, { MouseEventHandler, useContext, useState } from "react";
+import React, { MouseEventHandler, useContext, useEffect, useState } from "react";
 import Modal from "@/components/ui/Modal";
 import Input from "@/components/ui/Input";
 import { updateUser } from "@/modules/profile/serverApiActions";
@@ -16,12 +16,24 @@ export const NicknameEdit = () => {
     const [username, setUsername] = useState(user?.username);
     const [status, setStatus] = useState<"loading" | "error" | "idle">("idle");
 
-    const handleUserUpdate = async () => {
-        if (!username || !user || !dispatch) return;
-        if (username.length <= 1 || 10 < username.length) {
+    const checkValidate = (inputValue: string) => {
+        const isValid = /^[가-힣a-zA-Z0-9\s]{1,10}$/.test(inputValue);
+        if (isValid || inputValue === "") {
+            setUsername(inputValue);
+            setStatus("idle");
+        } else {
             setStatus("error");
-            return;
         }
+    };
+
+    useEffect(() => {
+        if (username) {
+            checkValidate(username);
+        }
+    }, [username]);
+
+    const handleUserUpdate = async () => {
+        if (!username || !user || !dispatch || status === "error") return;
         setStatus("loading");
         const updatedUser = await updateUser({
             body: {
@@ -43,11 +55,11 @@ export const NicknameEdit = () => {
         <div className="space-y-3">
             <div className="text-secondary-900 font-bold">
                 닉네임 변경&nbsp;
-                <span className={`font-normal text-sm ${usernameLength > 10 ? "text-error" : ""}`}>({usernameLength}/10)</span>
+                <span className={`font-normal text-xs ${status === "error" ? "text-error" : ""}`}>10자 이내의 영문 및 한글, 숫자만 허용됩니다.</span>
             </div>
             <div className="flex space-x-2">
                 <Input value={username} onChange={(e) => setUsername(e.target.value)} className={status === "error" ? `border-error` : ""} />
-                <Button context="변경" className="w-20" onClick={handleUserUpdate} disable={status === "loading"} />
+                <Button context="변경" className="w-20" onClick={handleUserUpdate} disable={status === "loading" || status === "error"} />
             </div>
         </div>
     );

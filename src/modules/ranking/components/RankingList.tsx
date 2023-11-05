@@ -48,7 +48,7 @@ const ItemContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const Item = ({ user, ranking }: { user: UserInfo; ranking: number }) => {
-    const userImage = user.image === "" ? "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character1.svg" : user.image;
+    const userImage = user.image === "" ? "https://quizit-storage.s3.ap-northeast-2.amazonaws.com/character2.svg" : user.image;
     return (
         <>
             <div className="flex">

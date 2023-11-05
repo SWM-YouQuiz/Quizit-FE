@@ -4,12 +4,12 @@ const Head = () => {
     return (
         <>
             <head>
-                <title>퀴즈잇(Quizit)</title>
-                <meta name="application-name" content="퀴즈잇(Quizit)" />
+                <title>퀴즈잇</title>
+                <meta name="application-name" content="퀴즈잇" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-                <meta name="apple-mobile-web-app-title" content="퀴즈잇(Quizit)" />
-                <meta name="description" content="퀴즈잇(Quizit)" />
+                <meta name="apple-mobile-web-app-title" content="퀴즈잇" />
+                <meta name="description" content="퀴즈잇" />
                 <meta name="format-detection" content="telephone=no" />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -43,14 +43,14 @@ const Head = () => {
 
                 <meta name="twitter:card" content="summary" />
                 <meta name="twitter:url" content="https://quizit.org" />
-                <meta name="twitter:title" content="퀴즈잇(Quizit)" />
-                <meta name="twitter:description" content="퀴즈잇(Quizit)" />
+                <meta name="twitter:title" content="퀴즈잇" />
+                <meta name="twitter:description" content="퀴즈잇" />
                 <meta name="twitter:image" content="https://quizit.org/icons/android/drawable-xxxhdpi/icon" />
                 <meta name="twitter:creator" content="" />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="퀴즈잇(Quizit)" />
-                <meta property="og:description" content="퀴즈잇(Quizit)" />
-                <meta property="og:site_name" content="퀴즈잇(Quizit)" />
+                <meta property="og:title" content="퀴즈잇" />
+                <meta property="og:description" content="퀴즈잇" />
+                <meta property="og:site_name" content="퀴즈잇" />
                 <meta property="og:url" content="https://quiz.org" />
                 <meta property="og:image" content="https://quizit.org/icons/android/drawable-xxxhdpi/icon.png" />
 
