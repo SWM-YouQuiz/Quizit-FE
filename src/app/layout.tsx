@@ -8,7 +8,7 @@ import { ReactQueryProvider } from "@/lib/reactQuery/provider";
 import { HydratedProvider } from "@/lib/reactQuery/hydrated-provider";
 
 export const metadata = {
-    title: "퀴즈잇(Quizit)",
+    title: "퀴즈잇",
     description: "퀴즈잇(Quizit): 퀴즈로 지식을 잇다.",
     viewport: {
         width: "device-width",
