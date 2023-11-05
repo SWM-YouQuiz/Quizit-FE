@@ -13,5 +13,3 @@ export const middleware = async (request: NextRequest) => {
 export const config = {
     matcher: ["/curriculum/:path*", "/ranking/:path*", "/create/:path*", "/profile/:path*", "/onboarding/:path*", "/quiz/:path*", "/"],
 };
-
-export const matcher = ["/curriculum/:path*", "/ranking/:path*", "/create/:path*", "/profile/:path*", "/onboarding/:path*", "/"];

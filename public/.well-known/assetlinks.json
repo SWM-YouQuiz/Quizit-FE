@@ -1,13 +1,15 @@
 [
-    {
-        "relation": ["delegate_permission/common.handle_all_urls"],
-        "target": {
-            "namespace": "android_app",
-            "package_name": "org.quizit.quizit",
-            "sha256_cert_fingerprints": [
-                "74:C7:91:66:2D:A2:64:6E:7C:D3:1E:DA:72:E4:5A:DA:26:77:60:9F:8B:C1:DB:A3:6B:E3:CE:01:E8:04:93:81",
-                "49:74:25:0A:98:B7:05:58:D9:C9:0B:5C:05:F9:25:1F:AA:36:FD:B7:12:28:89:FE:07:5A:CF:F2:EB:B8:32:6B"
-            ]
-        }
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.quizit.quizit",
+      "sha256_cert_fingerprints": [
+        "74:C7:91:66:2D:A2:64:6E:7C:D3:1E:DA:72:E4:5A:DA:26:77:60:9F:8B:C1:DB:A3:6B:E3:CE:01:E8:04:93:81",
+        "49:74:25:0A:98:B7:05:58:D9:C9:0B:5C:05:F9:25:1F:AA:36:FD:B7:12:28:89:FE:07:5A:CF:F2:EB:B8:32:6B"
+      ]
     }
+  }
 ]
