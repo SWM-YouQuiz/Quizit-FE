@@ -3,6 +3,7 @@ import { cn } from "@/util/tailwind";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 type CardProps = {
     progress: Progress | undefined;
@@ -39,7 +40,7 @@ const MainContainer = ({ imageUrl, path, title, alt, progress, children }: MainC
                 </div>
                 {children}
             </div>
-            {progress && <ProgressBar total={progress.total} solved={progress.solved} />}
+            {progress ? <ProgressBar total={progress.total} solved={progress.solved} /> : <ProgressBarLoading />}
         </div>
     </div>
 );
@@ -56,6 +57,33 @@ const ProgressBar = ({ total, solved }: ProgressBarProps) => (
         <div className="leading-[14px] text-xs">
             <span className="text-point1">{`${solved}문제 완료`}</span>
             <span>{`/ ${total}문제`}</span>
+        </div>
+    </div>
+);
+
+const ProgressBarLoading = () => (
+    <div className="space-y-1.5">
+        <div className="relative overflow-hidden flex rounded bg-primary-50 h-2.5">
+            <motion.div
+                style={{ width: `100%` }}
+                className="shadow-none flex flex-col text-center rounded whitespace-nowrap text-white justify-center bg-secondary-100"
+                animate={{
+                    background: [
+                        "linear-gradient(90deg, #9D9BAE 0%, #CECDD6 50%, #E7E6EB 100%)",
+                        "linear-gradient(90deg, #CECDD6 0%, #E7E6EB 50%, #9D9BAE 100%)",
+                        "linear-gradient(90deg, #E7E6EB 0%, #9D9BAE 50%, #CECDD6 100%)",
+                    ],
+                }}
+                transition={{
+                    repeat: Infinity,
+                    duration: 2,
+                    ease: "linear",
+                }}
+            ></motion.div>
+        </div>
+        <div className="leading-[14px] text-xs">
+            <span className="text-point1">{`-문제 완료`}</span>
+            <span>{`/ -문제`}</span>
         </div>
     </div>
 );
