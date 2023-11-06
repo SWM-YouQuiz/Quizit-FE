@@ -19,7 +19,7 @@ const RankingList = ({ rankingList }: RankingList) => {
             {myRanking !== -1 && <MyItem user={rankingList[myRanking]} ranking={myRanking + 1} />}
             <div className="h-[calc(100dvh-350px)] w-full rounded-t-2xl overflow-y-auto pt-[46px] bg-white drop-shadow-2xl">
                 <div className="flex flex-col">
-                    {rankingList.map((user, idx) => (
+                    {rankingList.slice(0, 100).map((user, idx) => (
                         <ItemContainer key={user.id}>
                             <Item user={user} ranking={idx + 1} />
                         </ItemContainer>
