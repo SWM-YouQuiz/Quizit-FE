@@ -1,6 +1,6 @@
 "use client";
 
-import { getChapterProgress, getChapters, getCourse } from "@/modules/curriculum/serverApiActions";
+import { getChapters, getCourse } from "@/modules/curriculum/serverApiActions";
 import OptionSheetContainer from "@/modules/curriculum/components/OptionSheetContainer";
 import Card from "@/modules/curriculum/components/Card";
 import Options from "@/modules/curriculum/components/Options";
@@ -8,6 +8,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { QuizContext } from "@/lib/context/Context";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import getQueryClient from "@/lib/reactQuery/get-query-client";
+import { clientRequestApi } from "@/util/fetcherClient";
 
 export const ChapterTitle = ({ courseId }: { courseId: string }) => {
     const { accessToken } = useContext(QuizContext);
@@ -46,7 +47,13 @@ const BodyContainer = ({ courseId, curriculumId }: BodyContainerProps) => {
     const progressQueries = useQueries({
         queries: sortedChapters.map((chapter) => ({
             queryKey: ["chapter", chapter.id, "progress"],
-            queryFn: () => getChapterProgress({ chapterId: chapter.id, accessToken }),
+            queryFn: () =>
+                clientRequestApi({
+                    endpoint: `/api/progress/chapter/${chapter.id}`,
+                    method: "GET",
+                    token: accessToken,
+                    tags: [chapter.id],
+                }),
             staleTime: 1000 * 60 * 60,
             enabled: sortedChapters.length > 0,
         })),

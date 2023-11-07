@@ -18,7 +18,11 @@ type CardProps = {
 
 const Card = ({ progress, href = "", imageUrl, path, title, alt, className = "", children = null }: CardProps) => {
     return (
-        <Link href={href} className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4 h-[120px]", className)}>
+        <Link
+            href={href}
+            className={cn("flex flex-col justify-between rounded-xl drop-shadow p-4 bg-white space-y-4 h-[120px]", className)}
+            shallow={true}
+        >
             <MainContainer imageUrl={imageUrl} path={path} title={title} alt={alt} progress={progress}>
                 {children}
             </MainContainer>
