@@ -1,10 +1,11 @@
 "use client";
 
-import { getCourseProgress, getCourses, getCurriculum } from "@/modules/curriculum/serverApiActions";
+import { getCourses, getCurriculum } from "@/modules/curriculum/serverApiActions";
 import Card from "@/modules/curriculum/components/Card";
 import React, { useContext } from "react";
 import { QuizContext } from "@/lib/context/Context";
 import { useQueries, useQuery } from "@tanstack/react-query";
+import { clientRequestApi } from "@/util/fetcherClient";
 
 export const CourseTitle = ({ curriculumId }: { curriculumId: string }) => {
     const { accessToken } = useContext(QuizContext);
@@ -31,7 +32,13 @@ const BodyContainer = ({ curriculumId }: { curriculumId: string }) => {
         queries:
             courses?.map((course) => ({
                 queryKey: ["course", course.id, "progress"],
-                queryFn: () => getCourseProgress({ courseId: course.id, accessToken }),
+                queryFn: () =>
+                    clientRequestApi({
+                        endpoint: `/api/progress/course/${course.id}`,
+                        method: "GET",
+                        token: accessToken,
+                        tags: [course.id],
+                    }),
                 staleTime: 1000 * 60 * 60,
                 enabled: !!courses,
             })) ?? [],

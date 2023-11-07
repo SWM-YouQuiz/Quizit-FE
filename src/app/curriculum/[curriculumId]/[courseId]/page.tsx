@@ -11,7 +11,7 @@ const Chapter = ({ params }: { params: { curriculumId: string; courseId: string 
         <div className="flex flex-col h-full">
             <div className="flex flex-col bg-white">
                 <Header>
-                    <Link href={`/curriculum/${params.curriculumId}`}>
+                    <Link href={`/curriculum/${params.curriculumId}`} shallow={true}>
                         <BackArrow />
                     </Link>
                     <Suspense>

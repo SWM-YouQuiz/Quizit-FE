@@ -1,11 +1,12 @@
 "use client";
-import { getCourses, getCurriculumProgress, getCurriculums } from "@/modules/curriculum/serverApiActions";
+import { getCourses, getCurriculums } from "@/modules/curriculum/serverApiActions";
 import Card from "@/modules/curriculum/components/Card";
 import { useContext } from "react";
 import { QuizContext } from "@/lib/context/Context";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import Curriculum from "@/app/curriculum/page";
 import { useRouter } from "next/navigation";
+import { clientRequestApi } from "@/util/fetcherClient";
 
 const _getCourses = async (curriculums: Curriculum[] | undefined, accessToken: string) => {
     if (curriculums === undefined) return undefined;
@@ -41,7 +42,13 @@ const BodyContainer = () => {
         queries:
             curriculums?.map((curriculum) => ({
                 queryKey: ["curriculum", curriculum.id, "progress"],
-                queryFn: () => getCurriculumProgress({ curriculumId: curriculum.id, accessToken }),
+                queryFn: () =>
+                    clientRequestApi({
+                        endpoint: `/api/progress/curriculum/${curriculum.id}`,
+                        method: "GET",
+                        token: accessToken,
+                        tags: [curriculum.id],
+                    }),
                 staleTime: 1000 * 60 * 60,
                 enabled: !!curriculums,
             })) ?? [],
