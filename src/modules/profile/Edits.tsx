@@ -17,7 +17,7 @@ export const NicknameEdit = () => {
     const [status, setStatus] = useState<"loading" | "error" | "idle">("idle");
 
     const checkValidate = (inputValue: string) => {
-        const isValid = /^[가-힣a-zA-Z0-9]{1,10}$/.test(inputValue);
+        const isValid = /^[가-힣a-zA-Z0-9]{1,20}$/.test(inputValue);
         if (isValid || inputValue === "") {
             setUsername(inputValue);
             setStatus("idle");
@@ -55,7 +55,7 @@ export const NicknameEdit = () => {
         <div className="space-y-3">
             <div className="text-secondary-900 font-bold">
                 닉네임 변경&nbsp;
-                <span className={`font-normal text-xs ${status === "error" ? "text-error" : ""}`}>10자 이내의 영문 및 한글, 숫자만 허용됩니다.</span>
+                <span className={`font-normal text-xs ${status === "error" ? "text-error" : ""}`}>20자 이내의 영문 및 한글, 숫자만 허용됩니다.</span>
             </div>
             <div className="flex space-x-2">
                 <Input value={username} onChange={(e) => setUsername(e.target.value)} className={status === "error" ? `border-error` : ""} />
