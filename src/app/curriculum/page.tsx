@@ -13,7 +13,7 @@ const Curriculum = () => {
                     <Alert />
                 </div>
             </Header>
-            <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
+            <MotionDiv className="flex-grow bg-secondary-50 overflow-y-auto p-5">
                 <HeaderContainer />
                 <BodyContainer />
             </MotionDiv>
