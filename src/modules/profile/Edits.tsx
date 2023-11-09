@@ -17,7 +17,7 @@ export const NicknameEdit = () => {
     const [status, setStatus] = useState<"loading" | "error" | "idle">("idle");
 
     const checkValidate = (inputValue: string) => {
-        const isValid = /^[가-힣a-zA-Z0-9\s]{1,10}$/.test(inputValue);
+        const isValid = /^[가-힣a-zA-Z0-9]{1,10}$/.test(inputValue);
         if (isValid || inputValue === "") {
             setUsername(inputValue);
             setStatus("idle");
