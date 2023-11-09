@@ -17,7 +17,7 @@ export const updateUser = async ({
     userId: string;
 } & AccessToken): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/${userId}`,
+        endpoint: `${process.env.API_URL}/api/user/${userId}`,
         method: "PUT",
         token: accessToken,
         body: body,
@@ -26,7 +26,7 @@ export const updateUser = async ({
 
 export const getUser = async ({ accessToken, cache }: { cache?: RequestCache } & AccessToken): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/authentication`,
+        endpoint: `${process.env.API_URL}/api/user/authentication`,
         method: "GET",
         token: accessToken,
         tags: ["user"],
@@ -36,7 +36,7 @@ export const getUser = async ({ accessToken, cache }: { cache?: RequestCache } &
 
 export const getUserFromId = async ({ id, accessToken }: { id: string; accessToken: string }): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/${id}`,
+        endpoint: `${process.env.API_URL}/api/user/${id}`,
         method: "GET",
         token: accessToken,
     });
@@ -49,7 +49,7 @@ export const getUserDeletion = async ({
     provider: string;
 } & AccessToken): Promise<UserInfo> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/auth/oauth2/revoke/${provider}`,
+        endpoint: `${process.env.API_URL}/api/oauth2/revoke/${provider}`,
         method: "GET",
         token: accessToken,
     });
