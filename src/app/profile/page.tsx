@@ -14,7 +14,7 @@ const ProfilePage = () => {
                     <Setting />
                 </Link>
             </Header>
-            <div className="flex-grow overflow-y-auto py-5 bg-white">
+            <div className="flex-grow overflow-y-auto py-5 bg-white -mb-10">
                 <BodyContainer />
             </div>
         </div>
