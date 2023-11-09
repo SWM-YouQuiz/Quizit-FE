@@ -229,6 +229,7 @@ const Head = () => {
                 }}
             />
             <Script
+                id="clarity-init"
                 strategy="afterInteractive"
                 dangerouslySetInnerHTML={{
                     __html: `
