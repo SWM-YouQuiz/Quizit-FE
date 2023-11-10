@@ -12,9 +12,9 @@ const googleImgSrc = `/icons/oauth/google.svg`;
 const kakaoImgSrc = `/icons/oauth/kakao.svg`;
 const appleImgSrc = `/icons/oauth/apple.svg`;
 
-const googleOAuthUrl = `/api/auth/oauth2/authorization/google`;
-const kakaoOAuthUrl = `/api/auth/oauth2/authorization/kakao`;
-const appleOAuthUrl = `/api/auth/oauth2/authorization/apple`;
+const googleOAuthUrl = `/api/oauth2/authorization/google`;
+const kakaoOAuthUrl = `/api/oauth2/authorization/kakao`;
+const appleOAuthUrl = `/api/oauth2/authorization/apple`;
 
 const LoginForm = () => {
     return (
