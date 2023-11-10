@@ -3,7 +3,7 @@ import { requestApi } from "@/util/fetcher";
 
 export const getUserRanking = async ({ accessToken }: AccessToken): Promise<UserInfo[]> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/ranking`,
+        endpoint: `${process.env.API_URL}/api/user/ranking`,
         method: "GET",
         token: accessToken,
         tags: ["ranking"],
@@ -17,7 +17,7 @@ export const getUserCourseRanking = async ({
     courseId: string;
 } & AccessToken): Promise<UserInfo[]> => {
     return requestApi({
-        endpoint: `${process.env.API_URL}/api/user/user/ranking/course/${courseId}`,
+        endpoint: `${process.env.API_URL}/api/user/ranking/course/${courseId}`,
         method: "GET",
         token: accessToken,
         tags: ["ranking"],
