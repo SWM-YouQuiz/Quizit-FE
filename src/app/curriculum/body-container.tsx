@@ -56,6 +56,8 @@ const BodyContainer = () => {
 
     if (isCurriculumsLoading || !curriculums) return null;
 
+    console.log("progressQueries", progressQueries);
+
     return (
         <div className="space-y-4">
             <div className="mt-8 text-lg font-bold text-secondary-900">전체 커리큘럼</div>
