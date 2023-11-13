@@ -241,6 +241,29 @@ const Head = () => {
                   `,
                 }}
             />
+            <Script
+                id="google-ads"
+                async
+                strategy="afterInteractive"
+                onError={(e) => {
+                    console.error("Script failed to load", e);
+                }}
+                src={`https://www.googletagmanager.com/gtag/js?id=AW-11399699872`}
+                crossOrigin="anonymous"
+            />
+            <Script
+                id="google-ads-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+    
+                    gtag('config', 'AW-11399699872');
+                  `,
+                }}
+            />
         </>
     );
 };
