@@ -18,6 +18,7 @@ module.exports = {
                 point1: "#7B61E8",
                 point2: "#64D188",
                 point3: "#49AF86",
+                point4: "#e3ac1a",
                 success: "#75D6FF",
                 error: "#FB276B",
                 "bg-error": "#FFE3EC",
