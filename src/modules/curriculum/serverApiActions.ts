@@ -12,6 +12,7 @@ export const getCourses = async ({
         endpoint: `${process.env.API_URL}/api/course/curriculum/${curriculumId}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
 
@@ -20,6 +21,7 @@ export const getChapters = async ({ courseId, accessToken }: { courseId: string 
         endpoint: `${process.env.API_URL}/api/chapter/course/${courseId}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
 
@@ -28,6 +30,7 @@ export const getCurriculums = async ({ accessToken }: AccessToken): Promise<Curr
         endpoint: `${process.env.API_URL}/api/curriculum`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
 
@@ -36,6 +39,7 @@ export const getCurriculum = async ({ id, accessToken }: { id: string } & Access
         endpoint: `${process.env.API_URL}/api/curriculum/${id}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
 
@@ -44,6 +48,7 @@ export const getCourse = async ({ id, accessToken }: { id: string } & AccessToke
         endpoint: `${process.env.API_URL}/api/course/${id}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
 
@@ -52,5 +57,6 @@ export const getChapter = async ({ chapterId, accessToken }: { chapterId: string
         endpoint: `${process.env.API_URL}/api/chapter/${chapterId}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
     });
 };
