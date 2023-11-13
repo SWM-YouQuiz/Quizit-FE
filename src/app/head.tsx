@@ -245,9 +245,6 @@ const Head = () => {
                 id="google-ads"
                 async
                 strategy="afterInteractive"
-                onError={(e) => {
-                    console.error("Script failed to load", e);
-                }}
                 src={`https://www.googletagmanager.com/gtag/js?id=AW-11399699872`}
                 crossOrigin="anonymous"
             />
