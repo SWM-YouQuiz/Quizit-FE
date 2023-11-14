@@ -92,11 +92,11 @@ const Carousel = () => {
                     getUserRanking({ accessToken }).then((rankingList) => setRankingList(rankingList));
                 }}
             >
-                <SwiperSlide>
+                <SwiperSlide style={{ width: "140px" }}>
                     <CarouselItem title="전체 랭킹" image="/characters/onboarding4.svg" />
                 </SwiperSlide>
                 {courses.map((course) => (
-                    <SwiperSlide key={course.id}>
+                    <SwiperSlide key={course.id} style={{ width: "140px" }}>
                         <CarouselItem title={course.title} image={course.image} />
                     </SwiperSlide>
                 ))}
@@ -115,7 +115,7 @@ type CarouselItemProps = {
 
 const CarouselItem = ({ title, image }: CarouselItemProps) => {
     return (
-        <div className="w-[140px] h-full grid place-items-center bg-white rounded-2xl p-5 drop-shadow">
+        <div className="w-[140px] h-full grid place-items-center bg-white rounded-2xl p-5 drop-shadow" style={{ width: "140px" }}>
             <div className="flex flex-col items-center">
                 <div className="grid place-items-center border border-neutral-100 w-[60px] h-[60px] rounded-full bg-white mb-1">
                     <Image src={image} width={60} height={60} alt={`${title} 코스 이미지`} />
