@@ -74,9 +74,13 @@ QUESTION: {question}
             question: (input: { question: string; chatHistory?: string }) => input.question,
             chatHistory: (input: { question: string; chatHistory?: string }) => input.chatHistory ?? "",
             context: async (input: { question: string; chatHistory?: string }) => {
-                const relevantDocs = await retriever.getRelevantDocuments(input.question);
-                const serialized = serializeDocs(relevantDocs);
-                return serialized;
+                try {
+                    const relevantDocs = await retriever.getRelevantDocuments(input.question);
+                    const serialized = serializeDocs(relevantDocs);
+                    return serialized;
+                } catch {
+                    return "";
+                }
             },
             quizInfo: (input: { question: string; chatHistory?: string }) => quizInfo,
         },
