@@ -47,7 +47,7 @@ const AccountDeletionButton = () => {
                 <div className="flex flex-col justify-between space-y-2.5 overflow-auto">
                     <p className="break-keep text-secondary-900 text-sm">{description}</p>
                     <Link
-                        href={`/api/auth/oauth2/revoke/${user.provider.toLowerCase()}`}
+                        href={`/api/oauth2/revoke/${user.provider.toLowerCase()}`}
                         className="rounded-xl h-12 w-full flex items-center justify-center px-4 text-base bg-error text-white font-semibold"
                         onClick={handleClick}
                     >
