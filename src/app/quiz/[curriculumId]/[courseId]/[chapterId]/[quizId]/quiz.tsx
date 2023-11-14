@@ -49,7 +49,7 @@ const QuizHeader = ({ quizHtml }: { quizHtml: Quiz }) => {
         <div className="h-[22px] w-full flex justify-between">
             <div className="flex space-x-3">
                 <QuizAnswerRate answerRate={quizHtml.answerRate} />
-                <Solved inCorrectQuizIds={user.correctQuizIds} correctQuizIds={user.incorrectQuizIds} quizId={quizHtml.id} />
+                <Solved inCorrectQuizIds={user.incorrectQuizIds} correctQuizIds={user.correctQuizIds} quizId={quizHtml.id} />
             </div>
             <QuizTools quizId={quizHtml.id} likedUserIds={quizHtml.likedUserIds} unlikedUserIds={quizHtml.unlikedUserIds} />
         </div>
