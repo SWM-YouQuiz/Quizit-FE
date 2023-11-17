@@ -21,7 +21,7 @@ export const QuizFilterContext = createContext<QuizFilterContextType>({
     quizFilter: {
         markedQuiz: false,
         incorrectQuiz: false,
-        unsolvedQuiz: false,
+        unsolvedQuiz: true,
     },
     setQuizFilter: undefined,
 });
