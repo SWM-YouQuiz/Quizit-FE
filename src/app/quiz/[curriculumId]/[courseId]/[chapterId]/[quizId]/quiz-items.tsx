@@ -16,7 +16,7 @@ const optionSignature = ["A", "B", "C", "D"];
 const statusColor: Record<ItemStatus, string> = {
     idle: "text-secondary-800  bg-primary-50 inner-border-primary-800",
     select: "text-secondary-800  bg-primary-50 inner-border-primary-800 inner-border-2",
-    correct: "text-primary-800 bg-primary-200 inner-border-2 inner-border-primary-800",
+    correct: "text-primary-800 bg-primary-200 inner-border-primary-800 inner-border-2 ",
     wrong: "text-error bg-bg-error inner-border-error",
 };
 
@@ -62,11 +62,11 @@ export const QuizItems = ({ quizHtml, idx }: QuizItemsProps) => {
             <div className="w-full flex flex-col">
                 <div className="space-y-2.5">
                     {quizOptions.map((item, idx) => {
-                        const itemString = `${optionSignature[idx]}. ${item}`;
                         return (
                             <QuizItem
                                 key={`quiz_item_${idx}`}
-                                itemString={itemString}
+                                optionSignature={optionSignature[idx]}
+                                itemString={item}
                                 itemStatus={itemsStatus[idx]}
                                 idx={idx}
                                 handleOptionClicked={handleOptionClicked}
@@ -96,11 +96,13 @@ const QuizItem = ({
     itemStatus,
     idx,
     handleOptionClicked,
+    optionSignature,
 }: {
     itemString: string;
     itemStatus: ItemStatus;
     idx: number;
     handleOptionClicked: (selectedIndex: number) => void;
+    optionSignature: string;
 }) => (
     <motion.button
         type="button"
@@ -113,8 +115,17 @@ const QuizItem = ({
         }}
         transition={{ bounce: 1 }}
     >
-        <p className="whitespace-normal break-keep text-[12px]">{itemString}</p>
-        {itemStatus === "correct" ? <Check /> : <div className="w-6 h-6" />}
+        <div className="text-[12px] font-bold min-w-5 text-left">{optionSignature}</div>
+        <div className="flex-grow">
+            <p className="text-[12px] text-left break-keep">{itemString}</p>
+        </div>
+        {itemStatus === "correct" ? (
+            <div className="min-w-6 h-4 flex items-center">
+                <Check />
+            </div>
+        ) : (
+            <div className="min-w-6" />
+        )}
     </motion.button>
 );
 
