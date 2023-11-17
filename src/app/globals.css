@@ -7,63 +7,9 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
 body {
     touch-action: none;
     font-family: "pretendard", serif;
     padding-top: env(safe-area-inset-top);
-}
-
-@font-face {
-    font-family: "pretendard";
-    font-weight: 100;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 200;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 300;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 400;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 500;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 600;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 700;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 800;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
-}
-@font-face {
-    font-family: "pretendard";
-    font-weight: 900;
-    src: url("../util/font/PretendardVariable.woff2") format("woff2");
-    font-display: swap;
 }

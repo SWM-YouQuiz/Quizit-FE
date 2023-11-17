@@ -87,7 +87,7 @@ const Solved = ({ correctQuizIds, inCorrectQuizIds, quizId }: { correctQuizIds: 
 };
 
 const QuizContent = ({ quizContentHtml }: { quizContentHtml: string }) => (
-    <div className="mt-2 flex-1 overflow-y-auto text-secondary-800" dangerouslySetInnerHTML={{ __html: quizContentHtml }} />
+    <div className="mt-2 flex-1 overflow-y-auto text-secondary-800 text-pretty" dangerouslySetInnerHTML={{ __html: quizContentHtml }} />
 );
 
 const BottomSideContainer = ({ children }: { children: ReactNode }) => {
