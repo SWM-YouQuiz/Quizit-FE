@@ -12,22 +12,15 @@ export const setCookie = async ({ key, value }: { key: string; value: string }) 
     });
 };
 
-export const getAccessToken = async () => {
-    const accessToken = cookies().get("accessToken");
-    if (!accessToken) {
-        throw new Error("401");
-    }
-    return accessToken.value;
+export const checkRefreshToken = async () => {
+    const refreshToken = cookies().get("refreshToken");
+    return Boolean(refreshToken);
 };
 
 export const deleteToken = async () => {
     console.log("delete all token!!!");
     cookies().delete("accessToken");
     cookies().delete("refreshToken");
-};
-
-export const getCookie = async () => {
-    return cookies().get("test");
 };
 
 export const revalidate = (tag: string) => {
