@@ -22,7 +22,7 @@ const statusColor: Record<ItemStatus, string> = {
 
 type QuizItemsProps = {
     quizHtml: Quiz;
-    idx: number;
+    idx?: number;
 };
 
 export const QuizItems = ({ quizHtml, idx }: QuizItemsProps) => {
