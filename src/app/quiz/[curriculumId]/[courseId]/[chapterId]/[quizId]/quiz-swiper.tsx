@@ -124,7 +124,7 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
         >
             {quizQueue.map((quiz, idx) => (
                 <SwiperSlide key={`quiz-${quiz.id}-${idx}`}>
-                    <QuizComponent quiz={quiz} />
+                    <QuizComponent quiz={quiz} idx={idx} />
                 </SwiperSlide>
             ))}
             {end && (

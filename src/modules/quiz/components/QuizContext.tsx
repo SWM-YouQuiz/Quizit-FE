@@ -6,7 +6,7 @@ import { postRefresh } from "@/modules/auth/serverApiActions";
 import { useRouter } from "next/navigation";
 import { pathToRegexp } from "path-to-regexp";
 import { config } from "@/middleware";
-import { deleteToken } from "@/modules/serverActions";
+import { checkRefreshToken, deleteToken } from "@/modules/serverActions";
 import { getUser } from "@/modules/profile/serverApiActions";
 import Loading from "@/components/Loading";
 
@@ -89,7 +89,10 @@ const QuizContainer = ({ children }: QuizContextProps) => {
 
     useEffect(() => {
         (async () => {
-            await _postRefresh();
+            const hasRefreshToken = await checkRefreshToken();
+            if (hasRefreshToken) {
+                await _postRefresh();
+            }
             setLoading(false);
         })();
     }, []);

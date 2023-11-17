@@ -9,7 +9,7 @@ const QuizFilterContainer = ({ children }: QuizFilterContainerProps) => {
     const [quizFilter, setQuizFilter] = useState<QuizFilter>({
         incorrectQuiz: false,
         markedQuiz: false,
-        unsolvedQuiz: false,
+        unsolvedQuiz: true,
     });
 
     return <QuizFilterContext.Provider value={{ quizFilter, setQuizFilter }}>{children}</QuizFilterContext.Provider>;

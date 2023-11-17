@@ -8,7 +8,8 @@ import { HeartSquareButton } from "@/components/Heartbutton";
 import { QuizContext } from "@/lib/context/Context";
 import { deleteToken } from "@/modules/serverActions";
 import { useRouter } from "next/navigation";
-import { Check } from "@/components/svgs";
+import { Check, Rightarrow } from "@/components/svgs";
+import MotionDiv from "@/lib/animation/MotionDiv";
 
 const optionSignature = ["A", "B", "C", "D"];
 
@@ -21,9 +22,10 @@ const statusColor: Record<ItemStatus, string> = {
 
 type QuizItemsProps = {
     quizHtml: Quiz;
+    idx?: number;
 };
 
-export const QuizItems = ({ quizHtml }: QuizItemsProps) => {
+export const QuizItems = ({ quizHtml, idx }: QuizItemsProps) => {
     const router = useRouter();
     const { id: quizId, options: quizOptions, markedUserIds } = quizHtml;
     const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
@@ -48,34 +50,44 @@ export const QuizItems = ({ quizHtml }: QuizItemsProps) => {
     };
 
     return (
-        <div className="w-full flex flex-col">
-            <div className="space-y-2.5">
-                {quizOptions.map((item, idx) => {
-                    const itemString = `${optionSignature[idx]}. ${item}`;
-                    return (
-                        <QuizItem
-                            key={`quiz_item_${idx}`}
-                            itemString={itemString}
-                            itemStatus={itemsStatus[idx]}
-                            idx={idx}
-                            handleOptionClicked={handleOptionClicked}
-                        />
-                    );
-                })}
+        <>
+            {idx === 0 && isQuizGraded() && (
+                <MotionDiv className="absolute top-1/2 right-0">
+                    <div className="flex">
+                        <span className="text-secondary-800 font-semibold">스와이프로 다음 퀴즈</span>
+                        <Rightarrow />
+                    </div>
+                </MotionDiv>
+            )}
+            <div className="w-full flex flex-col">
+                <div className="space-y-2.5">
+                    {quizOptions.map((item, idx) => {
+                        const itemString = `${optionSignature[idx]}. ${item}`;
+                        return (
+                            <QuizItem
+                                key={`quiz_item_${idx}`}
+                                itemString={itemString}
+                                itemStatus={itemsStatus[idx]}
+                                idx={idx}
+                                handleOptionClicked={handleOptionClicked}
+                            />
+                        );
+                    })}
+                </div>
+                <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
+                    <HeartSquareButton quizId={quizId} markedUserIds={markedUserIds} userId={user.id} />
+                    {isQuizGraded() ? <ExplanationButton handleClick={openBottomSheet} /> : <SubmitButton handleSubmit={handleSubmit} />}
+                </div>
+                <ExplanationSheet
+                    isBottomSheetOpen={isBottomSheetOpen}
+                    closeBottomSheet={closeBottomSheet}
+                    solution={solution}
+                    answer={answer}
+                    select={select}
+                    quizHtml={quizHtml}
+                />
             </div>
-            <div className="mt-5 flex h-[50px] justify-between space-x-2.5">
-                <HeartSquareButton quizId={quizId} markedUserIds={markedUserIds} userId={user.id} />
-                {isQuizGraded() ? <ExplanationButton handleClick={openBottomSheet} /> : <SubmitButton handleSubmit={handleSubmit} />}
-            </div>
-            <ExplanationSheet
-                isBottomSheetOpen={isBottomSheetOpen}
-                closeBottomSheet={closeBottomSheet}
-                solution={solution}
-                answer={answer}
-                select={select}
-                quizHtml={quizHtml}
-            />
-        </div>
+        </>
     );
 };
 

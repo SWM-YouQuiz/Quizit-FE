@@ -13,7 +13,7 @@ const changeQuizContentString = (quiz: Quiz, quizContentHtmlString: string): Qui
     };
 };
 
-const QuizComponent = ({ quiz }: { quiz: Quiz }) => {
+const QuizComponent = ({ quiz, idx }: { quiz: Quiz; idx?: number }) => {
     const [quizHtml, setQuizHtml] = useState(quiz);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const QuizComponent = ({ quiz }: { quiz: Quiz }) => {
             <QuizHeader quizHtml={quizHtml} />
             <QuizContent quizContentHtml={quizHtml.question} />
             <BottomSideContainer>
-                <QuizItems quizHtml={quizHtml} />
+                <QuizItems quizHtml={quizHtml} idx={idx} />
             </BottomSideContainer>
         </div>
     );
