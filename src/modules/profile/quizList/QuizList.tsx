@@ -27,10 +27,6 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
         }
     }, [accessToken, dispatch, user]);
 
-    useEffect(() => {
-        console.log("quizIds", quizIds);
-    }, [quizIds]);
-
     const { data, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage, isFetchingNextPage, isFetchingPreviousPage } = useInfiniteQuery({
         queryKey: ["quizList", group],
         queryFn: async ({ pageParam = 0 }) => await getQuizIds({ quizIds: quizIds, accessToken, page: pageParam, size: 3 }),
@@ -50,8 +46,6 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
     }, [inView, fetchNextPage, hasNextPage]);
 
     if (!data || !user) return null;
-
-    console.log("data", data);
 
     return (
         <div className="space-y-6">

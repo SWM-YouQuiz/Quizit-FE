@@ -41,7 +41,7 @@ const QuizContainer = ({ children }: QuizContextProps) => {
     const setUser = async (accessToken: string) => {
         if (!dispatch) return;
         try {
-            const user = await getUser({ accessToken });
+            const user = await getUser({ accessToken, cache: "no-store" });
             dispatch({ type: "SET_USER", payload: user });
         } catch (error) {
             console.error("An error occurred when setting the user:", error);

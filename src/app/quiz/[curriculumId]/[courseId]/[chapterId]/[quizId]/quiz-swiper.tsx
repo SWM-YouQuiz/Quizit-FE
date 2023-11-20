@@ -41,10 +41,6 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
         }
     }, [quizId]);
 
-    useEffect(() => {
-        console.log("quizQueue", quizQueue, page);
-    }, [quizQueue, page]);
-
     const updateUser = async () => {
         getUser({ accessToken, cache: "no-store" }).then((user) => {
             if (dispatch) {
@@ -89,13 +85,11 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
             setEnd(true);
         } else {
             const filteredQuizzes = filter(quizzes);
-            console.log("filteredQuizzes", filteredQuizzes);
             setPage(nextPage);
             if (filteredQuizzes.length === 0) {
                 await addNewQuiz(chapterId, nextPage);
                 return;
             }
-            console.log("setQuizzes!!");
             setQuizQueue((prev) => [...prev, ...filteredQuizzes]);
         }
     };
@@ -123,7 +117,6 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
                 } catch {}
             }}
             onReachEnd={async (swiper) => {
-                console.log("reachEnd", page);
                 await addNewQuiz(chapterId, page);
             }}
         >
