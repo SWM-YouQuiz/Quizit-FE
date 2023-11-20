@@ -56,7 +56,6 @@ export const useQuizState = (quiz: Quiz) => {
             answer: select,
             accessToken,
         });
-        console.log("response", response);
         const { solution, answer, quiz } = response;
         getQuizHtml(quiz).then((quizContentHtml) => setQuizHtml(quizContentHtml));
         setStates(solution, answer, select);
