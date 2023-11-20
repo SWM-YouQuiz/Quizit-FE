@@ -23,12 +23,13 @@ const statusColor: Record<ItemStatus, string> = {
 type QuizItemsProps = {
     quizHtml: Quiz;
     idx?: number;
+    quizState: ReturnType<typeof useQuizState>;
 };
 
-export const QuizItems = ({ quizHtml, idx }: QuizItemsProps) => {
+export const QuizItems = ({ quizHtml, idx, quizState }: QuizItemsProps) => {
     const router = useRouter();
     const { id: quizId, options: quizOptions, markedUserIds } = quizHtml;
-    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = useQuizState(quizId);
+    const { itemsStatus, isQuizGraded, handleSubmit, changeItemSelect, solution, answer, select } = quizState;
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
     const { user } = useContext(QuizContext);
 

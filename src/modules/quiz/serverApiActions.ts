@@ -18,7 +18,7 @@ export const postQuizCheck = async ({
 }: {
     quizId: string;
     answer: number;
-} & AccessToken): Promise<QuizCheck> => {
+} & AccessToken): Promise<QuizCheck & { quiz: Quiz }> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/${quizId}/check`,
         method: "POST",
@@ -65,6 +65,25 @@ export const getQuizEvaluate = async ({
         endpoint: `${process.env.API_URL}/api/quiz/${id}/evaluate?isLike=${isLike}`,
         method: "GET",
         token: accessToken,
+        cache: "no-store",
+    });
+};
+
+export const getQuizIds = async ({
+    quizIds,
+    accessToken,
+    page,
+    size,
+}: {
+    quizIds: string[];
+    page: number;
+    size: number;
+} & AccessToken): Promise<Quiz[]> => {
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/ids?page=${page}&size=${size}`,
+        method: "POST",
+        token: accessToken,
+        body: quizIds,
         cache: "no-store",
     });
 };

@@ -1,20 +1,25 @@
 "use client";
 import QuizCard from "@/modules/profile/components/QuizCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getQuiz } from "@/modules/quiz/serverApiActions";
+import { getQuizIds } from "@/modules/quiz/serverApiActions";
 import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "@/lib/context/Context";
-import { useIntersectionObserver } from "@/modules/profile/hooks/useIntersectionObserver";
 import { getUser } from "@/modules/profile/serverApiActions";
+import { useInView } from "react-intersection-observer";
+import getQueryClient from "@/lib/reactQuery/get-query-client";
 
 const QuizList = ({ group }: { group: keyof UserInfo }) => {
     const { accessToken, dispatch } = useContext(QuizContext);
     const [user, setUser] = useState<UserInfo | undefined>();
+    const [quizIds, setQuizIds] = useState<string[]>([]);
+    const queryClient = getQueryClient();
 
     useEffect(() => {
         if (!user) {
             getUser({ accessToken, cache: "no-store" }).then((fetchedUser) => {
                 setUser(fetchedUser);
+                setQuizIds(fetchedUser[group] as string[]);
+                queryClient.invalidateQueries({ queryKey: ["quizList", group] });
                 if (dispatch) {
                     dispatch({ type: "SET_USER", payload: fetchedUser });
                 }
@@ -22,41 +27,36 @@ const QuizList = ({ group }: { group: keyof UserInfo }) => {
         }
     }, [accessToken, dispatch, user]);
 
-    const [quizIds, setQuizIds] = useState<string[]>([]);
     useEffect(() => {
-        if (user) {
-            setQuizIds(user[group] as string[]);
-        }
-    }, [user, group]);
+        console.log("quizIds", quizIds);
+    }, [quizIds]);
 
     const { data, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage, isFetchingNextPage, isFetchingPreviousPage } = useInfiniteQuery({
-        queryKey: ["quizList", group, quizIds],
-        queryFn: async ({ pageParam }) => [await getQuiz({ quizId: quizIds[pageParam], accessToken })],
+        queryKey: ["quizList", group],
+        queryFn: async ({ pageParam = 0 }) => await getQuizIds({ quizIds: quizIds, accessToken, page: pageParam, size: 3 }),
         enabled: !!quizIds.length,
         initialPageParam: 0,
-        getNextPageParam: (lastPage, allPages) => {
-            const nextPage = allPages.length + 1;
-            return lastPage.length === 0 ? undefined : nextPage;
+        getNextPageParam: (lastPage, pages) => {
+            const nextPage = pages.length;
+            return nextPage < quizIds.length ? nextPage : undefined;
         },
-        select: (data) => ({
-            pages: data?.pages.flatMap((page) => page),
-            pageParams: data.pageParams,
-        }),
     });
+    const { ref, inView } = useInView();
 
-    const { setTarget } = useIntersectionObserver({
-        hasNextPage,
-        fetchNextPage,
-    });
+    useEffect(() => {
+        if (inView && hasNextPage) {
+            fetchNextPage();
+        }
+    }, [inView, fetchNextPage, hasNextPage]);
 
-    if (quizIds.length <= 0 || !user || !data) return null;
+    if (!data || !user) return null;
+
+    console.log("data", data);
 
     return (
         <div className="space-y-6">
-            {data.pages.map((quiz) => (
-                <QuizCard key={quiz.id} href={`${group}/${quiz.id}`} quiz={quiz} userId={user.id} />
-            ))}
-            <div ref={setTarget} className="h-[1rem]" />
+            {data.pages.map((page, i) => page.map((quiz) => <QuizCard key={quiz.id} href={`${group}/${quiz.id}`} quiz={quiz} userId={user.id} />))}
+            <div ref={ref} className="h-[1rem]" />
         </div>
     );
 };
