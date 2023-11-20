@@ -18,7 +18,7 @@ export const postQuizCheck = async ({
 }: {
     quizId: string;
     answer: number;
-} & AccessToken): Promise<QuizCheck> => {
+} & AccessToken): Promise<QuizCheck & { quiz: Quiz }> => {
     return requestApi({
         endpoint: `${process.env.API_URL}/api/quiz/${quizId}/check`,
         method: "POST",
