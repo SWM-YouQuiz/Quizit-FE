@@ -7,7 +7,7 @@ export const makeToken = (token: string) => {
 export interface RequestParams {
     endpoint: string;
     method: string;
-    body?: Record<string, unknown>;
+    body?: Record<string, unknown> | any[];
     token?: string;
     tags?: string[];
     cache?: RequestCache;

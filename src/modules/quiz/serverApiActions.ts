@@ -68,3 +68,22 @@ export const getQuizEvaluate = async ({
         cache: "no-store",
     });
 };
+
+export const getQuizIds = async ({
+    quizIds,
+    accessToken,
+    page,
+    size,
+}: {
+    quizIds: string[];
+    page: number;
+    size: number;
+} & AccessToken): Promise<Quiz[]> => {
+    return requestApi({
+        endpoint: `${process.env.API_URL}/api/quiz/ids?page=${page}&size=${size}`,
+        method: "POST",
+        token: accessToken,
+        body: quizIds,
+        cache: "no-store",
+    });
+};
