@@ -30,10 +30,12 @@ const QuizHeader = ({ quizHtml, quizStatus }: { quizHtml: Quiz; quizStatus: Quiz
     }
     const { incorrectQuizIds, correctQuizIds } = user;
 
-    if (correctQuizIds.includes(quizHtml.id)) {
-        quizStatus = "correct";
-    } else if (incorrectQuizIds.includes(quizHtml.id)) {
-        quizStatus = "wrong";
+    if (quizStatus === "default") {
+        if (correctQuizIds.includes(quizHtml.id)) {
+            quizStatus = "correct";
+        } else if (incorrectQuizIds.includes(quizHtml.id)) {
+            quizStatus = "wrong";
+        }
     }
 
     return (
