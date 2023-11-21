@@ -26,35 +26,33 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
     const { accessToken, user, dispatch } = useContext(QuizContext);
     const { quizFilter } = useContext(QuizFilterContext);
     if (user === undefined) throw new Error("유저를 찾을 수 없습니다.");
-    const { filter } = useFilter(quizFilter, user);
+    const { filter } = useFilter(quizFilter);
     const [page, setPage] = useState(-1);
     const [quizQueue, setQuizQueue] = useState<Quiz[]>([]);
     const [end, setEnd] = useState(false);
     const [loading, setLoading] = useState(true);
     const queryClient = getQueryClient();
 
-    useEffect(() => {
-        if (quizId) {
-            addSingleQuiz(quizId);
-        } else {
-            addNewQuiz(chapterId, -1);
-        }
-    }, [quizId]);
-
     const updateUser = async () => {
-        getUser({ accessToken, cache: "no-store" }).then((user) => {
+        return getUser({ accessToken, cache: "no-store" }).then((user) => {
             if (dispatch) {
                 dispatch({ type: "SET_USER", payload: user });
             }
+            return user;
         });
     };
 
     useEffect(() => {
         (async () => {
-            await updateUser();
+            const user = await updateUser();
+            if (quizId) {
+                await addSingleQuiz(quizId);
+            } else {
+                await addNewQuiz(chapterId, -1, user);
+            }
             setLoading(false);
         })();
-    }, []);
+    }, [quizId, chapterId]);
 
     useEffect(() => {
         return () => {
@@ -72,7 +70,7 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
         setQuizQueue([quiz]);
     };
 
-    const addNewQuiz = async (chapterId: string, page: number) => {
+    const addNewQuiz = async (chapterId: string, page: number, user: UserInfo) => {
         const nextPage = page + 1;
         const quizzes = await getQuizOfChapter({
             chapterId: chapterId,
@@ -84,10 +82,10 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
         if (quizzes.length === 0) {
             setEnd(true);
         } else {
-            const filteredQuizzes = filter(quizzes);
+            const filteredQuizzes = filter(quizzes, user);
             setPage(nextPage);
             if (filteredQuizzes.length === 0) {
-                await addNewQuiz(chapterId, nextPage);
+                await addNewQuiz(chapterId, nextPage, user);
                 return;
             }
             setQuizQueue((prev) => [...prev, ...filteredQuizzes]);
@@ -117,7 +115,7 @@ const QuizSwiper = ({ curriculumId, courseId, chapterId, quizId }: QuizSwiperPro
                 } catch {}
             }}
             onReachEnd={async (swiper) => {
-                await addNewQuiz(chapterId, page);
+                await addNewQuiz(chapterId, page, user);
             }}
         >
             {quizQueue.map((quiz, idx) => (
