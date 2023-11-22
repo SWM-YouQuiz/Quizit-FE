@@ -3,7 +3,6 @@ import { BackArrow, Filter } from "@/components/svgs";
 import Link from "next/link";
 import MotionDiv from "@/lib/animation/MotionDiv";
 import React, { Suspense } from "react";
-import TagContainer from "@/modules/curriculum/TagContainer";
 import BodyContainer, { ChapterTitle } from "@/app/curriculum/[curriculumId]/[courseId]/body-container";
 
 const Chapter = ({ params }: { params: { curriculumId: string; courseId: string } }) => {
@@ -21,7 +20,6 @@ const Chapter = ({ params }: { params: { curriculumId: string; courseId: string 
                         <Filter />
                     </Link>
                 </Header>
-                <TagContainer />
             </div>
             <MotionDiv className="flex-grow bg-bg-primary overflow-y-auto p-5">
                 <Suspense>

@@ -21,7 +21,11 @@ const useSquareHeartButton = ({ quizId, markedUserIds, userId }: UseSquareHeartB
         });
     };
 
-    const { call: debouncedClick } = useDebounce(handleHeartClicked, 1000);
+    const optimisticCallback = () => {
+        setIsMarked((prev) => !prev);
+    };
+
+    const { call: debouncedClick } = useDebounce(handleHeartClicked, 1000, optimisticCallback);
 
     const checkMarked = async (_markedUserIds: string[]) => {
         if (_markedUserIds.some((_userId) => _userId === userId)) {

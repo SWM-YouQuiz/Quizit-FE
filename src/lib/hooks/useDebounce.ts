@@ -1,29 +1,32 @@
-// useDebounce.ts
-import {useEffect, useState} from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-// 콜백과 딜레이를 인자로 받는 커스텀 훅
-export const useDebounce = (callback: Function, delay: number) => {
-    // 디바운스 상태를 관리할 state
-    const [isWaiting, setIsWaiting] = useState(false);
+export const useDebounce = (callback: Function, delay: number, optimisticCallback?: Function) => {
+    // 타이머 ID를 저장할 state
+    const timerId = useRef<NodeJS.Timeout | null>(null);
+    const memoizedCallback = useCallback(callback, []);
 
     // 디바운스 함수를 호출하는 래퍼 함수
     const call = (...args: any) => {
-        if (!isWaiting) {
-            // 대기 중이 아닐 때만 콜백 호출
-            callback(...args);
-            setIsWaiting(true);
-            setTimeout(() => {
-                setIsWaiting(false);
-            }, delay);
+        optimisticCallback && optimisticCallback();
+        // 기존 타이머가 있다면 취소
+        if (timerId?.current) {
+            clearTimeout(timerId.current);
         }
+
+        // 새 타이머 설정
+        timerId.current = setTimeout(() => {
+            memoizedCallback(...args);
+        }, delay);
     };
 
-    // 컴포넌트가 언마운트되거나 delay가 변경되면 타이머를 클리어
+    // 컴포넌트가 언마운트되면 타이머를 클리어
     useEffect(() => {
         return () => {
-            setIsWaiting(false);
+            if (timerId?.current) {
+                clearTimeout(timerId.current);
+            }
         };
-    }, [delay]);
+    }, []);
 
-    return { call, isWaiting }; // 다른 곳에서 사용할 수 있도록 call 함수와 isWaiting 상태 반환
+    return { call };
 };

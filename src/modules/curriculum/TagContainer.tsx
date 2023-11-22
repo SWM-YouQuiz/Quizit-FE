@@ -27,7 +27,7 @@ const TagContainer = () => {
     };
 
     return (
-        <div className="flex justify-evenly px-5 pb-2.5">
+        <div className="flex justify-evenly px-5">
             <Tag name="markedQuiz" text="찜한 퀴즈만" toggle={quizFilter["markedQuiz"]} handleToggle={handleToggle} icon={<MarkedQuizIcon />} />
             <Tag name="unsolvedQuiz" text="안푼 퀴즈만" toggle={quizFilter["unsolvedQuiz"]} handleToggle={handleToggle} icon={<UnsolvedQuizIcon />} />
             <Tag
