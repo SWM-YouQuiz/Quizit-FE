@@ -60,7 +60,7 @@ const QuizCard = ({ href = "", quiz, className = "", userId }: CardProps) => {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <div className="text-secondary-400 text-[13px]">
+                    <div className="text-secondary-400 text-[13px] hidden">
                         {calculateDateDifference(new Date(), new Date(quiz.createdDate))}
                         일전
                     </div>
